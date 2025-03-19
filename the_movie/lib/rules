@@ -1,0 +1,38 @@
+---------- RULES ----------
+
+core/:   Chức các tiện ích chung như xử lý lỗi, usecase chung
+  - core/
+    - commons/: Chứa các widget, các hàm xử lý chung
+        - firebase_analytics_controller: Xử lý sự kiện firebase analytics
+        - widgets/: Chứa các widget dùng chung
+    - constants/: Chứa các hằng số
+    - errors/: Chứa các lỗi
+    - extensions/: Chứa các extension
+    - utils/: Chứa các hàm tiện ích, các kích thuớc cố định sẵn như text size, padding, margin, sizeBox, ...
+
+data/:  Chứa việc lấy dữ liệu từ các nguồn khác nhau như API, Database, File, ...
+  - data/
+    - datasources/: Chứa các nguồn dữ liệu fetch từ API, Database (implement từ repository)
+    - models/: Chứa các model dữ liệu từ API, Database
+    - repositories/: Chứa các repository để lấy dữ liệu từ các nguồn (abtract class)
+
+
+presentation/: Chứa UI và quản lý state với Bloc
+  - presentation/
+    - 'name_page'
+        - bloc/: Chứa các bloc để quản lý state của name_page
+        - screen/: Chứa trang name_page
+        - widget/: Chứa các widget dùng trong name_page
+
+
+---------- RULES GIT FLOW ----------
+feature/ - cho các tính năng mới hoặc cải tiến - id task.
+Vd: feature/user-registration-RTF-1
+bugfix/ - cho việc sửa lỗi.
+Vd: bugfix/validation-issue-RTF-
+hotfix/ - cho việc sửa lỗi gấp.
+Vd: hotfix/critical-bug-RTF-1
+release/ - cho việc chuẩn bị và triển khai phiên bản.
+Vd: release/v1.0.0-RTF-1
+refactor/ - cho việc tái cấu trúc mã nguồn.
+Vd: refactor/api-refactoring-RTF-1
