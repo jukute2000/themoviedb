@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:the_movie/initial/firebase_initializer.dart';
+import 'package:the_movie/presentation/demo/demo.dart';
 
 import 'flavor/env.dart';
 import 'flavor/flavor_config.dart';
@@ -9,5 +10,5 @@ void main() async{
   FlavorConfig(
       flavor: Flavor.dev, values: FlavorValues.fromJson(env[Flavor.prod]!));
    await FirebaseInitializer.initialize();
-  runApp(const MyApp());
+  runApp(const Demo());
 }
