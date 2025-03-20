@@ -9,6 +9,6 @@ import 'main.dart';
 void main() async {
   FlavorConfig(
       flavor: Flavor.dev, values: FlavorValues.fromJson(env[Flavor.dev]!));
-  await FirebaseInitializer.initialize();
+  await FirebaseInitializer.devInitialize();
   runApp(const MyApp());
 }
