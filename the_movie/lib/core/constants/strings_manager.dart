@@ -1,4 +1,6 @@
 class StringsManager {
+  static const String sessionId = 'session_id';
+  static const String tokenExpried = 'token_expired';
 
   /// DASHBOARD
   static const String appName = 'The Movie';
@@ -23,7 +25,6 @@ class StringsManager {
   static const String inTheater = 'In Theaters';
   static const String allTimeEdit = 'All Time Edits';
   static const String editsThisWeek = 'Edits This Week';
-
 
   /// Bottom Dashboard
   // THE BASICS
@@ -85,7 +86,6 @@ class StringsManager {
   static const String type = 'Type';
   static const String originalLanguage = 'Original Language';
   static const String keywords = 'Keywords';
-
 
   /// DETAIL CAST
   static const String biography = 'Tiểu sử';

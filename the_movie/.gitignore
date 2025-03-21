@@ -7,6 +7,9 @@
 .atom/
 .buildlog/
 .vscode/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
 pubspec.lock
 .history
 .svn/
