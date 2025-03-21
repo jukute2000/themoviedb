@@ -1,6 +1,6 @@
 class Genre {
-  int id;
-  String name;
+  final int id;
+  final String name;
 
   Genre({
     required this.id,
@@ -8,12 +8,12 @@ class Genre {
   });
 
   factory Genre.fromJson(Map<String, dynamic> json) => Genre(
-    id: json["id"],
-    name: json["name"],
-  );
+        id: json["id"] ?? 0,
+        name: json["name"] ?? "Unknown",
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-  };
+        "id": id,
+        "name": name,
+      };
 }

@@ -1,55 +1,85 @@
-import 'package:the_movie/data/models/medias/media.dart';
-
 import 'genre.dart';
 
 class DetailMovie {
-  bool adult;
-  String backdropPath;
-  dynamic belongsToCollection;
-  int budget;
-  List<Genre> genres;
-  String homepage;
-  int id;
-  String imdbId;
-  List<String> originCountry;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
-  double popularity;
-  String posterPath;
-  DateTime releaseDate;
-  int revenue;
-  int runtime;
-  String status;
-  String tagline;
-  String title;
-  bool video;
-  double voteAverage;
-  int voteCount;
+  final bool adult;
+  final String? backdropPath;
+  final dynamic belongsToCollection;
+  final int budget;
+  final List<Genre>? genres;
+  final String? homepage;
+  final int id;
+  final String? imdbId;
+  final List<String>? originCountry;
+  final String originalLanguage;
+  final String originalTitle;
+  final String? overview;
+  final double popularity;
+  final String? posterPath;
+  final DateTime? releaseDate;
+  final int revenue;
+  final int? runtime;
+  final String status;
+  final String? tagline;
+  final String title;
+  final bool video;
+  final double voteAverage;
+  final int voteCount;
 
   DetailMovie({
     required this.adult,
-    required this.backdropPath,
-    required this.belongsToCollection,
+    this.backdropPath,
+    this.belongsToCollection,
     required this.budget,
-    required this.genres,
-    required this.homepage,
+    this.genres,
+    this.homepage,
     required this.id,
-    required this.imdbId,
-    required this.originCountry,
+    this.imdbId,
+    this.originCountry,
     required this.originalLanguage,
     required this.originalTitle,
-    required this.overview,
+    this.overview,
     required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
+    this.posterPath,
+    this.releaseDate,
     required this.revenue,
-    required this.runtime,
+    this.runtime,
     required this.status,
-    required this.tagline,
+    this.tagline,
     required this.title,
     required this.video,
     required this.voteAverage,
     required this.voteCount,
   });
+
+  factory DetailMovie.fromJson(Map<String, dynamic> json) => DetailMovie(
+        adult: json["adult"] ?? false,
+        backdropPath: json["backdrop_path"],
+        belongsToCollection: json["belongs_to_collection"],
+        budget: json["budget"] ?? 0,
+        genres: json["genres"] != null
+            ? List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x)))
+            : null,
+        homepage: json["homepage"],
+        id: json["id"] ?? 0,
+        imdbId: json["imdb_id"],
+        originCountry: json["origin_country"] != null
+            ? List<String>.from(json["origin_country"])
+            : null,
+        originalLanguage: json["original_language"] ?? "unknown",
+        originalTitle: json["original_title"] ?? "unknown",
+        overview: json["overview"],
+        popularity: (json["popularity"] as num?)?.toDouble() ?? 0.0,
+        posterPath: json["poster_path"],
+        releaseDate: json["release_date"] != null
+            ? DateTime.tryParse(json["release_date"])
+            : null,
+        revenue: json["revenue"] ?? 0,
+        runtime: json["runtime"],
+        status: json["status"] ?? "unknown",
+        tagline: json["tagline"],
+        title: json["title"] ?? "unknown",
+        video: json["video"] ?? false,
+        voteAverage: (json["vote_average"] as num?)?.toDouble() ?? 0.0,
+        voteCount: json["vote_count"] ?? 0,
+      );
 }
