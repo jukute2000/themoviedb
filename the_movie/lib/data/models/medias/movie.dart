@@ -4,7 +4,7 @@ class Movie extends Media{
   String title;
   String originalTitle;
   List<int> genreIds;
-  DateTime releaseDate;
+  DateTime? releaseDate;
   bool video;
 
   Movie({
@@ -28,20 +28,22 @@ class Movie extends Media{
 
   @override
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-    title: json["title"],
-    originalTitle: json["original_title"],
-    genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-    releaseDate: DateTime.parse(json["release_date"]),
-    video: json["video"],
-    backdropPath: json["backdrop_path"],
-    id: json["id"],
-    overview: json["overview"],
-    mediaType: json["media_type"],
-    posterPath: json["poster_path"],
-    adult: json["adult"],
-    popularity: json["popularity"].toDouble(),
-    voteAverage: json["vote_average"].toDouble(),
-    voteCount: json["vote_count"],
-    originalLanguage: json["original_language"],
+    title: json["title"] ?? "",
+    originalTitle: json["original_title"] ?? "",
+    genreIds: (json["genre_ids"] as List<dynamic>?)?.map((x) => x as int).toList() ?? [],
+    releaseDate: json["release_date"] != null && json["release_date"].toString().isNotEmpty
+        ? DateTime.tryParse(json["release_date"])
+        : null,
+    video: json["video"] ?? false,
+    backdropPath: json["backdrop_path"] ?? "",
+    id: json["id"] ?? 0,
+    overview: json["overview"] ?? "",
+    mediaType: json["media_type"] ?? "",
+    posterPath: json["poster_path"] ?? "",
+    adult: json["adult"] ?? false,
+    popularity: (json["popularity"]?.toDouble()) ?? 0.0,
+    voteAverage: (json["vote_average"]?.toDouble()) ?? 0.0,
+    voteCount: json["vote_count"] ?? 0,
+    originalLanguage: json["original_language"] ?? "",
   );
 }

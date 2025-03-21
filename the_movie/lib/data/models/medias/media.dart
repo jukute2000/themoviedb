@@ -10,15 +10,6 @@ abstract class Media {
   int voteCount;
   String originalLanguage;
 
-  // bool adult;
-  // String backdropPath;
-  // int id;
-  // String originalLanguage;
-  // String overview;
-  // double popularity;
-  // String posterPath;
-  // double voteAverage;
-  // int voteCount;
   Media(
       {required this.id,
       required this.overview,
@@ -30,6 +21,7 @@ abstract class Media {
       required this.voteCount,
       required this.originalLanguage,
       required this.backdropPath});
+
 
   factory Media.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('Must be implemented by subclasses');
