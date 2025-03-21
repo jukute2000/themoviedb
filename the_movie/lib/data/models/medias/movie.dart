@@ -1,6 +1,6 @@
 import 'package:the_movie/data/models/medias/media.dart';
 
-class Movie extends Media{
+class Movie extends Media {
   String title;
   String originalTitle;
   List<int> genreIds;
@@ -25,25 +25,28 @@ class Movie extends Media{
     required super.originalLanguage,
   });
 
-
   @override
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-    title: json["title"] ?? "",
-    originalTitle: json["original_title"] ?? "",
-    genreIds: (json["genre_ids"] as List<dynamic>?)?.map((x) => x as int).toList() ?? [],
-    releaseDate: json["release_date"] != null && json["release_date"].toString().isNotEmpty
-        ? DateTime.tryParse(json["release_date"])
-        : null,
-    video: json["video"] ?? false,
-    backdropPath: json["backdrop_path"] ?? "",
-    id: json["id"] ?? 0,
-    overview: json["overview"] ?? "",
-    mediaType: json["media_type"] ?? "",
-    posterPath: json["poster_path"] ?? "",
-    adult: json["adult"] ?? false,
-    popularity: (json["popularity"]?.toDouble()) ?? 0.0,
-    voteAverage: (json["vote_average"]?.toDouble()) ?? 0.0,
-    voteCount: json["vote_count"] ?? 0,
-    originalLanguage: json["original_language"] ?? "",
-  );
+        title: json["title"] ?? "",
+        originalTitle: json["original_title"] ?? "",
+        genreIds: (json["genre_ids"] as List<dynamic>?)
+                ?.map((x) => x as int)
+                .toList() ??
+            [],
+        releaseDate: json["release_date"] != null &&
+                json["release_date"].toString().isNotEmpty
+            ? DateTime.tryParse(json["release_date"])
+            : null,
+        video: json["video"] ?? false,
+        backdropPath: json["backdrop_path"] ?? "",
+        id: json["id"] ?? 0,
+        overview: json["overview"] ?? "",
+        mediaType: json["media_type"] ?? "",
+        posterPath: json["poster_path"] ?? "",
+        adult: json["adult"] ?? false,
+        popularity: (json["popularity"]?.toDouble()) ?? 0.0,
+        voteAverage: (json["vote_average"]?.toDouble()) ?? 0.0,
+        voteCount: json["vote_count"] ?? 0,
+        originalLanguage: json["original_language"] ?? "",
+      );
 }

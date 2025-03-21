@@ -1,4 +1,7 @@
 class StringsManager {
+  static const String apiKey = "720076a020957ba9c71639b58e065e7a";
+  static const String readAccessTokenv4 =
+      "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjAwNzZhMDIwOTU3YmE5YzcxNjM5YjU4ZTA2NWU3YSIsIm5iZiI6MTc0MjI5MDg5OS45ODcsInN1YiI6IjY3ZDkzZmQzYmI0MzM5NTFhNzM2NWY5YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4AvnJMj9eRScLe9s-SWLD0YeqnnJDxyyQecErfnVDxo";
 
   /// DASHBOARD
   static const String appName = 'The Movie';
@@ -23,7 +26,6 @@ class StringsManager {
   static const String inTheater = 'In Theaters';
   static const String allTimeEdit = 'All Time Edits';
   static const String editsThisWeek = 'Edits This Week';
-
 
   /// Bottom Dashboard
   // THE BASICS
@@ -85,7 +87,6 @@ class StringsManager {
   static const String type = 'Type';
   static const String originalLanguage = 'Original Language';
   static const String keywords = 'Keywords';
-
 
   /// DETAIL CAST
   static const String biography = 'Tiểu sử';
