@@ -3,11 +3,24 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/auth/repositories/auth_repository_impl.dart';
 import 'package:the_movie/main.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _userlCon = TextEditingController();
+
   final TextEditingController _passwordCon = TextEditingController();
+
+  @override
+  void dispose() {
+    _userlCon.dispose();
+    _passwordCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
