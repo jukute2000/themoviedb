@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/presentation/demo/demo_cubit.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 
 import '../../data/models/medias/media.dart';
 import '../../data/models/medias/tv.dart';
