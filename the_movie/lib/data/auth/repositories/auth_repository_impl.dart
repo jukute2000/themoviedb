@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/constants/strings_manager.dart';
 import 'package:the_movie/initial/tmdb_initializer.dart';
+import 'package:the_movie/data/datasources/api_tmdb_controller.dart';
 
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
@@ -11,8 +12,7 @@ abstract class AuthRepository {
 class AuthRepositoryImpl implements AuthRepository {
   static final AuthRepositoryImpl _instance = AuthRepositoryImpl._internal();
 
-  var tmdbWithCustomLogs = TMDBSingleton.instance.tmdb;
-
+  var tmdbWithCustomLogs = ApiTmdbController.getInstance().tmdb;
   AuthRepositoryImpl._internal();
 
   static AuthRepositoryImpl get instance => _instance;

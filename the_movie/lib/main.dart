@@ -1,10 +1,14 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// <<<<<<< HEAD
 import 'package:flutter_svg/svg.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
+// =======
+// import 'package:the_movie/presentation/demo/demo.dart';
+// import 'package:the_movie/presentation/demo/demo_cubit.dart';
+// >>>>>>> feature/list_view
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +26,17 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const MovieScreen()),
+          home: const SplashPage()),
+
+      // return MultiBlocProvider(
+      //   providers: [
+      //     BlocProvider(create: (context) => DemoCubit()),
+      //   ],
+      //   child: const MaterialApp(
+      //     debugShowCheckedModeBanner: false,
+      //     title: 'Flutter Demo',
+      //     home: DemoScreen(),
+      //   ),
     );
   }
 }
