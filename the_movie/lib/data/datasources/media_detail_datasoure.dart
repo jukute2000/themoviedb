@@ -65,20 +65,19 @@ class MediaDetailDatasoure {
   Future<List<Keywords>> getKeywords(
       {required int id, required isMovie}) async {
     Map<String, dynamic> result = {};
+    List results = [];
     if (isMovie) {
       result = await ApiTmdbController.getInstance()
           .tmdb
           .v3
           .movies
           .getKeywords(id) as Map<String, dynamic>;
+      results = result['keywords'];
     } else {
-      print("tv");
       result = await ApiTmdbController.getInstance().tmdb.v3.tv.getKeywords(id)
           as Map<String, dynamic>;
+      results = result['results'];
     }
-    List results = result['keywords'];
-    return results
-        .map((json) => Keywords.fromJson(json as Map<String, dynamic>))
-        .toList();
+    return results.map((json) => Keywords.fromJson(json)).toList();
   }
 }
