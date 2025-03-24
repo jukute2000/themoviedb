@@ -43,6 +43,7 @@ dependencies:
   http: ^1.3.0
   tmdb_api: ^2.2.2
   flutter_svg: ^2.0.17
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

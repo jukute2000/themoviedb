@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 // <<<<<<< HEAD
 import 'package:flutter_svg/svg.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
+
 // =======
 // import 'package:the_movie/presentation/demo/demo.dart';
 // import 'package:the_movie/presentation/demo/demo_cubit.dart';
@@ -16,17 +19,23 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SplashCubit()..appStarted(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: const SplashPage()),
+      child: ScreenUtilInit(
+        designSize: getDesignSize(),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            home: const SplashPage()),
+      ),
 
       // return MultiBlocProvider(
       //   providers: [
@@ -411,5 +420,19 @@ class HorizontalListView extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+Size getDesignSize() {
+  double width = WidgetsBinding
+          .instance.platformDispatcher.views.first.physicalSize.width /
+      WidgetsBinding.instance.platformDispatcher.views.first.devicePixelRatio;
+
+  if (width < 600) {
+    return const Size(430, 932); // Mobile
+  } else if (width < 1100) {
+    return const Size(768, 1024); // Tablet
+  } else {
+    return const Size(1200, 800); // Web/Desktop
   }
 }
