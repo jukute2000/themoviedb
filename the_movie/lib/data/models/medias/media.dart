@@ -22,7 +22,6 @@ abstract class Media {
       required this.originalLanguage,
       required this.backdropPath});
 
-
   factory Media.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('Must be implemented by subclasses');
   }

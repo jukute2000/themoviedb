@@ -1,2 +1,0 @@
-D:/flutter/the_moviedb/the_movie/android/app/.cxx/Debug/2g1y2h1i/x86_64/CMakeFiles/edit_cache.dir
-D:/flutter/the_moviedb/the_movie/android/app/.cxx/Debug/2g1y2h1i/x86_64/CMakeFiles/rebuild_cache.dir

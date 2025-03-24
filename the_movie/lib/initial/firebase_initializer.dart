@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/widgets.dart';
-import 'package:the_movie/flavor/flavor_config.dart';
 
 class FirebaseInitializer {
   static Future<void> devInitialize() async {
