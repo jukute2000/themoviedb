@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/presentation/demo/demo_cubit.dart';
+import 'package:the_movie/presentation/demo_detail/demo_detail.dart';
 
 import '../../data/models/medias/media.dart';
 import '../../data/models/medias/tv.dart';
@@ -78,13 +80,38 @@ class _DemoScreenState extends State<DemoScreen> {
                         return ListTile(
                           title: Text(media.title),
                           subtitle: Text(media.overview),
+                          trailing: IconButton(
+                            onPressed: () {
+                              AppNavigator.push(
+                                context,
+                                DemoDetail(
+                                  id: media.id,
+                                  isMovie: true,
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.arrow_forward),
+                          ),
                         );
                       } else if (media is TiVi) {
                         return ListTile(
                           title: Text(media.name),
                           subtitle: Text(media.overview),
+                          trailing: IconButton(
+                            onPressed: () {
+                              AppNavigator.push(
+                                context,
+                                DemoDetail(
+                                  id: media.id,
+                                  isMovie: false,
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.arrow_forward),
+                          ),
                         );
                       }
+                      return null;
                     },
                   ),
                 );
