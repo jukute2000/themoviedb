@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/constants/strings_manager.dart';
-import 'package:the_movie/initial/tmdb_initializer.dart';
 import 'package:the_movie/data/datasources/api_tmdb_controller.dart';
 
 abstract class AuthRepository {
@@ -20,24 +19,24 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<bool> loginUser(String username, String password) async {
     try {
-      final requestToken = await tmdbWithCustomLogs.v3.auth
+      final requestTokenMap = await tmdbWithCustomLogs.v3.auth
           .createSessionWithLogin(username, password);
 
-      final String tokenExpried = requestToken["expires_at"];
+      final String tokenExpried = requestTokenMap["expires_at"];
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(StringsManager.tokenExpried, tokenExpried);
 
-      final request_token = requestToken["request_token"];
+      final requestToken = requestTokenMap["request_token"];
 
-      if (request_token == null) return false;
+      if (requestToken == null) return false;
       final session =
-          await tmdbWithCustomLogs.v3.auth.createSession(request_token);
+          await tmdbWithCustomLogs.v3.auth.createSession(requestToken);
       final String sessionID = session["session_id"];
       await prefs.setString(StringsManager.sessionId, sessionID);
-      final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionID);
+      // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionID);
       return true;
     } catch (e) {
-      print(e);
+      // print(e);
       return false;
     }
   }
@@ -49,12 +48,12 @@ class AuthRepositoryImpl implements AuthRepository {
       var sessionId = prefs.getString(StringsManager.sessionId);
       // C1: Check thời gian hết hạn của token
       DateTime now = DateTime.now();
-      DateTime token_expired =
+      DateTime tokenExpired =
           DateTime.parse(prefs.getString(StringsManager.tokenExpried)!);
-      if (sessionId == null && (token_expired.isBefore(now))) {
+      if (sessionId == null && (tokenExpired.isBefore(now))) {
         return false;
       } else {
-        final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionId!);
+        // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionId!);
         // C2: Bắt lỗi khi lấy thông tin chi tiết
         return true;
       }
