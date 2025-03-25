@@ -36,3 +36,25 @@ class IconSizes {
   static double i32 = 32.0.w;
   static double i48 = 48.0.w;
 }
+
+
+class HeightSizes {
+  static double h50 = 50.0.h;
+  static double h100 = 100.0.h;
+  static double h150 = 150.0.h;
+  static double h200 = 200.0.h;
+  static double h300 = 300.0.h;
+  static double h400 = 400.0.h;
+  static double h500 = 500.0.h;
+}
+
+
+class WidthSizes {
+  static double w50 = 50.0.w;
+  static double w100 = 100.0.w;
+  static double w150 = 150.0.w;
+  static double w200 = 200.0.w;
+  static double w300 = 300.0.w;
+  static double w400 = 400.0.w;
+  static double w500 = 500.0.w;
+}
