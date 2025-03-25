@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // <<<<<<< HEAD
 import 'package:flutter_svg/svg.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const SplashPage()),
+            home: DetailSearchScreen()),
       ),
 
       // return MultiBlocProvider(

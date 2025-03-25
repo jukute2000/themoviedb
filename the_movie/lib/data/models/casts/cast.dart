@@ -4,11 +4,11 @@
 
 import 'dart:convert';
 
-People peopleFromJson(String str) => People.fromJson(json.decode(str));
+Cast peopleFromJson(String str) => Cast.fromJson(json.decode(str));
 
-String peopleToJson(People data) => json.encode(data.toJson());
+String peopleToJson(Cast data) => json.encode(data.toJson());
 
-class People {
+class Cast {
   bool adult;
   List<String> alsoKnownAs;
   String biography;
@@ -24,7 +24,7 @@ class People {
   double popularity;
   String profilePath;
 
-  People({
+  Cast({
     required this.adult,
     required this.alsoKnownAs,
     required this.biography,
@@ -41,7 +41,7 @@ class People {
     required this.profilePath,
   });
 
-  factory People.fromJson(Map<String, dynamic> json) => People(
+  factory Cast.fromJson(Map<String, dynamic> json) => Cast(
         adult: json["adult"] ?? false,
         alsoKnownAs: (json["also_known_as"] as List<dynamic>?)
                 ?.map((x) => x as String)
