@@ -13,7 +13,7 @@ class MediaDatasource {
     }
   }
 
-  Future<List<Media>> getMoviePopular(int page) async {
+  Future<List<Media>> getMediaTrending(int page) async {
     Map result = await ApiTmdbController.getInstance()
         .tmdb
         .v3
@@ -21,5 +21,12 @@ class MediaDatasource {
         .getTrending(page: page);
     List results = result['results'];
     return results.map((json) => getMediaFromJson(json)).toList();
+  }
+
+  Future<List<Movie>> getMediaPopular() async {
+    Map result =
+        await ApiTmdbController.getInstance().tmdb.v3.movies.getPopular();
+    List results = result['results'];
+    return results.map((json) => Movie.fromJson(json)).toList();
   }
 }
