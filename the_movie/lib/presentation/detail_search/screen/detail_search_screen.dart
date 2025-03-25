@@ -123,6 +123,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
             ),
             bottom: TabBar(
               isScrollable: true,
+              tabAlignment: TabAlignment.start,
               controller: tabController,
               tabs: screen
                   .map((e) => Tab(

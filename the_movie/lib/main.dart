@@ -8,6 +8,7 @@ import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 import 'package:the_movie/presentation/demo/demo.dart';
 import 'package:the_movie/presentation/demo/demo_cubit.dart';
 import 'package:the_movie/presentation/demo_detail/demo_detail_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
@@ -26,35 +27,41 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => DemoCubit(),
-        ),
-        BlocProvider(
-          create: (context) => DemoDetailCubit(),
-        )
-        // BlocProvider(
-        //   create: (context) => SplashCubit()..appStarted(),
-        // ),
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+        providers: [
+          BlocProvider(
+            create: (context) => DemoCubit(),
           ),
-          home: DemoScreen()),
-
-      // return MultiBlocProvider(
-      //   providers: [
-      //     BlocProvider(create: (context) => DemoCubit()),
-      //   ],
-      //   child: const MaterialApp(
-      //     debugShowCheckedModeBanner: false,
-      //     title: 'Flutter Demo',
-      //     home: DemoScreen(),
-      //   ),
-    );
+          BlocProvider(
+            create: (context) => DemoDetailCubit(),
+          )
+          // BlocProvider(
+          //   create: (context) => SplashCubit()..appStarted(),
+          // ),
+        ],
+        child: ScreenUtilInit(
+            designSize: getDesignSize(),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                    colorScheme:
+                        ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                    useMaterial3: true,
+                  ),
+                  home: DetailSearchScreen());
+            })
+        // return MultiBlocProvider(
+        //   providers: [
+        //     BlocProvider(create: (context) => DemoCubit()),
+        //   ],
+        //   child: const MaterialApp(
+        //     debugShowCheckedModeBanner: false,
+        //     title: 'Flutter Demo',
+        //     home: DemoScreen(),
+        //   ),
+        );
   }
 }
 
