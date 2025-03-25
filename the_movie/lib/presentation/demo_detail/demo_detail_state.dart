@@ -5,6 +5,7 @@ import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
 
 import '../../data/models/credits/credit.dart';
+import '../../data/models/video/video.dart';
 
 abstract class DemoDetailStateCubit {}
 
@@ -17,11 +18,13 @@ class TvDetail extends DemoDetailStateCubit {
   final List<TiVi> tvRe;
   final List<Credit> credits;
   final List<Keywords> keywords;
+  final List<Video> videos;
   TvDetail(
       {required this.tv,
       required this.tvRe,
       required this.credits,
-      required this.keywords});
+      required this.keywords,
+      required this.videos});
 }
 
 class MovieDetail extends DemoDetailStateCubit {
@@ -29,11 +32,13 @@ class MovieDetail extends DemoDetailStateCubit {
   final List<Movie> mvRe;
   final List<Credit> credits;
   final List<Keywords> keywords;
+  final List<Video> videos;
   MovieDetail(
       {required this.movie,
       required this.mvRe,
       required this.credits,
-      required this.keywords});
+      required this.keywords,
+      required this.videos});
 }
 
 class Error extends DemoDetailStateCubit {

@@ -1,12 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/demo/demo_state.dart';
-
 import '../../data/models/medias/media.dart';
 import '../../data/repositories/meida_repository.dart';
 
 class DemoCubit extends Cubit<DemoStateCubit> {
   DemoCubit() : super(Initial());
-  final MeidaRepository _mediaRepository = MeidaRepository();
+
   final List<Media> _medias = [];
   int _page = 1;
   bool _isLoading = false;
@@ -24,7 +23,8 @@ class DemoCubit extends Cubit<DemoStateCubit> {
       emit(IsLoading());
     }
     try {
-      List<Media> newMedias = await _mediaRepository.getMediaTrending(_page);
+      List<Media> newMedias =
+          await MeidaRepositoryImpl.intance.getMediaTrending(_page);
       _medias.addAll(newMedias);
       _page++;
       emit(Medias(medias: _medias));
