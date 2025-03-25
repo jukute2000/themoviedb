@@ -39,14 +39,30 @@ class Movie extends Media {
             : null,
         video: json["video"] ?? false,
         backdropPath: json["backdrop_path"] ?? "",
-        id: json["id"] ?? 0,
+        id: json["id"] is int
+            ? json["id"]
+            : json["id"] is String
+                ? int.parse(json["id"])
+                : 0,
         overview: json["overview"] ?? "",
-        mediaType: json["media_type"] ?? "",
+        mediaType: json["media_type"],
         posterPath: json["poster_path"] ?? "",
         adult: json["adult"] ?? false,
-        popularity: (json["popularity"]?.toDouble()) ?? 0.0,
-        voteAverage: (json["vote_average"]?.toDouble()) ?? 0.0,
-        voteCount: json["vote_count"] ?? 0,
+        popularity: json["popularity"] is double
+            ? json["popularity"]
+            : json["popularity"] is String
+                ? double.parse(json["popularity"])
+                : 0.0,
+        voteAverage: json["vote_average"] is double
+            ? json["vote_average"]
+            : json["vote_average"] is String
+                ? double.parse(json["vote_average"])
+                : 0,
+        voteCount: json["vote_count"] is int
+            ? json["vote_count"]
+            : json["vote_count"] is String
+                ? double.parse(json["vote_count"])
+                : 0,
         originalLanguage: json["original_language"] ?? "",
       );
 }

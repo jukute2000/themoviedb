@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/constants/strings_manager.dart';
-import 'package:the_movie/data/datasources/api_tmdb_controller.dart';
+import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
