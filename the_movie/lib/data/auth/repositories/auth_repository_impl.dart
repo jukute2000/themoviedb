@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/constants/strings_manager.dart';
-import 'package:the_movie/initial/tmdb_initializer.dart';
 import 'package:the_movie/data/datasources/api_tmdb_controller.dart';
 
 abstract class AuthRepository {
