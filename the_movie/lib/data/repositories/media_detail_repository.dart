@@ -1,6 +1,6 @@
 import '../controller/api_tmdb_controller.dart';
 import '../models/credits/credit.dart';
-import '../models/keywords/keywords.dart';
+import '../models/keyword/keyword.dart';
 import '../models/media_detail/detail_movie.dart';
 import '../models/media_detail/detail_tv.dart';
 import '../models/medias/movie.dart';
@@ -13,7 +13,7 @@ abstract class MediaDetailRepository {
   Future<List<Movie>> getMovieRecommendations(int id);
   Future<List<TiVi>> getTvRecommendations(int id);
   Future<List<Credit>> getCredits({required int id, required bool isMovie});
-  Future<List<Keywords>> getKeywords({required int id, required bool isMovie});
+  Future<List<Keyword>> getKeywords({required int id, required bool isMovie});
   Future<List<Video>> getVideos({required int id, required bool isMovie});
 }
 
@@ -85,7 +85,7 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
   }
 
   @override
-  Future<List<Keywords>> getKeywords(
+  Future<List<Keyword>> getKeywords(
       {required int id, required bool isMovie}) async {
     Map<String, dynamic> result = {};
     List results = [];
@@ -101,7 +101,7 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
           as Map<String, dynamic>;
       results = result['results'];
     }
-    return results.map((json) => Keywords.fromJson(json)).toList();
+    return results.map((json) => Keyword.fromJson(json)).toList();
   }
 
   @override
