@@ -6,6 +6,14 @@
 .DS_Store
 .atom/
 .buildlog/
+.vscode/
+.cxx/
+
+.dart_tool/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
 .history
 .svn/
 migrate_working_dir/

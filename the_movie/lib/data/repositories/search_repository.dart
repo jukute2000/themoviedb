@@ -1,0 +1,60 @@
+import 'package:the_movie/data/controller/api_tmdb_controller.dart';
+import 'package:the_movie/data/models/search/search_movie.dart';
+import 'package:the_movie/data/models/search/search_tv.dart';
+import '../models/search/search_multi.dart';
+import '../models/search/search_people/search_people.dart';
+
+abstract class SearchRepository {
+  Future<List<SearchMulti>> getSearchMutil(String query);
+  Future<SearchMovie> getSearchMovies(String query, int page);
+  Future<SearchTv> getSearchTv(String query, int page);
+  Future<SearchPeople> getSearchPeople(String query, int page);
+}
+
+class SearchRepositoryImpl implements SearchRepository {
+  static final SearchRepositoryImpl _instance =
+      SearchRepositoryImpl._internal();
+  SearchRepositoryImpl._internal();
+  static SearchRepositoryImpl get intance => _instance;
+
+  @override
+  Future<List<SearchMulti>> getSearchMutil(String query) async {
+    Map<String, dynamic> result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .search
+        .queryMulti(query) as Map<String, dynamic>;
+    List results = result["results"];
+    return results.map((json) => SearchMulti.formJson(json)).toList();
+  }
+
+  @override
+  Future<SearchMovie> getSearchMovies(String query, int page) async {
+    Map<String, dynamic> result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .search
+        .queryMovies(query, page: page) as Map<String, dynamic>;
+    return SearchMovie.fromJson(result);
+  }
+
+  @override
+  Future<SearchTv> getSearchTv(String query, int page) async {
+    Map<String, dynamic> result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .search
+        .queryTvShows(query, page: page) as Map<String, dynamic>;
+    return SearchTv.fromJson(result);
+  }
+
+  @override
+  Future<SearchPeople> getSearchPeople(String query, int page) async {
+    Map<String, dynamic> result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .search
+        .queryPeople(query, page: page) as Map<String, dynamic>;
+    return SearchPeople.fromJson(result);
+  }
+}
