@@ -1,4 +1,4 @@
-import 'package:the_movie/data/models/search/search_people/people.dart';
+import 'package:the_movie/data/models/people/people.dart';
 
 class SearchPeople {
   int page;

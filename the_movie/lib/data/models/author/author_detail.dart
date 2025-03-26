@@ -17,7 +17,7 @@ class AuthorDetail {
         avatarPath: json["avatar_path"],
         rating: json["rating"] is double
             ? json["rating"]
-            : json["rating"] is String
+            : json["rating"] is String || json["rating"] is int
                 ? double.tryParse(json["rating"])
                 : null,
       );

@@ -5,7 +5,7 @@ import 'package:the_movie/data/models/search/search_keywords.dart';
 import 'package:the_movie/data/models/search/search_movie.dart';
 import 'package:the_movie/data/models/search/search_tv.dart';
 import '../models/search/search_multi.dart';
-import '../models/search/search_people/search_people.dart';
+import '../models/search/search_people.dart';
 
 abstract class SearchRepository {
   Future<List<SearchMulti>> getSearchMutil(String query);

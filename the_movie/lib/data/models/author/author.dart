@@ -24,11 +24,11 @@ class Author {
         authorDetails: AuthorDetail.fromJson(json["author_details"]),
         content: json["content"],
         createdAt: json["created_at"] != null && json["created_at"] is String
-            ? DateTime.tryParse(json["created_at"].toString())
+            ? DateTime.tryParse(json["created_at"])
             : null,
         id: json["id"],
         updatedAt: json["updated_at"] != null && json["updated_at"] is String
-            ? DateTime.tryParse(json["updated_at"].toString())
+            ? DateTime.tryParse(json["updated_at"])
             : null,
         url: json["url"],
       );
