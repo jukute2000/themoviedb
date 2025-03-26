@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/data/models/author/author.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
 import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 import 'package:the_movie/data/models/media_detail/detail_tv.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
+import 'package:the_movie/data/models/release_date/release_date.dart';
 import 'package:the_movie/data/models/search/search_companies.dart';
 import 'package:the_movie/data/models/search/search_keywords.dart';
 import 'package:the_movie/data/models/video/video.dart';
@@ -31,9 +33,6 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
             .getKeywords(id: id, isMovie: isMovie);
         List<Video> videos = await MediaDetailRepositoryImpl.intance
             .getVideos(id: id, isMovie: isMovie);
-        SearchCollections search = await SearchRepositoryImpl.intance
-            .getSearchCollections("action", 1);
-        print(search.collections.length);
         emit(MovieDetail(
             movie: movie,
             mvRe: movies,
@@ -50,9 +49,6 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
             .getKeywords(id: id, isMovie: isMovie);
         List<Video> videos = await MediaDetailRepositoryImpl.intance
             .getVideos(id: id, isMovie: isMovie);
-        SearchCollections search = await SearchRepositoryImpl.intance
-            .getSearchCollections("action", 1);
-        print(search.collections.length);
         emit(TvDetail(
             tv: tv,
             tvRe: tvRe,
@@ -60,6 +56,8 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
             keywords: keywords,
             videos: videos));
       }
+      Review review = await MediaDetailRepositoryImpl.intance
+          .getReview(id: id, isMovie: isMovie);
     } catch (e) {
       emit(Error("Error: $e"));
     }
