@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,24 +30,17 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
+                  locale: context.locale,
+                  supportedLocales: context.supportedLocales,
+                  localizationsDelegates: context.localizationDelegates,
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
                     colorScheme:
                         ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                     useMaterial3: true,
                   ),
-                  home: SplashScreen());
-            })
-        // return MultiBlocProvider(
-        //   providers: [
-        //     BlocProvider(create: (context) => DemoCubit()),
-        //   ],
-        //   child: const MaterialApp(
-        //     debugShowCheckedModeBanner: false,
-        //     title: 'Flutter Demo',
-        //     home: DemoScreen(),
-        //   ),
-        );
+                  home: DetailSearchScreen());
+            }));
   }
 }
 
