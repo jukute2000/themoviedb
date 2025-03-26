@@ -22,7 +22,7 @@ abstract class MediaDetailRepository {
   Future<Review> getReview({required int id, required bool isMovie});
   Future<void> rateMovie(
       {required int id, required double rateMedia, required bool isMovie});
-  Future<void> delteRate({required int id, required bool isMovie});
+  Future<void> deleteRate({required int id, required bool isMovie});
 }
 
 class MediaDetailRepositoryImpl implements MediaDetailRepository {
@@ -185,7 +185,7 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
   }
 
   @override
-  Future<void> delteRate({required int id, required bool isMovie}) async {
+  Future<void> deleteRate({required int id, required bool isMovie}) async {
     if (isMovie) {
       await ApiTmdbController.getInstance().tmdb.v3.movies.deleteRating(id);
     } else {
