@@ -31,13 +31,13 @@ class SplashScreen extends StatelessWidget {
                       image: AssetImage(AppImages.splashBackground))),
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.center,
                       end: Alignment.bottomCenter,
                       colors: [
-                    const Color(0xff1A1B20).withOpacity(0),
-                    const Color(0xff1A1B20)
+                    Color(0xff1A1B20),
+                    Color(0xff1A1B20)
                   ])),
             )
           ],

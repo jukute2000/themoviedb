@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -11,13 +12,17 @@ class DrawerWidget extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 13, 81, 136),
+              color: AppColors.backgroundAppbar,
             ),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: AppColors.iconAppbar,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
               ),
             ),
           ),

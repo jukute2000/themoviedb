@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/demo_detail/demo_detail_cubit.dart';
+import 'package:the_movie/presentation/home/screen/home_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
-import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,18 +35,8 @@ class MyApp extends StatelessWidget {
                         ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                     useMaterial3: true,
                   ),
-                  home: SplashScreen());
-            })
-        // return MultiBlocProvider(
-        //   providers: [
-        //     BlocProvider(create: (context) => DemoCubit()),
-        //   ],
-        //   child: const MaterialApp(
-        //     debugShowCheckedModeBanner: false,
-        //     title: 'Flutter Demo',
-        //     home: DemoScreen(),
-        //   ),
-        );
+                  home: const HomeScreen());
+            }));
   }
 }
 

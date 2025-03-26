@@ -4,14 +4,11 @@ import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 import 'package:the_movie/data/models/media_detail/detail_tv.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
-import 'package:the_movie/data/models/search/search_movie.dart';
-import 'package:the_movie/data/models/search/search_people/people.dart';
-import 'package:the_movie/data/models/search/search_tv.dart';
+import 'package:the_movie/data/models/search/search_people/search_people.dart';
 import 'package:the_movie/data/models/video/video.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
 import 'package:the_movie/presentation/demo_detail/demo_detail_state.dart';
 import '../../data/models/credits/credit.dart';
-import '../../data/models/search/search_people/search_people.dart';
 import '../../data/repositories/media_detail_repository.dart';
 
 class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {

@@ -1,4 +1,4 @@
-import 'package:the_movie/core/constants/strings_manager.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class ApiTmdbController {
@@ -9,7 +9,7 @@ class ApiTmdbController {
 
   ApiTmdbController._internal() {
     tmdb =
-        TMDB(ApiKeys(StringsManager.apiKey, StringsManager.readAccessTokenv4));
+        TMDB(ApiKeys(AppStrings.apiKey, AppStrings.readAccessTokenv4));
   }
 
   static ApiTmdbController getInstance() => _instance;

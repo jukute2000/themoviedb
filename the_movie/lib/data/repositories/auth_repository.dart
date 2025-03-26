@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_movie/core/constants/strings_manager.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 
 abstract class AuthRepository {
@@ -24,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
       final String tokenExpried = requestTokenMap["expires_at"];
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(StringsManager.tokenExpried, tokenExpried);
+      await prefs.setString(AppStrings.tokenExpried, tokenExpried);
 
       final requestToken = requestTokenMap["request_token"];
 
@@ -32,7 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final session =
           await tmdbWithCustomLogs.v3.auth.createSession(requestToken);
       final String sessionID = session["session_id"];
-      await prefs.setString(StringsManager.sessionId, sessionID);
+      await prefs.setString(AppStrings.sessionId, sessionID);
       // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionID);
       return true;
     } catch (e) {
@@ -45,11 +45,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<bool> isLoggedIn() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      var sessionId = prefs.getString(StringsManager.sessionId);
+      var sessionId = prefs.getString(AppStrings.sessionId);
       // C1: Check thời gian hết hạn của token
       DateTime now = DateTime.now();
       DateTime tokenExpired =
-          DateTime.parse(prefs.getString(StringsManager.tokenExpried)!);
+          DateTime.parse(prefs.getString(AppStrings.tokenExpried)!);
       if (sessionId == null && (tokenExpired.isBefore(now))) {
         return false;
       } else {
@@ -65,6 +65,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logOut() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(StringsManager.sessionId);
+    await prefs.remove(AppStrings.sessionId);
   }
 }

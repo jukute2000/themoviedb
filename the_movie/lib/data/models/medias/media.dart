@@ -25,4 +25,12 @@ abstract class Media {
   factory Media.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('Must be implemented by subclasses');
   }
+
+  String roundVoteAverage() {
+    return "${(voteAverage * 10).round()}%";
+  }
+
+  bool goodMedia() {
+    return (voteAverage >= 7.5);
+  }
 }
