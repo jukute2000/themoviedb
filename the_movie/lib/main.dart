@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // <<<<<<< HEAD
 import 'package:flutter_svg/svg.dart';
+import 'package:the_movie/data/models/media_detail/detail_movie.dart';
+import 'package:the_movie/data/models/media_detail/genre.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
+import 'package:the_movie/presentation/movie/movie_detail.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
@@ -34,7 +37,11 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: const SplashPage()),
+            home: DetailMovieScreen(
+              movie: movie,
+            )
+            // SplashPage()
+            ),
       ),
 
       // return MultiBlocProvider(
@@ -436,3 +443,33 @@ Size getDesignSize() {
     return const Size(1200, 800); // Web/Desktop
   }
 }
+
+final movie = DetailMovie(
+  adult: false,
+  backdropPath: "/2siOHQYDG7gCQB6g69g2pTZiSia.jpg",
+  belongsToCollection: null,
+  budget: 270000000,
+  genres: [
+    Genre(id: 1, name: "Phim Gia Đình"),
+    Genre(id: 2, name: "Phim Giả Tưởng"),
+  ],
+  homepage: "https://www.example.com",
+  id: 12345,
+  imdbId: "tt1234567",
+  originCountry: ["US"],
+  originalLanguage: "en",
+  originalTitle: "Snow White",
+  overview:
+      "Phiên bản live-action từ Disney với sự tham gia của Rachel Zegler và Gal Gadot, dự kiến khởi chiếu năm 2024.",
+  popularity: 120.5,
+  posterPath: "/xWWg47tTfparvjK0WJNX4xL8lW2.jpg",
+  releaseDate: DateTime(2025, 3, 21),
+  revenue: 87000000,
+  runtime: 109,
+  status: "Released",
+  tagline: "Hãy để câu thần chú bắt đầu.",
+  title: "Nàng Bạch Tuyết",
+  video: false,
+  voteAverage: 4.6,
+  voteCount: 500,
+);
