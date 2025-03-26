@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/auth/repositories/auth_repository_impl.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_state.dart';
 
 class SplashCubit extends Cubit<SplashState> {

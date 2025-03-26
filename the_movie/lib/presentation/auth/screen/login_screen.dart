@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
-import 'package:the_movie/data/auth/repositories/auth_repository_impl.dart';
-import 'package:the_movie/main.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .loginUser(_userlCon.text, _passwordCon.text)
             .then((result) {
           if (result == true) {
-            AppNavigator.pushAndRemove(context, MovieScreen());
+            AppNavigator.pushAndRemove(context, const HomeScreen());
           } else {
             print("Login thất bại!");
           }
