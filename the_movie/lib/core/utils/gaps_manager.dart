@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GapsManager {
+  static SizedBox h5 = SizedBox(height: 5.h);
   static SizedBox h10 = SizedBox(height: 10.h);
   static SizedBox h20 = SizedBox(height: 20.h);
   static SizedBox h30 = SizedBox(height: 30.h);
