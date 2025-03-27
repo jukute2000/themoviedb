@@ -1,7 +1,9 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class SearchMulti {
-  String name;
+  String? name;
   String? originalName;
-  String mediaType;
+  String? mediaType;
   SearchMulti(
       {required this.name,
       required this.mediaType,
@@ -10,13 +12,14 @@ class SearchMulti {
   factory SearchMulti.formJson(Map<String, dynamic> json) {
     String newMediaType = json["media_type"];
     return SearchMulti(
-        name:
-            newMediaType == "movie" ? json["title"] ?? "" : json["name"] ?? "",
+        name: newMediaType == "movie"
+            ? SafeNull.checkString(json["title"])
+            : SafeNull.checkString(json["name"]),
         originalName: newMediaType != "person"
             ? newMediaType == "tv"
-                ? json["original_name"]
-                : json["original_title"]
+                ? SafeNull.checkString(json["original_name"])
+                : SafeNull.checkString(json["original_title"])
             : null,
-        mediaType: newMediaType);
+        mediaType: SafeNull.checkString(newMediaType));
   }
 }

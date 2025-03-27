@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/models/author/author.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
-import 'package:the_movie/data/models/media_detail/detail_tv.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_tv.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
 import 'package:the_movie/data/models/people/people_detail.dart';

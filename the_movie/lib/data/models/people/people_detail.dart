@@ -1,17 +1,19 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class PeopleDetail {
-  bool adult;
+  bool? adult;
   List<String>? alsoKnownAs;
-  String biography;
+  String? biography;
   DateTime? birthday;
   DateTime? deathday;
-  int gender;
+  int? gender;
   String? homepage;
-  int id;
+  int? id;
   String? imdbId;
   String? knownForDepartment;
   String? name;
   String? placeOfBirth;
-  double popularity;
+  double? popularity;
   String? profilePath;
 
   PeopleDetail({
@@ -32,39 +34,21 @@ class PeopleDetail {
   });
 
   factory PeopleDetail.fromJson(Map<String, dynamic> json) => PeopleDetail(
-        adult: json["adult"] is bool
-            ? json["adult"]
-            : json["adult"] is String
-                ? bool.parse(json["adult"])
-                : null,
-        alsoKnownAs: List<String>.from(json["also_known_as"].map((x) => x)),
-        biography: json["biography"],
-        birthday: json["birthday"] != null && json["birthday"] is String
-            ? DateTime.tryParse(json["birthday"])
+        adult: SafeNull.checkBool(json["adult"]),
+        alsoKnownAs: json["also_known_as"] != null
+            ? List<String>.from(json["also_known_as"].map((x) => x))
             : null,
-        deathday: json["deathday"] != null && json["deathday"] is String
-            ? DateTime.tryParse(json["deathday"])
-            : null,
-        gender: json["gender"] is int
-            ? json["gender"]
-            : json["gender"] != null && json["gender"] is String
-                ? int.parse(json["gender"])
-                : 0,
-        homepage: json["homepage"],
-        id: json["id"] is int
-            ? json["id"]
-            : json["id"] != null && json["id"] is String
-                ? int.parse(json["id"])
-                : 0,
-        imdbId: json["imdb_id"],
-        knownForDepartment: json["known_for_department"],
-        name: json["name"],
-        placeOfBirth: json["place_of_birth"],
-        popularity: json["popularity"] is double
-            ? json["popularity"]
-            : json["popularity"] != null && json["popularity"] is String
-                ? double.parse(json["popularity"])
-                : 0.0,
-        profilePath: json["profile_path"],
+        biography: SafeNull.checkString(json["biography"]),
+        birthday: SafeNull.checkDateTime(json["birthday"]),
+        deathday: SafeNull.checkDateTime(json["deathday"]),
+        gender: SafeNull.checkInt(json["gender"]),
+        homepage: SafeNull.checkString(json["homepage"]),
+        id: SafeNull.checkInt(json["id"]),
+        imdbId: SafeNull.checkString(json["imdb_id"]),
+        knownForDepartment: SafeNull.checkString(json["known_for_department"]),
+        name: SafeNull.checkString(json["name"]),
+        placeOfBirth: SafeNull.checkString(json["place_of_birth"]),
+        popularity: SafeNull.checkDouble(json["popularity"]),
+        profilePath: SafeNull.checkString(json["profile_path"]),
       );
 }

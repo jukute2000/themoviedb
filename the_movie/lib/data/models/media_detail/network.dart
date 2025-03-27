@@ -1,8 +1,10 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Network {
-  final int id;
+  final int? id;
   final String? logoPath;
-  final String name;
-  final String originCountry;
+  final String? name;
+  final String? originCountry;
 
   Network({
     required this.id,
@@ -12,16 +14,9 @@ class Network {
   });
 
   factory Network.fromJson(Map<String, dynamic> json) => Network(
-        id: json["id"] ?? 0,
-        logoPath: json["logo_path"],
-        name: json["name"] ?? "Unknown",
-        originCountry: json["origin_country"] ?? "Unknown",
+        id: SafeNull.checkInt(json["id"]),
+        logoPath: SafeNull.checkString(json["logo_path"]),
+        name: SafeNull.checkString(json["name"]),
+        originCountry: SafeNull.checkString(json["origin_country"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "logo_path": logoPath,
-        "name": name,
-        "origin_country": originCountry,
-      };
 }

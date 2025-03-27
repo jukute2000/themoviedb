@@ -1,3 +1,4 @@
+import 'package:the_movie/core/utils/safe_null.dart';
 import 'package:the_movie/data/models/author/author_detail.dart';
 
 class Author {
@@ -20,17 +21,13 @@ class Author {
   });
 
   factory Author.fromJson(Map<String, dynamic> json) => Author(
-        author: json["author"],
+        author: SafeNull.checkString(json["author"]),
         authorDetails: AuthorDetail.fromJson(json["author_details"]),
-        content: json["content"],
-        createdAt: json["created_at"] != null && json["created_at"] is String
-            ? DateTime.tryParse(json["created_at"])
-            : null,
-        id: json["id"],
-        updatedAt: json["updated_at"] != null && json["updated_at"] is String
-            ? DateTime.tryParse(json["updated_at"])
-            : null,
-        url: json["url"],
+        content: SafeNull.checkString(json["content"]),
+        createdAt: SafeNull.checkDateTime(json["created_at"]),
+        id: SafeNull.checkString(json["id"]),
+        updatedAt: SafeNull.checkDateTime(json["updated_at"]),
+        url: SafeNull.checkString(json["url"]),
       );
 }
 

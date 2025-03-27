@@ -1,14 +1,14 @@
 abstract class Media {
-  String backdropPath;
-  int id;
-  String overview;
+  String? backdropPath;
+  int? id;
+  String? overview;
   String? mediaType;
-  String posterPath;
-  bool adult;
-  double popularity;
-  double voteAverage;
-  int voteCount;
-  String originalLanguage;
+  String? posterPath;
+  bool? adult;
+  double? popularity;
+  double? voteAverage;
+  int? voteCount;
+  String? originalLanguage;
 
   Media(
       {required this.id,

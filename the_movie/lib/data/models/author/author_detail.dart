@@ -1,3 +1,5 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class AuthorDetail {
   String? name;
   String? username;
@@ -12,13 +14,9 @@ class AuthorDetail {
   });
 
   factory AuthorDetail.fromJson(Map<String, dynamic> json) => AuthorDetail(
-        name: json["name"],
-        username: json["username"],
-        avatarPath: json["avatar_path"],
-        rating: json["rating"] is double
-            ? json["rating"]
-            : json["rating"] is String || json["rating"] is int
-                ? double.tryParse(json["rating"])
-                : null,
+        name: SafeNull.checkString(json["name"]),
+        username: SafeNull.checkString(json["username"]),
+        avatarPath: SafeNull.checkString(json["avatar_path"]),
+        rating: SafeNull.checkDouble(json["rating"]),
       );
 }

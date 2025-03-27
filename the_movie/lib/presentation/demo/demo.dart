@@ -78,14 +78,14 @@ class _DemoScreenState extends State<DemoScreen> {
                       Media media = state.medias[index];
                       if (media is Movie) {
                         return ListTile(
-                          title: Text(media.title),
-                          subtitle: Text(media.overview),
+                          title: Text(media.title!),
+                          subtitle: Text(media.overview!),
                           trailing: IconButton(
                             onPressed: () {
                               AppNavigator.push(
                                 context,
                                 DemoDetail(
-                                  id: media.id,
+                                  id: media.id!,
                                   isMovie: true,
                                 ),
                               );
@@ -95,14 +95,14 @@ class _DemoScreenState extends State<DemoScreen> {
                         );
                       } else if (media is TiVi) {
                         return ListTile(
-                          title: Text(media.name),
-                          subtitle: Text(media.overview),
+                          title: Text(media.name!),
+                          subtitle: Text(media.overview!),
                           trailing: IconButton(
                             onPressed: () {
                               AppNavigator.push(
                                 context,
                                 DemoDetail(
-                                  id: media.id,
+                                  id: media.id!,
                                   isMovie: false,
                                 ),
                               );
