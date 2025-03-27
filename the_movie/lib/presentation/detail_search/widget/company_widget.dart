@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/comons/widgets/keyword_container.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
@@ -21,14 +22,7 @@ class CompanyWidget extends StatelessWidget {
           height: HeightSizes.h50,
           fit: BoxFit.cover,),
         GapsManager.w20,
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(6)
-          ),
-          child: Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-        )
+        KeywordContainer(keyword: name, isSelected: false),
       ],
     ) : Text(name);
   }
