@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/core/utils/format_date.dart';
+import 'package:the_movie/core/comons/widgets/format_date.dart';
+import 'package:the_movie/core/constants/strings_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
 import '../../../core/configs/assets/app_images.dart';
@@ -7,17 +8,16 @@ import '../../../core/utils/sizes_manager.dart';
 
 class MovieWidget extends StatelessWidget {
   final String title;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final String overview;
   final String posterPath;
 
-  const MovieWidget({
-    super.key,
-    required this.title,
-    required this.releaseDate,
-    required this.overview,
-    required this.posterPath
-  });
+  const MovieWidget(
+      {super.key,
+      required this.title,
+      required this.releaseDate,
+      required this.overview,
+      required this.posterPath});
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,16 @@ class MovieWidget extends StatelessWidget {
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
-                  width: WidthSizes.w100,
-                  child: Image.asset(
-                    AppImages.splashBackground,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    width: WidthSizes.w100,
+                    child: (posterPath.isNotEmpty)
+                        ? Image.network(
+                            StringsManager.imageUrl + posterPath,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            AppImages.noImage,
+                            fit: BoxFit.cover,
+                          )),
               ),
               Expanded(
                 child: Padding(
@@ -56,7 +60,7 @@ class MovieWidget extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        FormatDate.format(releaseDate),
+                        releaseDate != null ? FormatDate.format(releaseDate!) : '',
                         style: TextStyle(color: Colors.grey.shade400),
                       ),
                       GapsManager.h20,

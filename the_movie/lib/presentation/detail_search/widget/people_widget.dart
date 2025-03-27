@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/data/models/search/search_people/know_for.dart';
 
 import '../../../core/configs/assets/app_images.dart';
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class PeopleWidget extends StatelessWidget {
-  final String knownForDepartment;
+  final String? knownForDepartment;
   final String name;
-  final List<String> knownFor;
-  final String profilePath;
+  final List<KnowFor> knownFor;
+  final String? profilePath;
 
   const PeopleWidget({
     super.key,
@@ -32,10 +34,15 @@ class PeopleWidget extends StatelessWidget {
                   left: Radius.circular(RadiusSizes.r8)),
               child: SizedBox(
                 width: WidthSizes.w100,
-                child: Image.asset(
-                  AppImages.splashBackground,
+                child: (profilePath != null && profilePath!.isNotEmpty)
+                    ? Image.network(
+                  StringsManager.imageUrl + profilePath!,
                   fit: BoxFit.cover,
-                ),
+                )
+                    : Image.asset(
+                  AppImages.noImage,
+                  fit: BoxFit.cover,
+                )
               ),
             ),
             Expanded(
