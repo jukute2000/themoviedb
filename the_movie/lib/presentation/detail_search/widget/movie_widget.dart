@@ -7,10 +7,10 @@ import '../../../core/configs/assets/app_images.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class MovieWidget extends StatelessWidget {
-  final String title;
+  final String? title;
   final DateTime? releaseDate;
-  final String overview;
-  final String posterPath;
+  final String? overview;
+  final String? posterPath;
 
   const MovieWidget(
       {super.key,
@@ -36,9 +36,9 @@ class MovieWidget extends StatelessWidget {
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
                     width: WidthSizes.w100,
-                    child: (posterPath.isNotEmpty)
+                    child: (posterPath != null && posterPath!.isNotEmpty)
                         ? Image.network(
-                            StringsManager.imageUrl + posterPath,
+                            StringsManager.imageUrl + posterPath!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
@@ -54,18 +54,20 @@ class MovieWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        title,
+                        title ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        releaseDate != null ? FormatDate.format(releaseDate!) : '',
+                        releaseDate != null
+                            ? FormatDate.format(releaseDate!)
+                            : '',
                         style: TextStyle(color: Colors.grey.shade400),
                       ),
                       GapsManager.h20,
                       Text(
-                        overview,
+                        overview ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

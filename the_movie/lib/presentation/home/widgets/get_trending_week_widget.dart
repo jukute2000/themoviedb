@@ -72,13 +72,13 @@ class _GetTrendingWeekWidgetState extends State<GetTrendingWeekWidget> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: (item.voteAverage >= 7.5)
+                                  color: (item.voteAverage! >= 7.5)
                                       ? Colors.green
                                       : Colors.amber[700],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
-                                  "${(item.voteAverage * 10).round().toString()}%",
+                                  "${(item.voteAverage! * 10).round().toString()}%",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _GetTrendingWeekWidgetState extends State<GetTrendingWeekWidget> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  item.title,
+                                  item.title ?? '',
                                   maxLines: 2, // Giới hạn 2 dòng
                                   overflow: TextOverflow
                                       .ellipsis, // Hiển thị dấu "..."
@@ -125,7 +125,7 @@ class _GetTrendingWeekWidgetState extends State<GetTrendingWeekWidget> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  item.name,
+                                  item.name ?? '',
                                   maxLines: 2, // Giới hạn 2 dòng
                                   overflow: TextOverflow
                                       .ellipsis, // Hiển thị dấu "..."

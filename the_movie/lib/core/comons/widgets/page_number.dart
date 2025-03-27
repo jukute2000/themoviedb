@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../utils/sizes_manager.dart';
 
 class PageNumber extends StatelessWidget {
-  final int page;
+  final int? page;
   final bool isChoose;
-  final Function(int) onPageChanged;
+  final Function(int?) onPageChanged;
 
   const PageNumber({super.key, required this.page, required this.isChoose, required this.onPageChanged});
 
@@ -13,7 +13,7 @@ class PageNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onPageChanged(page);
+        onPageChanged(page!);
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: MarginSizes.m8),

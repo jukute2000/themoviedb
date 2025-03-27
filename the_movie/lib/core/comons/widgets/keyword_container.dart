@@ -13,12 +13,19 @@ class KeywordContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(PaddingSizes.p4),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.5),
       decoration: BoxDecoration(
-          color: Colors.grey[300],
-          border:
-              Border.all(color: isSelected ? Colors.blue : Colors.grey[300]!),
-          borderRadius: BorderRadius.circular(RadiusSizes.r8)),
-      child: Text(keyword, style: const TextStyle(fontWeight: FontWeight.bold)),
+        color: Colors.grey[300],
+        border: Border.all(color: isSelected ? Colors.blue : Colors.grey[300]!),
+        borderRadius: BorderRadius.circular(RadiusSizes.r8),
+      ),
+      child: Text(
+        keyword,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/data/models/search/search_people/know_for.dart';
 
 import '../../../core/configs/assets/app_images.dart';
 import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
+import '../../../data/models/people/know_for.dart';
 
 class PeopleWidget extends StatelessWidget {
   final String? knownForDepartment;
-  final String name;
-  final List<KnowFor> knownFor;
+  final String? name;
+  final List<KnowFor>? knownFor;
   final String? profilePath;
 
   const PeopleWidget({
@@ -53,7 +53,7 @@ class PeopleWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      name,
+                      name ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -71,7 +71,7 @@ class PeopleWidget extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
-                          text: knownFor.join(', '),
+                          text: knownFor?.join(', '),
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],

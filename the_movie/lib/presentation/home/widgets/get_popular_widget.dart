@@ -71,14 +71,14 @@ class _GetPopularWidgetState extends State<GetPopularWidget> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: (item.voteAverage >= 8.0)
+                                  color: (item.voteAverage! >= 8.0)
                                       ? Colors.green
                                       : Colors.amber[700],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text(
                                   // tạo function ở trong model để xử lý => ở UI chỉ cần gọi function - tái sử dụng
-                                  "${(item.voteAverage * 10).round().toString()}%",
+                                  "${(item.voteAverage! * 10).round().toString()}%",
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _GetPopularWidgetState extends State<GetPopularWidget> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                item.title,
+                                item.title ?? "",
                                 maxLines: 2, // Giới hạn 2 dòng
                                 overflow:
                                     TextOverflow.ellipsis, // Hiển thị dấu "..."
