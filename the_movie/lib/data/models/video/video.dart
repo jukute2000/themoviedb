@@ -1,14 +1,14 @@
 class Video {
   String? iso6391;
   String? iso31661;
-  String name;
-  String key;
-  String site;
-  int size;
-  String type;
+  String? name;
+  String? key;
+  String? site;
+  int? size;
+  String? type;
   bool official;
   DateTime? publishedAt;
-  String id;
+  String? id;
 
   Video({
     this.iso6391,
@@ -31,14 +31,14 @@ class Video {
         site: json["site"] ?? "Unknown",
         size: json["size"] is int
             ? json["size"]
-            : json["size"] != null
+            : json["size"] != null && json["size"] is String
                 ? int.parse(json["size"])
                 : 0,
         type: json["type"] ?? "Unknown",
         official: json["official"] as bool? ?? false,
         publishedAt:
             json["published_at"] != null && json["published_at"] is String
-                ? DateTime.tryParse(json["published_at"].toString())
+                ? DateTime.tryParse(json["published_at"])
                 : null,
         id: json["id"] as String? ?? "UnknownID",
       );

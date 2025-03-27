@@ -1,4 +1,4 @@
-import 'package:the_movie/data/models/keywords/keywords.dart';
+import 'package:the_movie/data/models/keyword/keyword.dart';
 import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 import 'package:the_movie/data/models/media_detail/detail_tv.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
@@ -17,7 +17,7 @@ class TvDetail extends DemoDetailStateCubit {
   final DetailTv tv;
   final List<TiVi> tvRe;
   final List<Credit> credits;
-  final List<Keywords> keywords;
+  final List<Keyword> keywords;
   final List<Video> videos;
   TvDetail(
       {required this.tv,
@@ -31,7 +31,7 @@ class MovieDetail extends DemoDetailStateCubit {
   final DetailMovie movie;
   final List<Movie> mvRe;
   final List<Credit> credits;
-  final List<Keywords> keywords;
+  final List<Keyword> keywords;
   final List<Video> videos;
   MovieDetail(
       {required this.movie,
