@@ -4,9 +4,6 @@ import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 import 'package:the_movie/data/models/media_detail/detail_tv.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
-import 'package:the_movie/data/models/search/search_movie.dart';
-import 'package:the_movie/data/models/search/search_people/people.dart';
-import 'package:the_movie/data/models/search/search_tv.dart';
 import 'package:the_movie/data/models/video/video.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
 import 'package:the_movie/presentation/demo_detail/demo_detail_state.dart';
@@ -22,17 +19,17 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
     try {
       if (isMovie) {
         DetailMovie movie =
-            await MediaDetailRepositoryImpl.intance.getMovieDetail(id);
+            await MediaDetailRepositoryImpl.instance.getMovieDetail(id);
         List<Movie> movies =
-            await MediaDetailRepositoryImpl.intance.getMovieRecommendations(id);
-        List<Credit> credits = await MediaDetailRepositoryImpl.intance
+            await MediaDetailRepositoryImpl.instance.getMovieRecommendations(id);
+        List<Credit> credits = await MediaDetailRepositoryImpl.instance
             .getCredits(id: id, isMovie: isMovie);
-        List<Keywords> keywords = await MediaDetailRepositoryImpl.intance
+        List<Keywords> keywords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
-        List<Video> videos = await MediaDetailRepositoryImpl.intance
+        List<Video> videos = await MediaDetailRepositoryImpl.instance
             .getVideos(id: id, isMovie: isMovie);
         SearchPeople searchPeople =
-            await SearchRepositoryImpl.intance.getSearchPeople("Qua", 2);
+            await SearchRepositoryImpl.instance.getSearchPeople("Qua", 2);
         print(searchPeople.peoples.length);
         emit(MovieDetail(
             movie: movie,
@@ -41,17 +38,17 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
             keywords: keywords,
             videos: videos));
       } else {
-        DetailTv tv = await MediaDetailRepositoryImpl.intance.getTVDetail(id);
+        DetailTv tv = await MediaDetailRepositoryImpl.instance.getTVDetail(id);
         List<TiVi> tvRe =
-            await MediaDetailRepositoryImpl.intance.getTvRecommendations(id);
-        List<Credit> credits = await MediaDetailRepositoryImpl.intance
+            await MediaDetailRepositoryImpl.instance.getTvRecommendations(id);
+        List<Credit> credits = await MediaDetailRepositoryImpl.instance
             .getCredits(id: id, isMovie: isMovie);
-        List<Keywords> keywords = await MediaDetailRepositoryImpl.intance
+        List<Keywords> keywords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
-        List<Video> videos = await MediaDetailRepositoryImpl.intance
+        List<Video> videos = await MediaDetailRepositoryImpl.instance
             .getVideos(id: id, isMovie: isMovie);
         SearchPeople searchPeople =
-            await SearchRepositoryImpl.intance.getSearchPeople("Qua", 2);
+            await SearchRepositoryImpl.instance.getSearchPeople("Qua", 2);
         print(searchPeople.peoples.length);
         emit(TvDetail(
             tv: tv,

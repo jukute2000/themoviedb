@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/demo_detail/demo_detail_cubit.dart';
+import 'package:the_movie/presentation/detail_search/bloc/detail_search_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
-import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => SplashCubit()..appStarted(),
           ),
+          BlocProvider(create: (context) => DetailSearchCubit()),
         ],
         child: ScreenUtilInit(
             designSize: getDesignSize(),
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
                         ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                     useMaterial3: true,
                   ),
-                  home: DetailSearchScreen());
+                  home: DetailSearchScreen(index: 0, query: 'a',));
             }));
   }
 }

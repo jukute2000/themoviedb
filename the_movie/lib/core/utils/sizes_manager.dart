@@ -8,6 +8,7 @@ class TextSizes {
 }
 
 class PaddingSizes {
+  static double p4 = 4.0.w;
   static double p8 = 8.0.w;
   static double p16 = 16.0.w;
   static double p24 = 24.0.w;

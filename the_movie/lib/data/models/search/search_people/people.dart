@@ -4,7 +4,7 @@ class People {
   int id;
   String name;
   String? profilePath;
-  String knownForDepartment;
+  String? knownForDepartment;
   List<KnowFor> knowFors;
 
   People({
@@ -19,7 +19,7 @@ class People {
       id: json["id"],
       name: json["name"],
       profilePath: json["profile_path"] ?? "",
-      knownForDepartment: json["known_for_department"],
+      knownForDepartment: json["known_for_department"] ?? "",
       knowFors: List<KnowFor>.from(
           json["known_for"].map((json) => KnowFor.fromJson(json))));
 }

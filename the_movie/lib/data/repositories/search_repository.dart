@@ -15,7 +15,7 @@ class SearchRepositoryImpl implements SearchRepository {
   static final SearchRepositoryImpl _instance =
       SearchRepositoryImpl._internal();
   SearchRepositoryImpl._internal();
-  static SearchRepositoryImpl get intance => _instance;
+  static SearchRepositoryImpl get instance => _instance;
 
   @override
   Future<List<SearchMulti>> getSearchMutil(String query) async {
