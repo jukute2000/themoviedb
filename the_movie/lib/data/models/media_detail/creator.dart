@@ -1,9 +1,11 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Creator {
-  final int id;
-  final String creditId;
-  final String name;
-  final String originalName;
-  final int gender;
+  final int? id;
+  final String? creditId;
+  final String? name;
+  final String? originalName;
+  final int? gender;
   final String? profilePath;
 
   Creator({
@@ -16,20 +18,11 @@ class Creator {
   });
 
   factory Creator.fromJson(Map<String, dynamic> json) => Creator(
-        id: json["id"] ?? 0,
-        creditId: json["credit_id"] ?? "",
-        name: json["name"] ?? "Unknown",
-        originalName: json["original_name"] ?? "Unknown",
-        gender: json["gender"] ?? 0,
-        profilePath: json["profile_path"],
+        id: SafeNull.checkInt(json["id"]),
+        creditId: SafeNull.checkString(json["credit_id"]),
+        name: SafeNull.checkString(json["name"]),
+        originalName: SafeNull.checkString(json["original_name"]),
+        gender: SafeNull.checkInt(json["gender"]),
+        profilePath: SafeNull.checkString(json["profile_path"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "credit_id": creditId,
-        "name": name,
-        "original_name": originalName,
-        "gender": gender,
-        "profile_path": profilePath,
-      };
 }

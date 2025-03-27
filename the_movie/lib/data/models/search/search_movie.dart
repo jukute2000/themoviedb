@@ -1,10 +1,11 @@
+import 'package:the_movie/core/utils/safe_null.dart';
 import '../medias/movie.dart';
 
 class SearchMovie {
-  int page;
-  List<Movie> results;
-  int totalPages;
-  int totalResults;
+  int? page;
+  List<Movie>? results;
+  int? totalPages;
+  int? totalResults;
 
   SearchMovie({
     required this.page,
@@ -14,10 +15,11 @@ class SearchMovie {
   });
 
   factory SearchMovie.fromJson(Map<String, dynamic> json) => SearchMovie(
-        page: json["page"],
-        results:
-            List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
-        totalPages: json["total_pages"],
-        totalResults: json["total_results"],
+        page: SafeNull.checkInt(json["page"]),
+        results: json["results"] != null
+            ? List<Movie>.from(json["results"].map((x) => Movie.fromJson(x)))
+            : null,
+        totalPages: SafeNull.checkInt(json["total_pages"]),
+        totalResults: SafeNull.checkInt(json["total_results"]),
       );
 }

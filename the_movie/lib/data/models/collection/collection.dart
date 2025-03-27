@@ -1,8 +1,10 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Collection {
-  bool adult;
+  bool? adult;
   String? backdropPath;
-  int id;
-  String name;
+  int? id;
+  String? name;
   String? originalLanguage;
   String? posterPath;
 
@@ -16,11 +18,11 @@ class Collection {
   });
 
   factory Collection.fromJson(Map<String, dynamic> json) => Collection(
-        adult: json["adult"] ?? false,
-        backdropPath: json["backdrop_path"],
-        id: json["id"],
-        name: json["name"],
-        originalLanguage: json["original_language"],
-        posterPath: json["poster_path"],
+        adult: SafeNull.checkBool(json["adult"]),
+        backdropPath: SafeNull.checkString(json["backdrop_path"]),
+        id: SafeNull.checkInt(json["id"]),
+        name: SafeNull.checkString(json["name"]),
+        originalLanguage: SafeNull.checkString(json["original_language"]),
+        posterPath: SafeNull.checkString(json["poster_path"]),
       );
 }

@@ -1,12 +1,14 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Season {
   final DateTime? airDate;
-  final int episodeCount;
-  final int id;
-  final String name;
+  final int? episodeCount;
+  final int? id;
+  final String? name;
   final String? overview;
   final String? posterPath;
-  final int seasonNumber;
-  final double voteAverage;
+  final int? seasonNumber;
+  final double? voteAverage;
 
   Season({
     this.airDate,
@@ -20,26 +22,13 @@ class Season {
   });
 
   factory Season.fromJson(Map<String, dynamic> json) => Season(
-        airDate: json["air_date"] != null
-            ? DateTime.tryParse(json["air_date"])
-            : null,
-        episodeCount: json["episode_count"] ?? 0,
-        id: json["id"] ?? 0,
-        name: json["name"] ?? "Unknown",
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        seasonNumber: json["season_number"] ?? 0,
-        voteAverage: (json["vote_average"] as num?)?.toDouble() ?? 0.0,
+        airDate: SafeNull.checkDateTime(json["air_date"]),
+        episodeCount: SafeNull.checkInt(json["episode_count"]),
+        id: SafeNull.checkInt(json["id"]),
+        name: SafeNull.checkString(json["name"]),
+        overview: SafeNull.checkString(json["overview"]),
+        posterPath: SafeNull.checkString(json["poster_path"]),
+        seasonNumber: SafeNull.checkInt(json["season_number"]),
+        voteAverage: SafeNull.checkDouble(json["vote_average"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "air_date": airDate?.toIso8601String(),
-        "episode_count": episodeCount,
-        "id": id,
-        "name": name,
-        "overview": overview,
-        "poster_path": posterPath,
-        "season_number": seasonNumber,
-        "vote_average": voteAverage,
-      };
 }

@@ -1,7 +1,9 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Company {
-  int id;
+  int? id;
   String? logoPath;
-  String name;
+  String? name;
   String? originCountry;
 
   Company(
@@ -11,9 +13,9 @@ class Company {
       required this.originCountry});
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
-        id: json["id"],
-        logoPath: json["logo_path"],
-        name: json["name"],
-        originCountry: json["origin_country"],
+        id: SafeNull.checkInt(json["order"]),
+        logoPath: SafeNull.checkString(json["logo_path"]),
+        name: SafeNull.checkString(json["name"]),
+        originCountry: SafeNull.checkString(json["origin_country"]),
       );
 }

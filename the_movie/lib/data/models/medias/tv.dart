@@ -1,10 +1,11 @@
+import 'package:the_movie/core/utils/safe_null.dart';
 import 'package:the_movie/data/models/medias/media.dart';
 
 class TiVi extends Media {
-  List<String> originCountry;
-  String originalName;
+  List<String>? originCountry;
+  String? originalName;
   DateTime? firstAirDate;
-  String name;
+  String? name;
 
   TiVi({
     required this.originCountry,
@@ -29,33 +30,18 @@ class TiVi extends Media {
                 ?.map((x) => x as String)
                 .toList() ??
             [],
-        originalName: json["original_name"] ?? "",
-        firstAirDate: json["first_air_date"] != null &&
-                json["first_air_date"].toString().isNotEmpty
-            ? DateTime.tryParse(json["first_air_date"])
-            : null,
-        name: json["name"] ?? "",
-        backdropPath: json["backdrop_path"] ?? "",
-        id: json["id"] ?? 0,
-        overview: json["overview"] ?? "",
-        mediaType: json["media_type"] ?? "",
-        posterPath: json["poster_path"] ?? "",
-        adult: json["adult"] ?? false,
-        popularity: json["popularity"] is double
-            ? json["popularity"]
-            : json["popularity"] is String
-                ? double.parse(json["popularity"])
-                : 0.0,
-        voteAverage: json["vote_average"] is double
-            ? json["vote_average"]
-            : json["vote_average"] is String
-                ? double.parse(json["vote_average"])
-                : 0,
-        voteCount: json["vote_count"] is int
-            ? json["vote_count"]
-            : json["vote_count"] is String
-                ? double.parse(json["vote_count"])
-                : 0,
-        originalLanguage: json["original_language"] ?? "",
+        originalName: SafeNull.checkString(json["original_name"]),
+        firstAirDate: SafeNull.checkDateTime(json["first_air_date"]),
+        name: SafeNull.checkString(json["name"]),
+        backdropPath: SafeNull.checkString(json["backdrop_path"]),
+        id: SafeNull.checkInt(json["id"]),
+        overview: SafeNull.checkString(json["overview"]),
+        mediaType: SafeNull.checkString(json["media_type"]),
+        posterPath: SafeNull.checkString(json["poster_path"]),
+        adult: SafeNull.checkBool(json["adult"]),
+        popularity: SafeNull.checkDouble(json["popularity"]),
+        voteAverage: SafeNull.checkDouble(json["vote_average"]),
+        voteCount: SafeNull.checkInt(json["vote_count"]),
+        originalLanguage: SafeNull.checkString(json["original_language"]),
       );
 }

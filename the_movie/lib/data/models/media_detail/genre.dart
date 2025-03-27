@@ -1,6 +1,8 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Genre {
-  final int id;
-  final String name;
+  final int? id;
+  final String? name;
 
   Genre({
     required this.id,
@@ -8,12 +10,7 @@ class Genre {
   });
 
   factory Genre.fromJson(Map<String, dynamic> json) => Genre(
-        id: json["id"] ?? 0,
-        name: json["name"] ?? "Unknown",
+        id: SafeNull.checkInt(json["id"]),
+        name: SafeNull.checkString(json["name"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
 }

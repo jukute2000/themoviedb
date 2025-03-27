@@ -1,3 +1,5 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class ReleaseDates {
   String? iso31661;
   List<ReleaseDate>? releaseDates;
@@ -36,11 +38,11 @@ class ReleaseDate {
   });
 
   factory ReleaseDate.fromJson(Map<String, dynamic> json) => ReleaseDate(
-        certification: json["certification"],
+        certification: SafeNull.checkString(json["certification"]),
         descriptors: json["descriptors"],
-        iso6391: json["iso_639_1"],
-        note: json["note"],
-        releaseDate: json["release_date"],
-        type: json["type"],
+        iso6391: SafeNull.checkString(json["iso_639_1"]),
+        note: SafeNull.checkString(json["note"]),
+        releaseDate: json["release_date"], //luu y
+        type: SafeNull.checkInt(json["type"]),
       );
 }

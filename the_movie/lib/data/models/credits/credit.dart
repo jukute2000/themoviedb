@@ -1,15 +1,17 @@
+import 'package:the_movie/core/utils/safe_null.dart';
+
 class Credit {
-  bool adult;
-  int gender;
-  int id;
-  Department knownForDepartment;
-  String name;
-  String originalName;
-  double popularity;
+  bool? adult;
+  int? gender;
+  int? id;
+  Department? knownForDepartment;
+  String? name;
+  String? originalName;
+  double? popularity;
   String? profilePath;
   int? castId;
   String? character;
-  String creditId;
+  String? creditId;
   int? order;
 
   Credit({
@@ -28,18 +30,18 @@ class Credit {
   });
 
   factory Credit.fromJson(Map<String, dynamic> json) => Credit(
-        adult: json["adult"],
-        gender: json["gender"],
-        id: json["id"],
-        knownForDepartment: departmentValues.map[json["known_for_department"]]!,
-        name: json["name"],
-        originalName: json["original_name"],
-        popularity: json["popularity"]?.toDouble(),
-        profilePath: json["profile_path"],
-        castId: json["cast_id"],
-        character: json["character"],
-        creditId: json["credit_id"],
-        order: json["order"],
+        adult: SafeNull.checkBool(json["adult"]),
+        gender: SafeNull.checkInt(json["gender"]),
+        id: SafeNull.checkInt(json["id"]),
+        knownForDepartment: departmentValues.map[json["known_for_department"]],
+        name: SafeNull.checkString(json["name"]),
+        originalName: SafeNull.checkString(json["original_name"]),
+        popularity: SafeNull.checkDouble(json["popularity"]),
+        profilePath: SafeNull.checkString(json["profile_path"]),
+        castId: SafeNull.checkInt(json["cast_id"]),
+        character: SafeNull.checkString(json["character"]),
+        creditId: SafeNull.checkString(json["credit_id"]),
+        order: SafeNull.checkInt(json["order"]),
       );
 }
 
