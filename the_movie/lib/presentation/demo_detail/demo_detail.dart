@@ -35,7 +35,8 @@ class DemoDetail extends StatelessWidget {
                     Text("Title : ${state.movie.title}"),
                     Text("Movie recommendation length: ${state.mvRe.length}"),
                     Text("Movie credits length: ${state.credits.length}"),
-                    Text("Movie Keywords length: ${state.keywords.length}")
+                    Text("Movie keywords length: ${state.keywords.length}"),
+                    Text("Movie video length: ${state.videos.length}"),
                   ],
                 ),
               );
@@ -49,7 +50,8 @@ class DemoDetail extends StatelessWidget {
                     Text("Title : ${state.tv.name}"),
                     Text("TV recommendation length: ${state.tvRe.length}"),
                     Text("TV credits length: ${state.credits.length}"),
-                    Text("TV Keywords length: ${state.keywords.length}")
+                    Text("TV Keywords length: ${state.keywords.length}"),
+                    Text("TV Video length: ${state.videos.length}"),
                   ],
                 ),
               );

@@ -2,7 +2,7 @@ abstract class Media {
   String backdropPath;
   int id;
   String overview;
-  String mediaType;
+  String? mediaType;
   String posterPath;
   bool adult;
   double popularity;
