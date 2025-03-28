@@ -39,6 +39,7 @@ class SafeNull {
       } else if (ex is DateTime) {
         return ex;
       } else if (ex is int) {
+        //them 1 truong hop
         return DateTime.fromMillisecondsSinceEpoch(ex);
       }
       return null;
