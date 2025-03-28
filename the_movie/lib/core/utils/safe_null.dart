@@ -34,13 +34,15 @@ class SafeNull {
 
   static DateTime? checkDateTime(dynamic ex) {
     try {
-      if (ex != null && ex is String) {
+      if (ex is String) {
         return DateTime.parse(ex);
       } else if (ex is DateTime) {
         return ex;
       } else if (ex is int) {
-        //them 1 truong hop
-        return DateTime.fromMillisecondsSinceEpoch(ex);
+        // Kiểm tra nếu giá trị quá lớn thì dùng microseconds, nếu không thì milliseconds
+        return ex > 9999999999
+            ? DateTime.fromMicrosecondsSinceEpoch(ex)
+            : DateTime.fromMillisecondsSinceEpoch(ex);
       }
       return null;
     } catch (e) {
