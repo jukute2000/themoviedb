@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/data/models/search/search_people/people.dart';
-import 'package:the_movie/data/models/search/search_people/search_people.dart';
 import 'package:the_movie/presentation/detail_search/widget/people_widget.dart';
 
 import '../../../../core/comons/widgets/page_number.dart';
+import '../../../../data/models/people/people.dart';
+import '../../../../data/models/search/search_people.dart';
 
 class TabPeople extends StatefulWidget {
   final SearchPeople peopleData;
-  final Function(int) onPageChanged;
+  final Function(int?) onPageChanged;
 
   const TabPeople({super.key, required this.peopleData, required this.onPageChanged});
 
@@ -22,25 +22,25 @@ class _TabPeopleState extends State<TabPeople> {
       children: [
         Expanded(
           child: ListView.builder(
-              itemCount: widget.peopleData.peoples.length,
+              itemCount: widget.peopleData.peoples?.length,
               itemBuilder: (context, index) {
-                People people = widget.peopleData.peoples[index];
+                People? people = widget.peopleData.peoples?[index];
                 return PeopleWidget(
-                  knownForDepartment: people.knownForDepartment,
-                  name: people.name,
-                  knownFor: people.knowFors,
-                  profilePath: people.profilePath,
+                  knownForDepartment: people?.knownForDepartment,
+                  name: people?.name,
+                  knownFor: people?.knowFors,
+                  profilePath: people?.profilePath,
                 );
               }),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.peopleData.page > 1)
+            if (widget.peopleData.page! > 1)
               IconButton(
                 icon: Icon(Icons.chevron_left),
                 onPressed: () {
-                  widget.onPageChanged(widget.peopleData.page - 1);
+                  widget.onPageChanged(widget.peopleData.page! - 1);
                 },
               ),
             PageNumber(
@@ -50,13 +50,13 @@ class _TabPeopleState extends State<TabPeople> {
                 widget.onPageChanged(1);
               },
             ),
-            if (widget.peopleData.page > 3) Text('...'),
-            if (widget.peopleData.page > 2)
+            if (widget.peopleData.page! > 3) Text('...'),
+            if (widget.peopleData.page! > 2)
               PageNumber(
-                page: widget.peopleData.page - 1,
+                page: widget.peopleData.page! - 1,
                 isChoose: false,
                 onPageChanged: (_) {
-                  widget.onPageChanged(widget.peopleData.page - 1);
+                  widget.onPageChanged(widget.peopleData.page! - 1);
                 },
               ),
             if (widget.peopleData.page != 1 &&
@@ -68,15 +68,15 @@ class _TabPeopleState extends State<TabPeople> {
                   widget.onPageChanged(widget.peopleData.page);
                 },
               ),
-            if (widget.peopleData.page < widget.peopleData.totalPages - 1)
+            if (widget.peopleData.page! < widget.peopleData.totalPages! - 1)
               PageNumber(
-                page: widget.peopleData.page + 1,
+                page: widget.peopleData.page! + 1,
                 isChoose: false,
                 onPageChanged: (_) {
-                  widget.onPageChanged(widget.peopleData.page + 1);
+                  widget.onPageChanged(widget.peopleData.page! + 1);
                 },
               ),
-            if (widget.peopleData.page < widget.peopleData.totalPages - 2)
+            if (widget.peopleData.page! < widget.peopleData.totalPages! - 2)
               Text('...'),
             PageNumber(
               page: widget.peopleData.totalPages,
@@ -85,11 +85,12 @@ class _TabPeopleState extends State<TabPeople> {
                 widget.onPageChanged(widget.peopleData.totalPages);
               },
             ),
-            if (widget.peopleData.page < widget.peopleData.totalPages)
+            if ((widget.peopleData.page ?? 0) <
+                (widget.peopleData.totalPages ?? 0))
               IconButton(
                 icon: Icon(Icons.chevron_right),
                 onPressed: () {
-                  widget.onPageChanged(widget.peopleData.page + 1);
+                  widget.onPageChanged(widget.peopleData.page! + 1);
                 },
               ),
           ],

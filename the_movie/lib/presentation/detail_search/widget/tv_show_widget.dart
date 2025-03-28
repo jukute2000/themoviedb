@@ -7,11 +7,11 @@ import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class TvShowWidget extends StatelessWidget {
-  final String title;
+  final String? title;
   final DateTime? releaseDate;
-  final String overview;
-  final String originalName;
-  final String posterPath;
+  final String? overview;
+  final String? originalName;
+  final String? posterPath;
 
   const TvShowWidget(
       {super.key,
@@ -38,9 +38,9 @@ class TvShowWidget extends StatelessWidget {
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
                     width: WidthSizes.w100,
-                    child: (posterPath.isNotEmpty)
+                    child: (posterPath != null && posterPath!.isNotEmpty)
                         ? Image.network(
-                            StringsManager.imageUrl + posterPath,
+                            StringsManager.imageUrl + posterPath!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
@@ -76,12 +76,12 @@ class TvShowWidget extends StatelessWidget {
                             ),
                           ])),
                       Text(
-                        FormatDate.format(releaseDate!),
+                        FormatDate.format(releaseDate),
                         style: TextStyle(color: Colors.grey.shade400),
                       ),
                       GapsManager.h20,
                       Text(
-                        overview,
+                        overview ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),

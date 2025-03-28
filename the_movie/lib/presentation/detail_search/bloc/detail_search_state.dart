@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:the_movie/data/models/search/search_collections.dart';
+import 'package:the_movie/data/models/search/search_companies.dart';
+import 'package:the_movie/data/models/search/search_keywords.dart';
 import 'package:the_movie/data/models/search/search_movie.dart';
-import 'package:the_movie/data/models/search/search_people/search_people.dart';
 
+import '../../../data/models/search/search_people.dart';
 import '../../../data/models/search/search_tv.dart';
 
 abstract class DetailSearchState extends Equatable {
@@ -17,20 +20,19 @@ class DetailSearchLoaded extends DetailSearchState {
   final SearchTv searchTv;
   final SearchMovie movieData;
   final SearchPeople peopleData;
+  final SearchCollections collectionsData;
+  final SearchKeywords keywordsData;
+  final SearchCompanies companiesData;
+  final Map<int, int> currentPages;
 
-  DetailSearchLoaded(this.searchTv, this.movieData, this.peopleData);
-
-  @override
-  List<Object?> get props => [searchTv, movieData, peopleData];
-}
-
-class DetailSearchLoadedMoreMovie extends DetailSearchState {
-  final SearchMovie movieData;
-
-  DetailSearchLoadedMoreMovie(this.movieData);
-
-  @override
-  List<Object?> get props => [movieData];
+  DetailSearchLoaded(
+      this.searchTv,
+      this.movieData,
+      this.peopleData,
+      this.collectionsData,
+      this.keywordsData,
+      this.companiesData,
+      this.currentPages);
 }
 
 class DetailSearchError extends DetailSearchState {

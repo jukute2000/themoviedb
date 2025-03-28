@@ -5,13 +5,16 @@ import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/search/search_movie.dart';
 import 'package:the_movie/data/models/search/search_tv.dart';
 import 'package:the_movie/presentation/detail_search/bloc/detail_search_state.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_collection.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_company.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_keyword.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_movie.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_people.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_tv_show.dart';
 
 import '../../../core/comons/widgets/keyword_container.dart';
 import '../../../core/constants/strings_manager.dart';
-import '../../../data/models/search/search_people/search_people.dart';
+import '../../../data/models/search/search_people.dart';
 import '../bloc/detail_search_cubit.dart';
 import '../widget/search_bar_widget.dart';
 
@@ -31,17 +34,14 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
   final ScrollController _scrollController = ScrollController();
   late TextEditingController _controller;
   late TabController tabController;
-  final int _currentPage = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     tabController =
-        TabController(length: 3, vsync: this, initialIndex: widget.index);
+        TabController(length: 6, vsync: this, initialIndex: widget.index);
     _controller = TextEditingController();
-    context
-        .read<DetailSearchCubit>()
-        .fetchData(widget.query, _currentPage);
+    context.read<DetailSearchCubit>().fetchData(widget.query, 1);
     super.initState();
   }
 
@@ -52,16 +52,37 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     super.dispose();
   }
 
-  void _onPageChangedMovie(int page) {
-    context.read<DetailSearchCubit>().fetchDataMovie(widget.query, page);
+  void _onPageChangedMovie(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataMovie(widget.query, page);
+    }
   }
 
-  void _onPageChangedPeople(int page) {
-    context.read<DetailSearchCubit>().fetchDataMovie(widget.query, page);
+  void _onPageChangedPeople(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataPeople(widget.query, page);
+    }
   }
 
-  void _onPageChangedTvShow(int page) {
-    context.read<DetailSearchCubit>().fetchDataTvShow(widget.query, page);
+  void _onPageChangedTvShow(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataTvShow(widget.query, page);
+    }
+  }
+  void _onPageChangedCollection(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataCollection(widget.query, page);
+    }
+  }
+  void _onPageChangedKeyword(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataKeyword(widget.query, page);
+    }
+  }
+  void _onPageChangedCompany(int? page) {
+    if (page != null && page > 0) {
+      context.read<DetailSearchCubit>().fetchDataCompany(widget.query, page);
+    }
   }
 
   @override
@@ -129,21 +150,40 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                         isScrollable: true,
                         tabAlignment: TabAlignment.start,
                         controller: tabController,
-                        onTap: (event) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailSearchScreen(
-                                query: _controller.text,
-                                index: tabController.index,
-                              ),
-                            ),
-                          );
+                        onTap: (index) {
+                          final currentPage = (context
+                                      .read<DetailSearchCubit>()
+                                      .state as DetailSearchLoaded)
+                                  .currentPages[index] ??
+                              1;
+
+                          switch (index) {
+                            case 0:
+                              context
+                                  .read<DetailSearchCubit>()
+                                  .fetchDataTvShow(widget.query, currentPage);
+                              break;
+                            case 1:
+                              context
+                                  .read<DetailSearchCubit>()
+                                  .fetchDataMovie(widget.query, currentPage);
+                              break;
+                            case 2:
+                              context
+                                  .read<DetailSearchCubit>()
+                                  .fetchDataPeople(widget.query, currentPage);
+                              break;
+                            default:
+                              break;
+                          }
                         },
                         tabs: [
                           buildTab(searchTv.totalResults, 'TV Shows'),
                           buildTab(searchMovie.totalResults, 'Movies'),
                           buildTab(searchPeople.totalResults, 'People'),
+                          buildTab(searchPeople.totalResults, 'Collections'),
+                          buildTab(searchPeople.totalResults, 'Keywords'),
+                          buildTab(searchPeople.totalResults, 'Companies'),
                         ],
                       ),
                     )
@@ -160,6 +200,15 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                   TabPeople(
                       peopleData: state.peopleData,
                       onPageChanged: _onPageChangedPeople),
+                  TabCollection(
+                      collectionData: state.collectionsData,
+                      onPageChanged: _onPageChangedCollection),
+                  TabKeyword(
+                      keywordData: state.keywordsData,
+                      onPageChanged: _onPageChangedKeyword),
+                  TabCompany(
+                      companyData: state.companiesData,
+                      onPageChanged: _onPageChangedCompany),
                 ],
               ));
         } else {
@@ -169,7 +218,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     );
   }
 
-  Tab buildTab(int total, String title) {
+  Tab buildTab(int? total, String title) {
     return Tab(
       child: Row(
         children: [

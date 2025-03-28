@@ -7,7 +7,7 @@ import '../../../../data/models/medias/movie.dart';
 
 class TabMovie extends StatefulWidget {
   final SearchMovie movieData;
-  final Function(int) onPageChanged;
+  final Function(int?) onPageChanged;
 
   const TabMovie(
       {super.key, required this.movieData, required this.onPageChanged});
@@ -23,9 +23,9 @@ class _TabMovieState extends State<TabMovie> {
       children: [
         Expanded(
           child: ListView.builder(
-              itemCount: widget.movieData.results.length,
+              itemCount: widget.movieData.results?.length,
               itemBuilder: (context, index) {
-                Movie movie = widget.movieData.results[index];
+                Movie movie = widget.movieData.results![index];
                 return MovieWidget(
                   title: movie.title,
                   releaseDate: movie.releaseDate,
@@ -37,11 +37,11 @@ class _TabMovieState extends State<TabMovie> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.movieData.page > 1)
+            if (widget.movieData.page! > 1)
               IconButton(
                 icon: Icon(Icons.chevron_left),
                 onPressed: () {
-                  widget.onPageChanged(widget.movieData.page - 1);
+                  widget.onPageChanged(widget.movieData.page! - 1);
                 },
               ),
             PageNumber(
@@ -51,33 +51,33 @@ class _TabMovieState extends State<TabMovie> {
                 widget.onPageChanged(1);
               },
             ),
-            if (widget.movieData.page > 3) Text('...'),
-            if (widget.movieData.page > 2)
+            if (widget.movieData.page! > 3) Text('...'),
+            if (widget.movieData.page! > 2)
               PageNumber(
-                page: widget.movieData.page - 1,
+                page: widget.movieData.page! - 1,
                 isChoose: false,
                 onPageChanged: (_) {
-                  widget.onPageChanged(widget.movieData.page - 1);
+                  widget.onPageChanged(widget.movieData.page! - 1);
                 },
               ),
             if (widget.movieData.page != 1 &&
                 widget.movieData.page != widget.movieData.totalPages)
               PageNumber(
-                page: widget.movieData.page,
+                page: widget.movieData.page!,
                 isChoose: true,
                 onPageChanged: (_) {
-                  widget.onPageChanged(widget.movieData.page);
+                  widget.onPageChanged(widget.movieData.page!);
                 },
               ),
-            if (widget.movieData.page < widget.movieData.totalPages - 1)
+            if (widget.movieData.page! < widget.movieData.totalPages! - 1)
               PageNumber(
-                page: widget.movieData.page + 1,
+                page: widget.movieData.page! + 1,
                 isChoose: false,
                 onPageChanged: (_) {
-                  widget.onPageChanged(widget.movieData.page + 1);
+                  widget.onPageChanged(widget.movieData.page! + 1);
                 },
               ),
-            if (widget.movieData.page < widget.movieData.totalPages - 2)
+            if (widget.movieData.page! < widget.movieData.totalPages! - 2)
               Text('...'),
             PageNumber(
               page: widget.movieData.totalPages,
@@ -86,11 +86,12 @@ class _TabMovieState extends State<TabMovie> {
                 widget.onPageChanged(widget.movieData.totalPages);
               },
             ),
-            if (widget.movieData.page < widget.movieData.totalPages)
+            if ((widget.movieData.page ?? 0) <
+                (widget.movieData.totalPages ?? 0))
               IconButton(
                 icon: Icon(Icons.chevron_right),
                 onPressed: () {
-                  widget.onPageChanged(widget.movieData.page + 1);
+                  widget.onPageChanged(widget.movieData.page! + 1);
                 },
               ),
           ],

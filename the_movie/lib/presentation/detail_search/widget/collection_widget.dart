@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
 import '../../../core/configs/assets/app_images.dart';
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class CollectionWidget extends StatelessWidget {
@@ -33,10 +34,15 @@ class CollectionWidget extends StatelessWidget {
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
                   width: WidthSizes.w100,
-                  child: Image.asset(
-                    AppImages.splashBackground,
+                  child: (posterPath.isNotEmpty)
+                      ? Image.network(
+                    StringsManager.imageUrl + posterPath,
                     fit: BoxFit.cover,
-                  ),
+                  )
+                      : Image.asset(
+                    AppImages.noImage,
+                    fit: BoxFit.cover,
+                  )
                 ),
               ),
               Expanded(

@@ -18,7 +18,7 @@ class SearchTv {
         page: SafeNull.checkInt(json["page"]),
         results: json["results"] != null
             ? List<TiVi>.from(json["results"].map((x) => TiVi.fromJson(x)))
-            : null,
+            : [],
         totalPages: SafeNull.checkInt(json["total_pages"]),
         totalResults: SafeNull.checkInt(json["total_results"]),
       );

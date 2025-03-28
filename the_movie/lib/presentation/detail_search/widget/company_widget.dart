@@ -3,6 +3,7 @@ import 'package:the_movie/core/comons/widgets/keyword_container.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class CompanyWidget extends StatelessWidget {
@@ -17,10 +18,19 @@ class CompanyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return logoPath != null ? Row(
       children: [
-        Image.asset(AppImages.splashBackground,
+        SizedBox(
           width: WidthSizes.w50,
           height: HeightSizes.h50,
-          fit: BoxFit.cover,),
+          child: (logoPath != null && logoPath!.isNotEmpty)
+              ? Image.network(
+            StringsManager.imageUrl + logoPath!,
+            fit: BoxFit.cover,
+          )
+              : Image.asset(
+            AppImages.noImage,
+            fit: BoxFit.cover,
+          )
+        ),
         GapsManager.w20,
         KeywordContainer(keyword: name, isSelected: false),
       ],

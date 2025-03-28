@@ -1,30 +1,34 @@
 class SafeNull {
-  static String? checkString(String text) {
-    if (text.isNotEmpty && text != "") {
-      return text;
+  static String checkString(dynamic text) {
+    try {
+      if (text != null && text is String && text.isNotEmpty) {
+        return text;
+      }
+      return ""; // Trả về chuỗi rỗng thay vì null
+    } catch (e) {
+      return ""; // Nếu có lỗi, trả về chuỗi rỗng
     }
-    return null;
   }
 
-  static int? checkInt(dynamic ex) {
+  static int checkInt(dynamic ex) {
     try {
       if (ex is int) {
         return ex;
       } else if (ex is String) {
-        return int.tryParse(ex);
+        return int.tryParse(ex) ?? 0;
       }
-      return 0;
+      return 0; // Giá trị mặc định nếu không parse được
     } catch (e) {
-      return 0;
+      return 0; // Tránh lỗi nếu có ngoại lệ
     }
   }
 
-  static double? checkDouble(dynamic ex) {
+  static double checkDouble(dynamic ex) {
     try {
       if (ex is double) {
         return ex;
       } else if (ex is String) {
-        return double.tryParse(ex);
+        return double.tryParse(ex) ?? 0.0;
       }
       return 0.0;
     } catch (e) {
@@ -34,27 +38,27 @@ class SafeNull {
 
   static DateTime? checkDateTime(dynamic ex) {
     try {
-      if (ex != null && ex is String) {
+      if (ex is String && ex.isNotEmpty) {
         return DateTime.parse(ex);
       } else if (ex is DateTime) {
         return ex;
       }
       return null;
     } catch (e) {
-      return null;
+      return null; // Trả về null nếu có lỗi khi parse DateTime
     }
   }
 
-  static bool? checkBool(dynamic ex) {
+  static bool checkBool(dynamic ex) {
     try {
       if (ex is bool) {
         return ex;
       } else if (ex is String) {
-        return bool.tryParse(ex);
+        return ex.toLowerCase() == 'true'; // Chuyển đổi chuỗi thành boolean
       }
-      return null;
+      return false;
     } catch (e) {
-      return null;
+      return false; // Tránh lỗi nếu có ngoại lệ
     }
   }
 }

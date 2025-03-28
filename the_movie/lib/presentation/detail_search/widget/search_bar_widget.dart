@@ -31,7 +31,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     }
   }
 
-  IconData getIcon(String mediaType) {
+  IconData getIcon(String? mediaType) {
     switch (mediaType) {
       case 'movie':
         return Icons.movie;
@@ -93,8 +93,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           itemBuilder: (context, value) {
             return ListTile(
               leading: Icon(getIcon(value.mediaType)),
-              title:
-                  Text(value.name.isEmpty ? value.originalName! : value.name),
+              title: Text((value.originalName ?? value.name ?? "").toString()),
             );
           },
           onSelected: (value) {
@@ -102,8 +101,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        DetailSearchScreen(index: 1, query: '',) // Vào DetailMovie,
+                    builder: (context) => DetailSearchScreen(
+                          index: 1,
+                          query: '',
+                        ) // Vào DetailMovie,
                     ));
           },
         ));
