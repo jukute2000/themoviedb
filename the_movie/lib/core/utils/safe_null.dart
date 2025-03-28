@@ -1,6 +1,6 @@
 class SafeNull {
-  static String? checkString(String text) {
-    if (text.isNotEmpty && text != "") {
+  static String? checkString(String? text) {
+    if (text != null && text.trim().isNotEmpty) {
       return text;
     }
     return null;
@@ -38,6 +38,8 @@ class SafeNull {
         return DateTime.parse(ex);
       } else if (ex is DateTime) {
         return ex;
+      } else if (ex is int) {
+        return DateTime.fromMillisecondsSinceEpoch(ex);
       }
       return null;
     } catch (e) {
@@ -50,7 +52,9 @@ class SafeNull {
       if (ex is bool) {
         return ex;
       } else if (ex is String) {
-        return bool.tryParse(ex);
+        String lowerEx = ex.trim().toLowerCase();
+        if (lowerEx == "true") return true;
+        if (lowerEx == "false") return false;
       }
       return null;
     } catch (e) {
