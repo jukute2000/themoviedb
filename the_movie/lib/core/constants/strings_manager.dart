@@ -9,6 +9,12 @@ class StringsManager {
 // >>>>>>> feature/list_view
   static String imageUrl = "https://image.tmdb.org/t/p/w500";
 
+  // Detail Search
+  static const String tvShows = "tvShows";
+  static const String movies = "movies";
+  static const String people = "people";
+  static const String collections = "collections";
+  static const String companies = "companies";
 
 
   static const String appName = 'appName';

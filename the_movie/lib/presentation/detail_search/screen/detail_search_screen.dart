@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/data/models/search/search_collections.dart';
 import 'package:the_movie/data/models/search/search_movie.dart';
 import 'package:the_movie/data/models/search/search_tv.dart';
 import 'package:the_movie/presentation/detail_search/bloc/detail_search_state.dart';
@@ -14,6 +15,8 @@ import 'package:the_movie/presentation/detail_search/screen/tab_screen/tab_tv_sh
 
 import '../../../core/comons/widgets/keyword_container.dart';
 import '../../../core/constants/strings_manager.dart';
+import '../../../data/models/search/search_companies.dart';
+import '../../../data/models/search/search_keywords.dart';
 import '../../../data/models/search/search_people.dart';
 import '../bloc/detail_search_cubit.dart';
 import '../widget/search_bar_widget.dart';
@@ -100,6 +103,9 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
           SearchTv searchTv = state.searchTv;
           SearchMovie searchMovie = state.movieData;
           SearchPeople searchPeople = state.peopleData;
+          SearchCollections searchCollections = state.collectionsData;
+          SearchKeywords searchKeywords = state.keywordsData;
+          SearchCompanies searchCompanies = state.companiesData;
           return NestedScrollView(
               controller: _scrollController,
               floatHeaderSlivers: true,
@@ -178,12 +184,12 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                           }
                         },
                         tabs: [
-                          buildTab(searchTv.totalResults, 'TV Shows'),
-                          buildTab(searchMovie.totalResults, 'Movies'),
-                          buildTab(searchPeople.totalResults, 'People'),
-                          buildTab(searchPeople.totalResults, 'Collections'),
-                          buildTab(searchPeople.totalResults, 'Keywords'),
-                          buildTab(searchPeople.totalResults, 'Companies'),
+                          buildTab(searchTv.totalResults, StringsManager.tvShows.tr()),
+                          buildTab(searchMovie.totalResults, StringsManager.movies.tr()),
+                          buildTab(searchPeople.totalResults, StringsManager.people.tr()),
+                          buildTab(searchCollections.totalResults, StringsManager.collections.tr()),
+                          buildTab(searchKeywords.totalResults, StringsManager.keywords.tr()),
+                          buildTab(searchCompanies.totalResults, StringsManager.companies.tr()),
                         ],
                       ),
                     )

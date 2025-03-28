@@ -11,7 +11,7 @@ import 'detail_search_state.dart';
 
 class DetailSearchCubit extends Cubit<DetailSearchState> {
   DetailSearchCubit() : super(DetailSearchInitial());
-  Map<int, int> _currentPages = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1};
+  final Map<int, int> _currentPages = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1};
 
   Future<void> fetchData(String query, int page) async {
     if (query.isEmpty) return;

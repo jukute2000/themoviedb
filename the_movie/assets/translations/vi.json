@@ -91,5 +91,10 @@
   "profiles": "Hồ sơ",
   "shareLink": "Chia sẻ liên kết",
   "facebook": "Facebook",
-  "tweet": "Tweet"
+  "tweet": "Tweet",
+  "tvShows": "Chương trình TV",
+  "movies": "Phim",
+  "people": "Diễn viên",
+  "collections": "Bộ sưu tập",
+  "companies": "Công ty"
 }
