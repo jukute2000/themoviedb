@@ -1,12 +1,7 @@
 class SafeNull {
-  static String checkString(dynamic text) {
-    try {
-      if (text != null && text is String && text.isNotEmpty) {
-        return text;
-      }
-      return ""; // Trả về chuỗi rỗng thay vì null
-    } catch (e) {
-      return ""; // Nếu có lỗi, trả về chuỗi rỗng
+  static String? checkString(String? text) {
+    if (text != null && text.trim().isNotEmpty) {
+      return text;
     }
   }
 
@@ -42,6 +37,11 @@ class SafeNull {
         return DateTime.parse(ex);
       } else if (ex is DateTime) {
         return ex;
+      } else if (ex is int) {
+        // Kiểm tra nếu giá trị quá lớn thì dùng microseconds, nếu không thì milliseconds
+        return ex > 9999999999
+            ? DateTime.fromMicrosecondsSinceEpoch(ex)
+            : DateTime.fromMillisecondsSinceEpoch(ex);
       }
       return null;
     } catch (e) {
@@ -54,7 +54,9 @@ class SafeNull {
       if (ex is bool) {
         return ex;
       } else if (ex is String) {
-        return ex.toLowerCase() == 'true'; // Chuyển đổi chuỗi thành boolean
+        String lowerEx = ex.trim().toLowerCase();
+        if (lowerEx == "true") return true;
+        if (lowerEx == "false") return false;
       }
       return false;
     } catch (e) {
