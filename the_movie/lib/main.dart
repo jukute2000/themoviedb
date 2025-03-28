@@ -3,17 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:flutter_svg/svg.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
-import 'package:the_movie/data/models/media_detail/genre.dart';
-import 'package:the_movie/presentation/demo_detail/demo_detail.dart';
-
-import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
-
 import 'package:the_movie/presentation/demo_detail/demo_detail_cubit.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
-import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +41,7 @@ class MyApp extends StatelessWidget {
                   useMaterial3: true,
                 ),
                 home:
-                    const SplashScreen(), //const DemoDetail(id: 447273, isMovie: true),
+                    const HomeScreen(), //const DemoDetail(id: 447273, isMovie: true),
               );
             }));
   }

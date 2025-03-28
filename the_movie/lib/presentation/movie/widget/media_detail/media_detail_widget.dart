@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_state.dart';
@@ -46,8 +45,9 @@ class MediaDetailWidget extends StatelessWidget {
                     ),
                     TitleSection(
                         releaseDate: state.detailMovie.releaseDate!,
-                        title: state.detailMovie.title),
-                    RatingSection(voteAverage: state.detailMovie.voteAverage),
+                        title: state.detailMovie.title ?? ''),
+                    RatingSection(
+                        voteAverage: state.detailMovie.voteAverage ?? 0),
                     const CustomDivider(),
                     InfoSection(
                         releaseDateText: state.detailMovie.releaseDateText,
@@ -56,8 +56,8 @@ class MediaDetailWidget extends StatelessWidget {
                         genreText: state.detailMovie.genreText),
                     const CustomDivider(),
                     OverviewSection(
-                        tagline: state.detailMovie.tagline!,
-                        overview: state.detailMovie.overview!),
+                        tagline: state.detailMovie.tagline ?? '',
+                        overview: state.detailMovie.overview ?? ''),
                     const CrewSection(),
                     const SizedBox(height: 20),
                   ],
@@ -89,8 +89,8 @@ class MediaDetailWidget extends StatelessWidget {
                         genreText: state.detailTv.genreText),
                     const CustomDivider(),
                     OverviewSection(
-                        tagline: state.detailTv.tagline!,
-                        overview: state.detailTv.overview!),
+                        tagline: state.detailTv.tagline ?? '',
+                        overview: state.detailTv.overview ?? ''),
                     const CrewSection(),
                     const SizedBox(height: 20),
                   ],

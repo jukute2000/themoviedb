@@ -65,7 +65,7 @@ class DetailCastWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               BiographyWidget(
-                fullText: peopleDetail.biography,
+                fullText: peopleDetail.biography ?? '',
               ),
               const SizedBox(height: 16),
             ],

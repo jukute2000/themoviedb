@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 
 class HeaderSection extends StatelessWidget {
   final String backdropPath;

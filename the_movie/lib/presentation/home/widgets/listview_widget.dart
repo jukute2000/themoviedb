@@ -18,7 +18,7 @@ class ListviewWidget extends StatelessWidget {
       height: 340,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: (medias.length > 0) ? medias.length - 1 : 0,
+        itemCount: (medias.isNotEmpty) ? medias.length - 1 : 0,
         itemBuilder: (context, index) {
           final item = medias[index];
           return GestureDetector(
@@ -26,7 +26,8 @@ class ListviewWidget extends StatelessWidget {
               AppNavigator.push(
                   context,
                   MovieDetailScreen(
-                      id: item.id, isMovie: (item is Movie) ? true : false));
+                      id: item.id ?? 0,
+                      isMovie: (item is Movie) ? true : false));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -51,7 +52,7 @@ class ListviewWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
-                            AppImages.getImageUrl(item.posterPath),
+                            AppImages.getImageUrl(item.posterPath ?? ''),
                             height: 240, // Tăng chiều dài
                             width: double.infinity, // width: height / 1.5
                             fit: BoxFit.cover,
@@ -86,7 +87,7 @@ class ListviewWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              item.title,
+                              item.title ?? '',
                               maxLines: 2, // Giới hạn 2 dòng
                               overflow:
                                   TextOverflow.ellipsis, // Hiển thị dấu "..."
@@ -119,7 +120,7 @@ class ListviewWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              item.name,
+                              item.name ?? '',
                               maxLines: 2, // Giới hạn 2 dòng
                               overflow:
                                   TextOverflow.ellipsis, // Hiển thị dấu "..."

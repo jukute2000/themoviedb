@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 
 class TitleSection extends StatelessWidget {
   final DateTime releaseDate;
@@ -27,7 +26,7 @@ class TitleSection extends StatelessWidget {
             ),
           ),
           Text(
-            "(${releaseDate?.year ?? 'N/A'})",
+            "(${releaseDate.year})",
             style: const TextStyle(
               fontSize: 20,
               color: Colors.white70,

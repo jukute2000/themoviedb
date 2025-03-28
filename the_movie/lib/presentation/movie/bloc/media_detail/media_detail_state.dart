@@ -1,5 +1,5 @@
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
-import 'package:the_movie/data/models/media_detail/detail_tv.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_tv.dart';
 
 abstract class MediaDetailState {}
 

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
-import 'package:the_movie/data/models/media_detail/detail_tv.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_tv.dart';
 import 'package:the_movie/data/repositories/media_detail_repository.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_state.dart';
 

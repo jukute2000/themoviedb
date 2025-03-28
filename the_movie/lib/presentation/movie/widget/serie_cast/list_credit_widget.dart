@@ -5,7 +5,6 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 
 import 'package:the_movie/data/models/credits/credit.dart';
 
-import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/presentation/detail_cast/screen/detail_cast_screen.dart';
 
 class ListCreditWidget extends StatelessWidget {
@@ -61,7 +60,7 @@ class ListCreditWidget extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            item.name,
+                            item.name ?? '',
                             maxLines: 2, // Giới hạn 2 dòng
                             overflow:
                                 TextOverflow.ellipsis, // Hiển thị dấu "..."

@@ -1,9 +1,11 @@
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
-import 'package:the_movie/data/models/medias/media.dart';
-import 'package:the_movie/data/models/medias/movie.dart';
-import 'package:the_movie/data/models/medias/tv.dart';
+
 import 'package:the_movie/data/models/people/people_detail.dart';
-import 'package:the_movie/data/models/search/search_people/search_people.dart';
+import 'package:the_movie/data/models/search/search_people.dart';
+
+import '../models/medias/media.dart';
+import '../models/medias/movie.dart';
+import '../models/medias/tv.dart';
 
 abstract class PeopleRepository {
   Future<SearchPeople> getPeoplePopular({required int page});

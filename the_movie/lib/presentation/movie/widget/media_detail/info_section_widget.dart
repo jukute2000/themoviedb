@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 
 class InfoSection extends StatelessWidget {
   final String releaseDateText;
@@ -7,9 +6,12 @@ class InfoSection extends StatelessWidget {
   final String runtimeText;
   final String genreText;
 
-  const InfoSection({super.key, required this.releaseDateText, required this.originText, required this.runtimeText, required this.genreText});
-
-
+  const InfoSection(
+      {super.key,
+      required this.releaseDateText,
+      required this.originText,
+      required this.runtimeText,
+      required this.genreText});
 
   @override
   Widget build(BuildContext context) {

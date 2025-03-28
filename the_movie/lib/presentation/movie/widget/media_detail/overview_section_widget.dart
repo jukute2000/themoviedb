@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/data/models/media_detail/detail_movie.dart';
 
 class OverviewSection extends StatelessWidget {
   final String tagline;
@@ -37,7 +36,7 @@ class OverviewSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            overview ?? "No overview available.",
+            overview,
             style: const TextStyle(color: Colors.white70),
           ),
         ],
