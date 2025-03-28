@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+import 'package:the_movie/core/utils/formatRuntime.dart';
 import 'package:the_movie/data/models/media_detail/season.dart';
 
 import 'creator.dart';
@@ -67,6 +69,12 @@ class DetailTv {
     this.voteAverage,
     this.voteCount,
   });
+  String get genreText => genres?.map((genre) => genre.name).join(', ') ?? '';
+  String get releaseDateText => firstAirDate != null
+      ? DateFormat('MM/dd/yyyy').format(firstAirDate!)
+      : "N/A";
+  String get originText => originCountry?.join(', ') ?? '';
+  String get runtimeText => formatRuntime(numberOfEpisodes ?? 0);
 
   factory DetailTv.fromJson(Map<String, dynamic> json) => DetailTv(
         adult: json["adult"] ?? false,

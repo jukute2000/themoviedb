@@ -3,6 +3,18 @@ class AppImages {
     return "https://media.themoviedb.org/t/p/w440_and_h660_face/$postPath";
   }
 
+  static String getImageUrlCast(String profiletPath) {
+    return "https://media.themoviedb.org/t/p/w375_and_h375_face/$profiletPath";
+  }
+
+  static String getImageBackdrop(String backdropPath) {
+    return "https://image.tmdb.org/t/p/w780$backdropPath";
+  }
+
+  static String getImagePoster(String posterPath) {
+    return "https://image.tmdb.org/t/p/w200$posterPath";
+  }
+
   static const basePath = 'assets/images/';
 
   static const splashBackground = '${basePath}splash-bg.png';

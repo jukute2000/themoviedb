@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
               const TitleWidget(
                 title: AppStrings.trending,
                 widget: SwitchButton(),
+                fontSize: 28,
               ),
               BlocBuilder<SwitchCubit, bool>(
                 builder: (context, isTodaySelected) {
@@ -39,7 +40,10 @@ class HomeScreen extends StatelessWidget {
                       : const GetTrendingWeekWidget();
                 },
               ),
-              const TitleWidget(title: AppStrings.whatPopular),
+              const TitleWidget(
+                title: AppStrings.whatPopular,
+                fontSize: 28,
+              ),
               const GetPopularWidget(),
             ],
           ),

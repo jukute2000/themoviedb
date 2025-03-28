@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -34,7 +35,15 @@ class DrawerWidget extends StatelessWidget {
           _createDrawerItem(Icons.settings, "Settings"),
           _createDrawerItem(Icons.policy, "Policies"),
           const Divider(),
-          _createDrawerItem(Icons.exit_to_app, "Exit"),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text("Exit"),
+            onTap: () {
+              // Xử lý sự kiện khi nhấn vào mục
+              AuthRepositoryImpl.instance.logOut(context);
+            },
+          ),
+          // _createDrawerItem(Icons.exit_to_app, "Exit"),
         ],
       ),
     );

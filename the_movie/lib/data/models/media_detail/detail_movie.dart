@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:the_movie/core/utils/formatRuntime.dart';
+import 'package:the_movie/main.dart';
+
 import 'genre.dart';
 
 class DetailMovie {
@@ -50,6 +54,12 @@ class DetailMovie {
     required this.voteAverage,
     required this.voteCount,
   });
+  String get genreText => genres?.map((genre) => genre.name).join(', ') ?? '';
+  String get releaseDateText => releaseDate != null
+      ? DateFormat('MM/dd/yyyy').format(releaseDate!)
+      : "N/A";
+  String get originText => originCountry?.join(', ') ?? '';
+  String get runtimeText => formatRuntime(runtime ?? 0);
 
   factory DetailMovie.fromJson(Map<String, dynamic> json) => DetailMovie(
         adult: json["adult"] ?? false,
@@ -83,3 +93,4 @@ class DetailMovie {
         voteCount: json["vote_count"] ?? 0,
       );
 }
+

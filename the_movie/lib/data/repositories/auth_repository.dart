@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
+import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
   Future<bool> isLoggedIn();
-  Future<void> logOut();
+  Future<void> logOut(context);
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -27,6 +29,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await prefs.setString(AppStrings.tokenExpried, tokenExpried);
 
       final requestToken = requestTokenMap["request_token"];
+      // tạo model RequestToken , Session
 
       if (requestToken == null) return false;
       final session =
@@ -50,7 +53,7 @@ class AuthRepositoryImpl implements AuthRepository {
       DateTime now = DateTime.now();
       DateTime tokenExpired =
           DateTime.parse(prefs.getString(AppStrings.tokenExpried)!);
-      if (sessionId == null && (tokenExpired.isBefore(now))) {
+      if (sessionId == null || (tokenExpired.isBefore(now))) {
         return false;
       } else {
         // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionId!);
@@ -63,8 +66,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> logOut() async {
+  Future<void> logOut(context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(AppStrings.sessionId);
+    await prefs.remove(AppStrings.tokenExpried);
+    AppNavigator.pushAndRemove(context, const LoginScreen());
   }
 }

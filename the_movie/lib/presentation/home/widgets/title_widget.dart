@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class TitleWidget extends StatelessWidget {
   final String title;
   final Widget? widget;
-  const TitleWidget({super.key, required this.title, this.widget});
+  final double fontSize;
+  const TitleWidget(
+      {super.key, required this.title, this.widget, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class TitleWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 28,
+            style: TextStyle(
+              fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -19,6 +19,7 @@ class _GetPopularWidgetState extends State<GetPopularWidget> {
       child: BlocBuilder<PopularCubit, PopularState>(builder: (context, state) {
         if (state is PopularIsLoading) {
           return const Center(
+            //set height = list widget.
             child: CircularProgressIndicator(),
           );
         } else if (state is PopularError) {

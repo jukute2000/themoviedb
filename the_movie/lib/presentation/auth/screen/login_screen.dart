@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/presentation/auth/bloc/login_cuit.dart';
+import 'package:the_movie/presentation/auth/bloc/login_state.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => LoginCubit(),
+      child: const _LoginView(),
+    );
+  }
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _userlCon = TextEditingController();
+class _LoginView extends StatefulWidget {
+  const _LoginView();
 
+  @override
+  State<_LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<_LoginView> {
+  final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
 
   @override
   void dispose() {
-    _userlCon.dispose();
+    _emailCon.dispose();
     _passwordCon.dispose();
     super.dispose();
   }
@@ -31,63 +45,73 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _signinText(),
-            const SizedBox(
-              height: 30,
-            ),
-            _emailField(),
-            const SizedBox(
-              height: 20,
-            ),
-            _passwordField(),
-            const SizedBox(
-              height: 60,
-            ),
+            const Text('Sign In',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            const SizedBox(height: 30),
+            _emailField(context),
+            const SizedBox(height: 20),
+            _passwordField(context),
+            const SizedBox(height: 60),
             _signinButton(context),
-            const SizedBox(
-              height: 20,
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _signinText() {
-    return const Text(
-      'Sign In',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+  Widget _emailField(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return TextField(
+          controller: _emailCon,
+          decoration: InputDecoration(
+            hintText: 'UserName',
+            // fix email Empty
+            errorText: state.email.isEmpty ? "Email cannot be empty" : null,
+          ),
+          onChanged: (value) => context.read<LoginCubit>().emailChanged(value),
+        );
+      },
     );
   }
 
-  Widget _emailField() {
-    return TextField(
-      controller: _userlCon,
-      decoration: const InputDecoration(hintText: 'UserName'),
-    );
-  }
-
-  Widget _passwordField() {
-    return TextField(
-      controller: _passwordCon,
-      decoration: const InputDecoration(hintText: 'Password'),
+  Widget _passwordField(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return TextField(
+          controller: _passwordCon,
+          obscureText: true,
+          decoration: InputDecoration(
+            hintText: 'Password',
+            errorText: (state.password.isEmpty || state.password.length >= 6)
+                ? null
+                : "Password must be at least 6 characters",
+          ),
+          onChanged: (value) =>
+              context.read<LoginCubit>().passwordChanged(value),
+        );
+      },
     );
   }
 
   Widget _signinButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () async {
-        AuthRepositoryImpl.instance
-            .loginUser(_userlCon.text, _passwordCon.text)
-            .then((result) {
-          if (result == true) {
-            AppNavigator.pushAndRemove(context, const HomeScreen());
-          } else {
-            print("Login thất bại!");
-          }
-        });
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          onPressed: state.isValid
+              ? () async {
+                  bool result = await AuthRepositoryImpl.instance
+                      .loginUser(_emailCon.text, _passwordCon.text);
+                  if (result) {
+                    AppNavigator.pushAndRemove(context, const HomeScreen());
+                  } else {
+                    print("Login thất bại!");
+                  }
+                }
+              : null, // Disable button if form is invalid
+          child: const Text("Login"),
+        );
       },
-      child: Text("Login"),
     );
   }
 }
