@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/models/author/author.dart';
+import 'package:the_movie/data/models/credits/external.dart';
+import 'package:the_movie/data/models/credits/combined_credit.dart/combined_credit.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_tv.dart';
@@ -64,33 +66,12 @@ class DemoDetailCubit extends Cubit<DemoDetailStateCubit> {
             keywords: keywords,
             videos: videos));
       }
-      Review review = await MediaDetailRepositoryImpl.intance
-          .getReview(id: id, isMovie: isMovie);
-      print("review ${review.author.length}");
-      List<SearchMulti> searchMulties =
-          await SearchRepositoryImpl.intance.getSearchMutil("a");
-      print("search multi : ${searchMulties.length}");
-      SearchMovie searchMovie =
-          await SearchRepositoryImpl.intance.getSearchMovies("a", 1);
-      print("search movie : ${searchMovie.results?.length}");
-      SearchTv searchTv =
-          await SearchRepositoryImpl.intance.getSearchTv("a", 1);
-      print("search tv : ${searchTv.results?.length}");
-      SearchPeople searchPeople =
-          await SearchRepositoryImpl.intance.getSearchPeople("a", 1);
-      print("search people : ${searchPeople.peoples?.length}");
-      SearchCompanies searchCompanies =
-          await SearchRepositoryImpl.intance.getSearchCompany("a", 1);
-      print("search companies: ${searchCompanies.companies?.length}");
-      SearchKeywords searchKeywords =
-          await SearchRepositoryImpl.intance.getSearchKeywords("a", 1);
-      print("search keyword: ${searchKeywords.keywords?.length}");
-      SearchCollections searchCollections =
-          await SearchRepositoryImpl.intance.getSearchCollections("a", 1);
-      print("search collection: ${searchCollections.collections?.length}");
-      PeopleDetail peopleDetail =
-          await PeopleRepositoryImpl.intance.getPeopleDetail(id: 976);
-      print(peopleDetail.name);
+      CombinedCredit combinedCredit =
+          await PeopleRepositoryImpl.intance.getAllCredits(id: 976);
+      print(
+          'Cast ${combinedCredit.cast?.length} - Crew ${combinedCredit.crew?.length}');
+      External ex = await PeopleRepositoryImpl.intance.getExternal(id: 976);
+      print("External ${ex.facebookId}");
     } catch (e) {
       emit(Error("Error: $e"));
     }
