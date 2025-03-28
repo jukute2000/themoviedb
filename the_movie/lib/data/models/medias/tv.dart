@@ -44,4 +44,19 @@ class TiVi extends Media {
         voteCount: SafeNull.checkInt(json["vote_count"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
       );
+
+  @override
+  String getOriginalTitle() {
+    return originalName ?? '';
+  }
+
+  @override
+  DateTime? getReleaseDate() {
+    return firstAirDate;
+  }
+
+  @override
+  String getTitle() {
+    return name ?? '';
+  }
 }

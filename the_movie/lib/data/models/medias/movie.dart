@@ -47,4 +47,19 @@ class Movie extends Media {
         voteCount: SafeNull.checkInt(json["vote_count"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
       );
+
+  @override
+  String getOriginalTitle() {
+    return originalTitle!;
+  }
+
+  @override
+  DateTime? getReleaseDate() {
+    return releaseDate;
+  }
+
+  @override
+  String getTitle() {
+    return title ?? '';
+  }
 }

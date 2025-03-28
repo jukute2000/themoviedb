@@ -63,9 +63,9 @@ class PeopleWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: knownForDepartment,
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ' - ',
                             style: TextStyle(
                                 color: Colors.black,

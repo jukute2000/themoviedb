@@ -22,6 +22,10 @@ abstract class Media {
       required this.originalLanguage,
       required this.backdropPath});
 
+  String getTitle();
+  DateTime? getReleaseDate();
+  String getOriginalTitle();
+
   factory Media.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('Must be implemented by subclasses');
   }

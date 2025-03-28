@@ -1,20 +1,22 @@
 import 'package:the_movie/core/utils/safe_null.dart';
 
-class Collection {
-  bool? adult;
-  String? backdropPath;
-  int? id;
+import '../medias/media.dart';
+
+class Collection extends Media {
   String? name;
-  String? originalLanguage;
-  String? posterPath;
 
   Collection({
-    required this.adult,
-    required this.backdropPath,
-    required this.id,
     required this.name,
-    required this.originalLanguage,
-    required this.posterPath,
+    required super.overview,
+    required super.mediaType,
+    required super.popularity,
+    required super.voteAverage,
+    required super.voteCount,
+    required super.id,
+    required super.posterPath,
+    required super.adult,
+    required super.originalLanguage,
+    required super.backdropPath,
   });
 
   factory Collection.fromJson(Map<String, dynamic> json) => Collection(
@@ -24,5 +26,27 @@ class Collection {
         name: SafeNull.checkString(json["name"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
         posterPath: SafeNull.checkString(json["poster_path"]),
+        overview: SafeNull.checkString(json["overview"]),
+        mediaType: SafeNull.checkString(json["media_type"]),
+        popularity: SafeNull.checkDouble(json["popularity"]),
+        voteAverage: SafeNull.checkDouble(json["vote_average"]),
+        voteCount: SafeNull.checkInt(json["vote_count"]),
       );
+
+  @override
+  String getOriginalTitle() {
+    // TODO: implement getOriginalTitle
+    throw UnimplementedError();
+  }
+
+  @override
+  DateTime? getReleaseDate() {
+    // TODO: implement getReleaseDate
+    throw UnimplementedError();
+  }
+
+  @override
+  String getTitle() {
+    return name ?? '';
+  }
 }

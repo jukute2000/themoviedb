@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
-import 'package:the_movie/core/constants/strings_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/data/models/medias/tv.dart';
 
 import '../../../core/configs/assets/app_images.dart';
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
+import '../../../data/models/medias/media.dart';
+import '../../../data/models/medias/movie.dart';
 
-class MovieWidget extends StatelessWidget {
-  final String? title;
-  final DateTime? releaseDate;
-  final String? overview;
-  final String? posterPath;
+class TabViewWidget extends StatelessWidget {
+  final Media media;
 
-  const MovieWidget(
-      {super.key,
-      required this.title,
-      required this.releaseDate,
-      required this.overview,
-      required this.posterPath});
+  const TabViewWidget({super.key, required this.media});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +31,10 @@ class MovieWidget extends StatelessWidget {
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
                     width: WidthSizes.w100,
-                    child: (posterPath != null && posterPath!.isNotEmpty)
+                    child: (media.posterPath != null &&
+                            media.posterPath!.isNotEmpty)
                         ? Image.network(
-                            StringsManager.imageUrl + posterPath!,
+                            StringsManager.imageUrl + media.posterPath!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
@@ -51,24 +47,32 @@ class MovieWidget extends StatelessWidget {
                   padding: EdgeInsets.all(PaddingSizes.p8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        title ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        releaseDate != null
-                            ? FormatDate.format(releaseDate!)
-                            : '',
-                        style: TextStyle(color: Colors.grey.shade400),
-                      ),
+                      RichText(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: media.getTitle(),
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                            if (media is TiVi)
+                              TextSpan(
+                                text: ' (${media.getOriginalTitle()})',
+                                style: TextStyle(color: Colors.grey.shade400),
+                              ),
+                          ])),
+                      if (media is TiVi || media is Movie)
+                        Text(
+                          media.getReleaseDate() != null
+                              ? FormatDate.format(media.getReleaseDate())
+                              : '',
+                          style: TextStyle(color: Colors.grey.shade400),
+                        ),
                       GapsManager.h20,
                       Text(
-                        overview ?? '',
-                        maxLines: 2,
+                        media.overview ?? '',
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
