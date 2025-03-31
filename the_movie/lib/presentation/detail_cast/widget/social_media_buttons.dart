@@ -40,7 +40,7 @@ Widget buildSocialMediaButtons(BuildContext context, external) {
         .where((item) => item['id'] != null)
         .map(
           (item) => TextButton(
-            onPressed: () => context.read<DetailCastCubit>().lauchURL(
+            onPressed: () => context.read<DetailCastCubit>().launchURL(
                   item['base'],
                   item['id'],
                 ),

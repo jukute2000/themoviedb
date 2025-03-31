@@ -16,12 +16,29 @@ class DetailCastLoaded extends DetailCastState {
   final List<Movie> movies;
   final Map<String, List<Crew>> crews;
   final List<Media> medias;
+
   DetailCastLoaded(
       {required this.detailPeople,
       required this.external,
       required this.movies,
       required this.crews,
       required this.medias});
+
+  DetailCastLoaded copyWith({
+    PeopleDetail? detailPeople,
+    External? external,
+    List<Movie>? movies,
+    Map<String, List<Crew>>? crews,
+    List<Media>? medias,
+  }) {
+    return DetailCastLoaded(
+      detailPeople: detailPeople ?? this.detailPeople,
+      external: external ?? this.external,
+      movies: movies ?? this.movies,
+      crews: crews ?? this.crews,
+      medias: medias ?? this.medias,
+    );
+  }
 }
 
 class DetailCastError extends DetailCastState {

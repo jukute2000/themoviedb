@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast._state.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast_cubit.dart';
-import 'package:the_movie/presentation/detail_cast/widget/credits_widget.dart';
-import 'package:the_movie/presentation/detail_cast/widget/crew_widget.dart';
+import 'package:the_movie/presentation/detail_cast/widget/credits_cast.dart';
 import 'package:the_movie/presentation/detail_cast/widget/detail_cast_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/known_for_widget.dart';
 
@@ -35,8 +34,7 @@ class DetailCast extends StatelessWidget {
                     external: state.external,
                   ),
                   KnownForWidget(movies: state.movies),
-                  CreditsWidget(medias: state.medias),
-                  CrewWidget(context, state.crews),
+                  CreditsCast(medias: state.medias, crews: state.crews)
                 ],
               );
             } else {
