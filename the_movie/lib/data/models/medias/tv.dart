@@ -22,6 +22,7 @@ class TiVi extends Media {
     required super.voteAverage,
     required super.voteCount,
     required super.originalLanguage,
+    required super.charater,
   });
 
   @override
@@ -43,5 +44,16 @@ class TiVi extends Media {
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
+        charater: SafeNull.checkString(json["character"]),
       );
+
+  @override
+  String getYear() {
+    return firstAirDate?.year.toString() ?? "_";
+  }
+
+  @override
+  String? getTitle() {
+    return name;
+  }
 }

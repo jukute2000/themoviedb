@@ -19,6 +19,14 @@ class AppImages {
 
   static const splashBackground = '${basePath}splash-bg.png';
 
+  static const noImage = '${basePath}no_image.png';
+  static const facebookIcon = '${basePath}facebook.png';
+  static const instagramIcon = '${basePath}instagram.png';
+  static const tiktokIcon = '${basePath}tiktok.png';
+  static const twitterIcon = '${basePath}twitter.png';
+  static const wikiIcon = '${basePath}wiki.png';
+  static const youtubeIcon = '${basePath}youtube.png';
+
   static const logoAppBar =
       "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg";
 
