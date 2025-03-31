@@ -11,9 +11,9 @@ import '../../../../data/repositories/people_repository.dart';
 
 class DetailCastCubit extends Cubit<DetailCastState> {
   DetailCastCubit() : super(DetailCastInitial());
-
   Map<String, List<Crew>> originalCrews = {};
   List<Media> originalMedias = [];
+  bool isClear = false;
 
   Future<void> loadDetailCast(int id) async {
     emit(DetailCastIsLoading());
@@ -48,17 +48,39 @@ class DetailCastCubit extends Cubit<DetailCastState> {
   void filterCrewByDepartment(String department) {
     if (state is DetailCastLoaded) {
       final currentState = state as DetailCastLoaded;
+      isClear = true;
       emit(currentState.copyWith(
         crews: {department: originalCrews[department] ?? []},
+        medias: [],
       ));
+    }
+  }
+
+  void filterCast(String mediaType) {
+    if (state is DetailCastLoaded) {
+      final currentState = state as DetailCastLoaded;
+      isClear = true;
+      if (mediaType == "Movie") {
+        emit(currentState.copyWith(
+          crews: {},
+          medias: originalMedias.whereType<Movie>().toList(),
+        ));
+      } else {
+        emit(currentState.copyWith(
+          crews: {},
+          medias: originalMedias.whereType<TiVi>().toList(),
+        ));
+      }
     }
   }
 
   void resetFilter() {
     if (state is DetailCastLoaded) {
       final currentState = state as DetailCastLoaded;
+      isClear = false;
       emit(currentState.copyWith(
         crews: originalCrews,
+        medias: originalMedias,
       ));
     }
   }

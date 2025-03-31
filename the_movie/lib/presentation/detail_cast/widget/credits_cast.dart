@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast_cubit.dart';
@@ -28,17 +29,30 @@ class _CreditsCastState extends State<CreditsCast> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Acting",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              widget.medias.isNotEmpty
+                  ? Text(
+                      "Acting",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : const SizedBox(),
               Row(
                 children: [
+                  if (detailCast.isClear)
+                    TextButton(
+                      onPressed: () => detailCast.resetFilter(),
+                      child: const Text(
+                        "Clear",
+                        style: TextStyle(color: AppColors.iconAppbar),
+                      ),
+                    ),
+                  GapsManager.h20,
                   PopupMenuButton(
-                    onSelected: (value) {},
+                    onSelected: (value) {
+                      detailCast.filterCast(value);
+                    },
                     child: const Row(
                       children: [Text("All"), Icon(Icons.arrow_drop_down)],
                     ),
