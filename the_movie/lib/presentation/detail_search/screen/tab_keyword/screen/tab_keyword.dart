@@ -1,52 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
-import 'package:the_movie/data/models/search/search_keywords.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_keyword/bloc/tab_keyword_state.dart';
 import 'package:the_movie/presentation/detail_search/widget/keyword_widget.dart';
 
+import '../../../stream_controller/search_total_provider.dart';
 import '../../../widget/pagination_controller.dart';
+import '../bloc/tab_keyword_cubit.dart';
 
 class TabKeyword extends StatefulWidget {
-  final SearchKeywords keywordData;
-  final Function(int?) onPageChanged;
+  final String query;
 
   const TabKeyword({
     super.key,
-    required this.keywordData,
-    required this.onPageChanged,
+    required this.query,
   });
 
   @override
   State<TabKeyword> createState() => _TabKeywordState();
 }
 
-class _TabKeywordState extends State<TabKeyword> {
+class _TabKeywordState extends State<TabKeyword>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<TabKeywordCubit>().fetchKeywords(widget.query, 1);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(PaddingSizes.p24),
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: widget.keywordData.keywords?.length,
-                itemBuilder: (context, index) {
-                  Keyword? keyword = widget.keywordData.keywords?[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: PaddingSizes.p8),
-                    child: KeywordWidget(
-                      keyword: keyword?.name ?? '',
-                    ),
-                  );
-                }),
+    super.build(context);
+    return BlocBuilder<TabKeywordCubit, TabKeywordState>(
+        builder: (context, state) {
+      if (state is TabKeywordLoading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is TabKeywordLoaded) {
+        SearchTotalProvider.of(context)
+            ?.updateTotal("keywords", state.keywordsData.totalResults);
+        return Padding(
+          padding: EdgeInsets.all(PaddingSizes.p24),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    itemCount: state.keywordsData.keywords?.length,
+                    itemBuilder: (context, index) {
+                      Keyword? keyword = state.keywordsData.keywords?[index];
+                      return Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: PaddingSizes.p8),
+                        child: KeywordWidget(
+                          keyword: keyword?.name ?? '',
+                        ),
+                      );
+                    }),
+              ),
+              PaginationControls(
+                currentPage: state.page,
+                totalPages: state.keywordsData.totalPages ?? 1,
+                onPageChanged: (newPage) {
+                  context
+                      .read<TabKeywordCubit>()
+                      .fetchKeywords(widget.query, newPage);
+                },
+              ),
+            ],
           ),
-          PaginationControls(
-            currentPage: widget.keywordData.page ?? 1,
-            totalPages: widget.keywordData.totalPages ?? 1,
-            onPageChanged: widget.onPageChanged,
-          ),
-        ],
-      ),
-    );
+        );
+      } else if (state is TabKeywordError) {
+        return Center(child: Text(state.message));
+      }
+      return const Center(child: CircularProgressIndicator());
+    });
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

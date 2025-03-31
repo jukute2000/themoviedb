@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 import '../../../core/comons/widgets/page_number.dart';
 
@@ -24,12 +25,30 @@ class PaginationControls extends StatelessWidget {
             icon: const Icon(Icons.chevron_left),
             onPressed: () => onPageChanged(currentPage - 1),
           ),
-        PageNumber(
-          page: 1,
-          isChoose: currentPage == 1,
-          onPageChanged: (_) => onPageChanged(1),
-        ),
-        if (currentPage > 3) const Text('...'),
+        if (currentPage > 3)
+          SizedBox(
+            width: WidthSizes.w50,
+            child: TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(horizontal: PaddingSizes.p8),
+              ),
+              keyboardType: TextInputType.number,
+              onSubmitted: (value) {
+                int page = int.tryParse(value) ?? 1;
+                if (page > 0 && page <= totalPages) {
+                  onPageChanged(page);
+                }
+              },
+            ),
+          ),
+        if (currentPage <= 3)
+          PageNumber(
+            page: 1,
+            isChoose: currentPage == 1,
+            onPageChanged: (_) => onPageChanged(1),
+          ),
         if (currentPage > 2)
           PageNumber(
             page: currentPage - 1,

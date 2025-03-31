@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
-import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_collection/screen/tab_collection.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_company/screen/tab_company.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_keyword/screen/tab_keyword.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/screen/tab_movie.dart';
-import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab_tv_show_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_people/screen/tab_people.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/screen/tab_tv_show.dart';
 
 import '../../../core/comons/widgets/keyword_container.dart';
@@ -34,7 +35,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
   void initState() {
     // TODO: implement initState
     tabController =
-        TabController(length: 2, vsync: this, initialIndex: widget.index);
+        TabController(length: 6, vsync: this, initialIndex: widget.index);
     _controller = TextEditingController();
     super.initState();
   }
@@ -83,8 +84,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                         borderRadius: BorderRadius.circular(0),
                       ),
                     ),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -96,13 +96,12 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(HeightSizes.h50),
                     child: StreamBuilder<Map<String, int>>(
-                        stream: SearchTotalProvider.of(context)
-                              ?.totalResultsStream,
+                        stream:
+                            SearchTotalProvider.of(context)?.totalResultsStream,
                         initialData:
                             SearchTotalProvider.of(context)?.totalResults,
                         builder: (context, snapshot) {
                           final totalResults = snapshot.data ?? {};
-                          print(totalResults);
                           return TabBar(
                             isScrollable: true,
                             tabAlignment: TabAlignment.start,
@@ -110,13 +109,13 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                             tabs: [
                               buildTab(totalResults["tv"], "TV Shows"),
                               buildTab(totalResults["movie"], "Movies"),
-                              // buildTab(totalResults["people"], "People"),
-                              // buildTab(totalResults["collections"],
-                              //     "Collections"),
-                              // buildTab(
-                              //     totalResults["keywords"], "Keywords"),
-                              // buildTab(
-                              //     totalResults["companies"], "Companies"),
+                              buildTab(totalResults["people"], "People"),
+                              buildTab(totalResults["collections"],
+                                  "Collections"),
+                              buildTab(
+                                  totalResults["keywords"], "Keywords"),
+                              buildTab(
+                                  totalResults["companies"], "Companies"),
                             ],
                           );
                         }),
@@ -126,14 +125,12 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
           body: TabBarView(
             controller: tabController,
             children: [
-              BlocProvider(
-                create: (_) => TvSearchCubit()..fetchTvShows(widget.query, 1),
-                child: TabTvShow(query: widget.query),
-              ),
-              BlocProvider(
-                create: (_) => MovieSearchCubit()..fetchMovieData(widget.query, 1),
-                child: TabMovieShow(query: widget.query),
-              ),
+              TabTvShow(query: widget.query),
+              TabMovieShow(query: widget.query),
+              TabPeople(query: widget.query),
+              TabCollection(query: widget.query),
+              TabKeyword(query: widget.query),
+              TabCompany(query: widget.query),
             ],
           )),
     ));
@@ -145,10 +142,12 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
         children: [
           Text(title),
           GapsManager.w10,
-          KeywordContainer(
-            keyword: total.toString(),
-            isSelected: widget.index == 0,
-          ),
+          total == null || total == 0
+              ? const SizedBox()
+              : KeywordContainer(
+                  keyword: total.toString(),
+                  isSelected: widget.index == 0,
+                ),
         ],
       ),
     );

@@ -1,38 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
-import 'package:the_movie/data/models/search/search_people.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_state.dart';
 
-abstract class PeopleSearchState {}
-
-class PeopleSearchInitial extends PeopleSearchState {}
-
-class PeopleSearchLoading extends PeopleSearchState {}
-
-class PeopleSearchLoaded extends PeopleSearchState {
-  final SearchPeople data;
-  final int page;
-
-  PeopleSearchLoaded(this.data, this.page);
-}
-
-class PeopleSearchError extends PeopleSearchState {
-  final String message;
-
-  PeopleSearchError(this.message);
-}
-
-class PeopleSearchCubit extends Cubit<PeopleSearchState> {
-  PeopleSearchCubit() : super(PeopleSearchInitial());
+class TabPeopleCubit extends Cubit<TabPeopleState> {
+  TabPeopleCubit() : super(TabPeopleInitial());
 
   Future<void> fetchPeople(String query, int page) async {
-    if (query.isEmpty) return;
-    emit(PeopleSearchLoading());
+    if (query.isEmpty) {
+      emit(TabPeopleError("Query cannot be empty"));
+      return;}
+    emit(TabPeopleLoading());
 
     try {
       final data = await SearchRepositoryImpl.instance.getSearchPeople(query, page);
-      emit(PeopleSearchLoaded(data, page));
+      emit(TabPeopleLoaded(peopleData: data,page: page));
     } catch (e) {
-      emit(PeopleSearchError("Failed to fetch People: $e"));
+      emit(TabPeopleError("Failed to fetch People: $e"));
     }
   }
 }

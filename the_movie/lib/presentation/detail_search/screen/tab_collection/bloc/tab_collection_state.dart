@@ -1,29 +1,29 @@
 import 'package:equatable/equatable.dart';
-import 'package:the_movie/data/models/search/search_movie.dart';
+import 'package:the_movie/data/models/search/search_collections.dart';
 
-abstract class MovieSearchState extends Equatable {
+abstract class TabCollectionState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class MovieSearchInitial extends MovieSearchState {}
+class TabCollectionInitial extends TabCollectionState {}
 
-class MovieSearchLoading extends MovieSearchState {}
+class TabCollectionLoading extends TabCollectionState {}
 
-class MovieSearchError extends MovieSearchState {
+class TabCollectionError extends TabCollectionState {
   final String message;
-  MovieSearchError(this.message);
+  TabCollectionError(this.message);
 
   @override
   List<Object?> get props => [message];
 }
 
-class MovieSearchLoaded extends MovieSearchState {
-  final SearchMovie movieData;
+class TabCollectionLoaded extends TabCollectionState {
+  final SearchCollections collectionsData;
   final int page;
 
-  MovieSearchLoaded({required this.movieData, required this.page});
+  TabCollectionLoaded({required this.collectionsData, required this.page});
 
   @override
-  List<Object?> get props => [movieData, page];
+  List<Object?> get props => [collectionsData, page];
 }

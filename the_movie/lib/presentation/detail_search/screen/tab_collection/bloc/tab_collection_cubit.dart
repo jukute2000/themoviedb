@@ -1,38 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
-import 'package:the_movie/data/models/search/search_collections.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_state.dart';
 
-abstract class CollectionSearchState {}
-
-class CollectionSearchInitial extends CollectionSearchState {}
-
-class CollectionSearchLoading extends CollectionSearchState {}
-
-class CollectionSearchLoaded extends CollectionSearchState {
-  final SearchCollections data;
-  final int page;
-
-  CollectionSearchLoaded(this.data, this.page);
-}
-
-class CollectionSearchError extends CollectionSearchState {
-  final String message;
-
-  CollectionSearchError(this.message);
-}
-
-class CollectionSearchCubit extends Cubit<CollectionSearchState> {
-  CollectionSearchCubit() : super(CollectionSearchInitial());
+class TabCollectionCubit extends Cubit<TabCollectionState> {
+  TabCollectionCubit() : super(TabCollectionInitial());
 
   Future<void> fetchCollections(String query, int page) async {
-    if (query.isEmpty) return;
-    emit(CollectionSearchLoading());
+    if (query.isEmpty) {
+      emit(TabCollectionError("Query cannot be empty"));
+      return;
+    }
+    emit(TabCollectionLoading());
 
     try {
-      final data = await SearchRepositoryImpl.instance.getSearchCollections(query, page);
-      emit(CollectionSearchLoaded(data, page));
+      final data =
+          await SearchRepositoryImpl.instance.getSearchCollections(query, page);
+      emit(TabCollectionLoaded(collectionsData: data, page: page));
     } catch (e) {
-      emit(CollectionSearchError("Failed to fetch Collections: $e"));
+      emit(TabCollectionError("Failed to fetch Collections: $e"));
     }
   }
 }

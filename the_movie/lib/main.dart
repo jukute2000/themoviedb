@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_keyword/bloc/tab_keyword_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab_tv_show_cubit.dart';
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
-
-import 'core/utils/global_context.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,9 +27,14 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => SplashCubit()..appStarted(),
             ),
-            BlocProvider<MovieSearchCubit>(
-                create: (context) => MovieSearchCubit()),
-            BlocProvider<TvSearchCubit>(create: (context) => TvSearchCubit()),
+            BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
+            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+            BlocProvider<TabCollectionCubit>(
+                create: (context) => TabCollectionCubit()),
+            BlocProvider(create: (context) => TabCompanyCubit()),
+            BlocProvider(create: (context) => TabKeywordCubit()),
+            BlocProvider(create: (context) => TabPeopleCubit()),
           ],
           child: ScreenUtilInit(
               designSize: getDesignSize(),
@@ -35,7 +42,6 @@ class MyApp extends StatelessWidget {
               splitScreenMode: true,
               builder: (context, child) {
                 return MaterialApp(
-                    navigatorKey: GlobalContext.navigatorKey,
                     locale: context.locale,
                     supportedLocales: context.supportedLocales,
                     localizationsDelegates: context.localizationDelegates,

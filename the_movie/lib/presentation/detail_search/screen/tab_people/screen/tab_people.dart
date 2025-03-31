@@ -1,44 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
+import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_state.dart';
 import 'package:the_movie/presentation/detail_search/widget/people_widget.dart';
 
 import '../../../../../data/models/people/people.dart';
-import '../../../../../data/models/search/search_people.dart';
+import '../../../stream_controller/search_total_provider.dart';
 import '../../../widget/pagination_controller.dart';
 
 class TabPeople extends StatefulWidget {
-  final SearchPeople peopleData;
-  final Function(int?) onPageChanged;
+  final String query;
 
-  const TabPeople({super.key, required this.peopleData, required this.onPageChanged});
+  const TabPeople({super.key, required this.query});
 
   @override
   State<TabPeople> createState() => _TabPeopleState();
 }
 
-class _TabPeopleState extends State<TabPeople> {
+class _TabPeopleState extends State<TabPeople>
+    with AutomaticKeepAliveClientMixin {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<TabPeopleCubit>().fetchPeople(widget.query, 1);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-              itemCount: widget.peopleData.peoples?.length,
-              itemBuilder: (context, index) {
-                People? people = widget.peopleData.peoples?[index];
-                return PeopleWidget(
-                  knownForDepartment: people?.knownForDepartment,
-                  name: people?.name,
-                  knownFor: people?.knowFors,
-                  profilePath: people?.profilePath,
-                );
-              }),
-        ),
-        PaginationControls(
-          currentPage: widget.peopleData.page ?? 1,
-          totalPages: widget.peopleData.totalPages ?? 1,
-          onPageChanged: widget.onPageChanged,
-        ),
-      ],
-    );
+    super.build(context);
+    return BlocBuilder<TabPeopleCubit, TabPeopleState>(
+        builder: (context, state) {
+      if (state is TabPeopleLoading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is TabPeopleLoaded) {
+        SearchTotalProvider.of(context)
+            ?.updateTotal("people", state.peopleData.totalResults);
+        return Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: state.peopleData.peoples?.length,
+                  itemBuilder: (context, index) {
+                    People? people = state.peopleData.peoples?[index];
+                    return PeopleWidget(
+                      knownForDepartment: people?.knownForDepartment,
+                      name: people?.name,
+                      knownFor: people?.knowFors,
+                      profilePath: people?.profilePath,
+                    );
+                  }),
+            ),
+            PaginationControls(
+              currentPage: state.page,
+              totalPages: state.peopleData.totalPages ?? 1,
+              onPageChanged: (newPage) {
+                context
+                    .read<TabPeopleCubit>()
+                    .fetchPeople(widget.query, newPage);
+              },
+            ),
+          ],
+        );
+      } else if (state is TabPeopleError) {
+        return Center(child: Text(state.message));
+      }
+      return const Center(child: CircularProgressIndicator());
+    });
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

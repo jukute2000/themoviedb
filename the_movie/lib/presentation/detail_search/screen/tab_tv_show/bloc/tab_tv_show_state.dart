@@ -1,28 +1,28 @@
 import 'package:equatable/equatable.dart';
 import 'package:the_movie/data/models/search/search_tv.dart';
 
-abstract class TvSearchState extends Equatable {
+abstract class TabTvShowState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class TvSearchInitial extends TvSearchState {}
+class TabTvShowInitial extends TabTvShowState {}
 
-class TvSearchLoading extends TvSearchState {}
+class TabTvShowLoading extends TabTvShowState {}
 
-class TvSearchError extends TvSearchState {
+class TabTvShowError extends TabTvShowState {
   final String message;
-  TvSearchError(this.message);
+  TabTvShowError(this.message);
 
   @override
   List<Object?> get props => [message];
 }
 
-class TvSearchLoaded extends TvSearchState {
+class TabTvShowLoaded extends TabTvShowState {
   final SearchTv tvData;
   final int page;
 
-  TvSearchLoaded({required this.tvData, required this.page});
+  TabTvShowLoaded({required this.tvData, required this.page});
 
   @override
   List<Object?> get props => [tvData, page];
