@@ -1,5 +1,6 @@
 import 'package:the_movie/data/models/author/author.dart';
 import 'package:the_movie/data/models/release_date/release_date.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
 
 import '../controller/api_tmdb_controller.dart';
 import '../models/credits/credit.dart';
@@ -21,8 +22,12 @@ abstract class MediaDetailRepository {
   Future<ReleaseDates> getReleaseDates({required int id}); //chỉ có Movie
   Future<Review> getReview({required int id, required bool isMovie});
   Future<void> rateMovie(
-      {required int id, required double rateMedia, required bool isMovie});
-  Future<void> deleteRate({required int id, required bool isMovie});
+      {required int id,
+      required double rateMedia,
+      required bool isMovie,
+      required context});
+  Future<void> deleteRate(
+      {required int id, required bool isMovie, required context});
 }
 
 class MediaDetailRepositoryImpl implements MediaDetailRepository {
@@ -168,28 +173,42 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
   Future<void> rateMovie(
       {required int id,
       required double rateMedia,
-      required bool isMovie}) async {
+      required bool isMovie,
+      required context}) async {
+    String sessionId =
+        await AuthRepositoryImpl.instance.checkIsLoggedIn(context);
     if (isMovie) {
       await ApiTmdbController.getInstance()
           .tmdb
           .v3
           .movies
-          .rateMovie(id, rateMedia);
+          .rateMovie(id, rateMedia, sessionId: sessionId);
     } else {
       await ApiTmdbController.getInstance()
           .tmdb
           .v3
           .tv
-          .rateTvShow(id, rateMedia);
+          .rateTvShow(id, rateMedia, sessionId: sessionId);
     }
   }
 
   @override
-  Future<void> deleteRate({required int id, required bool isMovie}) async {
+  Future<void> deleteRate(
+      {required int id, required bool isMovie, required context}) async {
+    String sessionId =
+        await AuthRepositoryImpl.instance.checkIsLoggedIn(context);
     if (isMovie) {
-      await ApiTmdbController.getInstance().tmdb.v3.movies.deleteRating(id);
+      await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .movies
+          .deleteRating(id, sessionId: sessionId);
     } else {
-      await ApiTmdbController.getInstance().tmdb.v3.tv.deleteRating(id);
+      await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .tv
+          .deleteRating(id, sessionId: sessionId);
     }
   }
 }

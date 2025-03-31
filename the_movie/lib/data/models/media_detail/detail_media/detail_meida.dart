@@ -37,4 +37,6 @@ abstract class DetailMedia {
   String get releaseDateText;
   String get originText;
   String get runtimeText;
+  String get titleName;
+  DateTime get releaseDayMedia;
 }

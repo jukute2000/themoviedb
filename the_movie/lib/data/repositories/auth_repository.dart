@@ -7,6 +7,7 @@ import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
   Future<bool> isLoggedIn();
+  Future<void> checkIsLoggedIn(context);
   Future<void> logOut(context);
 }
 
@@ -71,5 +72,17 @@ class AuthRepositoryImpl implements AuthRepository {
     await prefs.remove(AppStrings.sessionId);
     await prefs.remove(AppStrings.tokenExpried);
     AppNavigator.pushAndRemove(context, const LoginScreen());
+  }
+
+  @override
+  Future<String> checkIsLoggedIn(context) async {
+    if (await isLoggedIn() == false) {
+      await logOut(context);
+      return '';
+    } else {
+      final prefs = await SharedPreferences.getInstance();
+      var sessionId = prefs.getString(AppStrings.sessionId);
+      return sessionId ?? '';
+    }
   }
 }

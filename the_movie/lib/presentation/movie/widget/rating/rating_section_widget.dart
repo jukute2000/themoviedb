@@ -1,9 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
 
-class RatingSection extends StatelessWidget {
+class RatingSection extends StatefulWidget {
   final double voteAverage;
 
   const RatingSection({super.key, required this.voteAverage});
+
+  @override
+  State<RatingSection> createState() => RatingSectionState();
+}
+
+class RatingSectionState extends State<RatingSection> {
+  double userScore = 40; // Mặc định user score
+
+  void _showRatingOverlay() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return RatingOverlay(
+          initialScore: userScore,
+          onRatingSelected: (newScore) {
+            setState(() {
+              userScore = newScore;
+            });
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +52,7 @@ class RatingSection extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _ScoreCircle(score: voteAverage),
+        _ScoreCircle(score: widget.voteAverage),
         const SizedBox(width: 10),
         const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,13 +77,16 @@ class RatingSection extends StatelessWidget {
           child:
               VerticalDivider(color: Colors.white54, thickness: 1.5, width: 10),
         ),
-        const Text(
-          "What's your Vibe?",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.underline,
+        GestureDetector(
+          onTap: () => _showRatingOverlay(),
+          child: const Text(
+            "What's your Vibe?",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+            ),
           ),
         ),
         const Icon(Icons.info_outline, color: Colors.white, size: 17),

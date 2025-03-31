@@ -84,4 +84,10 @@ class DetailMovie extends DetailMedia {
 
   @override
   String get runtimeText => formatRuntime(runtime ?? 0);
+
+  @override
+  DateTime get releaseDayMedia => releaseDate ?? DateTime.now();
+
+  @override
+  String get titleName => title ?? '';
 }

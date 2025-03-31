@@ -117,4 +117,10 @@ class DetailTv extends DetailMedia {
 
   @override
   String get runtimeText => formatRuntime(numberOfEpisodes ?? 0);
+
+  @override
+  DateTime get releaseDayMedia => firstAirDate ?? DateTime.now();
+
+  @override
+  String get titleName => name ?? '';
 }

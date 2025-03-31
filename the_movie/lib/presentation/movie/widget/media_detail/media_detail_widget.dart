@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_state.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/crew_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/header_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/info_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/movie_detail_nav_bar.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/overview_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/rating_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/title_section_widget.dart';
+import 'package:the_movie/presentation/movie/widget/media_detail/detail_widget.dart';
 
 class MediaDetailWidget extends StatelessWidget {
   final int id;
@@ -31,73 +25,9 @@ class MediaDetailWidget extends StatelessWidget {
             child: Text(state.message),
           );
         } else if (state is MovieDetailLoaded) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MovieDetailNavBar(),
-              Container(
-                color: const Color.fromARGB(240, 0, 20, 0),
-                child: Column(
-                  children: [
-                    HeaderSection(
-                      backdropPath: state.detailMovie.backdropPath!,
-                      posterPath: state.detailMovie.posterPath!,
-                    ),
-                    TitleSection(
-                        releaseDate: state.detailMovie.releaseDate!,
-                        title: state.detailMovie.title ?? ''),
-                    RatingSection(
-                        voteAverage: state.detailMovie.voteAverage ?? 0),
-                    const CustomDivider(),
-                    InfoSection(
-                        releaseDateText: state.detailMovie.releaseDateText,
-                        originText: state.detailMovie.originText,
-                        runtimeText: state.detailMovie.runtimeText,
-                        genreText: state.detailMovie.genreText),
-                    const CustomDivider(),
-                    OverviewSection(
-                        tagline: state.detailMovie.tagline ?? '',
-                        overview: state.detailMovie.overview ?? ''),
-                    const CrewSection(),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              )
-            ],
-          );
+          return DetailWidget(detailMedia: state.detailMovie);
         } else if (state is TvDetailLoaded) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const MovieDetailNavBar(),
-              Container(
-                color: const Color.fromARGB(240, 0, 20, 0),
-                child: Column(
-                  children: [
-                    HeaderSection(
-                        backdropPath: state.detailTv.backdropPath!,
-                        posterPath: state.detailTv.posterPath!),
-                    TitleSection(
-                        releaseDate: state.detailTv.firstAirDate!,
-                        title: state.detailTv.name!),
-                    RatingSection(voteAverage: state.detailTv.voteAverage!),
-                    const CustomDivider(),
-                    InfoSection(
-                        releaseDateText: state.detailTv.releaseDateText,
-                        originText: state.detailTv.originText,
-                        runtimeText: state.detailTv.runtimeText,
-                        genreText: state.detailTv.genreText),
-                    const CustomDivider(),
-                    OverviewSection(
-                        tagline: state.detailTv.tagline ?? '',
-                        overview: state.detailTv.overview ?? ''),
-                    const CrewSection(),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              )
-            ],
-          );
+          return DetailWidget(detailMedia: state.detailTv);
         } else {
           return const SizedBox();
         }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/presentation/detail_cast/detail_cast.dart';
+import 'package:the_movie/presentation/detail_cast/widget/detail_cast.dart';
 import 'package:the_movie/presentation/home/widgets/appbar_widget.dart';
 
 class DetailCastScreen extends StatelessWidget {
