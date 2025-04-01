@@ -32,6 +32,4 @@ class AppImages {
 
   static const banerImage =
       "https://th.bing.com/th/id/OIP.SkqMtqcc6_52knAOaV6tAwHaEo?rs=1&pid=ImgDetMain";
-
-  static const noImage = '${basePath}no_image.png';
 }
