@@ -1,16 +1,16 @@
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 
+import 'package:the_movie/data/models/credits/external.dart';
+import 'package:the_movie/data/models/credits/combined_credit.dart/combined_credit.dart';
+
 import 'package:the_movie/data/models/people/people_detail.dart';
 import 'package:the_movie/data/models/search/search_people.dart';
-
-import '../models/medias/media.dart';
-import '../models/medias/movie.dart';
-import '../models/medias/tv.dart';
 
 abstract class PeopleRepository {
   Future<SearchPeople> getPeoplePopular({required int page});
   Future<PeopleDetail> getPeopleDetail({required int id});
-  Future<List<Media>> getCredits({required int id});
+  Future<CombinedCredit> getAllCredits({required int id});
+  Future<External> getExternal({required int id});
 }
 
 class PeopleRepositoryImpl implements PeopleRepository {
@@ -39,22 +39,23 @@ class PeopleRepositoryImpl implements PeopleRepository {
     return PeopleDetail.fromJson(result);
   }
 
-  Media _getMediaFromJson(Map<String, dynamic> json) {
-    if (json['media_type'] == 'movie') {
-      return Movie.fromJson(json);
-    } else {
-      return TiVi.fromJson(json);
-    }
-  }
-
   @override
-  Future<List<Media>> getCredits({required int id}) async {
+  Future<CombinedCredit> getAllCredits({required int id}) async {
     Map<String, dynamic> result = await ApiTmdbController.getInstance()
         .tmdb
         .v3
         .people
         .getCombinedCredits(id) as Map<String, dynamic>;
-    List results = result['cast'];
-    return results.map((json) => _getMediaFromJson(json)).toList();
+    return CombinedCredit.fromJson(result);
+  }
+
+  @override
+  Future<External> getExternal({required int id}) async {
+    Map<String, dynamic> result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .people
+        .getExternalIds(id) as Map<String, dynamic>;
+    return External.fromJson(result);
   }
 }

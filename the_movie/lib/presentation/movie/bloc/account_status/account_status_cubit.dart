@@ -10,7 +10,7 @@ class AccountStatusCubit extends Cubit<AccountStatusState> {
   void loadAccountStatus(int id, bool isMovie) async {
     emit(AccountStatusIsLoading());
     try {
-      AccountStatus accountStatus = await MediaDetailRepositoryImpl.intance
+      AccountStatus accountStatus = await MediaDetailRepositoryImpl.instance
           .getAccountStatus(id: id, isMovie: isMovie);
       emit(AccountStatusLoaded(accountStatus: accountStatus));
     } catch (e) {
@@ -19,22 +19,22 @@ class AccountStatusCubit extends Cubit<AccountStatusState> {
   }
 
   void rateMovie(int id, double rateMedia, bool isMovie) async {
-    await MediaDetailRepositoryImpl.intance
+    await MediaDetailRepositoryImpl.instance
         .rateMovie(id: id, rateMedia: rateMedia, isMovie: isMovie);
   }
 
   void deleteRate(int id, bool isMovie) async {
-    await MediaDetailRepositoryImpl.intance
+    await MediaDetailRepositoryImpl.instance
         .deleteRate(id: id, isMovie: isMovie);
   }
 
   void addToFavorites(int id, bool isMovie, bool isFavorites) async {
-    await AccountRepositoryImpl.intance
+    await AccountRepositoryImpl.instance
         .addToFavorites(id, isMovie, isFavorites);
   }
 
   void addToWatchList(int id, bool isMovie, bool isWatchList) async {
-    await AccountRepositoryImpl.intance
+    await AccountRepositoryImpl.instance
         .addToWatchList(id, isMovie, isWatchList);
   }
 }

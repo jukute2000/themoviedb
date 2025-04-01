@@ -10,11 +10,11 @@ class KeyWordCubit extends Cubit<KeyWordState> {
     emit(KeyWordIsLoading());
     try {
       if (isMovie) {
-        List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.intance
+        List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
         emit(KeyWordLoaded(listKeyWord: listKeyWords));
       } else {
-        List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.intance
+        List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
         emit(KeyWordLoaded(listKeyWord: listKeyWords));
       }

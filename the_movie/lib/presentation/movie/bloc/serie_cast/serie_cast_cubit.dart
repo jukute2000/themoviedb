@@ -9,7 +9,7 @@ class SerieCastCubit extends Cubit<SerieCastState> {
   void loadCredit(int id, bool isMovie) async {
     emit(SerieCastIsLoading());
     try {
-      List<Credit> listCredits = await MediaDetailRepositoryImpl.intance
+      List<Credit> listCredits = await MediaDetailRepositoryImpl.instance
           .getCredits(id: id, isMovie: isMovie);
       emit(SerieCaseLoaded(credits: listCredits));
     } catch (e) {

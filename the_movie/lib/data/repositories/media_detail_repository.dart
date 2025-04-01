@@ -33,7 +33,7 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
   static final MediaDetailRepositoryImpl _instance =
       MediaDetailRepositoryImpl._internal();
   MediaDetailRepositoryImpl._internal();
-  static MediaDetailRepositoryImpl get intance => _instance;
+  static MediaDetailRepositoryImpl get instance => _instance;
 
   @override
   Future<DetailMovie> getMovieDetail(int id) async {

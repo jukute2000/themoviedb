@@ -91,5 +91,10 @@
   "profiles": "Profiles",
   "shareLink": "Share Link",
   "facebook": "Facebook",
-  "tweet": "Tweet"
+  "tweet": "Tweet",
+  "tvShows": "TV Shows",
+  "movies": "Movies",
+  "people": "People",
+  "collections": "Collections",
+  "companies": "Companies"
 }

@@ -15,12 +15,12 @@ class AccountRepositoryImpl implements AccountRepository {
   static final AccountRepositoryImpl _instance =
       AccountRepositoryImpl._internal();
   AccountRepositoryImpl._internal();
-  static AccountRepositoryImpl get intance => _instance;
+  static AccountRepositoryImpl get instance => _instance;
 
   @override
   Future<void> addToWatchList(int id, bool isMovie, bool isWatchList) async {
     String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
-    int accountId = await AccountRepositoryImpl.intance.getAccountId();
+    int accountId = await AccountRepositoryImpl.instance.getAccountId();
     if (isMovie) {
       await ApiTmdbController.getInstance().tmdb.v3.account.addToWatchList(
           sessionId, accountId, id, MediaType.movie, isWatchList);
@@ -36,7 +36,7 @@ class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<void> addToFavorites(int id, bool isMovie, bool isFavorites) async {
     String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
-    int accountId = await AccountRepositoryImpl.intance.getAccountId();
+    int accountId = await AccountRepositoryImpl.instance.getAccountId();
     if (isMovie) {
       await ApiTmdbController.getInstance().tmdb.v3.account.markAsFavorite(
           sessionId, accountId, id, MediaType.movie, isFavorites);

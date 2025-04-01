@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 import '../../../core/configs/assets/app_images.dart';
+
 import '../../../core/utils/sizes_manager.dart';
+import '../../../data/models/people/know_for.dart';
 
 class PeopleWidget extends StatelessWidget {
-  final String knownForDepartment;
-  final String name;
-  final List<String> knownFor;
-  final String profilePath;
+  final String? knownForDepartment;
+  final String? name;
+  final List<KnowFor>? knownFor;
+  final String? profilePath;
 
-  const PeopleWidget({
-    super.key,
-    required this.knownForDepartment,
-    required this.name,
-    required this.knownFor,
-    required this.profilePath
-  });
+  const PeopleWidget(
+      {super.key,
+      required this.knownForDepartment,
+      required this.name,
+      required this.knownFor,
+      required this.profilePath});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +33,16 @@ class PeopleWidget extends StatelessWidget {
               borderRadius: BorderRadius.horizontal(
                   left: Radius.circular(RadiusSizes.r8)),
               child: SizedBox(
-                width: WidthSizes.w100,
-                child: Image.asset(
-                  AppImages.splashBackground,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  width: WidthSizes.w100,
+                  child: (profilePath != null && profilePath!.isNotEmpty)
+                      ? Image.network(
+                          AppStrings.imageUrl + profilePath!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          AppImages.noImage,
+                          fit: BoxFit.cover,
+                        )),
             ),
             Expanded(
               child: Padding(
@@ -46,7 +52,7 @@ class PeopleWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      name,
+                      name ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -64,7 +70,7 @@ class PeopleWidget extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
-                          text: knownFor.join(', '),
+                          text: knownFor?.join(', '),
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],

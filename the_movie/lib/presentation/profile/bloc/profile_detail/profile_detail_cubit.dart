@@ -15,7 +15,7 @@ class ProfileDetailCubit extends Cubit<ProfileDetailState> {
     }
     try {
       AccountModel accountmodel =
-          await AccountRepositoryImpl.intance.getDetails();
+          await AccountRepositoryImpl.instance.getDetails();
       emit(AccountProfileDetailLoaded(accountModel: accountmodel));
     } catch (e) {
       emit(ProfileDetailError("Error: $e"));
