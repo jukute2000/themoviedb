@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/comons/extension/search_category.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
@@ -37,8 +38,15 @@ class _TabCompanyState extends State<TabCompany>
       if (state is TabCompanyLoading) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is TabCompanyLoaded) {
-        SearchTotalProvider.of(context)
-            ?.updateTotal("companies", state.companyData.totalResults);
+        final searchTotalProvider = SearchTotalProvider.of(context);
+        if (searchTotalProvider != null) {
+          searchTotalProvider.updateTotal(
+            SearchCategory.companies.name,
+            state.companyData.totalResults,
+          );
+        } else {
+          debugPrint("⚠️ Warning: SearchTotalProvider không được tìm thấy!");
+        }
         return state.companyData.companies != null
             ? Padding(
                 padding: EdgeInsets.all(PaddingSizes.p24),
@@ -82,7 +90,7 @@ class _TabCompanyState extends State<TabCompany>
       } else if (state is TabCompanyError) {
         return Center(child: Text(state.message));
       }
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: Text("No data"));
     });
   }
 

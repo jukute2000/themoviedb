@@ -4,6 +4,7 @@ import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_state.dart';
 import 'package:the_movie/presentation/detail_search/widget/people_widget.dart';
 
+import '../../../../../core/comons/extension/search_category.dart';
 import '../../../../../data/models/people/people.dart';
 import '../../../stream_controller/search_total_provider.dart';
 import '../../../widget/pagination_controller.dart';
@@ -19,7 +20,6 @@ class TabPeople extends StatefulWidget {
 
 class _TabPeopleState extends State<TabPeople>
     with AutomaticKeepAliveClientMixin {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -35,39 +35,47 @@ class _TabPeopleState extends State<TabPeople>
       if (state is TabPeopleLoading) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is TabPeopleLoaded) {
-        SearchTotalProvider.of(context)
-            ?.updateTotal("people", state.peopleData.totalResults);
-        return state.peopleData.peoples != null ?
-        Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: state.peopleData.peoples?.length,
-                  itemBuilder: (context, index) {
-                    People? people = state.peopleData.peoples?[index];
-                    return PeopleWidget(
-                      knownForDepartment: people?.knownForDepartment,
-                      name: people?.name,
-                      knownFor: people?.knowFors,
-                      profilePath: people?.profilePath,
-                    );
-                  }),
-            ),
-            PaginationControls(
-              currentPage: state.page,
-              totalPages: state.peopleData.totalPages ?? 1,
-              onPageChanged: (newPage) {
-                context
-                    .read<TabPeopleCubit>()
-                    .fetchPeople(widget.query, newPage);
-              },
-            ),
-          ],
-        ) : const Center(child: Text("No data"));
+        final searchTotalProvider = SearchTotalProvider.of(context);
+        if (searchTotalProvider != null) {
+          searchTotalProvider.updateTotal(
+            SearchCategory.people.name,
+            state.peopleData.totalResults,
+          );
+        } else {
+          debugPrint("⚠️ Warning: SearchTotalProvider không được tìm thấy!");
+        }
+        return state.peopleData.peoples != null
+            ? Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: state.peopleData.peoples?.length,
+                        itemBuilder: (context, index) {
+                          People? people = state.peopleData.peoples?[index];
+                          return PeopleWidget(
+                            knownForDepartment: people?.knownForDepartment,
+                            name: people?.name,
+                            knownFor: people?.knowFors,
+                            profilePath: people?.profilePath,
+                          );
+                        }),
+                  ),
+                  PaginationControls(
+                    currentPage: state.page,
+                    totalPages: state.peopleData.totalPages ?? 1,
+                    onPageChanged: (newPage) {
+                      context
+                          .read<TabPeopleCubit>()
+                          .fetchPeople(widget.query, newPage);
+                    },
+                  ),
+                ],
+              )
+            : const Center(child: Text("No data"));
       } else if (state is TabPeopleError) {
         return Center(child: Text(state.message));
       }
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: Text("No data"));
     });
   }
 

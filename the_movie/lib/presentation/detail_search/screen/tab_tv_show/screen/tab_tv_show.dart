@@ -36,8 +36,15 @@ class _TabTvShowState extends State<TabTvShow>
         if (state is TabTvShowLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is TabTvShowLoaded) {
-          SearchTotalProvider.of(context)
-              ?.updateTotal(SearchCategory.tv.name, state.tvData.totalResults);
+          final searchTotalProvider = SearchTotalProvider.of(context);
+          if (searchTotalProvider != null) {
+            searchTotalProvider.updateTotal(
+              SearchCategory.tv.name,
+              state.tvData.totalResults,
+            );
+          } else {
+            debugPrint("⚠️ Warning: SearchTotalProvider không được tìm thấy!");
+          }
           return state.tvData.results != null
               ? Column(
                   children: [

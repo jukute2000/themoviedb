@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/comons/extension/search_category.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_keyword/bloc/tab_keyword_state.dart';
@@ -38,8 +39,15 @@ class _TabKeywordState extends State<TabKeyword>
       if (state is TabKeywordLoading) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is TabKeywordLoaded) {
-        SearchTotalProvider.of(context)
-            ?.updateTotal("keywords", state.keywordsData.totalResults);
+        final searchTotalProvider = SearchTotalProvider.of(context);
+        if (searchTotalProvider != null) {
+          searchTotalProvider.updateTotal(
+            SearchCategory.keywords.name,
+            state.keywordsData.totalResults,
+          );
+        } else {
+          debugPrint("⚠️ Warning: SearchTotalProvider không được tìm thấy!");
+        }
         return state.keywordsData.keywords != null ?
         Padding(
           padding: EdgeInsets.all(PaddingSizes.p24),
@@ -74,7 +82,7 @@ class _TabKeywordState extends State<TabKeyword>
       } else if (state is TabKeywordError) {
         return Center(child: Text(state.message));
       }
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: Text("No data"));
     });
   }
 

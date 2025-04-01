@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/comons/extension/search_category.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_state.dart';
@@ -35,8 +36,15 @@ class _TabMovieShowState extends State<TabMovieShow>
         if (state is TabMovieLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is TabMovieLoaded) {
-          SearchTotalProvider.of(context)
-              ?.updateTotal("movie", state.movieData.totalResults);
+          final searchTotalProvider = SearchTotalProvider.of(context);
+          if (searchTotalProvider != null) {
+            searchTotalProvider.updateTotal(
+              SearchCategory.movie.name,
+              state.movieData.totalResults,
+            );
+          } else {
+            debugPrint("⚠️ Warning: SearchTotalProvider không được tìm thấy!");
+          }
           return state.movieData.results != null
               ? Column(
                   children: [
@@ -66,7 +74,7 @@ class _TabMovieShowState extends State<TabMovieShow>
         } else if (state is TabMovieError) {
           return Center(child: Text(state.message));
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: Text("No data"));
       },
     );
   }

@@ -102,18 +102,31 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                         initialData:
                             SearchTotalProvider.of(context)?.totalResults,
                         builder: (context, snapshot) {
-                          final totalResults = snapshot.data ?? {};
-                          return TabBar(
-                            isScrollable: true,
-                            tabAlignment: TabAlignment.start,
-                            controller: tabController,
-                            tabs: SearchCategory.values.map((category) {
-                              return buildTab(
-                                totalResults[category.name],
-                                category.localizedName,
-                              );
-                            }).toList(),
-                          );
+                          if (SearchTotalProvider.of(context) == null) {
+                            return const Center(
+                                child: Text(
+                                    "Provider is missing. Please restart the app."));
+                          }
+
+                          if (!snapshot.hasData) {
+                            return const Center(child: Text('No data'));
+                          }
+                          try {
+                            final totalResults = snapshot.data ?? {};
+                            return TabBar(
+                              isScrollable: true,
+                              controller: tabController,
+                              tabs: SearchCategory.values.map((category) {
+                                return buildTab(
+                                  totalResults[category.name] ?? 0,
+                                  category.localizedName,
+                                );
+                              }).toList(),
+                            );
+                          } catch (e) {
+                            return const Center(
+                                child: Text("Error loading data"));
+                          }
                         }),
                   ),
                 )

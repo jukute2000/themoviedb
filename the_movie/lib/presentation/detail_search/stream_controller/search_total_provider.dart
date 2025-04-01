@@ -23,11 +23,11 @@ class _SearchTotalProviderState extends State<SearchTotalProvider> {
 
   final Map<String, int> _totalResults = {
     SearchCategory.tv.name: 0,
-    "movie": 0,
-    "people": 0,
-    "collections": 0,
-    "keywords": 0,
-    "companies": 0,
+    SearchCategory.movie.name: 0,
+    SearchCategory.people.name: 0,
+    SearchCategory.collections.name: 0,
+    SearchCategory.keywords.name: 0,
+    SearchCategory.companies.name: 0,
   };
   Stream<Map<String, int>> get totalResultsStream => _totalResultsController.stream;
   Map<String, int> get totalResults => _totalResults;
