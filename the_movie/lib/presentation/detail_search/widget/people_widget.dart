@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 import '../../../core/configs/assets/app_images.dart';
-
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 import '../../../data/models/people/know_for.dart';
 
@@ -34,9 +33,9 @@ class PeopleWidget extends StatelessWidget {
                   left: Radius.circular(RadiusSizes.r8)),
               child: SizedBox(
                   width: WidthSizes.w100,
-                  child: (profilePath != null && profilePath!.isNotEmpty)
+                  child: (profilePath ?? "").isNotEmpty
                       ? Image.network(
-                          AppStrings.imageUrl + profilePath!,
+                          StringsManager.imageUrl + profilePath!,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(
@@ -55,22 +54,22 @@ class PeopleWidget extends StatelessWidget {
                       name ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     RichText(
                         text: TextSpan(
                       children: [
                         TextSpan(
                           text: knownForDepartment,
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ' - ',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
-                          text: knownFor?.join(', '),
+                          text: (knownFor ?? []).join(', '),
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],

@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
-import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/data/models/medias/tv.dart';
 
 import '../../../core/configs/assets/app_images.dart';
-
+import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
+import '../../../data/models/medias/media.dart';
+import '../../../data/models/medias/movie.dart';
 
-class TvShowWidget extends StatelessWidget {
-  final String? title;
-  final DateTime? releaseDate;
-  final String? overview;
-  final String? originalName;
-  final String? posterPath;
+class TabViewWidget extends StatelessWidget {
+  final Media media;
 
-  const TvShowWidget(
-      {super.key,
-      required this.title,
-      required this.releaseDate,
-      required this.overview,
-      required this.originalName,
-      required this.posterPath});
+  const TabViewWidget({super.key, required this.media});
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +31,10 @@ class TvShowWidget extends StatelessWidget {
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
                     width: WidthSizes.w100,
-                    child: (posterPath != null && posterPath!.isNotEmpty)
+                    child: (media.posterPath != null &&
+                            media.posterPath!.isNotEmpty)
                         ? Image.network(
-                            AppStrings.imageUrl + posterPath!,
+                            StringsManager.imageUrl + media.posterPath!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(
@@ -60,29 +53,25 @@ class TvShowWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           text: TextSpan(children: [
                             TextSpan(
-                              text: title,
-                              style: TextStyle(color: Colors.black),
+                              text: media.getTitle(),
+                              style: const TextStyle(color: Colors.black),
                             ),
-                            TextSpan(
-                              text: ' (',
-                              style: TextStyle(color: Colors.grey.shade400),
-                            ),
-                            TextSpan(
-                              text: originalName,
-                              style: TextStyle(color: Colors.grey.shade400),
-                            ),
-                            TextSpan(
-                              text: ')',
-                              style: TextStyle(color: Colors.grey.shade400),
-                            ),
+                            if (media is TiVi)
+                              TextSpan(
+                                text: ' (${media.getOriginalTitle()})',
+                                style: TextStyle(color: Colors.grey.shade400),
+                              ),
                           ])),
-                      Text(
-                        FormatDate.format(releaseDate),
-                        style: TextStyle(color: Colors.grey.shade400),
-                      ),
+                      if (media is TiVi || media is Movie)
+                        Text(
+                          media.getReleaseDate() != null
+                              ? FormatDate.format(media.getReleaseDate())
+                              : '',
+                          style: TextStyle(color: Colors.grey.shade400),
+                        ),
                       GapsManager.h20,
                       Text(
-                        overview ?? '',
+                        media.overview ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),

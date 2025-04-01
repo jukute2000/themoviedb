@@ -7,7 +7,6 @@ import 'package:the_movie/presentation/detail_search/bloc/detail_search_cubit.da
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
-import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,34 +17,42 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => SplashCubit()..appStarted(),
-          ),
-          BlocProvider(create: (context) => DetailSearchCubit()),
-        ],
-        child: ScreenUtilInit(
-            designSize: getDesignSize(),
-            minTextAdapt: true,
-            splitScreenMode: true,
-            builder: (context, child) {
-              return MaterialApp(
-                navigatorKey: NavigationService.navigatorKey,
-                locale: context.locale,
-                supportedLocales: context.supportedLocales,
-                localizationsDelegates: context.localizationDelegates,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  colorScheme:
-                      ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                  useMaterial3: true,
-                ),
-                home:
-                    // const DemoDetail(id: 447273, isMovie: true),
-                    const SplashScreen(),
-              );
-            }));
+    return SearchTotalProvider(
+      child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => SplashCubit()..appStarted(),
+            ),
+            BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
+            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+            BlocProvider<TabCollectionCubit>(
+                create: (context) => TabCollectionCubit()),
+            BlocProvider(create: (context) => TabCompanyCubit()),
+            BlocProvider(create: (context) => TabKeywordCubit()),
+            BlocProvider(create: (context) => TabPeopleCubit()),
+          ],
+          child: ScreenUtilInit(
+              designSize: getDesignSize(),
+              minTextAdapt: true,
+              splitScreenMode: true,
+              builder: (context, child) {
+                return MaterialApp(
+                    locale: context.locale,
+                    supportedLocales: context.supportedLocales,
+                    localizationsDelegates: context.localizationDelegates,
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                      colorScheme:
+                          ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                      useMaterial3: true,
+                    ),
+                    home: DetailSearchScreen(
+                      index: 0,
+                      query: 'a',
+                    ));
+              })),
+    );
   }
 }
 
