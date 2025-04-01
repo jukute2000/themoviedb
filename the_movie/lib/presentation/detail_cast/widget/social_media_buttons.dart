@@ -12,9 +12,8 @@ Widget buildSocialMediaButtons(BuildContext context, External? external) {
         .where((item) => item.id != null)
         .map(
           (item) => TextButton(
-            onPressed: () => context
-                .read<DetailCastCubit>()
-                .launchURL(item.baseUrl!, item.id!),
+            onPressed: () =>
+                context.read<DetailCastCubit>().openSocialMedia(item),
             child: Image.asset(item.icon!),
           ),
         )

@@ -1,14 +1,15 @@
 import 'package:collection/collection.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/comons/extension/media_type_enum.dart';
 import 'package:the_movie/data/models/medias/media.dart';
 import 'package:the_movie/data/models/people/people_detail.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast._state.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../data/models/credits/combined_credit.dart/combined_credit.dart';
 import '../../../../data/models/credits/combined_credit.dart/crew.dart';
 import '../../../../data/models/credits/external.dart';
+import '../../../../data/models/credits/social_media.dart';
 import '../../../../data/models/medias/movie.dart';
 import '../../../../data/models/medias/tv.dart';
 import '../../../../data/repositories/people_repository.dart';
@@ -101,12 +102,14 @@ class DetailCastCubit extends Cubit<DetailCastState> {
             : null;
   }
 
-  Future<void> launchURL(String base, String url) async {
-    final uri = Uri.parse("$base$url");
-    if (!await canLaunchUrl(uri)) {
-      print("Không thể mở URL: $uri");
+  Future<void> openSocialMedia(SocialMedia socialMedia) async {
+    bool isInstall = await LaunchApp.isAppInstalled(
+        androidPackageName: socialMedia.pageName);
+    if (isInstall) {
+      LaunchApp.openApp(androidPackageName: socialMedia.pageName);
     } else {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      Uri webUrl = Uri.parse("${socialMedia.baseUrl}${socialMedia.id}");
+      launchUrl(webUrl);
     }
   }
 }

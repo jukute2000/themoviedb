@@ -1,7 +1,13 @@
 class UrlManager {
-  static const String facebookBasePart = "https://www.facebook.com/";
-  static const String instagramBasePart = "https://www.instagram.com/";
-  static const String tiktokBasePart = "https://www.tiktok.com/";
+  static const String facebookBasePart = "https://facebook.com/";
+  static const String instagramBasePart = "https://instagram.com/";
+  static const String tiktokBasePart = "https://tiktok.com/";
   static const String twitterBasePart = "https://x.com/";
-  static const String youtubeBasePart = "https://www.youtube.com/";
+  static const String youtubeBasePart = "https://youtube.com/";
+
+  static const String facebookPackageName = "com.facebook.katana";
+  static const String tiktokPackageName = "com.ss.android.ugc.trill";
+  static const String instagramPackageName = "com.instagram.android";
+  static const String twitterPackageName = "com.twitter.android";
+  static const String youtubePackageName = "com.google.android.youtube";
 }

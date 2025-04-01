@@ -23,6 +23,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.HOME"/> 
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
@@ -32,11 +34,8 @@
             android:value="2" />
     </application>
     <queries>
+        <!-- Đảm bảo khai báo các ứng dụng muốn mở -->
         <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
-        </intent>
-         <intent>
             <action android:name="android.intent.action.VIEW"/>
             <data android:scheme="http"/>
         </intent>
@@ -48,6 +47,10 @@
             <action android:name="android.intent.action.VIEW"/>
             <data android:scheme="fb"/>
         </intent>
-
+        <!-- Khai báo ứng dụng Instagram -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="instagram"/>
+        </intent>
     </queries>
 </manifest>
