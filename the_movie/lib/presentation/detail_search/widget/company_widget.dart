@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/keyword_container.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
-import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 
 class CompanyWidget extends StatelessWidget {
@@ -23,7 +23,7 @@ class CompanyWidget extends StatelessWidget {
           height: HeightSizes.h50,
           child: (logoPath != null && logoPath!.isNotEmpty)
               ? Image.network(
-            StringsManager.imageUrl + logoPath!,
+            AppStrings.imageUrl + logoPath!,
             fit: BoxFit.cover,
           )
               : Image.asset(

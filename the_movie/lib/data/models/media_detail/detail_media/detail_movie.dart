@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:the_movie/core/utils/formatRuntime.dart';
 import 'package:the_movie/core/utils/safe_null.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
 import 'package:the_movie/data/models/media_detail/genre.dart';
@@ -57,7 +59,7 @@ class DetailMovie extends DetailMedia {
         originalTitle: SafeNull.checkString(json["original_title"]),
         overview: SafeNull.checkString(json["overview"]),
         popularity: SafeNull.checkDouble(json["popularity"]),
-        posterPath: json["release_date"],
+        posterPath: json["poster_path"],
         releaseDate: SafeNull.checkDateTime(json["release_date"]),
         revenue: SafeNull.checkInt(json["revenue"]),
         runtime: SafeNull.checkInt(json["runtime"]),
@@ -68,4 +70,29 @@ class DetailMovie extends DetailMedia {
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
       );
+
+  @override
+  String get genreText => genres?.map((genre) => genre.name).join(', ') ?? '';
+
+  @override
+  String get releaseDateText => releaseDate != null
+      ? DateFormat('MM/dd/yyyy').format(releaseDate!)
+      : "N/A";
+
+  @override
+  String get originText => originCountry?.join(', ') ?? '';
+
+  @override
+  String get runtimeText => formatRuntime(runtime ?? 0);
+
+  @override
+  DateTime get releaseDayMedia => releaseDate ?? DateTime.now();
+
+  @override
+  String get titleName => title ?? '';
+  
+  @override
+  bool isMovie() {
+    return true;
+  }
 }

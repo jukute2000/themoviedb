@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:the_movie/core/constants/strings_manager.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
@@ -74,7 +74,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 border: OutlineInputBorder(
                     borderRadius:
                         BorderRadius.all(Radius.circular(RadiusSizes.r8))),
-                hintText: StringsManager.search.tr(),
+                hintText: AppStrings.search.tr(),
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: controller.text.isEmpty
                     ? null

@@ -1,12 +1,11 @@
-class StringsManager {
-// <<<<<<< HEAD
+class AppStrings {
   static const String sessionId = 'session_id';
   static const String tokenExpried = 'token_expired';
-// =======
+
   static const String apiKey = "720076a020957ba9c71639b58e065e7a";
   static const String readAccessTokenv4 =
       "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjAwNzZhMDIwOTU3YmE5YzcxNjM5YjU4ZTA2NWU3YSIsIm5iZiI6MTc0MjI5MDg5OS45ODcsInN1YiI6IjY3ZDkzZmQzYmI0MzM5NTFhNzM2NWY5YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4AvnJMj9eRScLe9s-SWLD0YeqnnJDxyyQecErfnVDxo";
-// >>>>>>> feature/list_view
+
   static String imageUrl = "https://image.tmdb.org/t/p/w500";
 
   // Detail Search
@@ -16,28 +15,23 @@ class StringsManager {
   static const String collections = "collections";
   static const String companies = "companies";
 
+  static const String appName = 'The Movie';
+  static const String appBarMovie = 'Movie';
+  static const String appBarTV = 'TV';
+  static const String appBarPeople = 'People';
+  static const String appBarMore = 'More';
 
-  static const String appName = 'appName';
-  // Dashboard
-  static const String appBarMovie = 'appBarMovie';
-  static const String appBarTV = 'appBarTV';
-  static const String appBarPeople = 'appBarPeople';
-  static const String appBarMore = 'appBarMore';
-  static const String titleDashboard = 'titleDashboard';
-  static const String trending = 'trending';
-  static const String whatPopular = 'whatPopular';
-  static const String latestTrailers = 'latestTrailers';
-  static const String joinToday = 'joinToday';
-  static const String joinTodayText = 'joinTodayText';
-  static const String leaderBoard = 'leaderBoard';
+  static const String titleDashboard1 = 'Welcome.';
 
-  // Filters
-  static const String today = 'today';
-  static const String week = 'week';
-  static const String popular = 'popular';
-  static const String inTheater = 'inTheater';
-  static const String allTimeEdit = 'allTimeEdit';
-  static const String editsThisWeek = 'editsThisWeek';
+  static const String titleDashboard2 =
+      'Millions of movies, TV shows and people to discover. Explore now.';
+  static const String trending = 'Trending';
+  static const String whatPopular = 'What\'s Popular';
+  static const String latestTrailers = 'Latest Trailers';
+  static const String joinToday = 'Join Today';
+  static const String joinTodayText =
+      'Get access to maintain your own custom personal lists, track what you\'ve seen and search and filter for what to watch next—regardless if it\'s in theatres, on TV or available on popular streaming services.';
+  static const String leaderBoard = 'Leaderboard';
 
   // Bottom Dashboard
   static const String theBasics = 'theBasics';
@@ -111,6 +105,8 @@ class StringsManager {
   static const String birthday = 'birthday';
   static const String placeOfBirth = 'placeOfBirth';
   static const String alsoKnownAs = 'alsoKnownAs';
+  static const String female = 'female';
+  static const String male = 'male';
 
   // Buttons
   static const String search = 'search';
@@ -132,5 +128,5 @@ class StringsManager {
   static const String shareLink = 'shareLink';
   static const String facebook = 'facebook';
   static const String tweet = 'tweet';
-
+  static const String noInfomation = 'noInfomation';
 }

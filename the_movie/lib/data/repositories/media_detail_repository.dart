@@ -1,5 +1,7 @@
+import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/data/models/author/author.dart';
 import 'package:the_movie/data/models/release_date/release_date.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
 
 import '../controller/api_tmdb_controller.dart';
 import '../models/credits/credit.dart';
@@ -23,6 +25,8 @@ abstract class MediaDetailRepository {
   Future<void> rateMovie(
       {required int id, required double rateMedia, required bool isMovie});
   Future<void> deleteRate({required int id, required bool isMovie});
+  Future<AccountStatus> getAccountStatus(
+      {required int id, required bool isMovie});
 }
 
 class MediaDetailRepositoryImpl implements MediaDetailRepository {
@@ -169,27 +173,59 @@ class MediaDetailRepositoryImpl implements MediaDetailRepository {
       {required int id,
       required double rateMedia,
       required bool isMovie}) async {
+    String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
     if (isMovie) {
       await ApiTmdbController.getInstance()
           .tmdb
           .v3
           .movies
-          .rateMovie(id, rateMedia);
+          .rateMovie(id, rateMedia, sessionId: sessionId);
     } else {
       await ApiTmdbController.getInstance()
           .tmdb
           .v3
           .tv
-          .rateTvShow(id, rateMedia);
+          .rateTvShow(id, rateMedia, sessionId: sessionId);
     }
   }
 
   @override
   Future<void> deleteRate({required int id, required bool isMovie}) async {
+    String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
     if (isMovie) {
-      await ApiTmdbController.getInstance().tmdb.v3.movies.deleteRating(id);
+      await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .movies
+          .deleteRating(id, sessionId: sessionId);
     } else {
-      await ApiTmdbController.getInstance().tmdb.v3.tv.deleteRating(id);
+      await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .tv
+          .deleteRating(id, sessionId: sessionId);
     }
+  }
+
+  @override
+  Future<AccountStatus> getAccountStatus(
+      {required int id, required bool isMovie}) async {
+    String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
+    Map<String, dynamic> result = {};
+    if (isMovie) {
+      result = await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .movies
+          .getAccountStatus(id, sessionId: sessionId) as Map<String, dynamic>;
+    } else {
+      result = await ApiTmdbController.getInstance()
+          .tmdb
+          .v3
+          .tv
+          .getAccountStatus(id, sessionId: sessionId) as Map<String, dynamic>;
+    }
+
+    return AccountStatus.fromJson(result);
   }
 }

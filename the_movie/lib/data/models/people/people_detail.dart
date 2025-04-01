@@ -9,10 +9,12 @@ class PeopleDetail {
   int? gender;
   String? homepage;
   int? id;
+
   String? imdbId;
   String? knownForDepartment;
   String? name;
   String? placeOfBirth;
+
   double? popularity;
   String? profilePath;
 

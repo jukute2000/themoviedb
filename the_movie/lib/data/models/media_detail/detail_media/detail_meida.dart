@@ -32,4 +32,13 @@ abstract class DetailMedia {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  String get genreText;
+  String get releaseDateText;
+  String get originText;
+  String get runtimeText;
+  String get titleName;
+  DateTime get releaseDayMedia;
+
+  bool isMovie();
 }

@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:the_movie/core/utils/formatRuntime.dart';
 import 'package:the_movie/core/utils/safe_null.dart';
 import 'package:the_movie/data/models/media_detail/creator.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
@@ -101,4 +103,29 @@ class DetailTv extends DetailMedia {
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
       );
+
+  @override
+  String get genreText => genres?.map((genre) => genre.name).join(', ') ?? '';
+
+  @override
+  String get releaseDateText => firstAirDate != null
+      ? DateFormat('MM/dd/yyyy').format(firstAirDate!)
+      : "N/A";
+
+  @override
+  String get originText => originCountry?.join(', ') ?? '';
+
+  @override
+  String get runtimeText => formatRuntime(numberOfEpisodes ?? 0);
+
+  @override
+  DateTime get releaseDayMedia => firstAirDate ?? DateTime.now();
+
+  @override
+  String get titleName => name ?? '';
+
+  @override
+  bool isMovie() {
+    return false;
+  }
 }
