@@ -13,9 +13,9 @@ class SafeNull {
       } else if (ex is String) {
         return int.tryParse(ex);
       }
-      return 0;
+      return -1;
     } catch (e) {
-      return 0;
+      return -1;
     }
   }
 
@@ -26,9 +26,9 @@ class SafeNull {
       } else if (ex is String) {
         return double.tryParse(ex);
       }
-      return 0.0;
+      return -1.0;
     } catch (e) {
-      return 0.0;
+      return -1.0;
     }
   }
 

@@ -11,11 +11,11 @@ class DetailCastInitial extends DetailCastState {}
 class DetailCastIsLoading extends DetailCastState {}
 
 class DetailCastLoaded extends DetailCastState {
-  final PeopleDetail detailPeople;
-  final External external;
-  final List<Movie> movies;
-  final Map<String, List<Crew>> crews;
-  final List<Media> medias;
+  final PeopleDetail? detailPeople;
+  final External? external;
+  final List<Movie>? movies;
+  final Map<String?, List<Crew>?>? crews;
+  final List<Media>? medias;
 
   DetailCastLoaded(
       {required this.detailPeople,
@@ -28,7 +28,7 @@ class DetailCastLoaded extends DetailCastState {
     PeopleDetail? detailPeople,
     External? external,
     List<Movie>? movies,
-    Map<String, List<Crew>>? crews,
+    Map<String, List<Crew>?>? crews,
     List<Media>? medias,
   }) {
     return DetailCastLoaded(

@@ -59,4 +59,9 @@ class Movie extends Media {
   String? getTitle() {
     return title;
   }
+
+  @override
+  bool isMovie() {
+    return true;
+  }
 }

@@ -91,5 +91,8 @@
   "profiles": "Hồ sơ",
   "shareLink": "Chia sẻ liên kết",
   "facebook": "Facebook",
-  "tweet": "Tweet"
+  "tweet": "Tweet",
+  "male":"Nam",
+  "female":"Nữ",
+  "noInfomation":"Không có thông tin"
 }

@@ -76,4 +76,18 @@ class Crew {
     }
     return 0;
   }
+
+  bool isMovie() {
+    if (mediaType == "movie") {
+      return true;
+    }
+    return false;
+  }
+
+  String? getTitle() {
+    if (isMovie()) {
+      return title;
+    }
+    return name;
+  }
 }

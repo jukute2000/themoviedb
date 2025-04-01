@@ -32,6 +32,8 @@ abstract class Media {
 
   String? getTitle();
 
+  bool isMovie();
+
   String roundVoteAverage() {
     return "${(voteAverage! * 10).round()}%";
   }

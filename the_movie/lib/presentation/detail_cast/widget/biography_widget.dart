@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+
+import '../../../core/configs/assets/app_strings.dart';
 
 class BiographyWidget extends StatefulWidget {
   final String fullText;
@@ -33,7 +36,7 @@ class BiographyWidgetState extends State<BiographyWidget> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Biography",
+            AppStrings.biography.tr(),
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           RichText(

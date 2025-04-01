@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/presentation/detail_search/widget/keyword_widget.dart';
 import 'package:the_movie/presentation/movie/bloc/key_word/key_word_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/key_word/key_word_state.dart';
 import 'package:the_movie/presentation/movie/widget/key_word/key_word_widget1.dart';

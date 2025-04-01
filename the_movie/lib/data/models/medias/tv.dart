@@ -56,4 +56,9 @@ class TiVi extends Media {
   String? getTitle() {
     return name;
   }
+
+  @override
+  bool isMovie() {
+    return false;
+  }
 }

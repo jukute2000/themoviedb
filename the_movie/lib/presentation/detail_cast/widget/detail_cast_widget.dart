@@ -10,9 +10,11 @@ import 'package:the_movie/data/models/people/people_detail.dart';
 import 'package:the_movie/presentation/detail_cast/widget/biography_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/social_media_buttons.dart';
 
+import '../../../core/configs/assets/app_strings.dart';
+
 class DetailCastWidget extends StatelessWidget {
-  final PeopleDetail peopleDetail;
-  final External external;
+  final PeopleDetail? peopleDetail;
+  final External? external;
   const DetailCastWidget(
       {super.key, required this.peopleDetail, required this.external});
 
@@ -27,9 +29,9 @@ class DetailCastWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: peopleDetail.profilePath != null
+                child: peopleDetail?.profilePath != null
                     ? Image.network(
-                        AppImages.getImageUrlCast(peopleDetail.profilePath!),
+                        AppImages.getImageUrlCast(peopleDetail!.profilePath!),
                         width: 172.w,
                         height: 172.h,
                         fit: BoxFit.cover,
@@ -45,7 +47,7 @@ class DetailCastWidget extends StatelessWidget {
               buildSocialMediaButtons(context, external),
               GapsManager.h10,
               Text(
-                peopleDetail.name ?? '',
+                peopleDetail?.name ?? '',
                 style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
               ),
               GapsManager.h10,
@@ -55,31 +57,45 @@ class DetailCastWidget extends StatelessWidget {
                   padding: EdgeInsets.all(PaddingSizes.p16),
                   child: Column(
                     children: [
-                      _buildInfoRow('Known For',
-                          peopleDetail.knownForDepartment.toString()),
+                      _buildInfoRow(
+                          AppStrings.knownFor.tr(),
+                          peopleDetail?.knownForDepartment.toString() ??
+                              AppStrings.noInfomation.tr()),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
-                          'Known Credits', peopleDetail.id.toString()),
-                      DividerManager.horizontalDivider,
-                      _buildInfoRow('Gender',
-                          peopleDetail.gender == 1 ? "Male" : "Female"),
+                          AppStrings.knownCredits.tr(),
+                          peopleDetail?.id.toString() ??
+                              AppStrings.noInfomation.tr()),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
-                        'Birthday',
-                        DateFormat('MMMM dd, yyyy')
-                            .format(peopleDetail.birthday ?? DateTime.now()),
+                          AppStrings.gender.tr(),
+                          peopleDetail?.gender == -1 ||
+                                  peopleDetail?.gender == null
+                              ? AppStrings.noInfomation.tr()
+                              : peopleDetail!.gender == 1
+                                  ? AppStrings.female.tr()
+                                  : AppStrings.male.tr()),
+                      DividerManager.horizontalDivider,
+                      _buildInfoRow(
+                        AppStrings.birthday.tr(),
+                        peopleDetail?.birthday == null
+                            ? AppStrings.noInfomation.tr()
+                            : DateFormat('MMMM dd, yyyy')
+                                .format(peopleDetail!.birthday!),
                       ),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
-                          'Place of Birth', peopleDetail.placeOfBirth ?? ''),
+                          AppStrings.placeOfBirth.tr(),
+                          peopleDetail?.placeOfBirth ??
+                              AppStrings.noInfomation.tr()),
                     ],
                   ),
                 ),
               ),
               GapsManager.h20,
               BiographyWidget(
-                fullText: peopleDetail.biography ??
-                    'No information available about this castor.',
+                fullText:
+                    peopleDetail?.biography ?? AppStrings.noInfomation.tr(),
               ),
             ],
           ),

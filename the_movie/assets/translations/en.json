@@ -91,5 +91,8 @@
   "profiles": "Profiles",
   "shareLink": "Share Link",
   "facebook": "Facebook",
-  "tweet": "Tweet"
+  "tweet": "Tweet",
+  "female":"Female",
+  "male":"Male",
+  "noInfomation":"No information available"
 }

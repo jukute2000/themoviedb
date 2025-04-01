@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/comons/extension/media_type_enum.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
@@ -12,8 +13,8 @@ import '../../../data/models/medias/media.dart';
 
 class CreditsCast extends StatefulWidget {
   const CreditsCast({super.key, required this.medias, required this.crews});
-  final List<Media> medias;
-  final Map<String, List<Crew>> crews;
+  final List<Media>? medias;
+  final Map<String?, List<Crew>?>? crews;
   @override
   State<CreditsCast> createState() => _CreditsCastState();
 }
@@ -29,7 +30,7 @@ class _CreditsCastState extends State<CreditsCast> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              widget.medias.isNotEmpty
+              widget.medias != null
                   ? Text(
                       "Acting",
                       style: TextStyle(
@@ -49,7 +50,7 @@ class _CreditsCastState extends State<CreditsCast> {
                       ),
                     ),
                   GapsManager.h20,
-                  PopupMenuButton(
+                  PopupMenuButton<MediaTypeEnum>(
                     onSelected: (value) {
                       detailCast.filterCast(value);
                     },
@@ -58,13 +59,13 @@ class _CreditsCastState extends State<CreditsCast> {
                     ),
                     itemBuilder: (context) => [
                       const PopupMenuItem(
-                        value: "Movie",
+                        value: MediaTypeEnum.movie, // Đã sửa đúng kiểu dữ liệu
                         child: Text("Movie"),
                       ),
                       const PopupMenuItem(
-                        value: "Tv",
-                        child: Text("Tv"),
-                      )
+                        value: MediaTypeEnum.tv, // Đã sửa đúng kiểu dữ liệu
+                        child: Text("TV"),
+                      ),
                     ],
                   ),
                   GapsManager.w20,
@@ -83,7 +84,7 @@ class _CreditsCastState extends State<CreditsCast> {
                           (e) => PopupMenuItem(
                             value: e,
                             child: Text(
-                                "$e (${detailCast.originalCrews[e]?.length ?? 0})"),
+                                "$e (${detailCast.originalCrews[e]?.length ?? "_"})"),
                           ),
                         )
                         .toList(),

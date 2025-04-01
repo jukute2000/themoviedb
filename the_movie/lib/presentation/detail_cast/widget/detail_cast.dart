@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast._state.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast_cubit.dart';
 import 'package:the_movie/presentation/detail_cast/widget/credits_cast.dart';
@@ -19,8 +20,11 @@ class DetailCast extends StatelessWidget {
           child: BlocBuilder<DetailCastCubit, DetailCastState>(
               builder: (context, state) {
             if (state is DetailCastIsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return SizedBox(
+                height: 932.h,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             } else if (state is DetailCastError) {
               return Center(
