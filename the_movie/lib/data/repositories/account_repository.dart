@@ -1,7 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 import 'package:the_movie/data/models/account/account_model.dart';
+import 'package:the_movie/data/models/medias/movie.dart';
+import 'package:the_movie/data/models/medias/tv.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/data/repositories/media_repository.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 abstract class AccountRepository {
@@ -9,6 +12,8 @@ abstract class AccountRepository {
   Future<void> addToFavorites(int id, bool isMovie, bool isFavorites);
   Future<AccountModel> getDetails();
   Future<int> getAccountId();
+  Future<List<Movie>> getMovieFavorites();
+  Future<List<TiVi>> getTiviFavorites();
 }
 
 class AccountRepositoryImpl implements AccountRepository {
@@ -80,5 +85,35 @@ class AccountRepositoryImpl implements AccountRepository {
     }
 
     return AccountId;
+  }
+
+  @override
+  Future<List<Movie>> getMovieFavorites() async {
+    String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
+    int accountId = await AccountRepositoryImpl.instance.getAccountId();
+    Map result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .account
+        .getFavoriteMovies(sessionId, accountId);
+    List results = result['results'];
+    return results
+        .map((json) => MediaRepositoryImpl.instance.getMovieFromJson(json))
+        .toList();
+  }
+
+  @override
+  Future<List<TiVi>> getTiviFavorites() async {
+    String sessionId = await AuthRepositoryImpl.instance.checkIsLoggedIn();
+    int accountId = await AccountRepositoryImpl.instance.getAccountId();
+    Map result = await ApiTmdbController.getInstance()
+        .tmdb
+        .v3
+        .account
+        .getFavoriteTvShows(sessionId, accountId);
+    List results = result['results'];
+    return results
+        .map((json) => MediaRepositoryImpl.instance.getTiviFromJson(json))
+        .toList();
   }
 }

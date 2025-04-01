@@ -1,4 +1,3 @@
-
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 import 'package:the_movie/data/models/medias/media.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
@@ -46,5 +45,9 @@ class MediaRepositoryImpl implements MeidaRepository {
 
   Movie getMovieFromJson(Map<String, dynamic> json) {
     return Movie.fromJson(json);
+  }
+
+  TiVi getTiviFromJson(Map<String, dynamic> json) {
+    return TiVi.fromJson(json);
   }
 }
