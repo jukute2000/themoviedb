@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/presentation/detail_cast/widget/appbar_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/detail_cast.dart';
-import 'package:the_movie/presentation/home/widgets/appbar_widget.dart';
 
-class DetailCastScreen extends StatelessWidget {
+class DetailCastScreen extends StatefulWidget {
   final int id;
   const DetailCastScreen({super.key, required this.id});
 
   @override
+  State<DetailCastScreen> createState() => _DetailCastScreenState();
+}
+
+class _DetailCastScreenState extends State<DetailCastScreen> {
+  late ScrollController scrollController;
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
-      body: DetailCast(id: id),
+      body: AppbarWidget(
+        scrollController: scrollController,
+        body: DetailCast(id: widget.id),
+        onProfilePressed: () {},
+      ),
     );
   }
 }

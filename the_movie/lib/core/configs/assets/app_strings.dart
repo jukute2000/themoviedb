@@ -105,6 +105,8 @@ class AppStrings {
   static const String birthday = 'birthday';
   static const String placeOfBirth = 'placeOfBirth';
   static const String alsoKnownAs = 'alsoKnownAs';
+  static const String female = 'female';
+  static const String male = 'male';
 
   // Buttons
   static const String search = 'search';
@@ -126,4 +128,5 @@ class AppStrings {
   static const String shareLink = 'shareLink';
   static const String facebook = 'facebook';
   static const String tweet = 'tweet';
+  static const String noInfomation = 'noInfomation';
 }

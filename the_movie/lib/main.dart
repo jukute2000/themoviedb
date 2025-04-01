@@ -2,8 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/core/configs/navigation/app_navigation.dart';
-import 'package:the_movie/presentation/detail_search/bloc/detail_search_cubit.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';

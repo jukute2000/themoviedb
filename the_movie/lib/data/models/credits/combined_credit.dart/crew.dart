@@ -14,7 +14,9 @@ class Crew {
   final double? popularity;
   final String? posterPath;
   final String? releaseDate;
+  final String? firstAirDate;
   final String? title;
+  final String? name;
   final bool? video;
   final double? voteAverage;
   final int? voteCount;
@@ -30,6 +32,8 @@ class Crew {
     required this.popularity,
     required this.posterPath,
     required this.releaseDate,
+    required this.firstAirDate,
+    required this.name,
     required this.title,
     required this.video,
     required this.voteAverage,
@@ -41,6 +45,7 @@ class Crew {
   });
 
   factory Crew.fromJson(Map<String, dynamic> json) => Crew(
+        name: SafeNull.checkString(json["name"]),
         adult: SafeNull.checkBool(json["adult"]),
         backdropPath: SafeNull.checkString(json["backdrop_path"]),
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
@@ -59,5 +64,30 @@ class Crew {
         department: SafeNull.checkString(json["department"]),
         job: SafeNull.checkString(json["job"]),
         mediaType: SafeNull.checkString(json["media_type"]),
+        firstAirDate: SafeNull.checkString(json["first_air_date"]),
       );
+
+  int getDateTime() {
+    if (releaseDate != null) {
+      return DateTime.parse(releaseDate!).year;
+    }
+    if (firstAirDate != null) {
+      return DateTime.parse(firstAirDate!).year;
+    }
+    return 0;
+  }
+
+  bool isMovie() {
+    if (mediaType == "movie") {
+      return true;
+    }
+    return false;
+  }
+
+  String? getTitle() {
+    if (isMovie()) {
+      return title;
+    }
+    return name;
+  }
 }
