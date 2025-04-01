@@ -23,9 +23,7 @@ class _TabCollectionState extends State<TabCollection>
   void initState() {
     // TODO: implement initState
     super.initState();
-    context
-        .read<TabCollectionCubit>()
-        .fetchCollections(widget.query, 1);
+    context.read<TabCollectionCubit>().fetchCollections(widget.query, 1);
   }
 
   @override
@@ -38,30 +36,32 @@ class _TabCollectionState extends State<TabCollection>
       } else if (state is TabCollectionLoaded) {
         SearchTotalProvider.of(context)
             ?.updateTotal("collections", state.collectionsData.totalResults);
-        return Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: state.collectionsData.collections?.length,
-                  itemBuilder: (context, index) {
-                    Collection collection =
-                        state.collectionsData.collections![index];
-                    return TabViewWidget(
-                      media: collection,
-                    );
-                  }),
-            ),
-            PaginationControls(
-              currentPage: state.page,
-              totalPages: state.collectionsData.totalPages ?? 1,
-              onPageChanged: (newPage) {
-                context
-                    .read<TabCollectionCubit>()
-                    .fetchCollections(widget.query, newPage);
-              },
-            ),
-          ],
-        );
+        return state.collectionsData.collections != null
+            ? Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: state.collectionsData.collections?.length,
+                        itemBuilder: (context, index) {
+                          Collection collection =
+                              state.collectionsData.collections![index];
+                          return TabViewWidget(
+                            media: collection,
+                          );
+                        }),
+                  ),
+                  PaginationControls(
+                    currentPage: state.page,
+                    totalPages: state.collectionsData.totalPages ?? 1,
+                    onPageChanged: (newPage) {
+                      context
+                          .read<TabCollectionCubit>()
+                          .fetchCollections(widget.query, newPage);
+                    },
+                  ),
+                ],
+              )
+            : const Center(child: Text("No data"));
       } else if (state is TabCollectionError) {
         return Center(child: Text(state.message));
       }

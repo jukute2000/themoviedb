@@ -37,7 +37,8 @@ class _TabPeopleState extends State<TabPeople>
       } else if (state is TabPeopleLoaded) {
         SearchTotalProvider.of(context)
             ?.updateTotal("people", state.peopleData.totalResults);
-        return Column(
+        return state.peopleData.peoples != null ?
+        Column(
           children: [
             Expanded(
               child: ListView.builder(
@@ -62,7 +63,7 @@ class _TabPeopleState extends State<TabPeople>
               },
             ),
           ],
-        );
+        ) : const Center(child: Text("No data"));
       } else if (state is TabPeopleError) {
         return Center(child: Text(state.message));
       }

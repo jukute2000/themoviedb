@@ -40,7 +40,8 @@ class _TabKeywordState extends State<TabKeyword>
       } else if (state is TabKeywordLoaded) {
         SearchTotalProvider.of(context)
             ?.updateTotal("keywords", state.keywordsData.totalResults);
-        return Padding(
+        return state.keywordsData.keywords != null ?
+        Padding(
           padding: EdgeInsets.all(PaddingSizes.p24),
           child: Column(
             children: [
@@ -69,7 +70,7 @@ class _TabKeywordState extends State<TabKeyword>
               ),
             ],
           ),
-        );
+        ): const Center(child: Text("No data"));
       } else if (state is TabKeywordError) {
         return Center(child: Text(state.message));
       }

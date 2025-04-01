@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 
+import '../../../core/comons/extension/search_category.dart';
+
 
 
 class SearchTotalProvider extends StatefulWidget {
@@ -20,7 +22,7 @@ class _SearchTotalProviderState extends State<SearchTotalProvider> {
   StreamController.broadcast();
 
   final Map<String, int> _totalResults = {
-    "tv": 0,
+    SearchCategory.tv.name: 0,
     "movie": 0,
     "people": 0,
     "collections": 0,

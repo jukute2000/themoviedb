@@ -11,13 +11,12 @@ class PeopleWidget extends StatelessWidget {
   final List<KnowFor>? knownFor;
   final String? profilePath;
 
-  const PeopleWidget({
-    super.key,
-    required this.knownForDepartment,
-    required this.name,
-    required this.knownFor,
-    required this.profilePath
-  });
+  const PeopleWidget(
+      {super.key,
+      required this.knownForDepartment,
+      required this.name,
+      required this.knownFor,
+      required this.profilePath});
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +32,16 @@ class PeopleWidget extends StatelessWidget {
               borderRadius: BorderRadius.horizontal(
                   left: Radius.circular(RadiusSizes.r8)),
               child: SizedBox(
-                width: WidthSizes.w100,
-                child: (profilePath != null && profilePath!.isNotEmpty)
-                    ? Image.network(
-                  StringsManager.imageUrl + profilePath!,
-                  fit: BoxFit.cover,
-                )
-                    : Image.asset(
-                  AppImages.noImage,
-                  fit: BoxFit.cover,
-                )
-              ),
+                  width: WidthSizes.w100,
+                  child: (profilePath ?? "").isNotEmpty
+                      ? Image.network(
+                          StringsManager.imageUrl + profilePath!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          AppImages.noImage,
+                          fit: BoxFit.cover,
+                        )),
             ),
             Expanded(
               child: Padding(
@@ -56,7 +54,7 @@ class PeopleWidget extends StatelessWidget {
                       name ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     RichText(
                         text: TextSpan(
@@ -71,7 +69,7 @@ class PeopleWidget extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
-                          text: knownFor?.join(', '),
+                          text: (knownFor ?? []).join(', '),
                           style: TextStyle(color: Colors.grey.shade600),
                         ),
                       ],

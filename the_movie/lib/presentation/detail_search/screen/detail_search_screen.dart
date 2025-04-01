@@ -9,6 +9,7 @@ import 'package:the_movie/presentation/detail_search/screen/tab_movie/screen/tab
 import 'package:the_movie/presentation/detail_search/screen/tab_people/screen/tab_people.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/screen/tab_tv_show.dart';
 
+import '../../../core/comons/extension/search_category.dart';
 import '../../../core/comons/widgets/keyword_container.dart';
 import '../../../core/constants/strings_manager.dart';
 import '../stream_controller/search_total_provider.dart';
@@ -106,17 +107,12 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                             isScrollable: true,
                             tabAlignment: TabAlignment.start,
                             controller: tabController,
-                            tabs: [
-                              buildTab(totalResults["tv"], "TV Shows"),
-                              buildTab(totalResults["movie"], "Movies"),
-                              buildTab(totalResults["people"], "People"),
-                              buildTab(totalResults["collections"],
-                                  "Collections"),
-                              buildTab(
-                                  totalResults["keywords"], "Keywords"),
-                              buildTab(
-                                  totalResults["companies"], "Companies"),
-                            ],
+                            tabs: SearchCategory.values.map((category) {
+                              return buildTab(
+                                totalResults[category.name],
+                                category.localizedName,
+                              );
+                            }).toList(),
                           );
                         }),
                   ),

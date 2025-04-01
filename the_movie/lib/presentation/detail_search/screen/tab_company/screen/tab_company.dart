@@ -39,43 +39,46 @@ class _TabCompanyState extends State<TabCompany>
       } else if (state is TabCompanyLoaded) {
         SearchTotalProvider.of(context)
             ?.updateTotal("companies", state.companyData.totalResults);
-        return Padding(
-          padding: EdgeInsets.all(PaddingSizes.p24),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: state.companyData.companies?.length,
-                    itemBuilder: (context, index) {
-                      Company? company = state.companyData.companies?[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          DividerManager.horizontalDivider,
-                          GapsManager.h5,
-                          CompanyWidget(
-                            logoPath: company?.logoPath,
-                            originCountry: company?.originCountry,
-                            name: company?.name ?? '',
-                          ),
-                          GapsManager.h10,
-                          DividerManager.horizontalDivider,
-                        ],
-                      );
-                    }),
-              ),
-              PaginationControls(
-                currentPage: state.page,
-                totalPages: state.companyData.totalPages ?? 1,
-                onPageChanged: (newPage) {
-                  context
-                      .read<TabCompanyCubit>()
-                      .fetchCompanies(widget.query, newPage);
-                },
-              ),
-            ],
-          ),
-        );
+        return state.companyData.companies != null
+            ? Padding(
+                padding: EdgeInsets.all(PaddingSizes.p24),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: state.companyData.companies?.length,
+                          itemBuilder: (context, index) {
+                            Company? company =
+                                state.companyData.companies?[index];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                DividerManager.horizontalDivider,
+                                GapsManager.h5,
+                                CompanyWidget(
+                                  logoPath: company?.logoPath,
+                                  originCountry: company?.originCountry,
+                                  name: company?.name ?? '',
+                                ),
+                                GapsManager.h10,
+                                DividerManager.horizontalDivider,
+                              ],
+                            );
+                          }),
+                    ),
+                    PaginationControls(
+                      currentPage: state.page,
+                      totalPages: state.companyData.totalPages ?? 1,
+                      onPageChanged: (newPage) {
+                        context
+                            .read<TabCompanyCubit>()
+                            .fetchCompanies(widget.query, newPage);
+                      },
+                    ),
+                  ],
+                ),
+              )
+            : const Center(child: Text("No data"));
       } else if (state is TabCompanyError) {
         return Center(child: Text(state.message));
       }

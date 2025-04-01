@@ -17,7 +17,8 @@ class TabMovieShow extends StatefulWidget {
   State<TabMovieShow> createState() => _TabMovieShowState();
 }
 
-class _TabMovieShowState extends State<TabMovieShow> with AutomaticKeepAliveClientMixin {
+class _TabMovieShowState extends State<TabMovieShow>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -34,29 +35,34 @@ class _TabMovieShowState extends State<TabMovieShow> with AutomaticKeepAliveClie
         if (state is TabMovieLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is TabMovieLoaded) {
-          SearchTotalProvider.of(context)?.updateTotal("movie", state.movieData.totalResults);
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: state.movieData.results?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    Movie movie = state.movieData.results![index];
-                    return TabViewWidget(
-                      media: movie,
-                    );
-                  },
-                ),
-              ),
-              PaginationControls(
-                currentPage: state.page,
-                totalPages: state.movieData.totalPages ?? 1,
-                onPageChanged: (newPage) {
-                  context.read<TabMovieCubit>().fetchMovieData(widget.query, newPage);
-                },
-              ),
-            ],
-          );
+          SearchTotalProvider.of(context)
+              ?.updateTotal("movie", state.movieData.totalResults);
+          return state.movieData.results != null
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.movieData.results?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          Movie movie = state.movieData.results![index];
+                          return TabViewWidget(
+                            media: movie,
+                          );
+                        },
+                      ),
+                    ),
+                    PaginationControls(
+                      currentPage: state.page,
+                      totalPages: state.movieData.totalPages ?? 1,
+                      onPageChanged: (newPage) {
+                        context
+                            .read<TabMovieCubit>()
+                            .fetchMovieData(widget.query, newPage);
+                      },
+                    ),
+                  ],
+                )
+              : const Center(child: Text("No data"));
         } else if (state is TabMovieError) {
           return Center(child: Text(state.message));
         }
