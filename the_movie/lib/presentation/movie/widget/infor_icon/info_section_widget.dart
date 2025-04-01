@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
+import 'package:the_movie/presentation/movie/widget/infor_icon/infor_icon.dart';
 
 class InfoSection extends StatelessWidget {
+  final bool isMovie;
   final String releaseDateText;
   final String originText;
   final String runtimeText;
@@ -11,7 +16,7 @@ class InfoSection extends StatelessWidget {
       required this.releaseDateText,
       required this.originText,
       required this.runtimeText,
-      required this.genreText});
+      required this.genreText, required this.isMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,7 @@ class InfoSection extends StatelessWidget {
   Widget _buildRuntimeInfo() {
     return Expanded(
       child: Text(
-        " ${releaseDateText} (${originText}) • ${runtimeText}",
+        " $releaseDateText ($originText) • $runtimeText",
         style: const TextStyle(color: Colors.white, fontSize: 16),
         overflow: TextOverflow.ellipsis,
       ),
@@ -64,17 +69,21 @@ class InfoSection extends StatelessWidget {
   }
 
   Widget _buildTrailerButton() {
-    return const Row(
-      children: [
-        Icon(Icons.play_arrow, color: Colors.white, size: 17),
-        TextButton(
-          onPressed: null,
-          child: Text(
-            "Play Trailer",
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-        ),
-      ],
+    return BlocBuilder<AccountStatusCubit, AccountStatusState>(
+      builder: (context, state) {
+        if (state is AccountStatusIsLoading) {
+          return const CircularProgressIndicator();
+        } else if (state is AccountStatusError) {
+          return Center(
+            child: Text(state.message),
+          );
+        } else if (state is AccountStatusLoaded) {
+          return InforIcon(
+            accountStatus: state.accountStatus, isMovie: isMovie,
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 

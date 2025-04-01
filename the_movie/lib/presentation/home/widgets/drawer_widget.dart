@@ -40,7 +40,7 @@ class DrawerWidget extends StatelessWidget {
             title: Text("Exit"),
             onTap: () {
               // Xử lý sự kiện khi nhấn vào mục
-              AuthRepositoryImpl.instance.logOut(context);
+              AuthRepositoryImpl.instance.logOut();
             },
           ),
           // _createDrawerItem(Icons.exit_to_app, "Exit"),

@@ -18,9 +18,11 @@ class SplashScreen extends StatelessWidget {
           if (state is UnAuthenticated) {
             AppNavigator.pushReplacement(context, const LoginScreen());
           }
-
           if (state is Authenticated) {
-            AppNavigator.pushReplacement(context, const HomeScreen());
+            AppNavigator.pushReplacement(
+              context,
+              const HomeScreen(),
+            );
           }
         },
         child: Stack(
@@ -35,10 +37,7 @@ class SplashScreen extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.center,
                       end: Alignment.bottomCenter,
-                      colors: [
-                    Color(0xff1A1B20),
-                    Color(0xff1A1B20)
-                  ])),
+                      colors: [Color(0xff1A1B20), Color(0xff1A1B20)])),
             )
           ],
         ),

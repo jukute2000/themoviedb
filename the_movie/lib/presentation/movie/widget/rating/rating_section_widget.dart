@@ -1,39 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/data/models/account/account_status.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
+import 'package:the_movie/presentation/movie/widget/rating/row_rating_widget.dart';
 
 class RatingSection extends StatefulWidget {
+  final bool isMovie;
   final double voteAverage;
 
-  const RatingSection({super.key, required this.voteAverage});
+  const RatingSection({super.key, required this.voteAverage, required this.isMovie});
 
   @override
   State<RatingSection> createState() => RatingSectionState();
 }
 
 class RatingSectionState extends State<RatingSection> {
-  double userScore = 40; // Mặc định user score
-
-  void _showRatingOverlay() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return RatingOverlay(
-          initialScore: userScore,
-          onRatingSelected: (newScore) {
-            setState(() {
-              userScore = newScore;
-            });
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,38 +49,22 @@ class RatingSectionState extends State<RatingSection> {
   }
 
   Widget _buildVibeSection() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _emojiIcon("😡"),
-        _emojiIcon("🤢"),
-        _emojiIcon("🤩"),
-        const SizedBox(
-          height: 20,
-          child:
-              VerticalDivider(color: Colors.white54, thickness: 1.5, width: 10),
-        ),
-        GestureDetector(
-          onTap: () => _showRatingOverlay(),
-          child: const Text(
-            "What's your Vibe?",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        ),
-        const Icon(Icons.info_outline, color: Colors.white, size: 17),
-      ],
-    );
-  }
-
-  Widget _emojiIcon(String emoji) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Text(emoji, style: const TextStyle(fontSize: 17)),
+    return BlocBuilder<AccountStatusCubit, AccountStatusState>(
+      builder: (context, state) {
+        if (state is AccountStatusIsLoading) {
+          return const CircularProgressIndicator();
+        } else if (state is AccountStatusError) {
+          return Center(
+            child: Text(state.message),
+          );
+        } else if (state is AccountStatusLoaded) {
+          return RowRatingWidget(
+            accountStatus: state.accountStatus,
+            isMovie: widget.isMovie,
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }

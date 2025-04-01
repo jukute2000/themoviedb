@@ -1,0 +1,26 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/data/models/account/account_model.dart';
+import 'package:the_movie/data/repositories/account_repository.dart';
+import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_state.dart';
+
+class ProfileDetailCubit extends Cubit<ProfileDetailState> {
+  ProfileDetailCubit() : super(ProfileDetailInitial());
+  bool _isLoading = false;
+
+  void loadProfileDetails({bool isLoadMode = false}) async {
+    if (_isLoading) return;
+    _isLoading = true;
+    if (!isLoadMode) {
+      emit(ProfileDetailIsLoading());
+    }
+    try {
+      AccountModel accountmodel =
+          await AccountRepositoryImpl.intance.getDetails();
+      emit(AccountProfileDetailLoaded(accountModel: accountmodel));
+    } catch (e) {
+      emit(ProfileDetailError("Error: $e"));
+    } finally {
+      _isLoading = false;
+    }
+  }
+}

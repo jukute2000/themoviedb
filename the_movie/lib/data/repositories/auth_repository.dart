@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
@@ -7,8 +8,8 @@ import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
   Future<bool> isLoggedIn();
-  Future<void> checkIsLoggedIn(context);
-  Future<void> logOut(context);
+  Future<void> checkIsLoggedIn();
+  Future<void> logOut();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -40,7 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
       // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionID);
       return true;
     } catch (e) {
-      // print(e);
+      print(e);
       return false;
     }
   }
@@ -52,32 +53,41 @@ class AuthRepositoryImpl implements AuthRepository {
       var sessionId = prefs.getString(AppStrings.sessionId);
       // C1: Check thời gian hết hạn của token
       DateTime now = DateTime.now();
-      DateTime tokenExpired =
-          DateTime.parse(prefs.getString(AppStrings.tokenExpried)!);
-      if (sessionId == null || (tokenExpired.isBefore(now))) {
+
+      var tokenExpiredString = prefs.getString(AppStrings.tokenExpried);
+      if (sessionId == null || tokenExpiredString == null) {
         return false;
       } else {
+        DateFormat format = DateFormat("yyyy-MM-dd HH:mm:ss 'UTC'");
+        DateTime tokenExpired = format.parseUtc(tokenExpiredString);
+        // DateTime tokenExpired =
+        //     DateTime.parse(tokenExpiredString);
+        if ((tokenExpired.isBefore(now))) {
+          return false;
+        }
+
         // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionId!);
         // C2: Bắt lỗi khi lấy thông tin chi tiết
         return true;
       }
     } catch (e) {
+      print(e);
       return false;
     }
   }
 
   @override
-  Future<void> logOut(context) async {
+  Future<void> logOut() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(AppStrings.sessionId);
     await prefs.remove(AppStrings.tokenExpried);
-    AppNavigator.pushAndRemove(context, const LoginScreen());
+    NavigationService.navigateTo(const LoginScreen());
   }
 
   @override
-  Future<String> checkIsLoggedIn(context) async {
+  Future<String> checkIsLoggedIn() async {
     if (await isLoggedIn() == false) {
-      await logOut(context);
+      await logOut();
       return '';
     } else {
       final prefs = await SharedPreferences.getInstance();

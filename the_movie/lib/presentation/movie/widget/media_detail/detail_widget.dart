@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
+import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/crew_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/header_section_widget.dart';
-import 'package:the_movie/presentation/movie/widget/media_detail/info_section_widget.dart';
+import 'package:the_movie/presentation/movie/widget/infor_icon/info_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/media_detail_widget.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/movie_detail_nav_bar.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/overview_section_widget.dart';
@@ -20,7 +21,7 @@ class DetailWidget extends StatelessWidget {
       children: [
         const MovieDetailNavBar(),
         Container(
-          color: const Color.fromARGB(240, 0, 20, 0),
+          color: const Color.fromARGB(240, 0, 20, 0), //đồng bộ
           child: Column(
             children: [
               HeaderSection(
@@ -30,9 +31,13 @@ class DetailWidget extends StatelessWidget {
               TitleSection(
                   releaseDate: detailMedia.releaseDayMedia,
                   title: detailMedia.titleName),
-              RatingSection(voteAverage: detailMedia.voteAverage ?? 0),
+              RatingSection(
+                voteAverage: detailMedia.voteAverage ?? 0,
+                isMovie: detailMedia.isMovie(),
+              ),
               const CustomDivider(),
               InfoSection(
+                  isMovie: detailMedia.isMovie(),
                   releaseDateText: detailMedia.releaseDateText,
                   originText: detailMedia.originText,
                   runtimeText: detailMedia.runtimeText,

@@ -2,11 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/presentation/demo_detail/demo_detail.dart';
-
-import 'package:the_movie/presentation/demo_detail/demo_detail_cubit.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
+import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +19,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => DemoDetailCubit(),
-          ),
-          BlocProvider(
             create: (context) => SplashCubit()..appStarted(),
           ),
         ],
@@ -32,6 +28,7 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
+                navigatorKey: NavigationService.navigatorKey,
                 locale: context.locale,
                 supportedLocales: context.supportedLocales,
                 localizationsDelegates: context.localizationDelegates,
@@ -43,7 +40,7 @@ class MyApp extends StatelessWidget {
                 ),
                 home:
                     // const DemoDetail(id: 447273, isMovie: true),
-                    const HomeScreen(),
+                    const SplashScreen(),
               );
             }));
   }

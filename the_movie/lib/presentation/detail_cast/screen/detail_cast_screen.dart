@@ -9,7 +9,7 @@ class DetailCastScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(onProfilePressed: () {}),
+      appBar: CustomAppBar(),
       body: DetailCast(id: id),
     );
   }

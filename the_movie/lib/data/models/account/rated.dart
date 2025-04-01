@@ -1,25 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class Rated {
-  int value;
+  final double value;
 
-  Rated({
-    required this.value,
-  });
+  Rated({required this.value});
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'value': value,
-    };
-  }
-
-  factory Rated.fromMap(Map<String, dynamic> map) {
+  factory Rated.fromJson(Map<String, dynamic> json) {
     return Rated(
-      value: map['value'] as int,
+      value: (json['value'] as num).toDouble(),
     );
   }
-
-  factory Rated.fromJson(String source) =>
-      Rated.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -14,7 +14,7 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(onProfilePressed: () {}),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
           child: Column(
         children: [
