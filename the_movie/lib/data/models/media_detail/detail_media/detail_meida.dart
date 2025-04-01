@@ -39,4 +39,6 @@ abstract class DetailMedia {
   String get runtimeText;
   String get titleName;
   DateTime get releaseDayMedia;
+
+  bool isMovie();
 }

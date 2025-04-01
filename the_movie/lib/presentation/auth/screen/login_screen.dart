@@ -2,38 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
-import 'package:the_movie/presentation/auth/bloc/login_cuit.dart';
-import 'package:the_movie/presentation/auth/bloc/login_state.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LoginCubit(),
-      child: const _LoginView(),
-    );
-  }
+  State<LoginScreen> createState() => LoginScreenState();
 }
 
-class _LoginView extends StatefulWidget {
-  const _LoginView();
-
-  @override
-  State<_LoginView> createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<_LoginView> {
+class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
+  String _email = "";
+  String _password = "";
+  bool _isValid = false;
 
   @override
   void dispose() {
     _emailCon.dispose();
     _passwordCon.dispose();
     super.dispose();
+  }
+
+  void _validateForm() {
+    setState(() {
+      _isValid = _email.isNotEmpty && _password.length >= 6;
+    });
   }
 
   @override
@@ -45,73 +42,74 @@ class _LoginViewState extends State<_LoginView> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Sign In',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            const Text(
+              'Sign In',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
             const SizedBox(height: 30),
-            _emailField(context),
+            _emailField(),
             const SizedBox(height: 20),
-            _passwordField(context),
+            _passwordField(),
             const SizedBox(height: 60),
-            _signinButton(context),
+            _signinButton(),
           ],
         ),
       ),
     );
   }
 
-  Widget _emailField(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      builder: (context, state) {
-        return TextField(
-          controller: _emailCon,
-          decoration: InputDecoration(
-            hintText: 'UserName',
-            // fix email Empty
-            errorText: state.email.isEmpty ? "Email cannot be empty" : null,
-          ),
-          onChanged: (value) => context.read<LoginCubit>().emailChanged(value),
-        );
+  Widget _emailField() {
+    return TextField(
+      controller: _emailCon,
+      decoration: InputDecoration(
+        hintText: 'UserName',
+        errorText: _email.isEmpty ? "Please input UserName" : null,
+      ),
+      onChanged: (value) {
+        setState(() {
+          _email = value;
+          _validateForm();
+        });
       },
     );
   }
 
-  Widget _passwordField(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      builder: (context, state) {
-        return TextField(
-          controller: _passwordCon,
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            errorText: (state.password.isEmpty || state.password.length >= 6)
-                ? null
-                : "Password must be at least 6 characters",
-          ),
-          onChanged: (value) =>
-              context.read<LoginCubit>().passwordChanged(value),
-        );
+  Widget _passwordField() {
+    return TextField(
+      controller: _passwordCon,
+      obscureText: true,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        errorText: (_password.isEmpty || _password.length >= 6)
+            ? null
+            : "Password must be at least 6 characters",
+      ),
+      onChanged: (value) {
+        setState(() {
+          _password = value;
+          _validateForm();
+        });
       },
     );
   }
 
-  Widget _signinButton(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          onPressed: state.isValid
-              ? () async {
-                  bool result = await AuthRepositoryImpl.instance
-                      .loginUser(_emailCon.text, _passwordCon.text);
-                  if (result) {
-                    AppNavigator.pushAndRemove(context, const HomeScreen());
-                  } else {
-                    print("Login thất bại!");
-                  }
-                }
-              : null, // Disable button if form is invalid
-          child: const Text("Login"),
-        );
-      },
+  Widget _signinButton() {
+    return ElevatedButton(
+      onPressed: _isValid
+          ? () async {
+              bool result = await AuthRepositoryImpl.instance
+                  .loginUser(_emailCon.text, _passwordCon.text);
+              if (result) {
+                AppNavigator.pushAndRemove(
+                  context,
+                  const HomeScreen(),
+                );
+              } else {
+                print("Login thất bại!");
+              }
+            }
+          : null, // Disable button if form is invalid
+      child: const Text("Login"),
     );
   }
 }

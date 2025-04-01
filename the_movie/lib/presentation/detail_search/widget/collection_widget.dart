@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 
 import '../../../core/configs/assets/app_images.dart';
+
 import '../../../core/utils/sizes_manager.dart';
 
 class CollectionWidget extends StatelessWidget {
@@ -9,12 +11,11 @@ class CollectionWidget extends StatelessWidget {
   final String overview;
   final String posterPath;
 
-  const CollectionWidget({
-    super.key,
-    required this.title,
-    required this.overview,
-    required this.posterPath
-  });
+  const CollectionWidget(
+      {super.key,
+      required this.title,
+      required this.overview,
+      required this.posterPath});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,16 @@ class CollectionWidget extends StatelessWidget {
                 borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(RadiusSizes.r8)),
                 child: SizedBox(
-                  width: WidthSizes.w100,
-                  child: Image.asset(
-                    AppImages.splashBackground,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    width: WidthSizes.w100,
+                    child: (posterPath.isNotEmpty)
+                        ? Image.network(
+                            AppStrings.imageUrl + posterPath,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            AppImages.noImage,
+                            fit: BoxFit.cover,
+                          )),
               ),
               Expanded(
                 child: Padding(

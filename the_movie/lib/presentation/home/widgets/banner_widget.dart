@@ -2,9 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 
-class BannerWidget extends StatelessWidget {
+class BannerWidget extends StatefulWidget {
   const BannerWidget({super.key});
+
+  @override
+  State<BannerWidget> createState() => _BannerWidgetState();
+}
+
+class _BannerWidgetState extends State<BannerWidget> {
+  final TextEditingController textController = TextEditingController();
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +71,10 @@ class BannerWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        controller: textController,
+                        decoration: const InputDecoration(
                           hintText: "Search...",
                           border: InputBorder.none,
                         ),
@@ -66,7 +82,15 @@ class BannerWidget extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.search, color: Colors.blue),
-                      onPressed: () {},
+                      onPressed: () {
+                        String text = textController.text;
+                        AppNavigator.push(
+                            context,
+                            DetailSearchScreen(
+                              index: 0,
+                              query: text,
+                            ));
+                      },
                     ),
                   ],
                 ),

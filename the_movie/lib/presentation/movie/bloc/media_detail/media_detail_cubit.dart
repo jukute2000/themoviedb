@@ -12,11 +12,11 @@ class MediaDetailCubit extends Cubit<MediaDetailState> {
     try {
       if (isMovie) {
         DetailMovie detailMovie =
-            await MediaDetailRepositoryImpl.intance.getMovieDetail(id);
+            await MediaDetailRepositoryImpl.instance.getMovieDetail(id);
         emit(MovieDetailLoaded(detailMovie: detailMovie));
       } else {
         DetailTv detailTv =
-            await MediaDetailRepositoryImpl.intance.getTVDetail(id);
+            await MediaDetailRepositoryImpl.instance.getTVDetail(id);
 
         emit(TvDetailLoaded(
           detailTv: detailTv,

@@ -11,12 +11,12 @@ class MediaRecommendCubit extends Cubit<MediaRecommendState> {
     emit(MediaRecommendIsLoading());
     try {
       if (isMovie) {
-        List<Movie> listMovies =
-            await MediaDetailRepositoryImpl.intance.getMovieRecommendations(id);
+        List<Movie> listMovies = await MediaDetailRepositoryImpl.instance
+            .getMovieRecommendations(id);
         emit(MovieRecommendLoaded(listMovie: listMovies));
       } else {
         List<TiVi> listTv =
-            await MediaDetailRepositoryImpl.intance.getTvRecommendations(id);
+            await MediaDetailRepositoryImpl.instance.getTvRecommendations(id);
         emit(TvRecommendLoaded(listTv: listTv));
       }
     } catch (e) {

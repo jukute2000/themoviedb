@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/profile/screen/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final VoidCallback onProfilePressed;
 
-  const CustomAppBar({super.key, required this.onProfilePressed});
+  const CustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.person),
-          onPressed: onProfilePressed,
+          onPressed: () {
+            AppNavigator.push(context, ProfileScreen());
+          },
         ),
       ],
     );

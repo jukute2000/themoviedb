@@ -90,4 +90,9 @@ class DetailMovie extends DetailMedia {
 
   @override
   String get titleName => title ?? '';
+  
+  @override
+  bool isMovie() {
+    return true;
+  }
 }

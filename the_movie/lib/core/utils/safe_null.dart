@@ -3,15 +3,14 @@ class SafeNull {
     if (text != null && text.trim().isNotEmpty) {
       return text;
     }
-    return null;
   }
 
-  static int? checkInt(dynamic ex) {
+  static int checkInt(dynamic ex) {
     try {
       if (ex is int) {
         return ex;
       } else if (ex is String) {
-        return int.tryParse(ex);
+        return int.tryParse(ex) ?? 0;
       }
       return -1;
     } catch (e) {
@@ -19,12 +18,12 @@ class SafeNull {
     }
   }
 
-  static double? checkDouble(dynamic ex) {
+  static double checkDouble(dynamic ex) {
     try {
       if (ex is double) {
         return ex;
       } else if (ex is String) {
-        return double.tryParse(ex);
+        return double.tryParse(ex) ?? 0.0;
       }
       return -1.0;
     } catch (e) {
@@ -34,7 +33,7 @@ class SafeNull {
 
   static DateTime? checkDateTime(dynamic ex) {
     try {
-      if (ex is String) {
+      if (ex is String && ex.isNotEmpty) {
         return DateTime.parse(ex);
       } else if (ex is DateTime) {
         return ex;
@@ -46,11 +45,11 @@ class SafeNull {
       }
       return null;
     } catch (e) {
-      return null;
+      return null; // Trả về null nếu có lỗi khi parse DateTime
     }
   }
 
-  static bool? checkBool(dynamic ex) {
+  static bool checkBool(dynamic ex) {
     try {
       if (ex is bool) {
         return ex;
@@ -59,9 +58,9 @@ class SafeNull {
         if (lowerEx == "true") return true;
         if (lowerEx == "false") return false;
       }
-      return null;
+      return false;
     } catch (e) {
-      return null;
+      return false; // Tránh lỗi nếu có ngoại lệ
     }
   }
 }

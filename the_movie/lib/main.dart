@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
+import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => SplashCubit()..appStarted(),
           ),
+          BlocProvider(create: (context) => DetailSearchCubit()),
         ],
         child: ScreenUtilInit(
             designSize: getDesignSize(),
@@ -26,6 +29,7 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
+                navigatorKey: NavigationService.navigatorKey,
                 locale: context.locale,
                 supportedLocales: context.supportedLocales,
                 localizationsDelegates: context.localizationDelegates,
@@ -37,7 +41,7 @@ class MyApp extends StatelessWidget {
                 ),
                 home:
                     // const DemoDetail(id: 447273, isMovie: true),
-                    const HomeScreen(),
+                    const SplashScreen(),
               );
             }));
   }

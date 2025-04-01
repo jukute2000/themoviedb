@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/data/models/account/account_status.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 
 class RatingOverlay extends StatefulWidget {
   final double initialScore;
   final Function(double) onRatingSelected;
+  final Function(double) resetRating;
 
   const RatingOverlay({
     super.key,
     required this.initialScore,
     required this.onRatingSelected,
+    required this.resetRating,
   });
 
   @override
@@ -91,7 +96,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: currentColor.withOpacity(0.2),
+                  color: currentColor.withOpacity(0.2), // sua lai thanh with value
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: currentColor, width: 1),
                 ),
@@ -149,9 +154,8 @@ class _RatingOverlayState extends State<RatingOverlay> {
             alignment: Alignment.centerRight,
             child: TextButton.icon(
               onPressed: () {
-                setState(() {
-                  rating = 0;
-                });
+                widget.resetRating(rating / 10);
+                Navigator.pop(context);
               },
               icon: const Icon(Icons.refresh, size: 16),
               label: const Text("Đặt lại"),
@@ -173,6 +177,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
               final bool isSelected = selectedMood == entry.key;
               return GestureDetector(
                 onTap: () {
+                  Navigator.pop(context);
                   setState(() {
                     selectedMood = entry.key;
                   });
@@ -217,7 +222,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () {
-                widget.onRatingSelected(rating);
+                widget.onRatingSelected(rating / 10);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
