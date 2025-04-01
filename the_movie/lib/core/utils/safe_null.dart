@@ -12,9 +12,9 @@ class SafeNull {
       } else if (ex is String) {
         return int.tryParse(ex) ?? 0;
       }
-      return 0; // Giá trị mặc định nếu không parse được
+      return -1;
     } catch (e) {
-      return 0; // Tránh lỗi nếu có ngoại lệ
+      return -1;
     }
   }
 
@@ -25,9 +25,9 @@ class SafeNull {
       } else if (ex is String) {
         return double.tryParse(ex) ?? 0.0;
       }
-      return 0.0;
+      return -1.0;
     } catch (e) {
-      return 0.0;
+      return -1.0;
     }
   }
 

@@ -5,6 +5,7 @@ abstract class Media {
   String? mediaType;
   String? posterPath;
   bool? adult;
+  String? charater;
   double? popularity;
   double? voteAverage;
   int? voteCount;
@@ -12,6 +13,7 @@ abstract class Media {
 
   Media(
       {required this.id,
+      required this.charater,
       required this.overview,
       required this.mediaType,
       required this.posterPath,
@@ -25,6 +27,12 @@ abstract class Media {
   factory Media.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('Must be implemented by subclasses');
   }
+
+  String getYear();
+
+  String? getTitle();
+
+  bool isMovie();
 
   String roundVoteAverage() {
     return "${(voteAverage! * 10).round()}%";
