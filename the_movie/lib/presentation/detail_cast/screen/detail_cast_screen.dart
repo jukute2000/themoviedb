@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie/presentation/detail_cast/widget/appbar_widget.dart';
+import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/detail_cast.dart';
 
 class DetailCastScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _DetailCastScreenState extends State<DetailCastScreen> {
       body: AppbarWidget(
         scrollController: scrollController,
         body: DetailCast(id: widget.id),
-        onProfilePressed: () {},
+        isHome: false,
       ),
     );
   }

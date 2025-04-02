@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/configs/assets/app_colors.dart';
-import '../../../core/configs/assets/app_images.dart';
+import '../../core/configs/assets/app_colors.dart';
+import '../../core/configs/assets/app_images.dart';
+import '../../core/configs/navigation/app_navigation.dart';
+import '../profile/screen/profile_screen.dart';
 
 class AppbarWidget extends StatelessWidget {
   const AppbarWidget({
     super.key,
     required ScrollController scrollController,
     required this.body,
-    required this.onProfilePressed,
+    required this.isHome,
   }) : _scrollController = scrollController;
-  final VoidCallback onProfilePressed;
+
   final ScrollController _scrollController;
   final Widget body;
+  final bool isHome;
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -23,7 +26,7 @@ class AppbarWidget extends StatelessWidget {
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           iconTheme: const IconThemeData(color: AppColors.iconAppbar),
-          backgroundColor: Colors.blue.shade900,
+          backgroundColor: AppColors.backgroundAppbar,
           title: SvgPicture.network(
             AppImages.logoAppBar,
             height: 18.h,
@@ -36,15 +39,17 @@ class AppbarWidget extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(Icons.person),
-              onPressed: onProfilePressed,
+              onPressed: () =>
+                  AppNavigator.push(context, const ProfileScreen()),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                color: Colors.blue,
-              ),
-            )
+            if (!isHome)
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.blue,
+                ),
+              )
           ],
         )
       ],
