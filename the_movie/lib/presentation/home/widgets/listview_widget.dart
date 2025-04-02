@@ -36,7 +36,7 @@ class ListviewWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 200.w, // Giảm chiều rộng
+                width: 150.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white,
@@ -57,17 +57,18 @@ class ListviewWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                             child: Image.network(
                               AppImages.getImageUrl(item.posterPath ?? ''),
-                              height: 270.h, // Tăng chiều dài
-                              width: double.infinity, // width: height / 1.5
-                              fit: BoxFit.cover,
+                              height: 225.h,
+                              // Tăng chiều dài
+                              width: 155.w, // width: height / 1.5
+                              fit: BoxFit.contain,
                             ),
                           ),
                           Positioned(
-                            bottom: 8.w,
+                            bottom: 8.h,
                             left: 8.w,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8.w, vertical: 4.w),
                               decoration: BoxDecoration(
                                 color: item.goodMedia()
                                     ? Colors.green
