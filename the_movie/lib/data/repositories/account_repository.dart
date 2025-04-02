@@ -28,13 +28,12 @@ class AccountRepositoryImpl implements AccountRepository {
     int accountId = await AccountRepositoryImpl.instance.getAccountId();
     if (isMovie) {
       await ApiTmdbController.getInstance().tmdb.v3.account.addToWatchList(
-          sessionId, accountId, id, MediaType.movie, isWatchList);
+          sessionId, accountId, id, MediaType.movie,
+          shouldAdd: isWatchList);
     } else {
-      await ApiTmdbController.getInstance()
-          .tmdb
-          .v3
-          .account
-          .addToWatchList(sessionId, accountId, id, MediaType.tv, isWatchList);
+      await ApiTmdbController.getInstance().tmdb.v3.account.addToWatchList(
+          sessionId, accountId, id, MediaType.tv,
+          shouldAdd: isWatchList);
     }
   }
 
@@ -44,13 +43,12 @@ class AccountRepositoryImpl implements AccountRepository {
     int accountId = await AccountRepositoryImpl.instance.getAccountId();
     if (isMovie) {
       await ApiTmdbController.getInstance().tmdb.v3.account.markAsFavorite(
-          sessionId, accountId, id, MediaType.movie, isFavorites);
+          sessionId, accountId, id, MediaType.movie,
+          isFavorite: isFavorites);
     } else {
-      await ApiTmdbController.getInstance()
-          .tmdb
-          .v3
-          .account
-          .markAsFavorite(sessionId, accountId, id, MediaType.tv, isFavorites);
+      await ApiTmdbController.getInstance().tmdb.v3.account.markAsFavorite(
+          sessionId, accountId, id, MediaType.tv,
+          isFavorite: isFavorites);
     }
   }
 

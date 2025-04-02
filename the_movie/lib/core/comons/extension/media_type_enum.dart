@@ -14,7 +14,7 @@ extension MediaTypeExtension on MediaTypeEnum {
   }
 
   static MediaTypeEnum? fromString(String value) {
-    switch (value.toLowerCase()) {
+    switch (value) {
       case "Movie":
         return MediaTypeEnum.movie;
       case "Tv":
