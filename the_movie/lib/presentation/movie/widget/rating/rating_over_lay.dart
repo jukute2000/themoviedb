@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/models/account/account_status.dart';
-import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 
 class RatingOverlay extends StatefulWidget {
   final double initialScore;
@@ -96,7 +93,8 @@ class _RatingOverlayState extends State<RatingOverlay> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: currentColor.withOpacity(0.2), // sua lai thanh with value
+                  color:
+                      currentColor.withOpacity(0.2), // sua lai thanh with value
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: currentColor, width: 1),
                 ),

@@ -55,7 +55,7 @@ class _CreditsWidgetState extends State<CreditsWidget> {
                             }
                           },
                           child: Text(
-                            media.getTitle() ?? AppStrings.noInfomation.tr(),
+                            media.getTitle(),
                           ),
                         ),
                         subtitle: Text(

@@ -10,6 +10,7 @@ abstract class Media {
   double? voteAverage;
   int? voteCount;
   String? originalLanguage;
+  String? character;
 
   Media(
       {required this.id,
@@ -27,10 +28,6 @@ abstract class Media {
   String getTitle();
   DateTime? getReleaseDate();
   String getOriginalTitle();
-
-  factory Media.fromJson(Map<String, dynamic> json) {
-    throw UnimplementedError('Must be implemented by subclasses');
-  }
 
   String getYear();
 

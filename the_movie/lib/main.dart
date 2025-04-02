@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_keyword/bloc/tab_keyword_cubit.dart';
@@ -10,9 +9,6 @@ import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_m
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab_tv_show_cubit.dart';
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
-
-import 'package:the_movie/presentation/home/screen/home_screen.dart';
-
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 

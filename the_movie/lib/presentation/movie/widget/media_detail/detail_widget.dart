@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
-import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/crew_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/header_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/infor_icon/info_section_widget.dart';

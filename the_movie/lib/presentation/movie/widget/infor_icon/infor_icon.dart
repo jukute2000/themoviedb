@@ -55,7 +55,6 @@ class _InforIconState extends State<InforIcon> {
         }),
       ],
     );
-    ;
   }
 
   Widget _buildIconButton(IconData icon, bool isChosse, VoidCallback onTap) {

@@ -3,6 +3,7 @@ class SafeNull {
     if (text != null && text.trim().isNotEmpty) {
       return text;
     }
+    return null;
   }
 
   static int checkInt(dynamic ex) {

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
-import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
 import 'package:the_movie/presentation/movie/widget/rating/row_rating_widget.dart';
 
 class RatingSection extends StatefulWidget {
   final bool isMovie;
   final double voteAverage;
 
-  const RatingSection({super.key, required this.voteAverage, required this.isMovie});
+  const RatingSection(
+      {super.key, required this.voteAverage, required this.isMovie});
 
   @override
   State<RatingSection> createState() => RatingSectionState();

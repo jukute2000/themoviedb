@@ -1,9 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/models/account/account_model.dart';
 import 'package:the_movie/data/models/medias/media.dart';
-import 'package:the_movie/data/models/medias/movie.dart';
-import 'package:the_movie/data/models/medias/tv.dart';
-import 'package:the_movie/data/repositories/account_repository.dart';
 import 'package:the_movie/data/repositories/media_repository.dart';
 import 'package:the_movie/presentation/home/bloc/trending/trending_state.dart';
 import 'package:tmdb_api/tmdb_api.dart';

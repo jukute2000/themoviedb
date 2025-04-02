@@ -19,7 +19,6 @@ class DetailCastCubit extends Cubit<DetailCastState> {
   Map<String, List<Crew>> originalCrews = {};
   List<Media> originalMedias = [];
   bool isClear = false;
-//https://pub.dev/packages/external_app_launcher làm
   Future<void> loadDetailCast(int id) async {
     emit(DetailCastIsLoading());
     try {
@@ -42,8 +41,8 @@ class DetailCastCubit extends Cubit<DetailCastState> {
 
       if (credits?.cast != null) {
         originalMedias = (credits!.cast ?? [])
-          ..sort((a, b) => (getReleaseDate(b) ?? DateTime(0))
-              .compareTo(getReleaseDate(a) ?? DateTime(0)));
+          ..sort((a, b) => (b.getReleaseDate() ?? DateTime(0))
+              .compareTo(a.getReleaseDate() ?? DateTime(0)));
       }
 
       emit(DetailCastLoaded(
@@ -92,14 +91,6 @@ class DetailCastCubit extends Cubit<DetailCastState> {
         medias: originalMedias,
       ));
     }
-  }
-
-  DateTime? getReleaseDate(Media media) {
-    return (media is Movie)
-        ? media.releaseDate
-        : (media is TiVi)
-            ? media.firstAirDate
-            : null;
   }
 
   Future<void> openSocialMedia(SocialMedia socialMedia) async {

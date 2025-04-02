@@ -79,7 +79,7 @@ class AccountRepositoryImpl implements AccountRepository {
       AccountId = result["id"];
       await prefs.setString("AccountId", AccountId.toString());
     } else {
-      AccountId = int.parse(stringAccountId!);
+      AccountId = int.parse(stringAccountId);
     }
 
     return AccountId;
