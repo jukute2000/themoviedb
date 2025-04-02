@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 
@@ -61,15 +63,15 @@ class _InforIconState extends State<InforIcon> {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(right: 5, bottom: 5),
+        padding: EdgeInsets.only(right: 5.w, bottom: 5.h),
         child: Container(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(PaddingSizes.p8),
           decoration: BoxDecoration(
             color: Colors.blueGrey[900],
             shape: BoxShape.circle,
           ),
-          child:
-              Icon(icon, color: isChosse ? Colors.red : Colors.white, size: 20),
+          child: Icon(icon,
+              color: isChosse ? Colors.red : Colors.white, size: 20.w),
         ),
       ),
     );

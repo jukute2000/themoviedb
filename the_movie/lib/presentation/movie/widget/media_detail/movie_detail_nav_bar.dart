@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 class MovieDetailNavBar extends StatelessWidget {
   const MovieDetailNavBar({super.key});
@@ -7,7 +9,7 @@ class MovieDetailNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.all(PaddingSizes.p4),
       child: Row(
         children: [
           _buildNavButton(context, 'Overview', const OverviewDropdownMenu()),
@@ -21,7 +23,7 @@ class MovieDetailNavBar extends StatelessWidget {
 
   Widget _buildNavButton(BuildContext context, String title, Widget? menu) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 8.w),
       child: InkWell(
         onTap: () => menu != null
             ? showMenu(
@@ -34,13 +36,13 @@ class MovieDetailNavBar extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const Icon(Icons.arrow_drop_down, color: Colors.black, size: 20),
+            Icon(Icons.arrow_drop_down, color: Colors.black, size: 20.h),
           ],
         ),
       ),
@@ -63,21 +65,21 @@ class MediaDropdownMenu extends StatelessWidget {
           _mediaItem('Backdrops', '104'),
           _mediaItem('Logos', '113'),
           _mediaItem('Posters', '138'),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Videos',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     color: Colors.black87,
                   ),
                 ),
                 Icon(
                   Icons.arrow_forward_ios,
-                  size: 14,
+                  size: 14.w,
                   color: Colors.black54,
                 ),
               ],

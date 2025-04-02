@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
@@ -25,7 +26,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
     currentStatus = widget.accountStatus;
     userScore = currentStatus.hasRating ? currentStatus.ratingValue! : 10;
     text = currentStatus.hasRating
-    // viet ham tai su dung
+        // viet ham tai su dung
         ? "Your Vibe ${(userScore * 10).round()}%"
         : "What's your Vibe?";
   }
@@ -74,23 +75,23 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
         _emojiIcon("😡"),
         _emojiIcon("🤢"),
         _emojiIcon("🤩"),
-        const SizedBox(
-          height: 20,
-          child:
-              VerticalDivider(color: Colors.white54, thickness: 1.5, width: 10),
+        SizedBox(
+          height: 20.h,
+          child: VerticalDivider(
+              color: Colors.white54, thickness: 1.5, width: 10.w),
         ),
         GestureDetector(
             onTap: () => _showRatingOverlay(userScore * 10),
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,
               ),
             )),
-        const Icon(Icons.info_outline, color: Colors.white, size: 17),
+        Icon(Icons.info_outline, color: Colors.white, size: 17.w),
       ],
     );
   }
@@ -98,7 +99,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
   Widget _emojiIcon(String emoji) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Text(emoji, style: const TextStyle(fontSize: 17)),
+      child: Text(emoji, style: TextStyle(fontSize: 17.sp)),
     );
   }
 }

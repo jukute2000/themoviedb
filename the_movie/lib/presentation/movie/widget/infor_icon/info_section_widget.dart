@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
 import 'package:the_movie/presentation/movie/widget/infor_icon/infor_icon.dart';
@@ -16,12 +18,13 @@ class InfoSection extends StatelessWidget {
       required this.releaseDateText,
       required this.originText,
       required this.runtimeText,
-      required this.genreText, required this.isMovie});
+      required this.genreText,
+      required this.isMovie});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.all(PaddingSizes.p16),
       child: Column(
         children: [
           Row(
@@ -40,7 +43,7 @@ class InfoSection extends StatelessWidget {
 
   Widget _buildCertification() {
     return Container(
-      padding: const EdgeInsets.all(4.0),
+      padding: EdgeInsets.all(PaddingSizes.p4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3.0),
         border: Border.all(
@@ -62,7 +65,7 @@ class InfoSection extends StatelessWidget {
     return Expanded(
       child: Text(
         " $releaseDateText ($originText) • $runtimeText",
-        style: const TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(color: Colors.white, fontSize: 16.sp),
         overflow: TextOverflow.ellipsis,
       ),
     );
@@ -79,7 +82,8 @@ class InfoSection extends StatelessWidget {
           );
         } else if (state is AccountStatusLoaded) {
           return InforIcon(
-            accountStatus: state.accountStatus, isMovie: isMovie,
+            accountStatus: state.accountStatus,
+            isMovie: isMovie,
           );
         }
         return const SizedBox();
@@ -90,7 +94,7 @@ class InfoSection extends StatelessWidget {
   Widget _buildGenreText() {
     return Text(
       genreText,
-      style: const TextStyle(color: Colors.white, fontSize: 16),
+      style: TextStyle(color: Colors.white, fontSize: 16.sp),
     );
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
 import 'package:the_movie/presentation/movie/widget/rating/row_rating_widget.dart';
+
+import '../../../../core/utils/sizes_manager.dart';
 
 class RatingSection extends StatefulWidget {
   final bool isMovie;
@@ -19,7 +23,7 @@ class RatingSectionState extends State<RatingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(PaddingSizes.p16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,12 +39,14 @@ class RatingSectionState extends State<RatingSection> {
       mainAxisSize: MainAxisSize.min,
       children: [
         _ScoreCircle(score: widget.voteAverage),
-        const SizedBox(width: 10),
-        const Column(
+        GapsManager.w10,
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("User", style: TextStyle(color: Colors.white, fontSize: 17)),
-            Text("Score", style: TextStyle(color: Colors.white, fontSize: 17)),
+            Text("User",
+                style: TextStyle(color: Colors.white, fontSize: 17.sp)),
+            Text("Score",
+                style: TextStyle(color: Colors.white, fontSize: 17.sp)),
           ],
         ),
       ],
@@ -85,8 +91,8 @@ class _ScoreCircle extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: 45,
-          height: 45,
+          width: 45.w,
+          height: 45.h,
           child: CircularProgressIndicator(
             value: score / 10,
             backgroundColor: Colors.grey.shade800,

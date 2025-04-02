@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -26,11 +27,11 @@ class HeaderSection extends StatelessWidget {
     return Image.network(
       AppImages.getImageBackdrop(backdropPath),
       width: double.infinity,
-      height: 200,
+      height: 200.h,
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) => Container(
         width: double.infinity,
-        height: 200,
+        height: 200.h,
         color: Colors.grey[800],
         child: const Center(
           child: Text('Image not available',
@@ -42,18 +43,18 @@ class HeaderSection extends StatelessWidget {
 
   Widget _buildPosterImage() {
     return Positioned(
-      left: 16,
-      bottom: 16,
+      left: 16.w,
+      bottom: 16.h,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: Image.network(
           AppImages.getImagePoster(posterPath),
-          width: 80,
-          height: 120,
+          width: 80.w,
+          height: 120.h,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) => Container(
-            width: 80,
-            height: 120,
+            width: 80.w,
+            height: 120.h,
             color: Colors.grey[700],
             child: const Icon(Icons.image_not_supported, color: Colors.white),
           ),

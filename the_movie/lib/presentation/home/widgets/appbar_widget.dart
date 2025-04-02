@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
@@ -6,7 +7,6 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/profile/screen/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-
   const CustomAppBar({super.key});
 
   @override
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.backgroundAppbar,
       title: SvgPicture.network(
         AppImages.logoAppBar,
-        height: 18,
+        height: 18.h,
         colorFilter: const ColorFilter.mode(
           AppColors.iconAppbar,
           BlendMode.srcIn,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 class CrewSection extends StatelessWidget {
   const CrewSection({super.key});
@@ -6,7 +7,7 @@ class CrewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(PaddingSizes.p16),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

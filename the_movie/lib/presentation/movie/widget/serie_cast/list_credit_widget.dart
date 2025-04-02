@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 import 'package:the_movie/data/models/credits/credit.dart';
 
@@ -22,12 +24,12 @@ class ListCreditWidget extends StatelessWidget {
           final item = credit[index];
           return GestureDetector(
             onTap: () {
-              AppNavigator.push(context, DetailCastScreen(id: item.id ?? 0));
+              AppNavigator.push(context, DetailCastScreen(id: item.id!));
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 160, // Giảm chiều rộng
+                width: 160.w, // Giảm chiều rộng
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white,
@@ -40,7 +42,7 @@ class ListCreditWidget extends StatelessWidget {
                   ],
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Stack(
                       children: [
@@ -48,7 +50,7 @@ class ListCreditWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
                             AppImages.getImageUrl(item.profilePath ?? ""),
-                            height: 240, // Tăng chiều dài
+                            height: 240.h, // Tăng chiều dài
                             width: double.infinity, // width: height / 1.5
                             fit: BoxFit.cover,
                           ),
@@ -58,25 +60,25 @@ class ListCreditWidget extends StatelessWidget {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(PaddingSizes.p8),
                           child: Text(
                             item.name ?? '',
                             maxLines: 2, // Giới hạn 2 dòng
                             overflow:
                                 TextOverflow.ellipsis, // Hiển thị dấu "..."
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: EdgeInsets.all(PaddingSizes.p8),
                           child: Text(
                             item.character ?? '',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.grey,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ),

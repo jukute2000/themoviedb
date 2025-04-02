@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
+
+import '../../../core/utils/sizes_manager.dart';
 
 class BannerWidget extends StatefulWidget {
   const BannerWidget({super.key});
@@ -26,7 +30,7 @@ class _BannerWidgetState extends State<BannerWidget> {
     return Stack(
       children: [
         Container(
-          height: 250,
+          height: 250.h,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
@@ -37,34 +41,34 @@ class _BannerWidgetState extends State<BannerWidget> {
           ),
         ),
         Container(
-          height: 250,
+          height: 250.h,
           color: AppColors.overlayBanner,
         ),
         Positioned(
-          top: 50,
-          left: 20,
-          right: 20,
+          top: 50.h,
+          left: 20.w,
+          right: 20.w,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 AppStrings.titleDashboard1,
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 36.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              const Text(
+              Text(
                 AppStrings.titleDashboard2,
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 20),
+              GapsManager.h20,
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.all(PaddingSizes.p4),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
@@ -85,11 +89,12 @@ class _BannerWidgetState extends State<BannerWidget> {
                       onPressed: () {
                         String text = textController.text;
                         AppNavigator.push(
-                            context,
-                            DetailSearchScreen(
-                              index: 0,
-                              query: text,
-                            ));
+                          context,
+                          DetailSearchScreen(
+                            index: 0,
+                            query: text,
+                          ),
+                        );
                       },
                     ),
                   ],
