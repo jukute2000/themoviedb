@@ -29,7 +29,7 @@ class ListCreditWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 160.w, // Giảm chiều rộng
+                width: 150.w, // Giảm chiều rộng
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white,
@@ -50,8 +50,8 @@ class ListCreditWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           child: Image.network(
                             AppImages.getImageUrl(item.profilePath ?? ""),
-                            height: 240.h, // Tăng chiều dài
-                            width: double.infinity, // width: height / 1.5
+                            height: 200.h,
+                            width: 150.w,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -76,6 +76,8 @@ class ListCreditWidget extends StatelessWidget {
                           padding: EdgeInsets.all(PaddingSizes.p8),
                           child: Text(
                             item.character ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 14.sp,

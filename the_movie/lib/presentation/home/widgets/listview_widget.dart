@@ -93,9 +93,8 @@ class ListviewWidget extends StatelessWidget {
                             padding: EdgeInsets.all(PaddingSizes.p8),
                             child: Text(
                               item.getTitle(),
-                              maxLines: 1, // Giới hạn 2 dòng
-                              overflow:
-                                  TextOverflow.ellipsis, // Hiển thị dấu "..."
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
