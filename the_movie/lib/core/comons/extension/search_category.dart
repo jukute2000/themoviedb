@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-
-import '../../constants/strings_manager.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 enum SearchCategory {
   tv,
@@ -32,17 +31,17 @@ extension SearchCategoryExtension on SearchCategory {
   String get localizedName {
     switch (this) {
       case SearchCategory.tv:
-        return StringsManager.tvShows.tr();
+        return AppStrings.tvShows.tr();
       case SearchCategory.movie:
-        return StringsManager.movies.tr();
+        return AppStrings.movies.tr();
       case SearchCategory.people:
-        return StringsManager.people.tr();
+        return AppStrings.people.tr();
       case SearchCategory.collections:
-        return StringsManager.collections.tr();
+        return AppStrings.collections.tr();
       case SearchCategory.keywords:
-        return StringsManager.keywords.tr();
+        return AppStrings.keywords.tr();
       case SearchCategory.companies:
-        return StringsManager.companies.tr();
+        return AppStrings.companies.tr();
     }
   }
 }

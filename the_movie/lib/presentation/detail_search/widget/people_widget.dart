@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 import '../../../core/configs/assets/app_images.dart';
-import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 import '../../../data/models/people/know_for.dart';
 
@@ -35,7 +35,7 @@ class PeopleWidget extends StatelessWidget {
                   width: WidthSizes.w100,
                   child: (profilePath ?? "").isNotEmpty
                       ? Image.network(
-                          StringsManager.imageUrl + profilePath!,
+                          AppStrings.imageUrl + profilePath!,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(

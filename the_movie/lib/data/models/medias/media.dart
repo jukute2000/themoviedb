@@ -34,8 +34,6 @@ abstract class Media {
 
   String getYear();
 
-  String? getTitle();
-
   bool isMovie();
 
   String roundVoteAverage() {

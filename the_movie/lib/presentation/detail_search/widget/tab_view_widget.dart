@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
 
 import '../../../core/configs/assets/app_images.dart';
-import '../../../core/constants/strings_manager.dart';
 import '../../../core/utils/sizes_manager.dart';
 import '../../../data/models/medias/media.dart';
 import '../../../data/models/medias/movie.dart';
@@ -34,7 +34,7 @@ class TabViewWidget extends StatelessWidget {
                     child: (media.posterPath != null &&
                             media.posterPath!.isNotEmpty)
                         ? Image.network(
-                            StringsManager.imageUrl + media.posterPath!,
+                            AppStrings.imageUrl + media.posterPath!,
                             fit: BoxFit.cover,
                           )
                         : Image.asset(

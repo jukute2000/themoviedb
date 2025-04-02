@@ -22,6 +22,7 @@ class TiVi extends Media {
     required super.voteAverage,
     required super.voteCount,
     required super.originalLanguage,
+    required super.charater,
   });
 
   @override
@@ -43,6 +44,7 @@ class TiVi extends Media {
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
+        charater: '',
       );
 
   @override
@@ -58,5 +60,17 @@ class TiVi extends Media {
   @override
   String getTitle() {
     return name ?? '';
+  }
+
+  @override
+  String getYear() {
+    String getYear =
+        (getReleaseDate() != null) ? getReleaseDate()!.year.toString() : '';
+    return getYear;
+  }
+
+  @override
+  bool isMovie() {
+    return false;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/screen/tab_collection.dart';
@@ -11,7 +12,6 @@ import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/screen/t
 
 import '../../../core/comons/extension/search_category.dart';
 import '../../../core/comons/widgets/keyword_container.dart';
-import '../../../core/constants/strings_manager.dart';
 import '../stream_controller/search_total_provider.dart';
 import '../widget/search_bar_widget.dart';
 
@@ -89,7 +89,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        StringsManager.search.tr(),
+                        AppStrings.search.tr(),
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),

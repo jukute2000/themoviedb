@@ -17,6 +17,7 @@ class Collection extends Media {
     required super.adult,
     required super.originalLanguage,
     required super.backdropPath,
+    required super.charater,
   });
 
   factory Collection.fromJson(Map<String, dynamic> json) => Collection(
@@ -31,22 +32,33 @@ class Collection extends Media {
         popularity: SafeNull.checkDouble(json["popularity"]),
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
+        charater: '',
       );
 
   @override
   String getOriginalTitle() {
-    // TODO: implement getOriginalTitle
-    throw UnimplementedError();
+    return name ?? '';
   }
 
   @override
   DateTime? getReleaseDate() {
-    // TODO: implement getReleaseDate
-    throw UnimplementedError();
+    return null;
   }
 
   @override
   String getTitle() {
     return name ?? '';
+  }
+
+  @override
+  String getYear() {
+    String getYear =
+        (getReleaseDate() != null) ? getReleaseDate()!.year.toString() : '';
+    return getYear;
+  }
+
+  @override
+  bool isMovie() {
+    return false;
   }
 }
