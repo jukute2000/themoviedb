@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
 
+import '../../../../core/configs/assets/app_strings.dart';
 import '../../../../core/utils/sizes_manager.dart';
 
 class KeyWordWidget1 extends StatefulWidget {
@@ -51,7 +53,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                     ),
                   ),
                   child: Text(
-                    keyword.name ?? '',
+                    keyword.name ?? AppStrings.noInfomation.tr(),
                     style: TextStyle(
                       color: isSelected ? Colors.blue.shade800 : Colors.black87,
                       fontWeight: FontWeight.w500,

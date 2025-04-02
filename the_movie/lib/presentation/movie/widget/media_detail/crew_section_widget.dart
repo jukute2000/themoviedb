@@ -1,5 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+
+import '../../../../core/configs/assets/app_strings.dart';
 
 class CrewSection extends StatelessWidget {
   const CrewSection({super.key});
@@ -8,11 +11,12 @@ class CrewSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(PaddingSizes.p16),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _InfoPerson(name: "Marc Webb", role: "Director"),
-          _InfoPerson(name: "Erin Cressida Wilson", role: "Screenplay"),
+          _InfoPerson(name: "Marc Webb", role: AppStrings.director.tr()),
+          _InfoPerson(
+              name: "Erin Cressida Wilson", role: AppStrings.screenplay.tr()),
         ],
       ),
     );

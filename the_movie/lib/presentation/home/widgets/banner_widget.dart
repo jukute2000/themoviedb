@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
@@ -52,7 +53,7 @@ class _BannerWidgetState extends State<BannerWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppStrings.titleDashboard1,
+                AppStrings.titleDashboard1.tr(),
                 style: TextStyle(
                   fontSize: 36.sp,
                   fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                 ),
               ),
               Text(
-                AppStrings.titleDashboard2,
+                AppStrings.titleDashboard2.tr(),
                 style: TextStyle(
                   fontSize: 18.sp,
                   color: Colors.white,
@@ -78,8 +79,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                     Expanded(
                       child: TextField(
                         controller: textController,
-                        decoration: const InputDecoration(
-                          hintText: "Search...",
+                        decoration: InputDecoration(
+                          hintText: AppStrings.search.tr(),
                           border: InputBorder.none,
                         ),
                       ),

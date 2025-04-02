@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,8 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
+
+import '../../../core/configs/assets/app_strings.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -33,17 +36,17 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
           ),
-          _createDrawerItem(Icons.favorite, "Favorites"),
-          _createDrawerItem(Icons.group, "Friends"),
-          _createDrawerItem(Icons.share, "Share"),
-          _createDrawerItem(Icons.notifications, "Request"),
+          _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
+          _createDrawerItem(Icons.group, AppStrings.friends.tr()),
+          _createDrawerItem(Icons.share, AppStrings.request.tr()),
+          _createDrawerItem(Icons.notifications, AppStrings.share.tr()),
           DividerManager.horizontalDivider,
-          _createDrawerItem(Icons.settings, "Settings"),
-          _createDrawerItem(Icons.policy, "Policies"),
+          _createDrawerItem(Icons.settings, AppStrings.request.tr()),
+          _createDrawerItem(Icons.policy, AppStrings.settings.tr()),
           DividerManager.horizontalDivider,
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text("Exit"),
+            title: Text(AppStrings.exit.tr()),
             onTap: () {
               // Xử lý sự kiện khi nhấn vào mục
               // AuthRepositoryImpl.instance.logOut();

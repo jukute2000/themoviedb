@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
@@ -28,9 +29,9 @@ class HomeScreen extends StatelessWidget {
               //banner
               const BannerWidget(),
               // Phần Trending
-              const TitleWidget(
-                title: AppStrings.trending,
-                widget: SwitchButton(),
+              TitleWidget(
+                title: AppStrings.trending.tr(),
+                widget: const SwitchButton(),
                 fontSize: 28,
               ),
               BlocBuilder<SwitchCubit, bool>(
@@ -40,8 +41,8 @@ class HomeScreen extends StatelessWidget {
                       : const GetTrendingWeekWidget();
                 },
               ),
-              const TitleWidget(
-                title: AppStrings.whatPopular,
+              TitleWidget(
+                title: AppStrings.whatPopular.tr(),
                 fontSize: 28,
               ),
               const GetPopularWidget(),
