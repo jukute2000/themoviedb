@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/media_detail/media_detail_state.dart';
@@ -52,7 +53,7 @@ class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: Colors.black,
+      color: AppColors.divider,
       thickness: 2,
       height: 20.h,
     );

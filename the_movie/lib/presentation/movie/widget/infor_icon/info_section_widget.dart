@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
@@ -47,14 +48,14 @@ class InfoSection extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(3.0),
         border: Border.all(
-          color: const Color.fromARGB(255, 207, 207, 207),
+          color: AppColors.containerCetificate,
           width: 1,
         ),
       ),
       child: const Text(
         'PG',
         style: TextStyle(
-          color: Color.fromARGB(255, 207, 207, 207),
+          color: AppColors.containerCetificate,
           fontSize: 16,
         ),
       ),
@@ -65,7 +66,7 @@ class InfoSection extends StatelessWidget {
     return Expanded(
       child: Text(
         " $releaseDateText ($originText) • $runtimeText",
-        style: TextStyle(color: Colors.white, fontSize: 16.sp),
+        style: TextStyle(color: AppColors.textWhite, fontSize: 16.sp),
         overflow: TextOverflow.ellipsis,
       ),
     );
@@ -94,7 +95,7 @@ class InfoSection extends StatelessWidget {
   Widget _buildGenreText() {
     return Text(
       genreText,
-      style: TextStyle(color: Colors.white, fontSize: 16.sp),
+      style: TextStyle(color: AppColors.textWhite, fontSize: 16.sp),
     );
   }
 }

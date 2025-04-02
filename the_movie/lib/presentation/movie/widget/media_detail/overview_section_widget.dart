@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 
@@ -24,7 +25,7 @@ class OverviewSection extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 212, 208, 208),
+                color: AppColors.textTagLine,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -34,13 +35,13 @@ class OverviewSection extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors.textWhite,
             ),
           ),
           GapsManager.h10,
           Text(
             overview,
-            style: const TextStyle(color: Colors.white70),
+            style: const TextStyle(color: AppColors.textWhite70),
           ),
         ],
       ),

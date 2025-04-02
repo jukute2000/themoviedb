@@ -56,21 +56,21 @@ class _BannerWidgetState extends State<BannerWidget> {
                 style: TextStyle(
                   fontSize: 36.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: AppColors.textWhite,
                 ),
               ),
               Text(
                 AppStrings.titleDashboard2,
                 style: TextStyle(
                   fontSize: 18.sp,
-                  color: Colors.white,
+                  color: AppColors.textWhite,
                 ),
               ),
               GapsManager.h20,
               Container(
                 padding: EdgeInsets.all(PaddingSizes.p4),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.containerWhite,
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Row(
@@ -85,7 +85,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.search, color: Colors.blue),
+                      icon:
+                          const Icon(Icons.search, color: AppColors.iconSerach),
                       onPressed: () {
                         String text = textController.text;
                         AppNavigator.push(

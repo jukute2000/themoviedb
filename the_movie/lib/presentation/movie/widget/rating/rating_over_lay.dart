@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 
@@ -42,10 +45,12 @@ class _RatingOverlayState extends State<RatingOverlay> {
     // From red (0) to yellow (50) to green (100)
     if (value <= 50) {
       // From red to yellow (0-50)
-      return Color.lerp(Colors.red, Colors.yellow, value / 50)!;
+      return Color.lerp(
+          AppColors.ratingRed, AppColors.ratingYellow, value / 50)!;
     } else {
       // From yellow to green (50-100)
-      return Color.lerp(Colors.yellow, Colors.green, (value - 50) / 50)!;
+      return Color.lerp(
+          AppColors.ratingYellow, AppColors.ratingGreen, (value - 50) / 50)!;
     }
   }
 
@@ -65,13 +70,13 @@ class _RatingOverlayState extends State<RatingOverlay> {
       padding: EdgeInsets.all(PaddingSizes.p24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
-        boxShadow: [
+        color: AppColors.containerWhite,
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: AppColors.boxShadowBlack,
             spreadRadius: 1,
             blurRadius: 10,
-            offset: const Offset(0, 3),
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -87,7 +92,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: AppColors.textBlack,
                 ),
               ),
               Container(
@@ -97,7 +102,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 ),
                 decoration: BoxDecoration(
                   color:
-                      currentColor.withOpacity(0.2), // sua lai thanh with value
+                      currentColor.withOpacity(0.3), // sua lai thanh with value
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: currentColor, width: 1),
                 ),

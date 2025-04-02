@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
 
@@ -14,9 +15,9 @@ class SwitchButton extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(PaddingSizes.p4),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.containerWhite,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.blueGrey, width: 1.5.w),
+            border: Border.all(color: AppColors.boderContainer, width: 1.5.w),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -28,14 +29,17 @@ class SwitchButton extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.h, vertical: 8.w),
                   decoration: BoxDecoration(
-                    color:
-                        isTodaySelected ? Colors.blueGrey : Colors.transparent,
+                    color: isTodaySelected
+                        ? AppColors.todaySelected
+                        : AppColors.todayUnSelected,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     "Today",
                     style: TextStyle(
-                      color: isTodaySelected ? Colors.cyanAccent : Colors.black,
+                      color: isTodaySelected
+                          ? AppColors.textTodaySelected
+                          : AppColors.textTodayUnSelected,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -48,15 +52,17 @@ class SwitchButton extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.h, vertical: 8.w),
                   decoration: BoxDecoration(
-                    color:
-                        !isTodaySelected ? Colors.blueGrey : Colors.transparent,
+                    color: !isTodaySelected
+                        ? AppColors.todaySelected
+                        : AppColors.todayUnSelected,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     "This Week",
                     style: TextStyle(
-                      color:
-                          !isTodaySelected ? Colors.cyanAccent : Colors.black,
+                      color: !isTodaySelected
+                          ? AppColors.textTodaySelected
+                          : AppColors.textTodayUnSelected,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

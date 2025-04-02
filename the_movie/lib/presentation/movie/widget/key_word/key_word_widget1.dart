@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
 
 import '../../../../core/utils/sizes_manager.dart';
@@ -42,18 +43,22 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                       EdgeInsets.symmetric(horizontal: 16.h, vertical: 8.h),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? Colors.blue.shade100
-                        : Colors.grey.shade200,
+                        ? AppColors.containerKeyWordSelected
+                        : AppColors.containerKeyWordUnSelected,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: isSelected ? Colors.blue : Colors.transparent,
+                      color: isSelected
+                          ? AppColors.borderSelected
+                          : AppColors.borderUnSelected,
                       width: 1,
                     ),
                   ),
                   child: Text(
                     keyword.name ?? '',
                     style: TextStyle(
-                      color: isSelected ? Colors.blue.shade800 : Colors.black87,
+                      color: isSelected
+                          ? AppColors.textKeywordSelected
+                          : AppColors.textKeywordUnSelected,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

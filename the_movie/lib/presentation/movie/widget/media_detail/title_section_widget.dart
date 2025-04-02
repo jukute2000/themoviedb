@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 
 class TitleSection extends StatelessWidget {
   final DateTime releaseDate;
@@ -21,7 +22,7 @@ class TitleSection extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: AppColors.textWhite,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -30,7 +31,7 @@ class TitleSection extends StatelessWidget {
             "(${releaseDate.year})",
             style: TextStyle(
               fontSize: 20.sp,
-              color: Colors.white70,
+              color: AppColors.textWhite70,
             ),
           ),
         ],

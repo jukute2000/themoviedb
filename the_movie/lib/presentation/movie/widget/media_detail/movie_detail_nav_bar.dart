@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 
 class MovieDetailNavBar extends StatelessWidget {
@@ -8,7 +9,7 @@ class MovieDetailNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColors.containerWhite,
       padding: EdgeInsets.all(PaddingSizes.p4),
       child: Row(
         children: [
@@ -37,12 +38,12 @@ class MovieDetailNavBar extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: Colors.black,
+                color: AppColors.textBlack,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Icon(Icons.arrow_drop_down, color: Colors.black, size: 20.h),
+            Icon(Icons.arrow_drop_down, color: AppColors.iconBlack, size: 20.h),
           ],
         ),
       ),
@@ -74,13 +75,13 @@ class MediaDropdownMenu extends StatelessWidget {
                   'Videos',
                   style: TextStyle(
                     fontSize: 15.sp,
-                    color: Colors.black87,
+                    color: AppColors.textBlack87,
                   ),
                 ),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 14.w,
-                  color: Colors.black54,
+                  color: AppColors.iconBlack87,
                 ),
               ],
             ),
@@ -101,14 +102,14 @@ class MediaDropdownMenu extends StatelessWidget {
             title,
             style: const TextStyle(
               fontSize: 15,
-              color: Colors.black87,
+              color: AppColors.textBlack87,
             ),
           ),
           Text(
             count,
             style: const TextStyle(
               fontSize: 15,
-              color: Colors.grey,
+              color: AppColors.textGrey,
             ),
           ),
         ],
@@ -153,7 +154,7 @@ class OverviewDropdownMenu extends StatelessWidget {
         title,
         style: const TextStyle(
           fontSize: 15,
-          color: Colors.black87,
+          color: AppColors.textBlack87,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -12,7 +13,7 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(240, 0, 20, 0),
+      color: AppColors.containerNavBar,
       child: Stack(
         alignment: Alignment.bottomLeft,
         children: [
@@ -32,10 +33,10 @@ class HeaderSection extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => Container(
         width: double.infinity,
         height: 200.h,
-        color: Colors.grey[800],
+        color: AppColors.backdropImage,
         child: const Center(
           child: Text('Image not available',
-              style: TextStyle(color: Colors.white)),
+              style: TextStyle(color: AppColors.textWhite)),
         ),
       ),
     );
@@ -55,7 +56,7 @@ class HeaderSection extends StatelessWidget {
           errorBuilder: (context, error, stackTrace) => Container(
             width: 80.w,
             height: 120.h,
-            color: Colors.grey[700],
+            color: AppColors.posterImage,
             child: const Icon(Icons.image_not_supported, color: Colors.white),
           ),
         ),

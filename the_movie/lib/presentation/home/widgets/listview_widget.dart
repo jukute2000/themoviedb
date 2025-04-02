@@ -39,7 +39,7 @@ class ListviewWidget extends StatelessWidget {
                 width: 150.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
+                  color: AppColors.containerWhite,
                   boxShadow: const [
                     BoxShadow(
                       color: AppColors.shawdowListView,
@@ -71,8 +71,8 @@ class ListviewWidget extends StatelessWidget {
                                   horizontal: 8.w, vertical: 4.w),
                               decoration: BoxDecoration(
                                 color: item.goodMedia()
-                                    ? Colors.green
-                                    : Colors.amber[700],
+                                    ? AppColors.goodVoteItem
+                                    : AppColors.badVoteItem,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
@@ -110,7 +110,7 @@ class ListviewWidget extends StatelessWidget {
                                       .toString()
                                   : "Null day",
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: AppColors.textDay,
                                 fontSize: 14.sp,
                               ),
                             ),
