@@ -24,7 +24,7 @@ class NavigationService {
 
   static Future<dynamic>? navigateTo(Widget page) {
     return navigatorKey.currentState?.push(
-      MaterialPageRoute(builder: (_) => page),
+      MaterialPageRoute(builder: (context) => page),
     );
   }
 

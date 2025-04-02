@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
@@ -10,25 +9,22 @@ class ProfileDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileDetailCubit()..loadProfileDetails(),
-      child: BlocBuilder<ProfileDetailCubit, ProfileDetailState>(
-          builder: (context, state) {
-        if (state is ProfileDetailIsLoading) {
-          return const Center(
-            //set height = list widget.
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is ProfileDetailError) {
-          return Center(
-            child: Text(state.message),
-          );
-        } else if (state is AccountProfileDetailLoaded) {
-          return ProfileDetailWidget(accountModel: state.accountModel);
-        } else {
-          return const SizedBox(); 
-        }
-      }),
-    );
+    return BlocBuilder<ProfileDetailCubit, ProfileDetailState>(
+        builder: (context, state) {
+      if (state is ProfileDetailIsLoading) {
+        return const Center(
+          //set height = list widget.
+          child: CircularProgressIndicator(),
+        );
+      } else if (state is ProfileDetailError) {
+        return Center(
+          child: Text(state.message),
+        );
+      } else if (state is AccountProfileDetailLoaded) {
+        return ProfileDetailWidget(accountModel: state.accountModel);
+      } else {
+        return const SizedBox();
+      }
+    });
   }
 }

@@ -20,6 +20,49 @@ class LoginScreenState extends State<LoginScreen> {
   String _password = "";
   bool _isValid = false;
 
+  Future signIn() async {
+    // loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+
+    bool result = await AuthRepositoryImpl.instance
+        .loginUser(_emailCon.text, _passwordCon.text);
+    if (result) {
+      Navigator.of(context).pop();
+      AppNavigator.pushAndRemove(
+        context,
+        const HomeScreen(),
+      );
+    } else {
+      Navigator.of(context).pop();
+      showLoginErrorDialog(context, "Tên đăng nhập hoặc mật khẩu không đúng");
+    }
+  }
+
+  void showLoginErrorDialog(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Đăng nhập thất bại"),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _emailCon.dispose();
@@ -97,16 +140,7 @@ class LoginScreenState extends State<LoginScreen> {
     return ElevatedButton(
       onPressed: _isValid
           ? () async {
-              bool result = await AuthRepositoryImpl.instance
-                  .loginUser(_emailCon.text, _passwordCon.text);
-              if (result) {
-                AppNavigator.pushAndRemove(
-                  context,
-                  const HomeScreen(),
-                );
-              } else {
-                print("Login thất bại!");
-              }
+              await signIn();
             }
           : null, // Disable button if form is invalid
       child: const Text("Login"),

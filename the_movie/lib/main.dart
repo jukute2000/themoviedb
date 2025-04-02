@@ -12,6 +12,8 @@ import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
 
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
+import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
@@ -31,6 +33,9 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => SplashCubit()..appStarted(),
             ),
+            BlocProvider(
+              create: (context) => ProfileDetailCubit()..loadProfileDetails(),
+            ),
             BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
             BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
             BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
@@ -46,6 +51,7 @@ class MyApp extends StatelessWidget {
               splitScreenMode: true,
               builder: (context, child) {
                 return MaterialApp(
+                    navigatorKey: NavigationService.navigatorKey,
                     locale: context.locale,
                     supportedLocales: context.supportedLocales,
                     localizationsDelegates: context.localizationDelegates,
@@ -55,7 +61,7 @@ class MyApp extends StatelessWidget {
                           ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                       useMaterial3: true,
                     ),
-                    home: SplashScreen());
+                    home: const SplashScreen());
               })),
     );
   }

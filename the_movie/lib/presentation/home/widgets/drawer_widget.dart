@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -40,7 +42,8 @@ class DrawerWidget extends StatelessWidget {
             title: Text("Exit"),
             onTap: () {
               // Xử lý sự kiện khi nhấn vào mục
-              AuthRepositoryImpl.instance.logOut();
+              // AuthRepositoryImpl.instance.logOut();
+              context.read<ProfileDetailCubit>().logOut();
             },
           ),
           // _createDrawerItem(Icons.exit_to_app, "Exit"),

@@ -14,6 +14,7 @@ abstract class AccountRepository {
   Future<int> getAccountId();
   Future<List<Movie>> getMovieFavorites();
   Future<List<TiVi>> getTiviFavorites();
+  
 }
 
 class AccountRepositoryImpl implements AccountRepository {

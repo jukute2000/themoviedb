@@ -79,6 +79,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logOut() async {
     final prefs = await SharedPreferences.getInstance();
+    var sessionId = prefs.getString(AppStrings.sessionId);
+    await tmdbWithCustomLogs.v3.auth.deleteSession(sessionId!);
     await prefs.remove(AppStrings.sessionId);
     await prefs.remove(AppStrings.tokenExpried);
     NavigationService.navigateTo(const LoginScreen());

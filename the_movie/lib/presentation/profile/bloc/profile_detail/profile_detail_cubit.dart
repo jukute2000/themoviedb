@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/data/models/account/account_model.dart';
 import 'package:the_movie/data/repositories/account_repository.dart';
+import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_state.dart';
 
 class ProfileDetailCubit extends Cubit<ProfileDetailState> {
@@ -22,5 +23,9 @@ class ProfileDetailCubit extends Cubit<ProfileDetailState> {
     } finally {
       _isLoading = false;
     }
+  }
+
+  void logOut() async {
+    await AuthRepositoryImpl.instance.logOut();
   }
 }
