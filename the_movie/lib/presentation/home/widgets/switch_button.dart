@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
 
 class SwitchButton extends StatelessWidget {
@@ -10,11 +12,11 @@ class SwitchButton extends StatelessWidget {
     return BlocBuilder<SwitchCubit, bool>(
       builder: (context, isTodaySelected) {
         return Container(
-          padding: const EdgeInsets.all(4),
+          padding: EdgeInsets.all(PaddingSizes.p4),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.blueGrey, width: 1.5),
+            border: Border.all(color: Colors.blueGrey, width: 1.5.w),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -23,7 +25,8 @@ class SwitchButton extends StatelessWidget {
                 onTap: () => context.read<SwitchCubit>().selectToday(),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.h, vertical: 8.w),
                   decoration: BoxDecoration(
                     color:
                         isTodaySelected ? Colors.blueGrey : Colors.transparent,
@@ -42,7 +45,8 @@ class SwitchButton extends StatelessWidget {
                 onTap: () => context.read<SwitchCubit>().selectThisWeek(),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.h, vertical: 8.w),
                   decoration: BoxDecoration(
                     color:
                         !isTodaySelected ? Colors.blueGrey : Colors.transparent,

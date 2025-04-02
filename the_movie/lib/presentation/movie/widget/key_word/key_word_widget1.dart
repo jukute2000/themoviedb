@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/data/models/keyword/keyword.dart';
+
+import '../../../../core/utils/sizes_manager.dart';
 
 class KeyWordWidget1 extends StatefulWidget {
   final List<Keyword> keywords;
@@ -19,7 +22,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.only(bottom: 30.h),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -27,7 +30,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
             final isSelected = selectedKeywordId == keyword.id;
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
+              padding: EdgeInsets.all(PaddingSizes.p4),
               child: InkWell(
                 onTap: () {
                   setState(() {
@@ -36,7 +39,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                 },
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      EdgeInsets.symmetric(horizontal: 16.h, vertical: 8.h),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Colors.blue.shade100

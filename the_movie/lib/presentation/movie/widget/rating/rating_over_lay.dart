@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/data/models/account/account_status.dart';
-import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 class RatingOverlay extends StatefulWidget {
   final double initialScore;
@@ -62,7 +62,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
     final Color currentColor = getRatingColor(rating);
 
     return Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(PaddingSizes.p24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: Colors.white,
@@ -77,33 +77,34 @@ class _RatingOverlayState extends State<RatingOverlay> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 "Đánh giá của bạn",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 12.h,
+                  vertical: 6.h,
                 ),
                 decoration: BoxDecoration(
-                  color: currentColor.withOpacity(0.2), // sua lai thanh with value
+                  color:
+                      currentColor.withOpacity(0.2), // sua lai thanh with value
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: currentColor, width: 1),
                 ),
                 child: Text(
                   "${rating.toInt()}%",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: currentColor,
                   ),
@@ -111,23 +112,23 @@ class _RatingOverlayState extends State<RatingOverlay> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          GapsManager.h10,
           Text(
             getRatingText(rating),
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               color: currentColor,
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 16),
+          GapsManager.h10,
           SliderTheme(
             data: SliderThemeData(
               activeTrackColor: currentColor,
               inactiveTrackColor: Colors.grey.shade200,
               thumbColor: currentColor,
               overlayColor: currentColor.withOpacity(0.2),
-              trackHeight: 8,
+              trackHeight: 8.h,
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 24),
             ),
@@ -157,19 +158,19 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 widget.resetRating(rating / 10);
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.refresh, size: 16),
+              icon: Icon(Icons.refresh, size: 16.w),
               label: const Text("Đặt lại"),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.grey.shade600,
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          const Text(
+          GapsManager.h10,
+          Text(
             "Tâm trạng của bạn",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          GapsManager.h10,
           Wrap(
             spacing: 16,
             runSpacing: 16,
@@ -183,7 +184,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
                   });
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(PaddingSizes.p16),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? currentColor.withOpacity(0.2)
@@ -198,10 +199,10 @@ class _RatingOverlayState extends State<RatingOverlay> {
                     children: [
                       Icon(
                         entry.value,
-                        size: 36,
+                        size: 36.w,
                         color: isSelected ? currentColor : Colors.grey.shade600,
                       ),
-                      const SizedBox(height: 8),
+                      GapsManager.h10,
                       Text(
                         entry.key,
                         style: TextStyle(
@@ -217,7 +218,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
               );
             }).toList(),
           ),
-          const SizedBox(height: 24),
+          GapsManager.h20,
           Align(
             alignment: Alignment.center,
             child: ElevatedButton(
@@ -237,9 +238,9 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 ),
                 elevation: 2,
               ),
-              child: const Text(
+              child: Text(
                 "Hoàn tất",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
             ),
           ),

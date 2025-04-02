@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 
 class OverviewSection extends StatelessWidget {
   final String tagline;
@@ -10,11 +13,11 @@ class OverviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.all(PaddingSizes.p16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10),
+          GapsManager.h10,
           if (tagline.isNotEmpty)
             Text(
               tagline,
@@ -25,16 +28,16 @@ class OverviewSection extends StatelessWidget {
                 fontStyle: FontStyle.italic,
               ),
             ),
-          const SizedBox(height: 10),
-          const Text(
+          GapsManager.h10,
+          Text(
             "Overview",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
-          const SizedBox(height: 8),
+          GapsManager.h10,
           Text(
             overview,
             style: const TextStyle(color: Colors.white70),

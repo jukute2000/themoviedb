@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/medias/media.dart';
-import 'package:the_movie/data/models/medias/movie.dart';
-import 'package:the_movie/data/models/medias/tv.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
 class ListviewWidget extends StatelessWidget {
@@ -23,16 +23,20 @@ class ListviewWidget extends StatelessWidget {
           final item = medias[index];
           return GestureDetector(
             onTap: () {
-              AppNavigator.push(
+              if (item.id != -1) {
+                AppNavigator.push(
                   context,
                   MovieDetailScreen(
-                      id: item.id ?? 0,
-                      isMovie: (item is Movie) ? true : false));
+                    id: item.id!,
+                    isMovie: item.isMovie(),
+                  ),
+                );
+              }
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 160, // Giảm chiều rộng
+                width: 200.w, // Giảm chiều rộng
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.white,
@@ -45,108 +49,75 @@ class ListviewWidget extends StatelessWidget {
                   ],
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            AppImages.getImageUrl(item.posterPath ?? ''),
-                            height: 240, // Tăng chiều dài
-                            width: double.infinity, // width: height / 1.5
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 8,
-                          left: 8,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: item.goodMedia()
-                                  ? Colors.green
-                                  : Colors.amber[700],
-                              borderRadius: BorderRadius.circular(12),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              AppImages.getImageUrl(item.posterPath ?? ''),
+                              height: 270.h, // Tăng chiều dài
+                              width: double.infinity, // width: height / 1.5
+                              fit: BoxFit.cover,
                             ),
-                            child: Text(
-                              item.roundVoteAverage(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                          ),
+                          Positioned(
+                            bottom: 8.w,
+                            left: 8.w,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: item.goodMedia()
+                                    ? Colors.green
+                                    : Colors.amber[700],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                item.roundVoteAverage(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    if (item is Movie)
+                        ],
+                      ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(PaddingSizes.p8),
                             child: Text(
-                              item.title ?? '',
-                              maxLines: 2, // Giới hạn 2 dòng
+                              item.getTitle(),
+                              maxLines: 1, // Giới hạn 2 dòng
                               overflow:
                                   TextOverflow.ellipsis, // Hiển thị dấu "..."
-                              style: const TextStyle(
-                                fontSize: 16,
+                              style: TextStyle(
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: EdgeInsets.all(PaddingSizes.p8),
                             child: Text(
-                              item.releaseDate != null
+                              item.getReleaseDate() != null
                                   ? DateFormat('MMM dd, yyyy')
-                                      .format(item.releaseDate!)
+                                      .format(item.getReleaseDate()!)
                                       .toString()
                                   : "Null day",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.grey,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                               ),
                             ),
                           ),
                         ],
                       )
-                    else if (item is TiVi)
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              item.name ?? '',
-                              maxLines: 2, // Giới hạn 2 dòng
-                              overflow:
-                                  TextOverflow.ellipsis, // Hiển thị dấu "..."
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              DateFormat('MMM dd, yyyy')
-                                  .format(item.firstAirDate!)
-                                  .toString(),
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                  ],
-                ),
+                    ]),
               ),
             ),
           );

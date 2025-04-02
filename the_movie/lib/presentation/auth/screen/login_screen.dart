@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
-
-import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -80,20 +78,20 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        minimum: const EdgeInsets.only(top: 100, right: 16, left: 16),
+        minimum: EdgeInsets.only(top: 100.h, right: 16.w, left: 16.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Sign In',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             _emailField(),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             _passwordField(),
-            const SizedBox(height: 60),
+            SizedBox(height: 60.h),
             _signinButton(),
           ],
         ),

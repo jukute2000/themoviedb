@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: const DrawerWidget(),
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: BlocProvider(
         create: (context) => SwitchCubit()..selectToday(),
         child: SingleChildScrollView(

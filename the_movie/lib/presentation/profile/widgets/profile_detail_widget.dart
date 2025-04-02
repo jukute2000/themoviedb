@@ -33,7 +33,7 @@ class ProfileDetailWidget extends StatelessWidget {
             const SizedBox(height: 10),
             // Tên người dùng
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
                 accountModel.username,
                 style: const TextStyle(

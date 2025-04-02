@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:the_movie/core/configs/assets/app_colors.dart';
-import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/core/utils/divider_manager.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -13,18 +17,18 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: AppColors.backgroundAppbar,
             ),
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
                 'Menu',
                 style: TextStyle(
                   color: AppColors.iconAppbar,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32,
+                  fontSize: 32.sp,
                 ),
               ),
             ),
@@ -33,13 +37,13 @@ class DrawerWidget extends StatelessWidget {
           _createDrawerItem(Icons.group, "Friends"),
           _createDrawerItem(Icons.share, "Share"),
           _createDrawerItem(Icons.notifications, "Request"),
-          const Divider(),
+          DividerManager.horizontalDivider,
           _createDrawerItem(Icons.settings, "Settings"),
           _createDrawerItem(Icons.policy, "Policies"),
-          const Divider(),
+          DividerManager.horizontalDivider,
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text("Exit"),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text("Exit"),
             onTap: () {
               // Xử lý sự kiện khi nhấn vào mục
               // AuthRepositoryImpl.instance.logOut();

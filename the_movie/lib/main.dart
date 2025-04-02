@@ -10,11 +10,7 @@ import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_m
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab_tv_show_cubit.dart';
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
-
-import 'package:the_movie/presentation/home/screen/home_screen.dart';
-import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
-
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 

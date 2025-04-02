@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/home/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/home/widgets/title_widget.dart';
 import 'package:the_movie/presentation/movie/widget/key_word/key_word.dart';
@@ -19,19 +20,19 @@ class MovieDetailScreen extends StatelessWidget {
           child: Column(
         children: [
           MediaDetailWidget(id: id, isMovie: isMovie),
-          const TitleWidget(
+          TitleWidget(
             title: "Media Recommend",
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
           MediaRecommendWidget(id: id, isMovie: isMovie),
-          const TitleWidget(
+          TitleWidget(
             title: "Serie Cast",
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
           SerieCastWidget(id: id, isMovie: isMovie),
-          const TitleWidget(
+          TitleWidget(
             title: "KeyWord",
-            fontSize: 20,
+            fontSize: 20.sp,
           ),
           KeyWord(id: id, isMovie: isMovie),
         ],

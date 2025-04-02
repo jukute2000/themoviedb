@@ -44,7 +44,7 @@ class TiVi extends Media {
         voteAverage: SafeNull.checkDouble(json["vote_average"]),
         voteCount: SafeNull.checkInt(json["vote_count"]),
         originalLanguage: SafeNull.checkString(json["original_language"]),
-        charater: '',
+        charater: SafeNull.checkString(json["character"]),
       );
 
   @override

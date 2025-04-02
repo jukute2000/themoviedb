@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/configs/assets/app_colors.dart';
@@ -25,7 +26,7 @@ class AppbarWidget extends StatelessWidget {
           backgroundColor: Colors.blue.shade900,
           title: SvgPicture.network(
             AppImages.logoAppBar,
-            height: 18,
+            height: 18.h,
             colorFilter: const ColorFilter.mode(
               AppColors.iconAppbar,
               BlendMode.srcIn,

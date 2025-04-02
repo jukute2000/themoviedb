@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
-import 'package:the_movie/data/models/media_detail/detail_media/detail_movie.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/crew_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/header_section_widget.dart';
 import 'package:the_movie/presentation/movie/widget/infor_icon/info_section_widget.dart';
@@ -47,7 +47,7 @@ class DetailWidget extends StatelessWidget {
                   tagline: detailMedia.tagline ?? '',
                   overview: detailMedia.overview ?? ''),
               const CrewSection(),
-              const SizedBox(height: 20),
+              GapsManager.h20
             ],
           ),
         )

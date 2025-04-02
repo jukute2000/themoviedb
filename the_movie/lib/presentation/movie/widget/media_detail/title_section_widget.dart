@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TitleSection extends StatelessWidget {
   final DateTime releaseDate;
@@ -10,15 +11,15 @@ class TitleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 16.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 20,
+              style: TextStyle(
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -27,8 +28,8 @@ class TitleSection extends StatelessWidget {
           ),
           Text(
             "(${releaseDate.year})",
-            style: const TextStyle(
-              fontSize: 20,
+            style: TextStyle(
+              fontSize: 20.sp,
               color: Colors.white70,
             ),
           ),
