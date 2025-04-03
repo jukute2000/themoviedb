@@ -29,14 +29,11 @@ class HeaderSection extends StatelessWidget {
       width: double.infinity,
       height: 200.h,
       fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) => Container(
+      errorBuilder: (context, error, stackTrace) => Image.asset(
+        AppImages.noImage,
         width: double.infinity,
         height: 200.h,
-        color: Colors.grey[800],
-        child: const Center(
-          child: Text('Image not available',
-              style: TextStyle(color: Colors.white)),
-        ),
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -52,11 +49,11 @@ class HeaderSection extends StatelessWidget {
           width: 80.w,
           height: 120.h,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
+          errorBuilder: (context, error, stackTrace) => Image.asset(
+            AppImages.noImage,
             width: 80.w,
             height: 120.h,
-            color: Colors.grey[700],
-            child: const Icon(Icons.image_not_supported, color: Colors.white),
+            fit: BoxFit.cover,
           ),
         ),
       ),

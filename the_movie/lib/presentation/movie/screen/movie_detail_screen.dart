@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/presentation/home/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/home/widgets/title_widget.dart';
 import 'package:the_movie/presentation/movie/widget/key_word/key_word.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/media_detail_widget.dart';
