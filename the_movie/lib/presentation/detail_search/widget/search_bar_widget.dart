@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
@@ -58,7 +59,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white,
+        color: AppColors.containerWhite,
         child: TypeAheadField(
           // Tránh gọi api liên tục khi người dùng nhập
           debounceDuration: const Duration(milliseconds: 500),
@@ -101,7 +102,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => DetailSearchScreen(
+                    builder: (context) => const DetailSearchScreen(
                           index: 1,
                           query: '',
                         ) // Vào DetailMovie,

@@ -32,7 +32,7 @@ class ListCreditWidget extends StatelessWidget {
                 width: 150.w, // Giảm chiều rộng
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
+                  color: AppColors.containerWhite,
                   boxShadow: const [
                     BoxShadow(
                       color: AppColors.shawdowListView,
@@ -79,7 +79,7 @@ class ListCreditWidget extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: AppColors.textGrey,
                               fontSize: 14.sp,
                             ),
                           ),

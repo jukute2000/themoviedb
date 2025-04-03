@@ -55,8 +55,28 @@ class AppColors {
   static const Color ratingRed = Colors.red;
   static const Color ratingYellow = Colors.yellow;
   static const Color ratingGreen = Colors.green;
+  static const Color ratingyellowhigh = Color.fromARGB(255, 185, 223, 15);
 
   static const Color boxShadowBlack = Colors.black;
 
-  static const Color textGreyShade = Color.fromRGBO(117, 117, 117, 1);
+  static const Color textGreyShade600 = Color.fromRGBO(117, 117, 117, 1);
+  static const Color textGreyShade100 = Color.fromRGBO(245, 245, 245, 1);
+  static const Color textGreyShade800 = Color.fromRGBO(66, 66, 66, 1);
+  static const Color textTransparent = Colors.transparent;
+  static const Color foregroundRating = Colors.white;
+  static const Color verticalDevicde = Colors.white54;
+
+  // Profie
+  static const Color containerProfile = Color(0xFF0B2A47);
+  static const Color backgroundProfile = Colors.teal;
+  // Splash
+
+  static const Color boxBegin = Color(0xff1A1B20);
+  static const Color boxEnd = Color(0xff1A1B20);
+  // Cast
+  static const Color textBlue = Colors.blue;
+  static const Color backgroundBlue900 = Color.fromRGBO(13, 71, 161, 1);
+  // Search
+
+  static const Color textGrey400 = Color.fromRGBO(189, 189, 189, 1);
 }

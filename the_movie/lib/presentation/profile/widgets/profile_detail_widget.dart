@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/data/models/account/account_model.dart';
 
 class ProfileDetailWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class ProfileDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 420,
-      decoration: const BoxDecoration(color: Color(0xFF0B2A47)),
+      decoration: const BoxDecoration(color: AppColors.containerProfile),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -19,11 +20,11 @@ class ProfileDetailWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 15),
               child: CircleAvatar(
                 radius: 40,
-                backgroundColor: Colors.teal,
+                backgroundColor: AppColors.backgroundProfile,
                 child: Text(
                   'L',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.textWhite,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                   ),
@@ -37,7 +38,7 @@ class ProfileDetailWidget extends StatelessWidget {
               child: Text(
                 accountModel.username,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textWhite,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,7 +51,7 @@ class ProfileDetailWidget extends StatelessWidget {
               child: Text(
                 'Thành viên kể từ March 2025',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: AppColors.textWhite70,
                   fontSize: 14,
                 ),
               ),
@@ -98,14 +99,16 @@ class ScoreWidget extends StatelessWidget {
                   strokeWidth: 6,
                   backgroundColor: Colors.black54,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    score >= 75 ? Colors.green : Colors.yellow,
+                    score >= 75
+                        ? AppColors.ratingGreen
+                        : AppColors.ratingYellow,
                   ),
                 ),
               ),
               Text(
                 '$score*',
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textWhite,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -119,7 +122,7 @@ class ScoreWidget extends StatelessWidget {
               'Trung bình\n$label',
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.white70,
+                color: AppColors.textWhite70,
                 fontSize: 14,
               ),
             ),

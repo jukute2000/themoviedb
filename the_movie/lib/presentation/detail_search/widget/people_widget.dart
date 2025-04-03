@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 import '../../../core/configs/assets/app_images.dart';
@@ -61,16 +62,17 @@ class PeopleWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: knownForDepartment,
-                          style: const TextStyle(color: Colors.black),
+                          style: const TextStyle(color: AppColors.textBlack),
                         ),
                         const TextSpan(
                             text: ' - ',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: AppColors.textBlack,
                                 fontWeight: FontWeight.bold)),
                         TextSpan(
                           text: (knownFor ?? []).join(', '),
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: const TextStyle(
+                              color: AppColors.textGreyShade600),
                         ),
                       ],
                     ))

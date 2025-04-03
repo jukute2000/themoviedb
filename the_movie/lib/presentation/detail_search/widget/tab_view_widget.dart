@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
@@ -54,12 +55,14 @@ class TabViewWidget extends StatelessWidget {
                           text: TextSpan(children: [
                             TextSpan(
                               text: media.getTitle(),
-                              style: const TextStyle(color: Colors.black),
+                              style:
+                                  const TextStyle(color: AppColors.textBlack),
                             ),
                             if (media is TiVi)
                               TextSpan(
                                 text: ' (${media.getOriginalTitle()})',
-                                style: TextStyle(color: Colors.grey.shade400),
+                                style: const TextStyle(
+                                    color: AppColors.textGrey400),
                               ),
                           ])),
                       if (media is TiVi || media is Movie)
@@ -67,7 +70,7 @@ class TabViewWidget extends StatelessWidget {
                           media.getReleaseDate() != null
                               ? FormatDate.format(media.getReleaseDate())
                               : '',
-                          style: TextStyle(color: Colors.grey.shade400),
+                          style: const TextStyle(color: AppColors.textGrey400),
                         ),
                       GapsManager.h20,
                       Text(

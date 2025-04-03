@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
@@ -44,9 +45,9 @@ class RatingSectionState extends State<RatingSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("User",
-                style: TextStyle(color: Colors.white, fontSize: 17.sp)),
+                style: TextStyle(color: AppColors.textWhite, fontSize: 17.sp)),
             Text("Score",
-                style: TextStyle(color: Colors.white, fontSize: 17.sp)),
+                style: TextStyle(color: AppColors.textWhite, fontSize: 17.sp)),
           ],
         ),
       ],
@@ -82,10 +83,10 @@ class _ScoreCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color progressColor = score >= 7
-        ? Colors.green
+        ? AppColors.ratingGreen
         : score >= 5
-            ? Colors.yellow
-            : const Color.fromARGB(255, 185, 223, 15);
+            ? AppColors.ratingYellow
+            : AppColors.ratingyellowhigh;
 
     return Stack(
       alignment: Alignment.center,
@@ -95,7 +96,7 @@ class _ScoreCircle extends StatelessWidget {
           height: 45.h,
           child: CircularProgressIndicator(
             value: score / 10,
-            backgroundColor: Colors.grey.shade800,
+            backgroundColor: AppColors.textGreyShade800,
             valueColor: AlwaysStoppedAnimation<Color>(progressColor),
             strokeWidth: 4,
           ),
@@ -103,7 +104,7 @@ class _ScoreCircle extends StatelessWidget {
         Text(
           "${(score * 10).toInt()}%",
           style: const TextStyle(
-            color: Colors.white,
+            color: AppColors.textWhite,
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),

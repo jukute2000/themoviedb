@@ -23,7 +23,7 @@ class AppbarWidget extends StatelessWidget {
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           iconTheme: const IconThemeData(color: AppColors.iconAppbar),
-          backgroundColor: Colors.blue.shade900,
+          backgroundColor: AppColors.backgroundBlue900,
           title: SvgPicture.network(
             AppImages.logoAppBar,
             height: 18.h,
@@ -42,7 +42,7 @@ class AppbarWidget extends StatelessWidget {
               onPressed: () {},
               icon: const Icon(
                 Icons.search,
-                color: Colors.blue,
+                color: AppColors.iconSerach,
               ),
             )
           ],

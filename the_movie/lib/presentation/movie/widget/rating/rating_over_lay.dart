@@ -149,11 +149,11 @@ class _RatingOverlayState extends State<RatingOverlay> {
               },
             ),
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("0%", style: TextStyle(color: Colors.grey.shade600)),
-              Text("100%", style: TextStyle(color: Colors.grey.shade600)),
+              Text("0%", style: TextStyle(color: AppColors.textGreyShade600)),
+              Text("100%", style: TextStyle(color: AppColors.textGreyShade600)),
             ],
           ),
           Align(
@@ -166,7 +166,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
               icon: Icon(Icons.refresh, size: 16.w),
               label: const Text("Đặt lại"),
               style: TextButton.styleFrom(
-                foregroundColor: Colors.grey.shade600,
+                foregroundColor: AppColors.textGreyShade600,
               ),
             ),
           ),
@@ -193,10 +193,11 @@ class _RatingOverlayState extends State<RatingOverlay> {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? currentColor.withOpacity(0.2)
-                        : Colors.grey.shade100,
+                        : AppColors.textGreyShade100,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: isSelected ? currentColor : Colors.transparent,
+                      color:
+                          isSelected ? currentColor : AppColors.textTransparent,
                       width: 2,
                     ),
                   ),
@@ -205,7 +206,9 @@ class _RatingOverlayState extends State<RatingOverlay> {
                       Icon(
                         entry.value,
                         size: 36.w,
-                        color: isSelected ? currentColor : Colors.grey.shade600,
+                        color: isSelected
+                            ? currentColor
+                            : AppColors.textGreyShade600,
                       ),
                       GapsManager.h10,
                       Text(
@@ -213,8 +216,9 @@ class _RatingOverlayState extends State<RatingOverlay> {
                         style: TextStyle(
                           fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                          color:
-                              isSelected ? currentColor : Colors.grey.shade800,
+                          color: isSelected
+                              ? currentColor
+                              : AppColors.textGreyShade800,
                         ),
                       ),
                     ],
@@ -233,7 +237,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: currentColor,
-                foregroundColor: Colors.white,
+                foregroundColor: AppColors.foregroundRating,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
                   vertical: 12,

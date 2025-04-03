@@ -21,6 +21,22 @@ class _InforIconState extends State<InforIcon> {
   late bool isWatchList;
   late AccountStatus currentStatus;
 
+  // Future loadingFavorites(context) async {
+  //   // loading circle
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return const Center(child: CircularProgressIndicator());
+  //     },
+  //   );
+
+  //   context
+  //       .read<AccountStatusCubit>()
+  //       .addToFavorites(currentStatus.id, widget.isMovie, isFavorites);
+
+  //   Navigator.of(context).pop();
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -35,9 +51,9 @@ class _InforIconState extends State<InforIcon> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _buildIconButton(Icons.list, false, () {
-          print("List icon tapped");
+          //print("List icon tapped");
         }),
-        _buildIconButton(Icons.favorite, isFavorites, () {
+        _buildIconButton(Icons.favorite, isFavorites, () async {
           setState(() {
             isFavorites = !isFavorites;
           });

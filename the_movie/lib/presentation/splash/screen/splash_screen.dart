@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
@@ -37,7 +38,7 @@ class SplashScreen extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.center,
                       end: Alignment.bottomCenter,
-                      colors: [Color(0xff1A1B20), Color(0xff1A1B20)])),
+                      colors: [AppColors.boxBegin, AppColors.boxEnd])),
             )
           ],
         ),

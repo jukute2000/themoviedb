@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
@@ -36,7 +37,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
     showModalBottomSheet(
       context: parentContext,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.containerWhite,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -78,20 +79,20 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
         SizedBox(
           height: 20.h,
           child: VerticalDivider(
-              color: Colors.white54, thickness: 1.5, width: 10.w),
+              color: AppColors.verticalDevicde, thickness: 1.5, width: 10.w),
         ),
         GestureDetector(
             onTap: () => _showRatingOverlay(userScore * 10),
             child: Text(
               text,
               style: TextStyle(
-                color: Colors.white,
+                color: AppColors.textWhite,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,
               ),
             )),
-        Icon(Icons.info_outline, color: Colors.white, size: 17.w),
+        Icon(Icons.info_outline, color: AppColors.iconNotSuport, size: 17.w),
       ],
     );
   }

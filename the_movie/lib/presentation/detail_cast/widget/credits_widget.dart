@@ -23,7 +23,7 @@ class _CreditsWidgetState extends State<CreditsWidget> {
       children: [
         GapsManager.h10,
         widget.medias == null
-            ? SizedBox()
+            ? const SizedBox()
             : ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

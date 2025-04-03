@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 
 import 'package:the_movie/core/utils/gaps_manager.dart';
@@ -58,13 +59,13 @@ class MovieWidget extends StatelessWidget {
                         title ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         releaseDate != null
                             ? FormatDate.format(releaseDate!)
                             : '',
-                        style: TextStyle(color: Colors.grey.shade400),
+                        style: const TextStyle(color: AppColors.textGrey400),
                       ),
                       GapsManager.h20,
                       Text(

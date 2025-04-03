@@ -46,14 +46,14 @@ class LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Đăng nhập thất bại"),
+          title: const Text("Đăng nhập thất bại"),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("OK"),
+              child: const Text("OK"),
             ),
           ],
         );
@@ -102,9 +102,9 @@ class LoginScreenState extends State<LoginScreen> {
   Widget _emailField() {
     return TextField(
       controller: _emailCon,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: 'UserName',
-        errorText: _email.isEmpty ? "Please input UserName" : null,
+        errorText: null,
       ),
       onChanged: (value) {
         setState(() {
