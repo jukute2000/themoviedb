@@ -37,7 +37,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     // TODO: implement initState
     tabController =
         TabController(length: 6, vsync: this, initialIndex: widget.index);
-    _controller = TextEditingController();
+    _controller = TextEditingController(text: widget.query);
     super.initState();
   }
 
@@ -74,89 +74,81 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
                   delegate: _SearchBarDelegate(controller: _controller),
                 ),
                 SliverAppBar(
-                  titleSpacing: 0,
-                  pinned: false,
-                  floating: true,
-                  snap: true,
-                  title: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                    titleSpacing: 0,
+                    pinned: false,
+                    floating: true,
+                    snap: true,
+                    title: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          AppStrings.search.tr(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                    onPressed: () {},
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        AppStrings.search.tr(),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(HeightSizes.h50),
-                    child: StreamBuilder<Map<String, int>>(
-                        stream:
-                            SearchTotalProvider.of(context)?.totalResultsStream,
-                        initialData:
-                            SearchTotalProvider.of(context)?.totalResults,
-                        builder: (context, snapshot) {
-                          if (SearchTotalProvider.of(context) == null) {
-                            return const Center(
-                                child: Text(
-                                    "Provider is missing. Please restart the app."));
-                          }
-
-                          if (!snapshot.hasData) {
-                            return const Center(child: Text('No data'));
-                          }
-                          try {
-                            final totalResults = snapshot.data ?? {};
-                            return TabBar(
-                              isScrollable: true,
-                              controller: tabController,
-                              tabs: SearchCategory.values.map((category) {
-                                return buildTab(
-                                  totalResults[category.name] ?? 0,
-                                  category.localizedName,
-                                );
-                              }).toList(),
-                            );
-                          } catch (e) {
-                            return const Center(
-                                child: Text("Error loading data"));
-                          }
-                        }),
-                  ),
-                )
+                    bottom: TabBar(
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      controller: tabController,
+                      tabs: SearchCategory.values.map((category) {
+                        return buildTab(
+                          category.localizedName,
+                        );
+                      }).toList(),
+                    ))
               ],
-          body: TabBarView(
-            controller: tabController,
-            children: [
-              TabTvShow(query: widget.query),
-              TabMovieShow(query: widget.query),
-              TabPeople(query: widget.query),
-              TabCollection(query: widget.query),
-              TabKeyword(query: widget.query),
-              TabCompany(query: widget.query),
-            ],
-          )),
+          body: StreamBuilder<Map<String, int>>(
+              initialData: SearchTotalProvider.of(context)?.totalResults,
+              stream: SearchTotalProvider.of(context)?.totalResultsStream,
+              builder: (context, snapshot) {
+                if (SearchTotalProvider.of(context) == null) {
+                  return const Center(
+                      child:
+                          Text("Provider is missing. Please restart the app."));
+                }
+
+                if (!snapshot.hasData) {
+                  return const Center(child: Text('No data'));
+                }
+                try {
+                  final totalResults = snapshot.data ?? {};
+                  return TabBarView(
+                    controller: tabController,
+                    children: [
+                      TabTvShow(query: widget.query, totalResults: totalResults[
+                          SearchCategory.tv.name] ?? 0),
+                      TabMovieShow(query: widget.query, totalResults: totalResults[
+                          SearchCategory.movie.name] ?? 0),
+                      TabPeople(query: widget.query, totalResults: totalResults[
+                          SearchCategory.people.name] ?? 0),
+                      TabCollection(query: widget.query, totalResults: totalResults[
+                          SearchCategory.collections.name] ?? 0),
+                      TabKeyword(query: widget.query, totalResults: totalResults[
+                          SearchCategory.keywords.name] ?? 0),
+                      TabCompany(query: widget.query, totalResults: totalResults[
+                          SearchCategory.companies.name] ?? 0),
+                    ],
+                  );
+                } catch (e) {
+                  return const Center(child: Text("Error loading data"));
+                }
+              })),
     ));
   }
 
-  Tab buildTab(int? total, String title) {
+  Tab buildTab(String title) {
     return Tab(
       child: Row(
         children: [
           Text(title),
-          GapsManager.w10,
-          total == null || total == 0
-              ? const SizedBox()
-              : KeywordContainer(
-                  keyword: total.toString(),
-                  isSelected: widget.index == 0,
-                ),
         ],
       ),
     );

@@ -14,8 +14,9 @@ import '../bloc/tab_company_cubit.dart';
 
 class TabCompany extends StatefulWidget {
   final String query;
+  final int totalResults;
 
-  const TabCompany({super.key, required this.query});
+  const TabCompany({super.key, required this.query, required this.totalResults});
 
   @override
   State<TabCompany> createState() => _TabCompanyState();

@@ -11,8 +11,8 @@ import '../../../widget/tab_view_widget.dart';
 
 class TabMovieShow extends StatefulWidget {
   final String query;
-
-  const TabMovieShow({super.key, required this.query});
+  final int totalResults;
+  const TabMovieShow({super.key, required this.query, required this.totalResults});
 
   @override
   State<TabMovieShow> createState() => _TabMovieShowState();

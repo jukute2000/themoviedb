@@ -89,7 +89,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                       icon: const Icon(Icons.search, color: Colors.blue),
                       onPressed: () {
                         String text = textController.text;
-                        AppNavigator.push(
+                        AppNavigator.pushAndRemove(
                           context,
                           DetailSearchScreen(
                             index: 0,

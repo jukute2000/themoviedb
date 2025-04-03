@@ -11,8 +11,9 @@ import '../../../widget/pagination_controller.dart';
 
 class TabCollection extends StatefulWidget {
   final String query;
+  final int totalResults;
 
-  const TabCollection({super.key, required this.query});
+  const TabCollection({super.key, required this.query, required this.totalResults});
 
   @override
   State<TabCollection> createState() => _TabCollectionState();
