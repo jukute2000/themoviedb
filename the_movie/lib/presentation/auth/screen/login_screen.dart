@@ -5,7 +5,8 @@ import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final bool isUpdate;
+  const LoginScreen({super.key, required this.isUpdate});
 
   @override
   State<LoginScreen> createState() => LoginScreenState();
@@ -59,6 +60,42 @@ class LoginScreenState extends State<LoginScreen> {
         );
       },
     );
+  }
+
+  void showUpdate() {
+    if (widget.isUpdate == true) {
+      showPromotionDialog();
+    }
+  }
+
+  void showPromotionDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Không cho phép đóng bằng cách nhấn ra ngoài
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Thông báo"),
+          content:
+              const Text("Ứng dụng đã có phiên bản mới, vui lòng cập nhât."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Đóng dialog khi nhấn OK
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      showUpdate();
+    });
   }
 
   @override

@@ -7,13 +7,15 @@ class SplashCubit extends Cubit<SplashState> {
 
   void appStarted() async {
     await Future.delayed(const Duration(seconds: 3));
-    var isLoggedIn = AuthRepositoryImpl.instance.isLoggedIn();
-    if (await isLoggedIn) {
+    var isLoggedIn = await AuthRepositoryImpl.instance.isLoggedIn();
+    var checkUpdate = await AuthRepositoryImpl.instance.checkUpdate();
+    if (isLoggedIn == true && checkUpdate == false) {
       emit(Authenticated());
+    } else if (isLoggedIn == true && checkUpdate == true) {
+      await AuthRepositoryImpl.instance.logOut();
+      emit(UnAuthenticated(checkUpdate: checkUpdate));
     } else {
-      emit(UnAuthenticated());
+      emit(UnAuthenticated(checkUpdate: checkUpdate));
     }
   }
-
-  
 }

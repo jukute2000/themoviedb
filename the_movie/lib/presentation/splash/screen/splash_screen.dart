@@ -17,7 +17,11 @@ class SplashScreen extends StatelessWidget {
       body: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state is UnAuthenticated) {
-            AppNavigator.pushReplacement(context, const LoginScreen());
+            AppNavigator.pushReplacement(
+                context,
+                LoginScreen(
+                  isUpdate: state.checkUpdate,
+                ));
           }
           if (state is Authenticated) {
             AppNavigator.pushReplacement(

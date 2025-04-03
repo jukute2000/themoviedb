@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/widgets.dart';
+import 'package:the_movie/initial/remote_confic.dart';
 
 class FirebaseInitializer {
   static Future<void> devInitialize() async {
@@ -19,6 +21,8 @@ class FirebaseInitializer {
 
     // Kích hoạt chế độ thu thập dữ liệu Crash khi chạy Debug
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+    RemoteConfic.instance.initRemoteConfig();
   }
 
   static Future<void> prodInitialize() async {
@@ -37,5 +41,7 @@ class FirebaseInitializer {
 
     // Kích hoạt chế độ thu thập dữ liệu Crash khi chạy Debug
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+   
   }
 }

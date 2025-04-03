@@ -1,15 +1,19 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
+import 'package:the_movie/initial/remote_confic.dart';
 import 'package:the_movie/presentation/auth/screen/login_screen.dart';
+import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 abstract class AuthRepository {
   Future<void> loginUser(String username, String password);
   Future<bool> isLoggedIn();
   Future<void> checkIsLoggedIn();
   Future<void> logOut();
+  Future<bool> checkUpdate();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -83,7 +87,7 @@ class AuthRepositoryImpl implements AuthRepository {
     await tmdbWithCustomLogs.v3.auth.deleteSession(sessionId!);
     await prefs.remove(AppStrings.sessionId);
     await prefs.remove(AppStrings.tokenExpried);
-    NavigationService.navigateTo(const LoginScreen());
+    NavigationService.navigateTo(const SplashScreen());
   }
 
   @override
@@ -96,5 +100,10 @@ class AuthRepositoryImpl implements AuthRepository {
       var sessionId = prefs.getString(AppStrings.sessionId);
       return sessionId ?? '';
     }
+  }
+
+  @override
+  Future<bool> checkUpdate() async {
+    return await RemoteConfic.instance.getUpdate();
   }
 }
