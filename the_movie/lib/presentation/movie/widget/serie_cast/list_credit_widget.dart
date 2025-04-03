@@ -48,12 +48,17 @@ class ListCreditWidget extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            AppImages.getImageUrl(item.profilePath ?? ""),
-                            height: 200.h,
-                            width: 150.w,
-                            fit: BoxFit.cover,
-                          ),
+                          child: item.profilePath != null
+                              ? Image.network(
+                                  AppImages.getImageUrl(item.profilePath!),
+                                  height: 200.h,
+                                  width: 150.w,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(AppImages.noImage,
+                                  height: 200.h,
+                                  width: 150.w,
+                                  fit: BoxFit.cover),
                         ),
                       ],
                     ),

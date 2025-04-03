@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
+
+import '../../../core/configs/assets/app_strings.dart';
 
 class SwitchButton extends StatelessWidget {
   const SwitchButton({super.key});
@@ -35,7 +38,7 @@ class SwitchButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    "Today",
+                    AppStrings.today.tr(),
                     style: TextStyle(
                       color: isTodaySelected
                           ? AppColors.textTodaySelected
@@ -58,7 +61,7 @@ class SwitchButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    "This Week",
+                    AppStrings.week.tr(),
                     style: TextStyle(
                       color: !isTodaySelected
                           ? AppColors.textTodaySelected

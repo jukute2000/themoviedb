@@ -21,12 +21,11 @@ class AppStrings {
   static const String appBarPeople = 'People';
   static const String appBarMore = 'More';
 
-  static const String titleDashboard1 = 'Welcome.';
+  static const String titleDashboard1 = 'welcome';
 
-  static const String titleDashboard2 =
-      'Millions of movies, TV shows and people to discover. Explore now.';
-  static const String trending = 'Trending';
-  static const String whatPopular = 'What\'s Popular';
+  static const String titleDashboard2 = 'titleDashboard2';
+  static const String trending = 'trending';
+  static const String whatPopular = 'whatsPopular';
   static const String latestTrailers = 'Latest Trailers';
   static const String joinToday = 'Join Today';
   static const String joinTodayText =
@@ -64,6 +63,8 @@ class AppStrings {
   static const String viewAllBackdrops = 'viewAllBackdrops';
   static const String viewAllVideos = 'viewAllVideos';
   static const String userScore = 'userScore';
+  static const String whatsYourVibe = 'whatsYourVibe';
+  static const String yourVibe = 'yourVibe';
   static const String overview = 'overview';
   static const String seriesCast = 'seriesCast';
   static const String fullCastCrew = 'fullCastCrew';
@@ -86,6 +87,11 @@ class AppStrings {
   static const String loginToEdit = 'loginToEdit';
   static const String keyboardShortcuts = 'keyboardShortcuts';
   static const String loginReport = 'loginReport';
+  static const String mediaRecommend = 'mediaRecommend';
+  static const String serieCast = 'serieCast';
+  static const String keyword = 'keyword';
+  static const String director = 'director';
+  static const String screenplay = 'screenplay';
 
   // Details
   static const String facts = 'facts';
@@ -129,4 +135,15 @@ class AppStrings {
   static const String facebook = 'facebook';
   static const String tweet = 'tweet';
   static const String noInfomation = 'noInfomation';
+
+  //drawer
+  static const String menu = 'menu';
+  static const String favorites = 'favorites';
+  static const String friends = 'friends';
+  static const String request = 'request';
+  static const String settings = 'settings';
+  static const String policies = 'policies';
+  static const String exit = 'exit';
+  static const String week = 'week';
+  static const String today = 'today';
 }

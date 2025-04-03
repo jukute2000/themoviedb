@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,8 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/medias/media.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
+
+import '../../../core/configs/assets/app_strings.dart';
 
 class ListviewWidget extends StatelessWidget {
   final List<Media> medias;
@@ -55,13 +58,19 @@ class ListviewWidget extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: Image.network(
-                              AppImages.getImageUrl(item.posterPath ?? ''),
-                              height: 225.h,
-                              // Tăng chiều dài
-                              width: 155.w, // width: height / 1.5
-                              fit: BoxFit.contain,
-                            ),
+                            child: item.posterPath != null
+                                ? Image.network(
+                                    AppImages.getImageUrl(item.posterPath!),
+                                    height: 225.h,
+                                    width: 155.w,
+                                    fit: BoxFit.contain,
+                                  )
+                                : Image.asset(
+                                    AppImages.noImage,
+                                    height: 225.h,
+                                    width: 155.w,
+                                    fit: BoxFit.contain,
+                                  ),
                           ),
                           Positioned(
                             bottom: 8.h,
@@ -108,7 +117,7 @@ class ListviewWidget extends StatelessWidget {
                                   ? DateFormat('MMM dd, yyyy')
                                       .format(item.getReleaseDate()!)
                                       .toString()
-                                  : "Null day",
+                                  : AppStrings.noInfomation.tr(),
                               style: TextStyle(
                                 color: AppColors.textDay,
                                 fontSize: 14.sp,

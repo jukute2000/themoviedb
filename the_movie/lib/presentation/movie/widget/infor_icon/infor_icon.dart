@@ -50,10 +50,8 @@ class _InforIconState extends State<InforIcon> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildIconButton(Icons.list, false, () {
-          //print("List icon tapped");
-        }),
-        _buildIconButton(Icons.favorite, isFavorites, () async {
+        _buildIconButton(Icons.list, false, () {}),
+        _buildIconButton(Icons.favorite, isFavorites, () {
           setState(() {
             isFavorites = !isFavorites;
           });

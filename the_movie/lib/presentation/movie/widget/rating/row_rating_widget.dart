@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,8 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/data/models/account/account_status.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
+
+import '../../../../core/configs/assets/app_strings.dart';
 
 class RowRatingWidget extends StatefulWidget {
   final bool isMovie;
@@ -28,8 +31,8 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
     userScore = currentStatus.hasRating ? currentStatus.ratingValue! : 10;
     text = currentStatus.hasRating
         // viet ham tai su dung
-        ? "Your Vibe ${(userScore * 10).round()}%"
-        : "What's your Vibe?";
+        ? "${AppStrings.yourVibe.tr()} ${(userScore * 10).round()}%"
+        : AppStrings.whatsYourVibe.tr();
   }
 
   void _showRatingOverlay(double userScoreF) {
@@ -48,7 +51,8 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
             onRatingSelected: (newScore) {
               setState(() {
                 userScore = newScore;
-                text = "Your Vibe ${(userScore * 10).round()}%";
+                text =
+                    "${AppStrings.yourVibe.tr()} ${(userScore * 10).round()}%";
               });
               parentContext
                   .read<AccountStatusCubit>()
@@ -56,7 +60,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
             },
             resetRating: (newScore) {
               setState(() {
-                text = "What's your Vibe?";
+                text = AppStrings.whatsYourVibe.tr();
               });
               parentContext
                   .read<AccountStatusCubit>()

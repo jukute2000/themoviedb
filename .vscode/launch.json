@@ -1,25 +1,26 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-      {
-          "name": "Flutter - Dev",
-          "request": "launch",
-          "type": "dart",
-          "program": "${workspaceFolder}/the_movie/lib/main_dev.dart",
-          "args": [
-              "--flavor",
-              "dev"
-          ]
-      },
-      {
-          "name": "Flutter - Prod",
-          "request": "launch",
-          "type": "dart",
-          "program": "${workspaceFolder}/the_movie/lib/main_prod.dart",
-          "args": [
-              "--flavor",
-              "prod"
-          ]
-      }
-  ]
-}
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter - Dev",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}/the_movie/lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
+            "name": "Flutter - Prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}/the_movie/lib/main_prod.dart",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
+        }
+    ]
+  }
+  
