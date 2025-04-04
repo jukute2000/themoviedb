@@ -9,7 +9,4 @@ class BannerLoaded extends BannerState {
   BannerLoaded({required this.images});
 }
 
-class BannerError extends BannerState {
-  final String message;
-  BannerError(this.message);
-}
+class BannerError extends BannerState {}

@@ -17,15 +17,6 @@ class TrendingCubit extends Cubit<TrendingState> {
     try {
       List<Media> newMedias = await MediaRepositoryImpl.instance
           .getMediaTrending(1, TimeWindow.day);
-      // Map<String, dynamic> result =
-      //     await AccountRepositoryImpl.intance.getDetails();
-      // int accountId = await AccountRepositoryImpl.intance.getAccountId();
-      // AccountModel accountmodel =
-      //     await AccountRepositoryImpl.intance.getDetails();
-      // List<Movie> movies =
-      //     await AccountRepositoryImpl.instance.getMovieFavorites();
-      // List<TiVi> tivies =
-      //     await AccountRepositoryImpl.instance.getTiviFavorites();
       emit(MediasTrendingLoaded(medias: newMedias));
     } catch (e) {
       emit(TrendingError("Error: $e"));

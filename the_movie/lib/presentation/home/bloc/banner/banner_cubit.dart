@@ -17,7 +17,7 @@ class BannerCubit extends Cubit<BannerState> {
         emit(BannerLoaded(images: result.docs.first['get']));
       }
     } catch (e) {
-      emit(BannerError("Error loading banner: $e"));
+      emit(BannerError());
     }
   }
 }

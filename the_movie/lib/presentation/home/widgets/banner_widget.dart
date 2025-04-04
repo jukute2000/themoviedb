@@ -36,6 +36,7 @@ class _BannerWidgetState extends State<BannerWidget> {
       child: Stack(
         children: [
           BlocBuilder<BannerCubit, BannerState>(
+            //widget image chung
             builder: (context, state) {
               if (state is BannerIsLoading) {
                 return Container(
@@ -46,31 +47,23 @@ class _BannerWidgetState extends State<BannerWidget> {
                   ),
                 );
               } else if (state is BannerLoaded) {
-                return state.images != null
-                    ? Container(
-                        height: 250.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(state.images!),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    : Container(
-                        height: 250.h,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(AppImages.noImage),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
+                return Container(
+                  height: 250.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(state.images!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
               } else if (state is BannerError) {
                 return Container(
                   height: 250.h,
-                  color: AppColors.overlayBanner,
-                  child: Center(
-                    child: Text("data"),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(AppImages.noImage),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 );
               }
