@@ -11,8 +11,9 @@ import '../bloc/tab_tv_show_state.dart';
 
 class TabTvShow extends StatefulWidget {
   final String query;
+  final int totalResults;
 
-  const TabTvShow({super.key, required this.query});
+  const TabTvShow({super.key, required this.query, required this.totalResults});
 
   @override
   State<TabTvShow> createState() => _TabTvShowState();

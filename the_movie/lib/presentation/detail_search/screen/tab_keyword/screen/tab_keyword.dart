@@ -12,10 +12,11 @@ import '../bloc/tab_keyword_cubit.dart';
 
 class TabKeyword extends StatefulWidget {
   final String query;
+  final int totalResults;
 
   const TabKeyword({
     super.key,
-    required this.query,
+    required this.query, required this.totalResults,
   });
 
   @override

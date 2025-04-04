@@ -109,5 +109,10 @@
   "serieCast":"Diễn viên",
   "keyword":"Từ khóa",
   "director":"Đạo diễn",
-  "screenplay":"Kịch bản"
+  "screenplay":"Kịch bản",
+  "tvShows": "Chương trình TV",
+  "movies": "Phim",
+  "people": "Người",
+  "collections": "Bộ sưu tập",
+  "companies": "Công ty"
 }
