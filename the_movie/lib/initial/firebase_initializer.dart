@@ -42,6 +42,6 @@ class FirebaseInitializer {
     // Kích hoạt chế độ thu thập dữ liệu Crash khi chạy Debug
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
-   
+    RemoteConfic.instance.initRemoteConfig();
   }
 }

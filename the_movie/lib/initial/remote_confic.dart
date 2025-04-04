@@ -5,7 +5,6 @@ class RemoteConfic {
   RemoteConfic._internal();
   static RemoteConfic get instance => _instance;
 
-  // chỉnh init ở ngoài main dev
   final remoteConfig = FirebaseRemoteConfig.instance;
   Future<void> initRemoteConfig() async {
     await remoteConfig.setConfigSettings(
