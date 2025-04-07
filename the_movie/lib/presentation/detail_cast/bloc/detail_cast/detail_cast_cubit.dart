@@ -24,14 +24,12 @@ class DetailCastCubit extends Cubit<DetailCastState> {
     try {
       PeopleDetail? peopleDetail =
           await PeopleRepositoryImpl.intance.getPeopleDetail(id: id);
-
       External? external =
           await PeopleRepositoryImpl.intance.getExternal(id: id);
       List<Movie>? movies =
           await PeopleRepositoryImpl.intance.getKnowFor(id: id);
       CombinedCredit? credits =
           await PeopleRepositoryImpl.intance.getAllCredits(id: id);
-
       if (credits?.crew != null) {
         originalCrews = groupBy(
             credits!.crew ?? [], (Crew crew) => crew.department!)

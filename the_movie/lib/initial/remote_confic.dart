@@ -21,4 +21,9 @@ class RemoteConfic {
     isUpdate = remoteConfig.getBool('update');
     return isUpdate;
   }
+
+  Future<bool> getWelcomDetail() async {
+    await remoteConfig.fetchAndActivate();
+    return remoteConfig.getBool('welcome_cast');
+  }
 }
