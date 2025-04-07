@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart';
 import 'package:the_movie/presentation/home/bloc/recomened/recommened_state.dart';
+import 'package:the_movie/presentation/home/widgets/get_recommend_widget.dart';
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
 import 'package:the_movie/presentation/home/widgets/banner_widget.dart';
@@ -50,10 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 //banner
                 const BannerWidget(),
-                const TitleWidget(
-                  title: "Recommened for you",
-                  fontSize: 28,
-                ),
+
                 BlocBuilder<RecommenedCubit, RecommenedState>(
                     builder: (context, state) {
                   return const SizedBox();
@@ -75,6 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 28,
                 ),
                 const GetPopularWidget(),
+                const TitleWidget(
+                  title: AppStrings.recommned,
+                  fontSize: 28,
+                ),
+                const GetRecommendWidget(),
               ],
             ),
           ),

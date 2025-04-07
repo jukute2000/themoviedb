@@ -41,4 +41,12 @@ abstract class DetailMedia {
   DateTime get releaseDayMedia;
 
   bool isMovie();
+
+  String roundVoteAverage() {
+    return "${(voteAverage! * 10).round()}%";
+  }
+
+  bool goodMedia() {
+    return (voteAverage! >= 7.5);
+  }
 }

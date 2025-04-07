@@ -26,6 +26,7 @@ class AppStrings {
   static const String titleDashboard2 = 'titleDashboard2';
   static const String trending = 'trending';
   static const String whatPopular = 'whatsPopular';
+  static const String recommned = 'Recommened for you';
   static const String latestTrailers = 'Latest Trailers';
   static const String joinToday = 'Join Today';
   static const String joinTodayText =

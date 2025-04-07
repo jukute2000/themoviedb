@@ -71,7 +71,7 @@ class LoginScreenState extends State<LoginScreen> {
   void showPromotionDialog() {
     showDialog(
       context: context,
-      barrierDismissible: false, // Không cho phép đóng bằng cách nhấn ra ngoài
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Thông báo"),
@@ -80,7 +80,7 @@ class LoginScreenState extends State<LoginScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Đóng dialog khi nhấn OK
+                Navigator.of(context).pop();
               },
               child: const Text("OK"),
             ),
