@@ -10,6 +10,7 @@ import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_m
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab_tv_show_cubit.dart';
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
+import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ProfileDetailCubit()..loadProfileDetails(),
             ),
+            BlocProvider(create: (_) => RecommenedCubit()..loadRecommened()),
             BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
             BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
             BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
