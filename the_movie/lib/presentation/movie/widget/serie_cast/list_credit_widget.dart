@@ -9,6 +9,8 @@ import 'package:the_movie/data/models/credits/credit.dart';
 
 import 'package:the_movie/presentation/detail_cast/screen/detail_cast_screen.dart';
 
+import '../../../../core/utils/text_manager.dart';
+
 class ListCreditWidget extends StatelessWidget {
   final List<Credit> credit;
   const ListCreditWidget({super.key, required this.credit});
@@ -63,6 +65,7 @@ class ListCreditWidget extends StatelessWidget {
                       ],
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
                           padding: EdgeInsets.all(PaddingSizes.p8),
@@ -71,9 +74,8 @@ class ListCreditWidget extends StatelessWidget {
                             maxLines: 2, // Giới hạn 2 dòng
                             overflow:
                                 TextOverflow.ellipsis, // Hiển thị dấu "..."
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
+                            style: TextManager.textStyleBlod(16.sp).copyWith(
+                              color: AppColors.textBlack,
                             ),
                           ),
                         ),
@@ -83,9 +85,8 @@ class ListCreditWidget extends StatelessWidget {
                             item.character ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: TextManager.textStyleMedium(16.sp).copyWith(
                               color: AppColors.textGrey,
-                              fontSize: 14.sp,
                             ),
                           ),
                         ),

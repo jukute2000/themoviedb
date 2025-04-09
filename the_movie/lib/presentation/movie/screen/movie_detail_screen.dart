@@ -46,17 +46,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             MediaDetailWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.mediaRecommend.tr(),
-              fontSize: 20.sp,
+              fontSize: 24.sp,
             ),
             MediaRecommendWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.serieCast.tr(),
-              fontSize: 20.sp,
+              fontSize: 24.sp,
             ),
             SerieCastWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.keyword.tr(),
-              fontSize: 20.sp,
+              fontSize: 24.sp,
             ),
             KeyWord(id: widget.id, isMovie: widget.isMovie),
           ],

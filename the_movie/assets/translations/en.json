@@ -113,5 +113,7 @@
   "movies": "Movies",
   "people": "People",
   "collections": "Collections",
-  "companies": "Companies"
+  "companies": "Companies",
+   "account":"Account",
+  "password":"Password"
 }

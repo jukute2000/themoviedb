@@ -44,8 +44,7 @@ class BiographyWidgetState extends State<BiographyWidget> {
           RichText(
             text: TextSpan(
               text: displayedText,
-              style: TextManager.textStyleRegular(16.sp)
-                  .copyWith(color: AppColors.textBlack),
+              style: TextManager.textStyleRegular(16.sp),
               children: [
                 if (showToggle)
                   TextSpan(

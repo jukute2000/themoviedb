@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/medias/media.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
@@ -18,7 +19,7 @@ class ListviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 340,
+      height: 340.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: (medias.isNotEmpty) ? medias.length - 1 : 0,
@@ -39,7 +40,7 @@ class ListviewWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 150.w,
+                width: 155.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: AppColors.containerWhite,
@@ -63,13 +64,13 @@ class ListviewWidget extends StatelessWidget {
                                     AppImages.getImageUrl(item.posterPath!),
                                     height: 225.h,
                                     width: 155.w,
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.cover,
                                   )
                                 : Image.asset(
                                     AppImages.noImage,
                                     height: 225.h,
                                     width: 155.w,
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.cover,
                                   ),
                           ),
                           Positioned(
@@ -86,9 +87,9 @@ class ListviewWidget extends StatelessWidget {
                               ),
                               child: Text(
                                 item.roundVoteAverage(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                style: TextManager.textStyleRegular(16.sp)
+                                    .copyWith(
+                                  color: AppColors.textWhite,
                                 ),
                               ),
                             ),
@@ -104,9 +105,8 @@ class ListviewWidget extends StatelessWidget {
                               item.getTitle(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
+                              style: TextManager.textStyleBlod(16.sp).copyWith(
+                                color: AppColors.textBlack,
                               ),
                             ),
                           ),
@@ -118,9 +118,9 @@ class ListviewWidget extends StatelessWidget {
                                       .format(item.getReleaseDate()!)
                                       .toString()
                                   : AppStrings.noInfomation.tr(),
-                              style: TextStyle(
+                              style:
+                                  TextManager.textStyleRegular(16.sp).copyWith(
                                 color: AppColors.textDay,
-                                fontSize: 14.sp,
                               ),
                             ),
                           ),

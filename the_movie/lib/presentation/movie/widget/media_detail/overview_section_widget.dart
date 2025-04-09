@@ -6,6 +6,7 @@ import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 
 import '../../../../core/configs/assets/app_strings.dart';
+import '../../../../core/utils/text_manager.dart';
 
 class OverviewSection extends StatelessWidget {
   final String tagline;
@@ -25,26 +26,23 @@ class OverviewSection extends StatelessWidget {
           if (tagline.isNotEmpty)
             Text(
               tagline,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textTagLine,
-                fontStyle: FontStyle.italic,
+              style: TextManager.textStyleMedium(24.sp).copyWith(
+                color: AppColors.textWhite,
               ),
             ),
           GapsManager.h10,
           Text(
             AppStrings.overview.tr(),
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
+            style: TextManager.textStyleBlod(24.sp).copyWith(
               color: AppColors.textWhite,
             ),
           ),
           GapsManager.h10,
           Text(
             overview,
-            style: const TextStyle(color: AppColors.textWhite70),
+            style: TextManager.textStyleRegular(16.sp).copyWith(
+              color: AppColors.textWhite70,
+            ),
           ),
         ],
       ),

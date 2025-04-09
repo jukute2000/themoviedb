@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import '../../../../core/utils/text_manager.dart';
 
 class MovieDetailNavBar extends StatelessWidget {
   const MovieDetailNavBar({super.key});
@@ -9,7 +9,6 @@ class MovieDetailNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.containerWhite,
       padding: EdgeInsets.all(PaddingSizes.p4),
       child: Row(
         children: [
@@ -35,15 +34,8 @@ class MovieDetailNavBar extends StatelessWidget {
             : null,
         child: Row(
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: AppColors.textBlack,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Icon(Icons.arrow_drop_down, color: AppColors.iconBlack, size: 20.h),
+            Text(title, style: TextManager.textStyleMedium(16.sp)),
+            Icon(Icons.arrow_drop_down, size: 20.h),
           ],
         ),
       ),
@@ -71,17 +63,10 @@ class MediaDropdownMenu extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Videos',
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    color: AppColors.textBlack87,
-                  ),
-                ),
+                Text('Videos', style: TextManager.textStyleMedium(16.sp)),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 14.w,
-                  color: AppColors.iconBlack87,
                 ),
               ],
             ),
@@ -98,20 +83,8 @@ class MediaDropdownMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 15,
-              color: AppColors.textBlack87,
-            ),
-          ),
-          Text(
-            count,
-            style: const TextStyle(
-              fontSize: 15,
-              color: AppColors.textGrey,
-            ),
-          ),
+          Text(title, style: TextManager.textStyleMedium(16.sp)),
+          Text(count, style: TextManager.textStyleMedium(16.sp)),
         ],
       ),
     );
@@ -150,13 +123,7 @@ class OverviewDropdownMenu extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 15,
-          color: AppColors.textBlack87,
-        ),
-      ),
+      child: Text(title, style: TextManager.textStyleMedium(15.sp)),
     );
   }
 }

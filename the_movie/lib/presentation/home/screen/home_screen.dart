@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart';
 import 'package:the_movie/presentation/home/bloc/recomened/recommened_state.dart';
@@ -52,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 //banner
                 const BannerWidget(),
-
                 BlocBuilder<RecommenedCubit, RecommenedState>(
                     builder: (context, state) {
                   return const SizedBox();
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 TitleWidget(
                   title: AppStrings.trending.tr(),
                   widget: const SwitchButton(),
-                  fontSize: 28,
+                  fontSize: 24.sp,
                 ),
                 BlocBuilder<SwitchCubit, bool>(
                   builder: (context, isTodaySelected) {
@@ -71,12 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 TitleWidget(
                   title: AppStrings.whatPopular.tr(),
-                  fontSize: 28,
+                  fontSize: 24.sp,
                 ),
                 const GetPopularWidget(),
-                const TitleWidget(
+                TitleWidget(
                   title: AppStrings.recommned,
-                  fontSize: 28,
+                  fontSize: 24.sp,
                 ),
                 const GetRecommendWidget(),
               ],

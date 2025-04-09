@@ -6,6 +6,7 @@ import 'package:the_movie/data/models/keyword/keyword.dart';
 
 import '../../../../core/configs/assets/app_strings.dart';
 import '../../../../core/utils/sizes_manager.dart';
+import '../../../../core/utils/text_manager.dart';
 
 class KeyWordWidget1 extends StatefulWidget {
   final List<Keyword> keywords;
@@ -57,11 +58,10 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                   ),
                   child: Text(
                     keyword.name ?? AppStrings.noInfomation.tr(),
-                    style: TextStyle(
+                    style: TextManager.textStyleMedium(16.sp).copyWith(
                       color: isSelected
                           ? AppColors.textKeywordSelected
                           : AppColors.textKeywordUnSelected,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

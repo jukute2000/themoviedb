@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextManager {
   //SourceSans3
+  //abtract để sử dụng cho cho cả theme dark và light
   static TextStyle textStyleLight(double size) => TextStyle(
         fontSize: size,
         fontFamily: 'Source',

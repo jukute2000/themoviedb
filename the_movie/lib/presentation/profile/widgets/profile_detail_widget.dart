@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/account/account_model.dart';
+
+import '../../../core/utils/sizes_manager.dart';
+import '../../../core/utils/text_manager.dart';
 
 class ProfileDetailWidget extends StatelessWidget {
   final AccountModel accountModel;
@@ -8,63 +13,52 @@ class ProfileDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 420,
-      decoration: const BoxDecoration(color: AppColors.containerProfile),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Avatar
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
+            Padding(
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: CircleAvatar(
-                radius: 40,
-                backgroundColor: AppColors.backgroundProfile,
+                radius: 50.r,
                 child: Text(
                   'L',
-                  style: TextStyle(
+                  style: TextManager.textStyleBlod(40.sp).copyWith(
                     color: AppColors.textWhite,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            GapsManager.h10,
             // Tên người dùng
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
                 accountModel.username,
-                style: const TextStyle(
-                  color: AppColors.textWhite,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextManager.textStyleBlod(20.sp),
               ),
             ),
-            const SizedBox(height: 5),
+            GapsManager.h10,
             // Thành viên từ
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            Padding(
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
                 'Thành viên kể từ March 2025',
-                style: TextStyle(
-                  color: AppColors.textWhite70,
-                  fontSize: 14,
-                ),
+                style: TextManager.textStyleMedium(16.sp),
               ),
             ),
 
             // Điểm số
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
+            Padding(
+              padding: EdgeInsets.all(PaddingSizes.p8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ScoreWidget(score: 50, label: 'Điểm phim'),
-                  SizedBox(width: 40),
+                  GapsManager.w40,
                   ScoreWidget(score: 75, label: 'Điểm TV'),
                 ],
               ),
@@ -92,12 +86,11 @@ class ScoreWidget extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               SizedBox(
-                width: 60,
-                height: 60,
+                width: 60.w,
+                height: 60.h,
                 child: CircularProgressIndicator(
                   value: score / 100,
                   strokeWidth: 6,
-                  backgroundColor: Colors.black54,
                   valueColor: AlwaysStoppedAnimation<Color>(
                     score >= 75
                         ? AppColors.ratingGreen
@@ -107,24 +100,17 @@ class ScoreWidget extends StatelessWidget {
               ),
               Text(
                 '$score*',
-                style: const TextStyle(
-                  color: AppColors.textWhite,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextManager.textStyleMedium(16.sp),
               ),
             ],
           ),
-          const SizedBox(height: 5),
+          GapsManager.h10,
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: EdgeInsets.all(PaddingSizes.p8),
             child: Text(
               'Trung bình\n$label',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.textWhite70,
-                fontSize: 14,
-              ),
+              style: TextManager.textStyleMedium(14.sp),
             ),
           ),
         ],

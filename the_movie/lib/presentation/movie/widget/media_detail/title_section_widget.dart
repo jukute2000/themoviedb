@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 class TitleSection extends StatelessWidget {
   final DateTime releaseDate;
@@ -19,20 +20,15 @@ class TitleSection extends StatelessWidget {
           Flexible(
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textWhite,
-              ),
+              style: TextManager.textStyleBlod(32.sp)
+                  .copyWith(color: AppColors.textWhite),
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Text(
             "(${releaseDate.year})",
-            style: TextStyle(
-              fontSize: 20.sp,
-              color: AppColors.textWhite70,
-            ),
+            style: TextManager.textStyleMedium(24.sp)
+                .copyWith(color: AppColors.textWhite),
           ),
         ],
       ),

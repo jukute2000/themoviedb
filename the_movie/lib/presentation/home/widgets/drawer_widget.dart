@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
@@ -21,19 +21,14 @@ class DrawerWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(
-              color: AppColors.backgroundAppbar,
+            decoration: BoxDecoration(
+              color: Theme.of(context).appBarTheme.backgroundColor,
             ),
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: AppColors.iconAppbar,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32.sp,
-                ),
-              ),
+              child: Text('Menu',
+                  style: TextManager.textStyleBlod(36.sp).copyWith(
+                      color: Theme.of(context).appBarTheme.iconTheme?.color)),
             ),
           ),
           _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
@@ -62,7 +57,10 @@ class DrawerWidget extends StatelessWidget {
   ListTile _createDrawerItem(IconData icon, String text) {
     return ListTile(
       leading: Icon(icon),
-      title: Text(text),
+      title: Text(
+        text,
+        style: TextManager.textStyleMedium(16.sp),
+      ),
       onTap: () {
         // Xử lý sự kiện khi nhấn vào mục
         print("Clicked on $text");

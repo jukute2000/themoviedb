@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
@@ -121,8 +124,8 @@ class LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Sign In',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
+              AppStrings.signIn.tr(),
+              style: TextManager.textStyleBlod(32.sp),
             ),
             SizedBox(height: 30.h),
             _emailField(),
@@ -139,8 +142,8 @@ class LoginScreenState extends State<LoginScreen> {
   Widget _emailField() {
     return TextField(
       controller: _emailCon,
-      decoration: const InputDecoration(
-        hintText: 'UserName',
+      decoration: InputDecoration(
+        hintText: AppStrings.account.tr(),
         errorText: null,
       ),
       onChanged: (value) {
@@ -157,7 +160,7 @@ class LoginScreenState extends State<LoginScreen> {
       controller: _passwordCon,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: 'Password',
+        hintText: AppStrings.password.tr(),
         errorText: (_password.isEmpty || _password.length >= 6)
             ? null
             : "Password must be at least 6 characters",
@@ -178,7 +181,10 @@ class LoginScreenState extends State<LoginScreen> {
               await signIn();
             }
           : null, // Disable button if form is invalid
-      child: const Text("Login"),
+      child: Text(
+        "Login",
+        style: TextManager.textStyleMedium(16.sp),
+      ),
     );
   }
 }

@@ -118,6 +118,8 @@ class AppStrings {
   // Buttons
   static const String search = 'search';
   static const String signIn = 'signIn';
+  static const String account = "account";
+  static const String password = "password";
   static const String signUp = 'signUp';
   static const String whatYourVibe = 'whatYourVibe';
   static const String watchNow = 'watchNow';

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
-import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/models/media_detail/detail_media/detail_meida.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
+
+import '../../../core/utils/text_manager.dart';
 
 class ListviewDetailWidget extends StatelessWidget {
   final List<DetailMedia> detailMedia;
@@ -37,7 +38,7 @@ class ListviewDetailWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Container(
-                width: 150.w,
+                width: 155.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: AppColors.containerWhite,
@@ -61,13 +62,13 @@ class ListviewDetailWidget extends StatelessWidget {
                                     AppImages.getImageUrl(item.posterPath!),
                                     height: 225.h,
                                     width: 155.w,
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.cover,
                                   )
                                 : Image.asset(
                                     AppImages.noImage,
                                     height: 225.h,
                                     width: 155.w,
-                                    fit: BoxFit.contain,
+                                    fit: BoxFit.cover,
                                   ),
                           ),
                           Positioned(
@@ -84,9 +85,9 @@ class ListviewDetailWidget extends StatelessWidget {
                               ),
                               child: Text(
                                 item.roundVoteAverage(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                style: TextManager.textStyleRegular(16.sp)
+                                    .copyWith(
+                                  color: AppColors.textWhite,
                                 ),
                               ),
                             ),
@@ -102,23 +103,20 @@ class ListviewDetailWidget extends StatelessWidget {
                               item.titleName,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
+                              style: TextManager.textStyleBlod(16.sp).copyWith(
+                                color: AppColors.textBlack,
                               ),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(PaddingSizes.p8),
                             child: Text(
-                              item.releaseDayMedia != null
-                                  ? DateFormat('MMM dd, yyyy')
-                                      .format(item.releaseDayMedia)
-                                      .toString()
-                                  : AppStrings.noInfomation.tr(),
-                              style: TextStyle(
+                              DateFormat('MMM dd, yyyy')
+                                  .format(item.releaseDayMedia)
+                                  .toString(),
+                              style:
+                                  TextManager.textStyleRegular(16.sp).copyWith(
                                 color: AppColors.textDay,
-                                fontSize: 14.sp,
                               ),
                             ),
                           ),

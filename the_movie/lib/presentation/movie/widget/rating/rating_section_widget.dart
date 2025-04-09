@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
 import 'package:the_movie/presentation/movie/widget/animation/bao_score_animation.dart';
@@ -46,9 +47,13 @@ class RatingSectionState extends State<RatingSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("User",
-                style: TextStyle(color: AppColors.textWhite, fontSize: 17.sp)),
+                style: TextManager.textStyleMedium(18.sp).copyWith(
+                  color: AppColors.textWhite,
+                )),
             Text("Score",
-                style: TextStyle(color: AppColors.textWhite, fontSize: 17.sp)),
+                style: TextManager.textStyleMedium(18.sp).copyWith(
+                  color: AppColors.textWhite,
+                )),
           ],
         ),
       ],

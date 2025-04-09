@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -26,42 +27,41 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SearchTotalProvider(
       child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => SplashCubit()..appStarted(),
-            ),
-            BlocProvider(
-              create: (context) => ProfileDetailCubit()..loadProfileDetails(),
-            ),
-            BlocProvider(create: (_) => RecommenedCubit()..loadRecommened()),
-            BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
-            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
-            BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
-            BlocProvider<TabCollectionCubit>(
-                create: (context) => TabCollectionCubit()),
-            BlocProvider(create: (context) => TabCompanyCubit()),
-            BlocProvider(create: (context) => TabKeywordCubit()),
-            BlocProvider(create: (context) => TabPeopleCubit()),
-          ],
-          child: ScreenUtilInit(
-              designSize: getDesignSize(),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (context, child) {
-                return MaterialApp(
-                    navigatorKey: NavigationService.navigatorKey,
-                    locale: context.locale,
-                    supportedLocales: context.supportedLocales,
-                    localizationsDelegates: context.localizationDelegates,
-                    debugShowCheckedModeBanner: false,
-                    theme: ThemeData(
-                      textTheme: Theme.of(context).textTheme.apply(
-                            fontFamily: 'Source',
-                          ),
-                      useMaterial3: true,
-                    ),
-                    home: const SplashScreen());
-              })),
+        providers: [
+          BlocProvider(
+            create: (context) => SplashCubit()..appStarted(),
+          ),
+          BlocProvider(
+            create: (context) => ProfileDetailCubit()..loadProfileDetails(),
+          ),
+          BlocProvider(create: (_) => RecommenedCubit()..loadRecommened()),
+          BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
+          BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+          BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
+          BlocProvider<TabCollectionCubit>(
+              create: (context) => TabCollectionCubit()),
+          BlocProvider(create: (context) => TabCompanyCubit()),
+          BlocProvider(create: (context) => TabKeywordCubit()),
+          BlocProvider(create: (context) => TabPeopleCubit()),
+        ],
+        child: ScreenUtilInit(
+          designSize: getDesignSize(),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return MaterialApp(
+                navigatorKey: NavigationService.navigatorKey,
+                locale: context.locale,
+                supportedLocales: context.supportedLocales,
+                localizationsDelegates: context.localizationDelegates,
+                debugShowCheckedModeBanner: false,
+                themeMode: ThemeMode.dark,
+                theme: LightTheme().themeData,
+                darkTheme: DarkTheme().themeData,
+                home: const SplashScreen());
+          },
+        ),
+      ),
     );
   }
 }

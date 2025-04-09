@@ -114,5 +114,7 @@
   "movies": "Phim",
   "people": "Người",
   "collections": "Bộ sưu tập",
-  "companies": "Công ty"
+  "companies": "Công ty",
+  "account":"Tài khoản",
+  "password":"Mật khẩu"
 }

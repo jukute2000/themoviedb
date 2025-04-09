@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 class TitleWidget extends StatelessWidget {
   final String title;
@@ -17,10 +18,7 @@ class TitleWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextManager.textStyleBlack(fontSize),
           ),
           widget ?? const SizedBox(),
         ],

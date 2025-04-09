@@ -22,7 +22,7 @@ class DetailWidget extends StatelessWidget {
       children: [
         const MovieDetailNavBar(),
         Container(
-          color: AppColors.containerNavBar, //đồng bộ
+          color: AppColors.containerNavBar,
           child: Column(
             children: [
               HeaderSection(

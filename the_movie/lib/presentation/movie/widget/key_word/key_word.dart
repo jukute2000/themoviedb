@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/movie/bloc/key_word/key_word_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/key_word/key_word_state.dart';
-import 'package:the_movie/presentation/movie/widget/key_word/key_word_widget1.dart';
+import 'package:the_movie/presentation/movie/widget/key_word/key_word_widget.dart';
 
 class KeyWord extends StatefulWidget {
   final int id;

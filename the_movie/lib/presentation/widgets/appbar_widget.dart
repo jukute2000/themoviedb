@@ -38,8 +38,7 @@ class AppbarWidget extends StatelessWidget {
       floatHeaderSlivers: true,
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
-          iconTheme: const IconThemeData(color: AppColors.iconAppbar),
-          backgroundColor: AppColors.backgroundAppbar,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           title: GestureDetector(
             onTap: () {
               AppNavigator.pushAndRemove(context, const HomeScreen());
@@ -78,6 +77,7 @@ class AppbarWidget extends StatelessWidget {
                 controller: controller ?? TextEditingController()),
           ),
           SliverAppBar(
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
               automaticallyImplyLeading: false,
               titleSpacing: 0,
               pinned: false,

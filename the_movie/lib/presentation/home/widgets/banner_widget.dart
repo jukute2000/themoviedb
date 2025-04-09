@@ -7,6 +7,7 @@ import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/home/bloc/banner/banner_state.dart';
 
@@ -83,18 +84,13 @@ class _BannerWidgetState extends State<BannerWidget> {
               children: [
                 Text(
                   AppStrings.titleDashboard1.tr(),
-                  style: TextStyle(
-                    fontSize: 36.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textWhite,
-                  ),
+                  style: TextManager.textStyleBlod(32.sp)
+                      .copyWith(color: AppColors.textWhite),
                 ),
                 Text(
                   AppStrings.titleDashboard2.tr(),
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    color: AppColors.textWhite,
-                  ),
+                  style: TextManager.textStyleMedium(16.sp)
+                      .copyWith(color: AppColors.textWhite),
                 ),
                 GapsManager.h20,
                 Container(
@@ -110,6 +106,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                           controller: textController,
                           decoration: InputDecoration(
                             hintText: AppStrings.search.tr(),
+                            hintStyle: TextManager.textStyleMedium(16.sp),
                             border: InputBorder.none,
                           ),
                         ),

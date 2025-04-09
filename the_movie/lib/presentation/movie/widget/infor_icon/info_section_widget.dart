@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
 import 'package:the_movie/presentation/movie/widget/infor_icon/infor_icon.dart';
+
+import '../../../../core/utils/text_manager.dart';
 
 class InfoSection extends StatelessWidget {
   final bool isMovie;
@@ -32,6 +35,7 @@ class InfoSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildCertification(),
+              GapsManager.w10,
               _buildRuntimeInfo(),
               _buildTrailerButton(),
             ],
@@ -52,11 +56,10 @@ class InfoSection extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: const Text(
+      child: Text(
         'PG',
-        style: TextStyle(
-          color: AppColors.containerCetificate,
-          fontSize: 16,
+        style: TextManager.textStyleMedium(16.sp).copyWith(
+          color: AppColors.textWhite,
         ),
       ),
     );
@@ -66,7 +69,9 @@ class InfoSection extends StatelessWidget {
     return Expanded(
       child: Text(
         " $releaseDateText ($originText) • $runtimeText",
-        style: TextStyle(color: AppColors.textWhite, fontSize: 16.sp),
+        style: TextManager.textStyleMedium(16.sp).copyWith(
+          color: AppColors.textWhite,
+        ),
         overflow: TextOverflow.ellipsis,
       ),
     );
@@ -95,7 +100,9 @@ class InfoSection extends StatelessWidget {
   Widget _buildGenreText() {
     return Text(
       genreText,
-      style: TextStyle(color: AppColors.textWhite, fontSize: 16.sp),
+      style: TextManager.textStyleMedium(16.sp).copyWith(
+        color: AppColors.textWhite,
+      ),
     );
   }
 }

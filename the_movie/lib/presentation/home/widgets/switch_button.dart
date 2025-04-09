@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
@@ -18,7 +19,6 @@ class SwitchButton extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(PaddingSizes.p4),
           decoration: BoxDecoration(
-            color: AppColors.containerWhite,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: AppColors.boderContainer, width: 1.5.w),
           ),
@@ -34,16 +34,15 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isTodaySelected
                         ? AppColors.todaySelected
-                        : AppColors.todayUnSelected,
+                        : Theme.of(context).appBarTheme.backgroundColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     AppStrings.today.tr(),
-                    style: TextStyle(
+                    style: TextManager.textStyleBlod(16.sp).copyWith(
                       color: isTodaySelected
                           ? AppColors.textTodaySelected
-                          : AppColors.textTodayUnSelected,
-                      fontWeight: FontWeight.bold,
+                          : Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                 ),
@@ -57,16 +56,15 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: !isTodaySelected
                         ? AppColors.todaySelected
-                        : AppColors.todayUnSelected,
+                        : Theme.of(context).appBarTheme.backgroundColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     AppStrings.week.tr(),
-                    style: TextStyle(
+                    style: TextManager.textStyleBlod(16.sp).copyWith(
                       color: !isTodaySelected
                           ? AppColors.textTodaySelected
-                          : AppColors.textTodayUnSelected,
-                      fontWeight: FontWeight.bold,
+                          : Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
                 ),

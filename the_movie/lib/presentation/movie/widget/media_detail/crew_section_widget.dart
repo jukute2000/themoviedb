@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 
+import '../../../../core/configs/assets/app_colors.dart';
 import '../../../../core/configs/assets/app_strings.dart';
+import '../../../../core/utils/text_manager.dart';
 
 class CrewSection extends StatelessWidget {
   const CrewSection({super.key});
@@ -34,10 +37,18 @@ class _InfoPerson extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold)),
-        Text(role, style: const TextStyle(color: Colors.white70)),
+        Text(
+          name,
+          style: TextManager.textStyleBlod(16.sp).copyWith(
+            color: AppColors.textWhite,
+          ),
+        ),
+        Text(
+          role,
+          style: TextManager.textStyleMedium(16.sp).copyWith(
+            color: AppColors.textWhite70,
+          ),
+        ),
       ],
     );
   }

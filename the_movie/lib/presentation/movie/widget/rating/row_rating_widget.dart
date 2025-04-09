@@ -8,6 +8,7 @@ import 'package:the_movie/presentation/movie/bloc/account_status/account_status_
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
 
 import '../../../../core/configs/assets/app_strings.dart';
+import '../../../../core/utils/text_manager.dart';
 
 class RowRatingWidget extends StatefulWidget {
   final bool isMovie;
@@ -89,11 +90,8 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
             onTap: () => _showRatingOverlay(userScore * 10),
             child: Text(
               text,
-              style: TextStyle(
+              style: TextManager.textStyleMedium(18.sp).copyWith(
                 color: AppColors.textWhite,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
               ),
             )),
         Icon(Icons.info_outline, color: AppColors.iconNotSuport, size: 17.w),
