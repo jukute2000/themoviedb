@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/detail_cast/screen/detail_cast_screen.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_people/bloc/tab_people_state.dart';
 import 'package:the_movie/presentation/detail_search/widget/people_widget.dart';
@@ -12,6 +14,7 @@ import '../../../widget/pagination_controller.dart';
 class TabPeople extends StatefulWidget {
   final String query;
   final int totalResults;
+
   const TabPeople({super.key, required this.query, required this.totalResults});
 
   @override
@@ -52,11 +55,17 @@ class _TabPeopleState extends State<TabPeople>
                         itemCount: state.peopleData.peoples?.length,
                         itemBuilder: (context, index) {
                           People? people = state.peopleData.peoples?[index];
-                          return PeopleWidget(
-                            knownForDepartment: people?.knownForDepartment,
-                            name: people?.name,
-                            knownFor: people?.knowFors,
-                            profilePath: people?.profilePath,
+                          return GestureDetector(
+                            onTap: () {
+                              AppNavigator.push(
+                                  context, DetailCastScreen(id: people!.id!));
+                            },
+                            child: PeopleWidget(
+                              knownForDepartment: people?.knownForDepartment,
+                              name: people?.name,
+                              knownFor: people?.knowFors,
+                              profilePath: people?.profilePath,
+                            ),
                           );
                         }),
                   ),

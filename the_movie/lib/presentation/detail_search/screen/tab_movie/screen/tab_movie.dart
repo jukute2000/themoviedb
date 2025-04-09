@@ -5,6 +5,8 @@ import 'package:the_movie/data/models/medias/movie.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_movie/bloc/tab_movie_state.dart';
 
+import '../../../../../core/configs/navigation/app_navigation.dart';
+import '../../../../movie/screen/movie_detail_screen.dart';
 import '../../../stream_controller/search_total_provider.dart';
 import '../../../widget/pagination_controller.dart';
 import '../../../widget/tab_view_widget.dart';
@@ -53,8 +55,19 @@ class _TabMovieShowState extends State<TabMovieShow>
                         itemCount: state.movieData.results?.length ?? 0,
                         itemBuilder: (context, index) {
                           Movie movie = state.movieData.results![index];
-                          return TabViewWidget(
-                            media: movie,
+                          return GestureDetector(
+                            onTap: () {
+                              AppNavigator.push(
+                                context,
+                                MovieDetailScreen(
+                                  id: movie.id!,
+                                  isMovie: true,
+                                ),
+                              );
+                            },
+                            child: TabViewWidget(
+                              media: movie,
+                            ),
                           );
                         },
                       ),

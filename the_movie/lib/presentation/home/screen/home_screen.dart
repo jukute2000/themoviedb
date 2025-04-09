@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       resizeToAvoidBottomInset: true,
       drawer: const DrawerWidget(),
       body: AppbarWidget(
+        isSearch: false,
         isHome: true,
         scrollController: _scrollController,
         body: BlocProvider(
