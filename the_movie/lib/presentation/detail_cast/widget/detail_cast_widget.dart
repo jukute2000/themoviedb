@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/credits/external.dart';
 import 'package:the_movie/data/models/people/people_detail.dart';
 import 'package:the_movie/presentation/detail_cast/widget/biography_widget.dart';
@@ -48,8 +49,8 @@ class DetailCastWidget extends StatelessWidget {
               buildSocialMediaButtons(context, external),
               GapsManager.h10,
               Text(
-                peopleDetail?.name ?? '',
-                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                peopleDetail?.name ?? AppStrings.noInfomation.tr(),
+                style: TextManager.textStyleBlod(32.sp),
               ),
               GapsManager.h10,
               Card(
@@ -117,14 +118,13 @@ class DetailCastWidget extends StatelessWidget {
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextManager.textStyleBlod(16.sp),
                 ),
                 Text(
                   value,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: TextManager.textStyleRegular(16.sp),
                 ),
               ],
             )
@@ -134,16 +134,17 @@ class DetailCastWidget extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                          text: "$label\n",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          )),
-                      TextSpan(text: value),
+                        text: "$label\n",
+                        style: TextManager.textStyleBlod(16.sp),
+                      ),
+                      TextSpan(
+                        text: value,
+                        style: TextManager.textStyleRegular(
+                          16.sp,
+                        ),
+                      ),
                     ],
-                    style: const TextStyle(
-                      color: AppColors.textBlack,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    style: const TextStyle(color: AppColors.textBlack),
                   ),
                 ),
               ],

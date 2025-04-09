@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 import '../../../core/configs/assets/app_strings.dart';
 import '../../../data/models/credits/combined_credit.dart/crew.dart';
@@ -19,10 +20,7 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                   children: [
                     Text(
                       e.key!,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextManager.textStyleBlod(20.sp),
                     ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -43,23 +41,30 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                                 crew.getDateTime() != 0
                                     ? crew.getDateTime().toString()
                                     : "_",
+                                style: TextManager.textStyleMedium(16.sp),
                               ),
                               title: GestureDetector(
-                                  onTap: () {
-                                    if (crew.id != -1) {
-                                      AppNavigator.push(
-                                        context,
-                                        MovieDetailScreen(
-                                          id: crew.id!,
-                                          isMovie: crew.isMovie(),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Text(crew.getTitle() ??
-                                      AppStrings.noInfomation.tr())),
+                                onTap: () {
+                                  if (crew.id != -1) {
+                                    AppNavigator.push(
+                                      context,
+                                      MovieDetailScreen(
+                                        id: crew.id!,
+                                        isMovie: crew.isMovie(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  crew.getTitle() ??
+                                      AppStrings.noInfomation.tr(),
+                                  style: TextManager.textStyleBlod(16.sp),
+                                ),
+                              ),
                               subtitle: Text(
-                                  crew.job ?? AppStrings.noInfomation.tr()),
+                                crew.job ?? AppStrings.noInfomation.tr(),
+                                style: TextManager.textStyleRegular(16.sp),
+                              ),
                             ),
                           ],
                         );

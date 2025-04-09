@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 
@@ -38,22 +39,19 @@ class BiographyWidgetState extends State<BiographyWidget> {
         children: [
           Text(
             AppStrings.biography.tr(),
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextManager.textStyleBlod(20.sp),
           ),
           RichText(
             text: TextSpan(
               text: displayedText,
-              style: const TextStyle(
-                fontStyle: FontStyle.italic,
-                color: AppColors.textBlack,
-              ),
+              style: TextManager.textStyleRegular(16.sp)
+                  .copyWith(color: AppColors.textBlack),
               children: [
                 if (showToggle)
                   TextSpan(
                     text: _isExpanded ? " View Less" : " View More",
-                    style: const TextStyle(
+                    style: TextManager.textStyleRegular(16.sp).copyWith(
                       color: AppColors.textBlue,
-                      fontWeight: FontWeight.bold,
                     ),
                     recognizer: TapGestureRecognizer()..onTap = _toggleExpanded,
                   ),

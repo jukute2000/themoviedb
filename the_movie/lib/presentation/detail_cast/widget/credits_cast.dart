@@ -5,6 +5,7 @@ import 'package:the_movie/core/comons/extension/media_type_enum.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/detail_cast/bloc/detail_cast/detail_cast_cubit.dart';
 import 'package:the_movie/presentation/detail_cast/widget/credits_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/crew_widget.dart';
@@ -33,10 +34,7 @@ class _CreditsCastState extends State<CreditsCast> {
               widget.medias != null
                   ? Text(
                       "Acting",
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextManager.textStyleBlod(20.sp),
                     )
                   : const SizedBox(),
               Row(
@@ -44,9 +42,10 @@ class _CreditsCastState extends State<CreditsCast> {
                   if (detailCast.isClear)
                     TextButton(
                       onPressed: () => detailCast.resetFilter(),
-                      child: const Text(
+                      child: Text(
                         "Clear",
-                        style: TextStyle(color: AppColors.iconAppbar),
+                        style: TextManager.textStyleMedium(16.sp)
+                            .copyWith(color: AppColors.textBlue),
                       ),
                     ),
                   GapsManager.h20,
@@ -54,17 +53,29 @@ class _CreditsCastState extends State<CreditsCast> {
                     onSelected: (value) {
                       detailCast.filterCast(value);
                     },
-                    child: const Row(
-                      children: [Text("All"), Icon(Icons.arrow_drop_down)],
+                    child: Row(
+                      children: [
+                        Text(
+                          "All",
+                          style: TextManager.textStyleMedium(16.sp),
+                        ),
+                        const Icon(Icons.arrow_drop_down)
+                      ],
                     ),
                     itemBuilder: (context) => [
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: MediaTypeEnum.movie, // Đã sửa đúng kiểu dữ liệu
-                        child: Text("Movie"),
+                        child: Text(
+                          "Movie",
+                          style: TextManager.textStyleMedium(16.sp),
+                        ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: MediaTypeEnum.tv, // Đã sửa đúng kiểu dữ liệu
-                        child: Text("TV"),
+                        child: Text(
+                          "TV",
+                          style: TextManager.textStyleMedium(16.sp),
+                        ),
                       ),
                     ],
                   ),
@@ -73,10 +84,13 @@ class _CreditsCastState extends State<CreditsCast> {
                     onSelected: (value) {
                       detailCast.filterCrewByDepartment(value);
                     },
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Text("Deparment"),
-                        Icon(Icons.arrow_drop_down)
+                        Text(
+                          "Deparment",
+                          style: TextManager.textStyleMedium(16.sp),
+                        ),
+                        const Icon(Icons.arrow_drop_down)
                       ],
                     ),
                     itemBuilder: (context) => detailCast.originalCrews.keys
@@ -84,7 +98,9 @@ class _CreditsCastState extends State<CreditsCast> {
                           (e) => PopupMenuItem(
                             value: e,
                             child: Text(
-                                "$e (${detailCast.originalCrews[e]?.length ?? "_"})"),
+                              "$e (${detailCast.originalCrews[e]?.length ?? "_"})",
+                              style: TextManager.textStyleMedium(16.sp),
+                            ),
                           ),
                         )
                         .toList(),

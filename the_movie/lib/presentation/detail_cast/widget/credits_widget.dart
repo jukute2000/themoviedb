@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/medias/media.dart';
-
 import '../../../core/configs/assets/app_strings.dart';
 import '../../../core/configs/navigation/app_navigation.dart';
+import '../../../core/utils/text_manager.dart';
 import '../../movie/screen/movie_detail_screen.dart';
 
 class CreditsWidget extends StatefulWidget {
@@ -40,7 +41,8 @@ class _CreditsWidgetState extends State<CreditsWidget> {
                         DividerManager.horizontalDivider,
                       ListTile(
                         leading: Text(
-                          media.getYear(),
+                          media.getYear() != "" ? media.getYear() : "_",
+                          style: TextManager.textStyleMedium(16.sp),
                         ),
                         title: GestureDetector(
                           onTap: () {
@@ -56,10 +58,15 @@ class _CreditsWidgetState extends State<CreditsWidget> {
                           },
                           child: Text(
                             media.getTitle(),
+                            style: TextManager.textStyleBlod(16.sp),
                           ),
                         ),
                         subtitle: Text(
-                            media.charater ?? AppStrings.noInfomation.tr()),
+                          media.charater ?? AppStrings.noInfomation.tr(),
+                          style: TextManager.textStyleRegular(
+                            16.sp,
+                          ),
+                        ),
                       ),
                     ],
                   );

@@ -5,6 +5,7 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
@@ -42,7 +43,7 @@ class _KnownForWidgetState extends State<KnownForWidget> {
         children: [
           Text(
             AppStrings.knownFor.tr(),
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextManager.textStyleBlod(20.sp),
           ),
           widget.movies == null
               ? Center(
@@ -105,8 +106,8 @@ class _KnownForWidgetState extends State<KnownForWidget> {
                                       softWrap: true,
                                       textAlign: TextAlign.start,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          color: AppColors.textBlack),
+                                      style: TextManager.textStyleRegular(16.sp)
+                                          .copyWith(color: AppColors.textBlack),
                                     ),
                                   )
                                 ],
