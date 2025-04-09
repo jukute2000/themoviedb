@@ -55,8 +55,9 @@ class TabViewWidget extends StatelessWidget {
                           text: TextSpan(children: [
                             TextSpan(
                               text: media.getTitle(),
-                              style:
-                                  const TextStyle(color: AppColors.textBlack),
+                              style: const TextStyle(
+                                  color: AppColors.textBlack,
+                                  fontWeight: FontWeight.bold),
                             ),
                             if (media is TiVi)
                               TextSpan(

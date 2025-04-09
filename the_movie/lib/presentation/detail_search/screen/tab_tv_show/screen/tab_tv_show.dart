@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/comons/extension/search_category.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
 import '../../../../../data/models/medias/tv.dart';
 import '../../../stream_controller/search_total_provider.dart';
@@ -48,29 +50,35 @@ class _TabTvShowState extends State<TabTvShow>
           }
           return state.tvData.results != null
               ? Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: state.tvData.results?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          TiVi tiVi = state.tvData.results![index];
-                          return TabViewWidget(
-                            media: tiVi,
-                          );
-                        },
-                      ),
-                    ),
-                    PaginationControls(
-                      currentPage: state.page,
-                      totalPages: state.tvData.totalPages ?? 1,
-                      onPageChanged: (newPage) {
-                        context
-                            .read<TabTvShowCubit>()
-                            .fetchTvShows(widget.query, newPage);
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.tvData.results?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    TiVi tiVi = state.tvData.results![index];
+                    return GestureDetector(
+                      onTap: () {
+                        AppNavigator.push(context,
+                            MovieDetailScreen(id: tiVi.id!, isMovie: false));
                       },
-                    ),
-                  ],
-                )
+                      child: TabViewWidget(
+                        media: tiVi,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              PaginationControls(
+                currentPage: state.page,
+                totalPages: state.tvData.totalPages ?? 1,
+                onPageChanged: (newPage) {
+                  context
+                      .read<TabTvShowCubit>()
+                      .fetchTvShows(widget.query, newPage);
+                },
+              ),
+            ],
+          )
               : const Center(child: Text("No data"));
         } else if (state is TabTvShowError) {
           return Center(child: Text(state.message));
