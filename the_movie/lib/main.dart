@@ -55,8 +55,9 @@ class MyApp extends StatelessWidget {
                     localizationsDelegates: context.localizationDelegates,
                     debugShowCheckedModeBanner: false,
                     theme: ThemeData(
-                      colorScheme:
-                          ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                      textTheme: Theme.of(context).textTheme.apply(
+                            fontFamily: 'Source',
+                          ),
                       useMaterial3: true,
                     ),
                     home: const SplashScreen());
