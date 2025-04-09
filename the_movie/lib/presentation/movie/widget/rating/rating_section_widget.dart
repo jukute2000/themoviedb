@@ -5,6 +5,7 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_cubit.dart';
 import 'package:the_movie/presentation/movie/bloc/account_status/account_status_state.dart';
+import 'package:the_movie/presentation/movie/widget/animation/bao_score_animation.dart';
 import 'package:the_movie/presentation/movie/widget/rating/row_rating_widget.dart';
 
 import '../../../../core/utils/sizes_manager.dart';
@@ -39,7 +40,7 @@ class RatingSectionState extends State<RatingSection> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _ScoreCircle(score: widget.voteAverage),
+        ScoreAnimation(score: (widget.voteAverage * 10).toInt()),
         GapsManager.w10,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,45 +72,6 @@ class RatingSectionState extends State<RatingSection> {
         }
         return const SizedBox();
       },
-    );
-  }
-}
-
-class _ScoreCircle extends StatelessWidget {
-  final double score;
-
-  const _ScoreCircle({required this.score});
-
-  @override
-  Widget build(BuildContext context) {
-    final Color progressColor = score >= 7
-        ? AppColors.ratingGreen
-        : score >= 5
-            ? AppColors.ratingYellow
-            : AppColors.ratingyellowhigh;
-
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          width: 45.w,
-          height: 45.h,
-          child: CircularProgressIndicator(
-            value: score / 10,
-            backgroundColor: AppColors.textGreyShade800,
-            valueColor: AlwaysStoppedAnimation<Color>(progressColor),
-            strokeWidth: 4,
-          ),
-        ),
-        Text(
-          "${(score * 10).toInt()}%",
-          style: const TextStyle(
-            color: AppColors.textWhite,
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
     );
   }
 }

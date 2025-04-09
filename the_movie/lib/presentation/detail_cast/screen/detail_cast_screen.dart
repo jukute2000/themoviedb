@@ -61,7 +61,7 @@ class _DetailCastScreenState extends State<DetailCastScreen> {
       body: AppbarWidget(
         scrollController: scrollController,
         body: DetailCast(id: widget.id),
-        isHome: false,
+        isHome: false, isSearch: false
       ),
     );
   }

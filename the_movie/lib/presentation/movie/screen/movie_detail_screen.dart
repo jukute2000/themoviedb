@@ -38,6 +38,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     return Scaffold(
       body: AppbarWidget(
         scrollController: _scrollController,
+        isSearch: false,
         isHome: false,
         body: SingleChildScrollView(
             child: Column(

@@ -3,9 +3,10 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
-import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
+import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
 import '../../../data/models/search/search_multi.dart';
 
@@ -99,14 +100,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           },
           onSelected: (value) {
             FocusScope.of(context).unfocus();
-            Navigator.push(
+            AppNavigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const DetailSearchScreen(
-                          index: 1,
-                          query: '',
-                        ) // Vào DetailMovie,
-                    ));
+                MovieDetailScreen(
+                    id: value.id!, isMovie: value.mediaType == "movie"));
           },
         ));
   }
