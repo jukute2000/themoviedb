@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 
 import '../../core/comons/extension/search_category.dart';
@@ -19,7 +20,8 @@ class AppbarWidget extends StatelessWidget {
     required this.body,
     required this.isHome,
     required this.isSearch,
-    this.controller, this.tabController,
+    this.controller,
+    this.tabController,
   }) : _scrollController = scrollController;
 
   final ScrollController _scrollController;
@@ -28,6 +30,7 @@ class AppbarWidget extends StatelessWidget {
   final bool isSearch;
   final TextEditingController? controller;
   final TabController? tabController;
+
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -75,7 +78,7 @@ class AppbarWidget extends StatelessWidget {
                 controller: controller ?? TextEditingController()),
           ),
           SliverAppBar(
-            automaticallyImplyLeading: false,
+              automaticallyImplyLeading: false,
               titleSpacing: 0,
               pinned: false,
               floating: true,
@@ -87,7 +90,12 @@ class AppbarWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(0),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  AppNavigator.pushAndRemove(
+                      context,
+                      DetailSearchScreen(
+                          query: controller?.text ?? "", index: 0));
+                },
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(

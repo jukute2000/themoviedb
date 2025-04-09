@@ -26,4 +26,9 @@ class RemoteConfic {
     await remoteConfig.fetchAndActivate();
     return remoteConfig.getBool('welcome_cast');
   }
+
+  Future<bool> getSearch() async {
+    await remoteConfig.fetchAndActivate();
+    return remoteConfig.getBool('search');
+  }
 }
