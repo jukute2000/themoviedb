@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/data/repositories/search_repository.dart';
+import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
 import '../../../data/models/search/search_multi.dart';
@@ -67,6 +68,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           controller: widget.controller,
           focusNode: _focusNode,
           builder: (context, controller, focusNode) => TextField(
+            onSubmitted: (value) {
+              FocusScope.of(context).unfocus();
+              AppNavigator.pushAndRemove(context,
+                  DetailSearchScreen(query: widget.controller.text, index: 0));
+            },
             onTapOutside: (event) {
               FocusScope.of(context).unfocus();
             },

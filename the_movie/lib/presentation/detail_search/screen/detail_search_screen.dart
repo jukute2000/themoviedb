@@ -9,6 +9,7 @@ import 'package:the_movie/presentation/home/widgets/drawer_widget.dart';
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 
 import '../../../core/comons/extension/search_category.dart';
+import '../../../initial/remote_confic.dart';
 import '../stream_controller/search_total_provider.dart';
 
 class DetailSearchScreen extends StatefulWidget {
@@ -34,6 +35,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     tabController =
         TabController(length: 6, vsync: this, initialIndex: widget.index);
     _controller = TextEditingController(text: widget.query);
+    checkRemoteConflict();
     super.initState();
   }
 
@@ -42,6 +44,34 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     _controller.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+
+  Future<void> checkRemoteConflict() async {
+    if (await RemoteConfic.instance.getSearch()) {
+      showDialogSearch();
+    }
+  }
+
+  void showDialogSearch() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Check"),
+          content:
+          const Text("Hello bạn đến với trang tìm kiếm"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
