@@ -12,22 +12,23 @@ import 'package:the_movie/presentation/detail_search/screen/detail_search_screen
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 
 import '../../../data/models/search/search_multi.dart';
+import '../../../main.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
-  const SearchBarWidget({super.key, required this.controller});
+  const SearchBarWidget({super.key, required this.controller, required this.focusNode});
 
   @override
   State<SearchBarWidget> createState() => _SearchBarWidgetState();
 }
 
-class _SearchBarWidgetState extends State<SearchBarWidget> {
-  late FocusNode _focusNode;
+class _SearchBarWidgetState extends State<SearchBarWidget> with RouteAware {
 
   Future<List<SearchMulti>> _getSuggestions(String query) async {
     try {
-      if (!_focusNode.hasFocus) {
+      if (!widget.focusNode.hasFocus) {
         return [];
       }
       return SearchRepositoryImpl.instance.getSearchMutil(query);
@@ -48,17 +49,23 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    _focusNode = FocusNode();
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override
-  dispose() {
-    _focusNode.dispose();
+  void dispose() {
+    widget.focusNode.dispose();
+    routeObserver.unsubscribe(this);
     super.dispose();
   }
+
+  @override
+  void didPopNext() {
+    widget.focusNode.unfocus();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +77,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         // Tránh gọi api liên tục khi người dùng nhập
         debounceDuration: const Duration(milliseconds: 500),
         controller: widget.controller,
-        focusNode: _focusNode,
+        focusNode: widget.focusNode,
         builder: (context, controller, focusNode) => TextField(
+          style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+            color: AppColors.textBlack,
+          ),
           onSubmitted: (value) {
             FocusScope.of(context).unfocus();
             AppNavigator.pushAndRemove(context,

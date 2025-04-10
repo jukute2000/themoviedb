@@ -28,6 +28,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
   final ScrollController _scrollController = ScrollController();
   late TextEditingController _controller;
   late TabController tabController;
+  final FocusNode _searchFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -43,9 +44,9 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
   void dispose() {
     _controller.dispose();
     _scrollController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
-
 
   Future<void> checkRemoteConflict() async {
     if (await RemoteConfic.instance.getSearch()) {
@@ -59,8 +60,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("Check"),
-          content:
-          const Text("Hello bạn đến với trang tìm kiếm"),
+          content: const Text("Hello bạn đến với trang tìm kiếm"),
           actions: [
             TextButton(
               onPressed: () {
@@ -79,8 +79,14 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: const DrawerWidget(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened) {
+          _searchFocusNode.unfocus();
+        }
+      },
       body: SafeArea(
           child: AppbarWidget(
+              focusNode : _searchFocusNode,
               scrollController: _scrollController,
               tabController: tabController,
               controller: _controller,
