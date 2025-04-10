@@ -90,7 +90,7 @@ class AppbarWidget extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppStyleProvider.of(context).iconColor(),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   ),
                 ),
                 onPressed: () {
@@ -103,7 +103,7 @@ class AppbarWidget extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     AppStrings.search.tr(),
-                    style: TextManager.textStyleMedium(16.sp).copyWith(
+                    style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
                         color: AppStyleProvider.of(context).textColor()),
                   ),
                 ),
@@ -129,7 +129,10 @@ class AppbarWidget extends StatelessWidget {
 
   Tab buildTab(String title) {
     return Tab(
-      child: Text(title, style: TextManager.textStyleMedium(TextSizes.s16),),
+      child: Text(
+        title,
+        style: TextManager.textStyleMedium(TextSizes.s16),
+      ),
     );
   }
 }

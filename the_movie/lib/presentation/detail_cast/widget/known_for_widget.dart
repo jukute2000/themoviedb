@@ -43,7 +43,7 @@ class _KnownForWidgetState extends State<KnownForWidget> {
         children: [
           Text(
             AppStrings.knownFor.tr(),
-            style: TextManager.textStyleBlod(20.sp),
+            style: TextManager.textStyleBlod(TextSizes.s20),
           ),
           widget.movies == null
               ? Center(
@@ -94,7 +94,9 @@ class _KnownForWidgetState extends State<KnownForWidget> {
                                                 AppImages.noImage),
                                         fit: BoxFit.cover,
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(
+                                        RadiusSizes.r8,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -106,7 +108,8 @@ class _KnownForWidgetState extends State<KnownForWidget> {
                                       softWrap: true,
                                       textAlign: TextAlign.start,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextManager.textStyleRegular(16.sp)
+                                      style: TextManager.textStyleRegular(
+                                              TextSizes.s16)
                                           .copyWith(color: AppColors.textBlack),
                                     ),
                                   )

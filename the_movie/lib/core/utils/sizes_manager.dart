@@ -5,6 +5,9 @@ class TextSizes {
   static double s14 = 14.0.sp;
   static double s16 = 16.0.sp;
   static double s18 = 18.0.sp;
+  static double s20 = 20.0.sp;
+  static double s24 = 24.0.sp;
+  static double s32 = 32.0.sp;
 }
 
 class PaddingSizes {
@@ -38,7 +41,6 @@ class IconSizes {
   static double i48 = 48.0.w;
 }
 
-
 class HeightSizes {
   static double h50 = 50.0.h;
   static double h100 = 100.0.h;
@@ -48,7 +50,6 @@ class HeightSizes {
   static double h400 = 400.0.h;
   static double h500 = 500.0.h;
 }
-
 
 class WidthSizes {
   static double w50 = 50.0.w;

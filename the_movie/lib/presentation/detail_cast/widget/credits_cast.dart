@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/comons/extension/media_type_enum.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
@@ -34,7 +33,7 @@ class _CreditsCastState extends State<CreditsCast> {
               widget.medias != null
                   ? Text(
                       "Acting",
-                      style: TextManager.textStyleBlod(20.sp),
+                      style: TextManager.textStyleBlod(TextSizes.s20),
                     )
                   : const SizedBox(),
               Row(
@@ -44,7 +43,7 @@ class _CreditsCastState extends State<CreditsCast> {
                       onPressed: () => detailCast.resetFilter(),
                       child: Text(
                         "Clear",
-                        style: TextManager.textStyleMedium(16.sp)
+                        style: TextManager.textStyleMedium(TextSizes.s16)
                             .copyWith(color: AppColors.textBlue),
                       ),
                     ),
@@ -57,7 +56,7 @@ class _CreditsCastState extends State<CreditsCast> {
                       children: [
                         Text(
                           "All",
-                          style: TextManager.textStyleMedium(16.sp),
+                          style: TextManager.textStyleMedium(TextSizes.s16),
                         ),
                         const Icon(Icons.arrow_drop_down)
                       ],
@@ -67,14 +66,14 @@ class _CreditsCastState extends State<CreditsCast> {
                         value: MediaTypeEnum.movie, // Đã sửa đúng kiểu dữ liệu
                         child: Text(
                           "Movie",
-                          style: TextManager.textStyleMedium(16.sp),
+                          style: TextManager.textStyleMedium(TextSizes.s16),
                         ),
                       ),
                       PopupMenuItem(
                         value: MediaTypeEnum.tv, // Đã sửa đúng kiểu dữ liệu
                         child: Text(
                           "TV",
-                          style: TextManager.textStyleMedium(16.sp),
+                          style: TextManager.textStyleMedium(TextSizes.s16),
                         ),
                       ),
                     ],
@@ -88,7 +87,7 @@ class _CreditsCastState extends State<CreditsCast> {
                       children: [
                         Text(
                           "Deparment",
-                          style: TextManager.textStyleMedium(16.sp),
+                          style: TextManager.textStyleMedium(TextSizes.s16),
                         ),
                         const Icon(Icons.arrow_drop_down)
                       ],
@@ -99,7 +98,7 @@ class _CreditsCastState extends State<CreditsCast> {
                             value: e,
                             child: Text(
                               "$e (${detailCast.originalCrews[e]?.length ?? "_"})",
-                              style: TextManager.textStyleMedium(16.sp),
+                              style: TextManager.textStyleMedium(TextSizes.s16),
                             ),
                           ),
                         )

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 class RatingOverlay extends StatefulWidget {
   final double initialScore;
@@ -89,11 +90,8 @@ class _RatingOverlayState extends State<RatingOverlay> {
             children: [
               Text(
                 "Đánh giá của bạn",
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textBlack,
-                ),
+                style: TextManager.textStyleBlod(TextSizes.s20)
+                    .copyWith(color: AppColors.textBlack),
               ),
               Container(
                 padding: EdgeInsets.symmetric(
@@ -103,16 +101,13 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 decoration: BoxDecoration(
                   color:
                       currentColor.withOpacity(0.3), // sua lai thanh with value
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   border: Border.all(color: currentColor, width: 1),
                 ),
                 child: Text(
                   "${rating.toInt()}%",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: currentColor,
-                  ),
+                  style: TextManager.textStyleMedium(TextSizes.s16)
+                      .copyWith(color: AppColors.textBlack),
                 ),
               ),
             ],
@@ -120,11 +115,8 @@ class _RatingOverlayState extends State<RatingOverlay> {
           GapsManager.h10,
           Text(
             getRatingText(rating),
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: currentColor,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextManager.textStyleMedium(TextSizes.s16)
+                .copyWith(color: AppColors.goodVoteItem),
           ),
           GapsManager.h10,
           SliderTheme(
@@ -149,11 +141,15 @@ class _RatingOverlayState extends State<RatingOverlay> {
               },
             ),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("0%", style: TextStyle(color: AppColors.textGreyShade600)),
-              Text("100%", style: TextStyle(color: AppColors.textGreyShade600)),
+              Text("0%",
+                  style: TextManager.textStyleMedium(TextSizes.s16)
+                      .copyWith(color: AppColors.textGreyShade600)),
+              Text("100%",
+                  style: TextManager.textStyleMedium(TextSizes.s16)
+                      .copyWith(color: AppColors.textGreyShade600)),
             ],
           ),
           Align(
@@ -163,8 +159,10 @@ class _RatingOverlayState extends State<RatingOverlay> {
                 widget.resetRating(rating / 10);
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.refresh, size: 16.w),
-              label: const Text("Đặt lại"),
+              icon: Icon(Icons.refresh, size: 18.w),
+              label: Text("Đặt lại",
+                  style: TextManager.textStyleMedium(TextSizes.s16)
+                      .copyWith(color: AppColors.textGreyShade600)),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.textGreyShade600,
               ),
@@ -173,7 +171,8 @@ class _RatingOverlayState extends State<RatingOverlay> {
           GapsManager.h10,
           Text(
             "Tâm trạng của bạn",
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextManager.textStyleBlod(TextSizes.s20)
+                .copyWith(color: AppColors.textBlack),
           ),
           GapsManager.h10,
           Wrap(
@@ -194,7 +193,7 @@ class _RatingOverlayState extends State<RatingOverlay> {
                     color: isSelected
                         ? currentColor.withOpacity(0.2)
                         : AppColors.textGreyShade100,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(RadiusSizes.r8),
                     border: Border.all(
                       color:
                           isSelected ? currentColor : AppColors.textTransparent,
@@ -214,8 +213,9 @@ class _RatingOverlayState extends State<RatingOverlay> {
                       Text(
                         entry.key,
                         style: TextStyle(
+                          fontSize: TextSizes.s16,
                           fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
+                              isSelected ? FontWeight.w700 : FontWeight.w500,
                           color: isSelected
                               ? currentColor
                               : AppColors.textGreyShade800,
@@ -243,13 +243,14 @@ class _RatingOverlayState extends State<RatingOverlay> {
                   vertical: 12,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(RadiusSizes.r32),
                 ),
                 elevation: 2,
               ),
               child: Text(
                 "Hoàn tất",
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                style: TextManager.textStyleBlod(TextSizes.s18)
+                    .copyWith(color: AppColors.textWhite),
               ),
             ),
           ),

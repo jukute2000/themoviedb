@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 
@@ -58,7 +57,7 @@ class PeopleWidget extends StatelessWidget {
                       name ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextManager.textStyleBlod(16.sp).copyWith(
+                      style: TextManager.textStyleBlod(TextSizes.s16).copyWith(
                         color: AppStyleProvider.of(context).textColor(),
                       ),
                     ),
@@ -69,15 +68,16 @@ class PeopleWidget extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: knownForDepartment,
-                              style:
-                                  TextManager.textStyleMedium(16.sp).copyWith(
+                              style: TextManager.textStyleMedium(TextSizes.s16)
+                                  .copyWith(
                                 color: AppStyleProvider.of(context).textColor(),
                               ),
                             ),
                             TextSpan(
                                 text: ' - ',
                                 style:
-                                    TextManager.textStyleMedium(16.sp).copyWith(
+                                    TextManager.textStyleMedium(TextSizes.s16)
+                                        .copyWith(
                                   color:
                                       AppStyleProvider.of(context).textColor(),
                                 )),
@@ -89,8 +89,9 @@ class PeopleWidget extends StatelessWidget {
                                 text: index == (knownFor!.length - 1)
                                     ? item.name
                                     : '${item.name}, ',
-                                style: TextManager.textStyleRegular(14.sp)
-                                    .copyWith(
+                                style:
+                                    TextManager.textStyleRegular(TextSizes.s14)
+                                        .copyWith(
                                   color: AppColors.textGrey400,
                                 ),
                               );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
@@ -85,7 +84,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
             hintText: AppStrings.search.tr(),
-            hintStyle: TextManager.textStyleMedium(16.sp)
+            hintStyle: TextManager.textStyleMedium(TextSizes.s16)
                 .copyWith(color: AppColors.textBlack),
             prefixIcon: const Icon(Icons.search),
             suffixIcon: controller.text.isEmpty

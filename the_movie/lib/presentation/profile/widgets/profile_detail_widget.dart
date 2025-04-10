@@ -28,7 +28,7 @@ class ProfileDetailWidget extends StatelessWidget {
                 radius: 50.r,
                 child: Text(
                   'L',
-                  style: TextManager.textStyleBlod(40.sp).copyWith(
+                  style: TextManager.textStyleBlod(TextSizes.s32).copyWith(
                     color: AppColors.textWhite,
                   ),
                 ),
@@ -40,7 +40,7 @@ class ProfileDetailWidget extends StatelessWidget {
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
                 accountModel.username,
-                style: TextManager.textStyleBlod(20.sp),
+                style: TextManager.textStyleBlod(TextSizes.s20),
               ),
             ),
             GapsManager.h10,
@@ -49,7 +49,7 @@ class ProfileDetailWidget extends StatelessWidget {
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
                 AppStrings.memberSince.tr(),
-                style: TextManager.textStyleMedium(16.sp),
+                style: TextManager.textStyleMedium(TextSizes.s16),
               ),
             ),
 

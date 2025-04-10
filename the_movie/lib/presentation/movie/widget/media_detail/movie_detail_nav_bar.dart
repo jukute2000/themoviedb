@@ -34,7 +34,7 @@ class MovieDetailNavBar extends StatelessWidget {
             : null,
         child: Row(
           children: [
-            Text(title, style: TextManager.textStyleMedium(16.sp)),
+            Text(title, style: TextManager.textStyleMedium(TextSizes.s16)),
             Icon(Icons.arrow_drop_down, size: 20.h),
           ],
         ),
@@ -63,7 +63,8 @@ class MediaDropdownMenu extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Videos', style: TextManager.textStyleMedium(16.sp)),
+                Text('Videos',
+                    style: TextManager.textStyleMedium(TextSizes.s16)),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 14.w,
@@ -83,8 +84,8 @@ class MediaDropdownMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: TextManager.textStyleMedium(16.sp)),
-          Text(count, style: TextManager.textStyleMedium(16.sp)),
+          Text(title, style: TextManager.textStyleMedium(TextSizes.s16)),
+          Text(count, style: TextManager.textStyleMedium(TextSizes.s16)),
         ],
       ),
     );
@@ -123,7 +124,7 @@ class OverviewDropdownMenu extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Text(title, style: TextManager.textStyleMedium(15.sp)),
+      child: Text(title, style: TextManager.textStyleMedium(TextSizes.s14)),
     );
   }
 }

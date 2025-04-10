@@ -7,6 +7,7 @@ import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 import '../../../core/configs/assets/app_strings.dart';
+import '../../../core/utils/sizes_manager.dart';
 import '../../../data/models/credits/combined_credit.dart/crew.dart';
 
 Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
@@ -20,7 +21,7 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                   children: [
                     Text(
                       e.key!,
-                      style: TextManager.textStyleBlod(20.sp),
+                      style: TextManager.textStyleBlod(TextSizes.s20),
                     ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -41,7 +42,8 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                                 crew.getDateTime() != 0
                                     ? crew.getDateTime().toString()
                                     : "_",
-                                style: TextManager.textStyleMedium(16.sp),
+                                style:
+                                    TextManager.textStyleMedium(TextSizes.s16),
                               ),
                               title: GestureDetector(
                                 onTap: () {
@@ -58,12 +60,14 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                                 child: Text(
                                   crew.getTitle() ??
                                       AppStrings.noInfomation.tr(),
-                                  style: TextManager.textStyleBlod(16.sp),
+                                  style:
+                                      TextManager.textStyleBlod(TextSizes.s16),
                                 ),
                               ),
                               subtitle: Text(
                                 crew.job ?? AppStrings.noInfomation.tr(),
-                                style: TextManager.textStyleRegular(16.sp),
+                                style:
+                                    TextManager.textStyleRegular(TextSizes.s16),
                               ),
                             ),
                           ],

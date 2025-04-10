@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/comons/widgets/format_date.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
@@ -58,15 +57,18 @@ class TabViewWidget extends StatelessWidget {
                         text: TextSpan(children: [
                           TextSpan(
                             text: media.getTitle(),
-                            style: TextManager.textStyleBlod(16.sp).copyWith(
+                            style: TextManager.textStyleBlod(TextSizes.s16)
+                                .copyWith(
                               color: AppStyleProvider.of(context).textColor(),
                             ),
                           ),
                           if (media is TiVi)
                             TextSpan(
                                 text: ' (${media.getOriginalTitle()})',
-                                style: TextManager.textStyleMedium(16.sp)
-                                    .copyWith(color: AppColors.textGrey400)),
+                                style:
+                                    TextManager.textStyleMedium(TextSizes.s16)
+                                        .copyWith(
+                                            color: AppColors.textGrey400)),
                         ]),
                       ),
                       if (media is TiVi || media is Movie)
@@ -74,7 +76,7 @@ class TabViewWidget extends StatelessWidget {
                           media.getReleaseDate() != null
                               ? FormatDate.format(media.getReleaseDate())
                               : '',
-                          style: TextManager.textStyleMedium(16.sp)
+                          style: TextManager.textStyleMedium(TextSizes.s16)
                               .copyWith(color: AppColors.textGrey400),
                         ),
                       GapsManager.h20,
@@ -82,7 +84,8 @@ class TabViewWidget extends StatelessWidget {
                         media.overview ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: TextManager.textStyleRegular(14.sp).copyWith(
+                        style: TextManager.textStyleRegular(TextSizes.s14)
+                            .copyWith(
                           color: AppStyleProvider.of(context).textColor(),
                         ),
                       ),

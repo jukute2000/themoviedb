@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
@@ -50,7 +49,7 @@ class InfoSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(PaddingSizes.p4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3.0),
+        borderRadius: BorderRadius.circular(RadiusSizes.r4),
         border: Border.all(
           color: AppColors.containerCetificate,
           width: 1,
@@ -58,7 +57,7 @@ class InfoSection extends StatelessWidget {
       ),
       child: Text(
         'PG',
-        style: TextManager.textStyleMedium(16.sp).copyWith(
+        style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
           color: AppColors.textWhite,
         ),
       ),
@@ -69,7 +68,7 @@ class InfoSection extends StatelessWidget {
     return Expanded(
       child: Text(
         " $releaseDateText ($originText) • $runtimeText",
-        style: TextManager.textStyleMedium(16.sp).copyWith(
+        style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
           color: AppColors.textWhite,
         ),
         overflow: TextOverflow.ellipsis,
@@ -100,7 +99,7 @@ class InfoSection extends StatelessWidget {
   Widget _buildGenreText() {
     return Text(
       genreText,
-      style: TextManager.textStyleMedium(16.sp).copyWith(
+      style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
         color: AppColors.textWhite,
       ),
     );

@@ -8,6 +8,7 @@ import 'package:the_movie/presentation/movie/bloc/account_status/account_status_
 import 'package:the_movie/presentation/movie/widget/rating/rating_over_lay.dart';
 
 import '../../../../core/configs/assets/app_strings.dart';
+import '../../../../core/utils/sizes_manager.dart';
 import '../../../../core/utils/text_manager.dart';
 
 class RowRatingWidget extends StatefulWidget {
@@ -90,7 +91,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
             onTap: () => _showRatingOverlay(userScore * 10),
             child: Text(
               text,
-              style: TextManager.textStyleMedium(18.sp).copyWith(
+              style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
                 color: AppColors.textWhite,
               ),
             )),
@@ -102,7 +103,7 @@ class _RowRatingWidgetState extends State<RowRatingWidget> {
   Widget _emojiIcon(String emoji) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Text(emoji, style: TextStyle(fontSize: 17.sp)),
+      child: Text(emoji, style: TextManager.textStyleMedium(TextSizes.s20)),
     );
   }
 }

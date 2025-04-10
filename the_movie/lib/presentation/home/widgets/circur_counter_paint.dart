@@ -123,8 +123,8 @@ class CounterAnimationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Circle Counter Animation')),
-      body: Center(
+      appBar: AppBar(title: const Text('Circle Counter Animation')),
+      body: const Center(
         child: CircleCounterAnimation(
           circleColor: Colors.blue,
           textColor: Colors.black,

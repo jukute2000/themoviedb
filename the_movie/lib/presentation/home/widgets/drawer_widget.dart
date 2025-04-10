@@ -1,9 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
@@ -29,7 +26,7 @@ class DrawerWidget extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text('Menu',
-                  style: TextManager.textStyleBlod(36.sp).copyWith(
+                  style: TextManager.textStyleBlod(TextSizes.s32).copyWith(
                       color: AppStyleProvider.of(context).iconColor())),
             ),
           ),
@@ -37,7 +34,7 @@ class DrawerWidget extends StatelessWidget {
               leading: const Icon(Icons.change_circle_outlined),
               title: Text(
                 AppStrings.changeTheme.tr(),
-                style: TextManager.textStyleMedium(16.sp),
+                style: TextManager.textStyleMedium(TextSizes.s16),
               ),
               onTap: () => context.read<ThemeCubit>().setTheme()),
           _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
@@ -68,7 +65,7 @@ class DrawerWidget extends StatelessWidget {
       leading: Icon(icon),
       title: Text(
         text,
-        style: TextManager.textStyleMedium(16.sp),
+        style: TextManager.textStyleMedium(TextSizes.s16),
       ),
       onTap: () {
         onTap;
