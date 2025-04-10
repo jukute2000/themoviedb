@@ -24,9 +24,11 @@ class AppbarWidget extends StatelessWidget {
     required this.isHome,
     required this.isSearch,
     this.controller,
-    this.tabController,
+    this.tabController, this.focusNode,
+
   }) : _scrollController = scrollController;
 
+  final FocusNode? focusNode;
   final ScrollController _scrollController;
   final Widget body;
   final bool isHome;
@@ -77,7 +79,9 @@ class AppbarWidget extends StatelessWidget {
             floating: false,
             pinned: true,
             delegate: _SearchBarDelegate(
-                controller: controller ?? TextEditingController()),
+                controller: controller ?? TextEditingController(),
+              focusNode: focusNode ?? FocusNode(),
+            ),
           ),
           SliverAppBar(
               backgroundColor: AppStyleProvider.of(context).backgroundColor(),
@@ -139,8 +143,9 @@ class AppbarWidget extends StatelessWidget {
 
 class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
-  _SearchBarDelegate({required this.controller});
+  _SearchBarDelegate({required this.controller, required this.focusNode});
 
   @override
   double get minExtent => 56;
@@ -151,8 +156,12 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SearchBarWidget(
-      controller: controller,
+    return SizedBox(
+      height: maxExtent,
+      child: SearchBarWidget(
+        controller: controller,
+        focusNode: focusNode,
+      ),
     );
   }
 
