@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 class KeywordWidget extends StatelessWidget {
   final String keyword;
@@ -7,6 +8,6 @@ class KeywordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(keyword, style: TextStyle(fontSize: TextSizes.s16),);
+    return Text(keyword, style: TextManager.textStyleMedium(TextSizes.s16));
   }
 }

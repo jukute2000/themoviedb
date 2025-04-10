@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
@@ -79,7 +80,7 @@ class AppbarWidget extends StatelessWidget {
                 controller: controller ?? TextEditingController()),
           ),
           SliverAppBar(
-              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+              backgroundColor: AppStyleProvider.of(context).backgroundColor(),
               automaticallyImplyLeading: false,
               titleSpacing: 0,
               pinned: false,
@@ -108,6 +109,9 @@ class AppbarWidget extends StatelessWidget {
                 ),
               ),
               bottom: TabBar(
+                labelColor: AppStyleProvider.of(context).iconColor(),
+                unselectedLabelColor: AppColors.textWhite,
+                indicatorColor: AppColors.iconAppbar,
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 controller: tabController,
@@ -125,7 +129,7 @@ class AppbarWidget extends StatelessWidget {
 
   Tab buildTab(String title) {
     return Tab(
-      child: Text(title),
+      child: Text(title, style: TextManager.textStyleMedium(TextSizes.s16),),
     );
   }
 }

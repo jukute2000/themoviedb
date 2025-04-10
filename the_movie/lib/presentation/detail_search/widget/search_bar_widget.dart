@@ -63,9 +63,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.containerWhite,
-        borderRadius: BorderRadius.circular(RadiusSizes.r16),
       ),
       child: TypeAheadField(
         // Tránh gọi api liên tục khi người dùng nhập
@@ -84,9 +83,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           focusNode: focusNode,
           controller: controller,
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(RadiusSizes.r16))),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
             hintText: AppStrings.search.tr(),
             hintStyle: TextManager.textStyleMedium(16.sp)
                 .copyWith(color: AppColors.textBlack),

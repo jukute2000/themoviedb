@@ -63,27 +63,40 @@ class PeopleWidget extends StatelessWidget {
                       ),
                     ),
                     RichText(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: knownForDepartment,
-                          style: TextManager.textStyleMedium(16.sp).copyWith(
-                            color: AppStyleProvider.of(context).textColor(),
-                          ),
-                        ),
-                        TextSpan(
-                            text: ' - ',
-                            style: TextManager.textStyleMedium(16.sp).copyWith(
-                              color: AppStyleProvider.of(context).textColor(),
-                            )),
-                        TextSpan(
-                          text: (knownFor ?? []).join(', '),
-                          style: TextManager.textStyleRegular(14.sp).copyWith(
-                            color: AppColors.textGrey400,
-                          ),
-                        ),
-                      ],
-                    ))
+                          children: [
+                            TextSpan(
+                              text: knownForDepartment,
+                              style:
+                                  TextManager.textStyleMedium(16.sp).copyWith(
+                                color: AppStyleProvider.of(context).textColor(),
+                              ),
+                            ),
+                            TextSpan(
+                                text: ' - ',
+                                style:
+                                    TextManager.textStyleMedium(16.sp).copyWith(
+                                  color:
+                                      AppStyleProvider.of(context).textColor(),
+                                )),
+                            ...((knownFor ?? []).asMap().entries.map((entry) {
+                              final index = entry.key;
+                              final item = entry.value;
+
+                              return TextSpan(
+                                text: index == (knownFor!.length - 1)
+                                    ? item.name
+                                    : '${item.name}, ',
+                                style: TextManager.textStyleRegular(14.sp)
+                                    .copyWith(
+                                  color: AppColors.textGrey400,
+                                ),
+                              );
+                            }))
+                          ],
+                        ))
                   ],
                 ),
               ),

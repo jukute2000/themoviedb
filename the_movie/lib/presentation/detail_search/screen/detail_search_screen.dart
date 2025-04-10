@@ -77,6 +77,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       drawer: const DrawerWidget(),
       body: SafeArea(
           child: AppbarWidget(
