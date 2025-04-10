@@ -3,6 +3,9 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 
 abstract class AppStyle {
   late ThemeData themeData;
+  Color textColor();
+  Color backgroundColor();
+  Color iconColor() => AppColors.iconAppbar;
 }
 
 class LightTheme extends AppStyle {
@@ -14,7 +17,7 @@ class LightTheme extends AppStyle {
           backgroundColor: AppColors.backgroundAppbar,
           iconTheme: IconThemeData(color: AppColors.iconAppbar),
         ),
-        bottomAppBarTheme: BottomAppBarTheme(
+        bottomAppBarTheme: const BottomAppBarTheme(
           color: AppColors.textGrey,
         ),
         textTheme: const TextTheme(
@@ -26,6 +29,12 @@ class LightTheme extends AppStyle {
           titleSmall: TextStyle(color: Colors.black),
         ),
       );
+
+  @override
+  Color textColor() => AppColors.textBlack;
+
+  @override
+  Color backgroundColor() => AppColors.backgroundAppbar;
 }
 
 class DarkTheme extends AppStyle {
@@ -47,4 +56,9 @@ class DarkTheme extends AppStyle {
           titleSmall: TextStyle(color: Colors.white),
         ),
       );
+  @override
+  Color textColor() => AppColors.textWhite;
+
+  @override
+  Color backgroundColor() => Colors.black;
 }

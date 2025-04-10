@@ -116,5 +116,13 @@
   "collections": "Bộ sưu tập",
   "companies": "Công ty",
   "account":"Tài khoản",
-  "password":"Mật khẩu"
+  "password":"Mật khẩu",
+  "changeTheme":"Thay đổi giao diện",
+
+  "tiviFavourites":"Tivi yêu thích",
+  "moviesFavourites":"Phim yêu thích",
+  "memberSince":"Thành viên từ tháng 3 năm 2025",
+  "movieScore":"Điểm phim",
+  "tvScore":"Điểm TV",
+  "medium":"Trung bình"
 }

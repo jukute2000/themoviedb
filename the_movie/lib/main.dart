@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_keyword/bloc/tab_keyword_cubit.dart';
@@ -15,6 +16,9 @@ import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
+
+import 'presentation/theme/bloc/theme_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,22 +47,28 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => TabCompanyCubit()),
           BlocProvider(create: (context) => TabKeywordCubit()),
           BlocProvider(create: (context) => TabPeopleCubit()),
+          BlocProvider(create: (context) => ThemeCubit()),
         ],
         child: ScreenUtilInit(
           designSize: getDesignSize(),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) {
-            return MaterialApp(
-                navigatorKey: NavigationService.navigatorKey,
-                locale: context.locale,
-                supportedLocales: context.supportedLocales,
-                localizationsDelegates: context.localizationDelegates,
-                debugShowCheckedModeBanner: false,
-                themeMode: ThemeMode.dark,
-                theme: LightTheme().themeData,
-                darkTheme: DarkTheme().themeData,
-                home: const SplashScreen());
+            return BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state) {
+              final appStyle = state.isDarkMode ? DarkTheme() : LightTheme();
+              return AppStyleProvider(
+                style: appStyle,
+                child: MaterialApp(
+                    navigatorKey: NavigationService.navigatorKey,
+                    locale: context.locale,
+                    supportedLocales: context.supportedLocales,
+                    localizationsDelegates: context.localizationDelegates,
+                    debugShowCheckedModeBanner: false,
+                    theme: appStyle.themeData,
+                    home: const SplashScreen()),
+              );
+            });
           },
         ),
       ),

@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../core/comons/extension/search_category.dart';
 import '../../core/configs/assets/app_colors.dart';
@@ -38,7 +40,7 @@ class AppbarWidget extends StatelessWidget {
       floatHeaderSlivers: true,
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          backgroundColor: AppStyleProvider.of(context).backgroundColor(),
           title: GestureDetector(
             onTap: () {
               AppNavigator.pushAndRemove(context, const HomeScreen());
@@ -85,9 +87,9 @@ class AppbarWidget extends StatelessWidget {
               snap: true,
               title: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppStyleProvider.of(context).iconColor(),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 onPressed: () {
@@ -100,7 +102,8 @@ class AppbarWidget extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     AppStrings.search.tr(),
-                    style: const TextStyle(color: Colors.white),
+                    style: TextManager.textStyleMedium(16.sp).copyWith(
+                        color: AppStyleProvider.of(context).textColor()),
                   ),
                 ),
               ),

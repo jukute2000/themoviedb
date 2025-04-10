@@ -104,9 +104,15 @@ class _BannerWidgetState extends State<BannerWidget> {
                       Expanded(
                         child: TextField(
                           controller: textController,
+                          style: TextManager.textStyleMedium(16.sp).copyWith(
+                            color: AppColors.textBlack,
+                          ),
                           decoration: InputDecoration(
                             hintText: AppStrings.search.tr(),
-                            hintStyle: TextManager.textStyleMedium(16.sp),
+                            hintStyle:
+                                TextManager.textStyleMedium(16.sp).copyWith(
+                              color: AppColors.textBlack,
+                            ),
                             border: InputBorder.none,
                           ),
                         ),

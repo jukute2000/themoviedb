@@ -115,5 +115,13 @@
   "collections": "Collections",
   "companies": "Companies",
    "account":"Account",
-  "password":"Password"
+  "password":"Password",
+  "changeTheme":"Change Theme",
+  
+  "tiviFavourites":"Tivi Favourites",
+  "moviesFavourites":"Movies Favourites",
+  "memberSince":"Member since March 2025",
+  "movieScore":"Movie Score",
+  "tvScore":"TV Score",
+   "medium":"Medium"
 }

@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool isUpdate;
@@ -183,7 +184,8 @@ class LoginScreenState extends State<LoginScreen> {
           : null, // Disable button if form is invalid
       child: Text(
         "Login",
-        style: TextManager.textStyleMedium(16.sp),
+        style: TextManager.textStyleMedium(16.sp)
+            .copyWith(color: AppStyleProvider.of(context).textColor()),
       ),
     );
   }

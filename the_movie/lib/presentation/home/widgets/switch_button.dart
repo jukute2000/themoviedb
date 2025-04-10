@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/home/bloc/switch/switch_cubit.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 
@@ -34,7 +35,7 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isTodaySelected
                         ? AppColors.todaySelected
-                        : Theme.of(context).appBarTheme.backgroundColor,
+                        : AppStyleProvider.of(context).backgroundColor(),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -42,7 +43,7 @@ class SwitchButton extends StatelessWidget {
                     style: TextManager.textStyleBlod(16.sp).copyWith(
                       color: isTodaySelected
                           ? AppColors.textTodaySelected
-                          : Theme.of(context).textTheme.bodyLarge?.color,
+                          : AppStyleProvider.of(context).textColor(),
                     ),
                   ),
                 ),
@@ -56,7 +57,7 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: !isTodaySelected
                         ? AppColors.todaySelected
-                        : Theme.of(context).appBarTheme.backgroundColor,
+                        : AppStyleProvider.of(context).backgroundColor(),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -64,7 +65,7 @@ class SwitchButton extends StatelessWidget {
                     style: TextManager.textStyleBlod(16.sp).copyWith(
                       color: !isTodaySelected
                           ? AppColors.textTodaySelected
-                          : Theme.of(context).textTheme.bodyLarge?.color,
+                          : AppStyleProvider.of(context).textColor(),
                     ),
                   ),
                 ),

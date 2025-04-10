@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/data/models/account/account_model.dart';
 
@@ -46,7 +48,7 @@ class ProfileDetailWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text(
-                'Thành viên kể từ March 2025',
+                AppStrings.memberSince.tr(),
                 style: TextManager.textStyleMedium(16.sp),
               ),
             ),
@@ -57,9 +59,9 @@ class ProfileDetailWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ScoreWidget(score: 50, label: 'Điểm phim'),
+                  ScoreWidget(score: 50, label: AppStrings.movieScore.tr()),
                   GapsManager.w40,
-                  ScoreWidget(score: 75, label: 'Điểm TV'),
+                  ScoreWidget(score: 75, label: AppStrings.tvScore.tr()),
                 ],
               ),
             ),
@@ -108,7 +110,7 @@ class ScoreWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(PaddingSizes.p8),
             child: Text(
-              'Trung bình\n$label',
+              '${AppStrings.medium.tr()}\n$label',
               textAlign: TextAlign.center,
               style: TextManager.textStyleMedium(14.sp),
             ),

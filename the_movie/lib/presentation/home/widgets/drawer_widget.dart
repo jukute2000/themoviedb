@@ -8,6 +8,8 @@ import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
+import 'package:the_movie/presentation/theme/bloc/theme_cubit.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 
@@ -22,15 +24,22 @@ class DrawerWidget extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).appBarTheme.backgroundColor,
+              color: AppStyleProvider.of(context).backgroundColor(),
             ),
             child: Padding(
               padding: EdgeInsets.all(PaddingSizes.p8),
               child: Text('Menu',
                   style: TextManager.textStyleBlod(36.sp).copyWith(
-                      color: Theme.of(context).appBarTheme.iconTheme?.color)),
+                      color: AppStyleProvider.of(context).iconColor())),
             ),
           ),
+          ListTile(
+              leading: const Icon(Icons.change_circle_outlined),
+              title: Text(
+                AppStrings.changeTheme.tr(),
+                style: TextManager.textStyleMedium(16.sp),
+              ),
+              onTap: () => context.read<ThemeCubit>().setTheme()),
           _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
           _createDrawerItem(Icons.group, AppStrings.friends.tr()),
           _createDrawerItem(Icons.share, AppStrings.request.tr()),
@@ -54,7 +63,7 @@ class DrawerWidget extends StatelessWidget {
     );
   }
 
-  ListTile _createDrawerItem(IconData icon, String text) {
+  ListTile _createDrawerItem(IconData icon, String text, {Function? onTap}) {
     return ListTile(
       leading: Icon(icon),
       title: Text(
@@ -62,8 +71,7 @@ class DrawerWidget extends StatelessWidget {
         style: TextManager.textStyleMedium(16.sp),
       ),
       onTap: () {
-        // Xử lý sự kiện khi nhấn vào mục
-        print("Clicked on $text");
+        onTap;
       },
     );
   }
