@@ -94,46 +94,60 @@ class _BannerWidgetState extends State<BannerWidget> {
                 ),
                 GapsManager.h20,
                 Container(
-                  padding: EdgeInsets.all(PaddingSizes.p4),
                   decoration: BoxDecoration(
                     color: AppColors.containerWhite,
                     borderRadius: BorderRadius.circular(RadiusSizes.r32),
                   ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: textController,
-                          style: TextManager.textStyleMedium(TextSizes.s16)
+                  child: TextField(
+                    onTapOutside: (event) {
+                      FocusScope.of(context).unfocus();
+                    },
+                    controller: textController,
+                    style: TextManager.textStyleMedium(TextSizes.s16)
+                        .copyWith(
+                      color: AppColors.textBlack,
+                    ),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: PaddingSizes.p16,
+                        vertical: PaddingSizes.p16, // chỉnh cho chiều cao vừa ý
+                      ),
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (textController.text.isNotEmpty)
+                            IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                textController.clear();
+                                FocusScope.of(context).unfocus();
+                              },
+                            ),
+                          IconButton(
+                            icon: const Icon(Icons.search, color: AppColors.iconSerach),
+                            onPressed: () {
+                              String text = textController.text;
+                              AppNavigator.pushAndRemove(
+                                context,
+                                DetailSearchScreen(
+                                  index: 0,
+                                  query: text,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+
+                      hintText: AppStrings.search.tr(),
+                      hintStyle:
+                          TextManager.textStyleMedium(TextSizes.s16)
                               .copyWith(
-                            color: AppColors.textBlack,
-                          ),
-                          decoration: InputDecoration(
-                            hintText: AppStrings.search.tr(),
-                            hintStyle:
-                                TextManager.textStyleMedium(TextSizes.s16)
-                                    .copyWith(
-                              color: AppColors.textBlack,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                        ),
+                        color: AppColors.textBlack,
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.search,
-                            color: AppColors.iconSerach),
-                        onPressed: () {
-                          String text = textController.text;
-                          AppNavigator.pushAndRemove(
-                            context,
-                            DetailSearchScreen(
-                              index: 0,
-                              query: text,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
               ],

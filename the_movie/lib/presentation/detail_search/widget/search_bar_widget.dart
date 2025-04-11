@@ -55,7 +55,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> with RouteAware {
 
   @override
   void dispose() {
-    widget.focusNode.dispose();
     routeObserver.unsubscribe(this);
     super.dispose();
   }
