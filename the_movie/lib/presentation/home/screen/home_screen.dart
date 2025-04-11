@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const GetPopularWidget(),
                 TitleWidget(
-                  title: AppStrings.recommned,
+                  title: AppStrings.recommnedForY.tr(),
                   fontSize: TextSizes.s24,
                 ),
                 const GetRecommendWidget(),

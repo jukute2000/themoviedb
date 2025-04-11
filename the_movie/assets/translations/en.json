@@ -123,5 +123,6 @@
   "memberSince":"Member since March 2025",
   "movieScore":"Movie Score",
   "tvScore":"TV Score",
-   "medium":"Medium"
+  "medium":"Medium",
+  "recommenedForYou":"Recommened For You"
 }

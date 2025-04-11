@@ -9,12 +9,12 @@ class CircleCounterAnimation extends StatefulWidget {
   final Duration duration;
 
   const CircleCounterAnimation({
-    Key? key,
+    super.key,
     this.circleColor = Colors.blue,
     this.textColor = Colors.black,
     this.size = 150.0,
     this.duration = const Duration(seconds: 2),
-  }) : super(key: key);
+  });
 
   @override
   CircleCounterAnimationState createState() => CircleCounterAnimationState();
@@ -57,7 +57,7 @@ class CircleCounterAnimationState extends State<CircleCounterAnimation>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: widget.size,
         height: widget.size,
         child: Stack(
@@ -91,7 +91,7 @@ class CircleCounterAnimationState extends State<CircleCounterAnimation>
 }
 
 class CircleArcPainter extends CustomPainter {
-  final double sweepAngle; // Góc quét tính bằng radian
+  final double sweepAngle;
   final Color color;
 
   CircleArcPainter({required this.sweepAngle, required this.color});
@@ -108,7 +108,7 @@ class CircleArcPainter extends CustomPainter {
       ..strokeWidth = 8.0
       ..strokeCap = StrokeCap.round;
 
-    final startAngle = -math.pi / 2;
+    const startAngle = -math.pi / 2;
 
     canvas.drawArc(rect, startAngle, sweepAngle, false, paint);
   }
@@ -120,6 +120,8 @@ class CircleArcPainter extends CustomPainter {
 }
 
 class CounterAnimationScreen extends StatelessWidget {
+  const CounterAnimationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
