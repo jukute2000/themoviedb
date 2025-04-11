@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:the_movie/presentation/home/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/home/widgets/title_widget.dart';
 import 'package:the_movie/presentation/profile/widgets/movies_favourites_widget.dart';
 import 'package:the_movie/presentation/profile/widgets/profile_detail.dart';
 import 'package:the_movie/presentation/profile/widgets/tivi_favourites_widget.dart';
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
+
+import '../../../core/configs/assets/app_strings.dart';
+import '../../../core/utils/sizes_manager.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -32,20 +35,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         body: AppbarWidget(
       scrollController: _scrollController,
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            ProfileDetail(),
+            const ProfileDetail(),
             TitleWidget(
-              title: "Movies Favourites",
-              fontSize: 28,
+              title: AppStrings.moviesFavourites.tr(),
+              fontSize: TextSizes.s24,
             ),
-            MoviesFavouritesWidget(),
+            const MoviesFavouritesWidget(),
             TitleWidget(
-              title: "Tivi Favourites",
-              fontSize: 28,
+              title: AppStrings.tiviFavourites.tr(),
+              fontSize: TextSizes.s24,
             ),
-            TiviFavouritesWidget(),
+            const TiviFavouritesWidget(),
           ],
         ),
       ),

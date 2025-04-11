@@ -48,7 +48,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                     color: isSelected
                         ? AppColors.containerKeyWordSelected
                         : AppColors.containerKeyWordUnSelected,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(RadiusSizes.r8),
                     border: Border.all(
                       color: isSelected
                           ? AppColors.borderSelected
@@ -58,7 +58,7 @@ class _KeyWordWidget1State extends State<KeyWordWidget1> {
                   ),
                   child: Text(
                     keyword.name ?? AppStrings.noInfomation.tr(),
-                    style: TextManager.textStyleMedium(16.sp).copyWith(
+                    style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
                       color: isSelected
                           ? AppColors.textKeywordSelected
                           : AppColors.textKeywordUnSelected,

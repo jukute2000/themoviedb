@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
@@ -26,21 +25,21 @@ class OverviewSection extends StatelessWidget {
           if (tagline.isNotEmpty)
             Text(
               tagline,
-              style: TextManager.textStyleMedium(24.sp).copyWith(
+              style: TextManager.textStyleMedium(TextSizes.s24).copyWith(
                 color: AppColors.textWhite,
               ),
             ),
           GapsManager.h10,
           Text(
             AppStrings.overview.tr(),
-            style: TextManager.textStyleBlod(24.sp).copyWith(
+            style: TextManager.textStyleBlod(TextSizes.s24).copyWith(
               color: AppColors.textWhite,
             ),
           ),
           GapsManager.h10,
           Text(
             overview,
-            style: TextManager.textStyleRegular(16.sp).copyWith(
+            style: TextManager.textStyleRegular(TextSizes.s16).copyWith(
               color: AppColors.textWhite70,
             ),
           ),

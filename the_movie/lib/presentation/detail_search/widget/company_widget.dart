@@ -3,6 +3,7 @@ import 'package:the_movie/core/comons/widgets/keyword_container.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 import '../../../core/utils/sizes_manager.dart';
 
@@ -34,6 +35,6 @@ class CompanyWidget extends StatelessWidget {
         GapsManager.w20,
         KeywordContainer(keyword: name, isSelected: false),
       ],
-    ) : Text(name);
+    ) : Text(name, style: TextManager.textStyleMedium(TextSizes.s16),);
   }
 }

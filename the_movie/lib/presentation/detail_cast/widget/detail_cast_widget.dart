@@ -29,7 +29,7 @@ class DetailCastWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(RadiusSizes.r8),
                 child: peopleDetail?.profilePath != null
                     ? Image.network(
                         AppImages.getImageUrlCast(peopleDetail!.profilePath!),
@@ -49,7 +49,7 @@ class DetailCastWidget extends StatelessWidget {
               GapsManager.h10,
               Text(
                 peopleDetail?.name ?? AppStrings.noInfomation.tr(),
-                style: TextManager.textStyleBlod(32.sp),
+                style: TextManager.textStyleBlod(TextSizes.s16),
               ),
               GapsManager.h10,
               Card(
@@ -117,13 +117,13 @@ class DetailCastWidget extends StatelessWidget {
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextManager.textStyleBlod(16.sp),
+                  style: TextManager.textStyleBlod(TextSizes.s16),
                 ),
                 Text(
                   value,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextManager.textStyleRegular(16.sp),
+                  style: TextManager.textStyleRegular(TextSizes.s16),
                 ),
               ],
             )
@@ -134,13 +134,11 @@ class DetailCastWidget extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "$label\n",
-                        style: TextManager.textStyleBlod(16.sp),
+                        style: TextManager.textStyleBlod(TextSizes.s16),
                       ),
                       TextSpan(
                         text: value,
-                        style: TextManager.textStyleRegular(
-                          16.sp,
-                        ),
+                        style: TextManager.textStyleRegular(TextSizes.s16),
                       ),
                     ],
                   ),

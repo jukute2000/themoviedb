@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool isUpdate;
@@ -125,7 +127,7 @@ class LoginScreenState extends State<LoginScreen> {
           children: [
             Text(
               AppStrings.signIn.tr(),
-              style: TextManager.textStyleBlod(32.sp),
+              style: TextManager.textStyleBlod(TextSizes.s32),
             ),
             SizedBox(height: 30.h),
             _emailField(),
@@ -183,7 +185,8 @@ class LoginScreenState extends State<LoginScreen> {
           : null, // Disable button if form is invalid
       child: Text(
         "Login",
-        style: TextManager.textStyleMedium(16.sp),
+        style: TextManager.textStyleMedium(TextSizes.s16)
+            .copyWith(color: AppStyleProvider.of(context).textColor()),
       ),
     );
   }

@@ -25,7 +25,8 @@ class PageNumber extends StatelessWidget {
         child: Text(
           "$page",
           style: TextStyle(
-            fontWeight: isChoose ? FontWeight.bold : FontWeight.normal,
+            color: isChoose ? Colors.black : Colors.grey,
+            fontWeight: isChoose ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
       ),

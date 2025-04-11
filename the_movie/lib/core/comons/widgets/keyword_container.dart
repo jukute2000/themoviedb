@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../utils/sizes_manager.dart';
 
@@ -16,7 +18,7 @@ class KeywordContainer extends StatelessWidget {
       constraints:
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.5),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: Colors.grey[600],
         border: Border.all(color: isSelected ? Colors.blue : Colors.grey[300]!),
         borderRadius: BorderRadius.circular(RadiusSizes.r8),
       ),
@@ -24,7 +26,8 @@ class KeywordContainer extends StatelessWidget {
         keyword,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: TextManager.textStyleMedium(TextSizes.s16)
+            .copyWith(color: AppStyleProvider.of(context).textColor()),
       ),
     );
   }

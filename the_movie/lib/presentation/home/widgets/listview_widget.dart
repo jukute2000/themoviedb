@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
@@ -42,7 +41,7 @@ class ListviewWidget extends StatelessWidget {
               child: Container(
                 width: 155.w,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   color: AppColors.containerWhite,
                   boxShadow: const [
                     BoxShadow(
@@ -58,7 +57,8 @@ class ListviewWidget extends StatelessWidget {
                       Stack(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius:
+                                BorderRadius.circular(RadiusSizes.r16),
                             child: item.posterPath != null
                                 ? Image.network(
                                     AppImages.getImageUrl(item.posterPath!),
@@ -83,12 +83,14 @@ class ListviewWidget extends StatelessWidget {
                                 color: item.goodMedia()
                                     ? AppColors.goodVoteItem
                                     : AppColors.badVoteItem,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius:
+                                    BorderRadius.circular(RadiusSizes.r16),
                               ),
                               child: Text(
                                 item.roundVoteAverage(),
-                                style: TextManager.textStyleRegular(16.sp)
-                                    .copyWith(
+                                style:
+                                    TextManager.textStyleRegular(TextSizes.s16)
+                                        .copyWith(
                                   color: AppColors.textWhite,
                                 ),
                               ),
@@ -105,7 +107,8 @@ class ListviewWidget extends StatelessWidget {
                               item.getTitle(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextManager.textStyleBlod(16.sp).copyWith(
+                              style: TextManager.textStyleBlod(TextSizes.s16)
+                                  .copyWith(
                                 color: AppColors.textBlack,
                               ),
                             ),
@@ -118,8 +121,8 @@ class ListviewWidget extends StatelessWidget {
                                       .format(item.getReleaseDate()!)
                                       .toString()
                                   : AppStrings.noInfomation.tr(),
-                              style:
-                                  TextManager.textStyleRegular(16.sp).copyWith(
+                              style: TextManager.textStyleRegular(TextSizes.s16)
+                                  .copyWith(
                                 color: AppColors.textDay,
                               ),
                             ),

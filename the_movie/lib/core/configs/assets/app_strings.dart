@@ -125,6 +125,7 @@ class AppStrings {
   static const String watchNow = 'watchNow';
   static const String loginToAdd = 'loginToAdd';
   static const String back = 'back';
+  static const String changeTheme = 'changeTheme';
 
   // Dropdowns
   static const String fandom = 'fandom';
@@ -149,4 +150,12 @@ class AppStrings {
   static const String exit = 'exit';
   static const String week = 'week';
   static const String today = 'today';
+
+  //profile
+  static const String tiviFavourites = 'tiviFavourites';
+  static const String moviesFavourites = 'moviesFavourites';
+  static const String movieScore = 'movieScore';
+  static const String tvScore = 'tvScore';
+  static const String memberSince = 'memberSince';
+  static const String medium = 'medium';
 }

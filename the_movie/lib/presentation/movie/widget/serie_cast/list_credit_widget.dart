@@ -33,7 +33,7 @@ class ListCreditWidget extends StatelessWidget {
               child: Container(
                 width: 150.w, // Giảm chiều rộng
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   color: AppColors.containerWhite,
                   boxShadow: const [
                     BoxShadow(
@@ -49,7 +49,7 @@ class ListCreditWidget extends StatelessWidget {
                     Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(RadiusSizes.r16),
                           child: item.profilePath != null
                               ? Image.network(
                                   AppImages.getImageUrl(item.profilePath!),
@@ -74,7 +74,8 @@ class ListCreditWidget extends StatelessWidget {
                             maxLines: 2, // Giới hạn 2 dòng
                             overflow:
                                 TextOverflow.ellipsis, // Hiển thị dấu "..."
-                            style: TextManager.textStyleBlod(16.sp).copyWith(
+                            style: TextManager.textStyleBlod(TextSizes.s16)
+                                .copyWith(
                               color: AppColors.textBlack,
                             ),
                           ),
@@ -85,7 +86,8 @@ class ListCreditWidget extends StatelessWidget {
                             item.character ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextManager.textStyleMedium(16.sp).copyWith(
+                            style: TextManager.textStyleMedium(TextSizes.s16)
+                                .copyWith(
                               color: AppColors.textGrey,
                             ),
                           ),

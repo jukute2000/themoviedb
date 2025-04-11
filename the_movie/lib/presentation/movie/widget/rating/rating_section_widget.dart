@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
@@ -47,11 +46,11 @@ class RatingSectionState extends State<RatingSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("User",
-                style: TextManager.textStyleMedium(18.sp).copyWith(
+                style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
                   color: AppColors.textWhite,
                 )),
             Text("Score",
-                style: TextManager.textStyleMedium(18.sp).copyWith(
+                style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
                   color: AppColors.textWhite,
                 )),
           ],

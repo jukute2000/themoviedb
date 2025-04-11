@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/detail_search/screen/detail_search_screen.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../core/comons/extension/search_category.dart';
 import '../../core/configs/assets/app_colors.dart';
@@ -21,9 +24,11 @@ class AppbarWidget extends StatelessWidget {
     required this.isHome,
     required this.isSearch,
     this.controller,
-    this.tabController,
+    this.tabController, this.focusNode,
+
   }) : _scrollController = scrollController;
 
+  final FocusNode? focusNode;
   final ScrollController _scrollController;
   final Widget body;
   final bool isHome;
@@ -38,7 +43,7 @@ class AppbarWidget extends StatelessWidget {
       floatHeaderSlivers: true,
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          backgroundColor: AppStyleProvider.of(context).backgroundColor(),
           title: GestureDetector(
             onTap: () {
               AppNavigator.pushAndRemove(context, const HomeScreen());
@@ -74,10 +79,12 @@ class AppbarWidget extends StatelessWidget {
             floating: false,
             pinned: true,
             delegate: _SearchBarDelegate(
-                controller: controller ?? TextEditingController()),
+                controller: controller ?? TextEditingController(),
+              focusNode: focusNode ?? FocusNode(),
+            ),
           ),
           SliverAppBar(
-              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+              backgroundColor: AppStyleProvider.of(context).backgroundColor(),
               automaticallyImplyLeading: false,
               titleSpacing: 0,
               pinned: false,
@@ -85,9 +92,9 @@ class AppbarWidget extends StatelessWidget {
               snap: true,
               title: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppStyleProvider.of(context).iconColor(),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   ),
                 ),
                 onPressed: () {
@@ -100,11 +107,15 @@ class AppbarWidget extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     AppStrings.search.tr(),
-                    style: const TextStyle(color: Colors.white),
+                    style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
+                        color: AppStyleProvider.of(context).textColor()),
                   ),
                 ),
               ),
               bottom: TabBar(
+                labelColor: AppStyleProvider.of(context).iconColor(),
+                unselectedLabelColor: AppColors.textWhite,
+                indicatorColor: AppColors.iconAppbar,
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 controller: tabController,
@@ -122,15 +133,19 @@ class AppbarWidget extends StatelessWidget {
 
   Tab buildTab(String title) {
     return Tab(
-      child: Text(title),
+      child: Text(
+        title,
+        style: TextManager.textStyleMedium(TextSizes.s16),
+      ),
     );
   }
 }
 
 class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
-  _SearchBarDelegate({required this.controller});
+  _SearchBarDelegate({required this.controller, required this.focusNode});
 
   @override
   double get minExtent => 56;
@@ -141,8 +156,12 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SearchBarWidget(
-      controller: controller,
+    return SizedBox(
+      height: maxExtent,
+      child: SearchBarWidget(
+        controller: controller,
+        focusNode: focusNode,
+      ),
     );
   }
 

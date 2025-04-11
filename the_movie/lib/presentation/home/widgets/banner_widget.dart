@@ -84,12 +84,12 @@ class _BannerWidgetState extends State<BannerWidget> {
               children: [
                 Text(
                   AppStrings.titleDashboard1.tr(),
-                  style: TextManager.textStyleBlod(32.sp)
+                  style: TextManager.textStyleBlod(TextSizes.s32)
                       .copyWith(color: AppColors.textWhite),
                 ),
                 Text(
                   AppStrings.titleDashboard2.tr(),
-                  style: TextManager.textStyleMedium(16.sp)
+                  style: TextManager.textStyleMedium(TextSizes.s16)
                       .copyWith(color: AppColors.textWhite),
                 ),
                 GapsManager.h20,
@@ -97,16 +97,24 @@ class _BannerWidgetState extends State<BannerWidget> {
                   padding: EdgeInsets.all(PaddingSizes.p4),
                   decoration: BoxDecoration(
                     color: AppColors.containerWhite,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(RadiusSizes.r32),
                   ),
                   child: Row(
                     children: [
                       Expanded(
                         child: TextField(
                           controller: textController,
+                          style: TextManager.textStyleMedium(TextSizes.s16)
+                              .copyWith(
+                            color: AppColors.textBlack,
+                          ),
                           decoration: InputDecoration(
                             hintText: AppStrings.search.tr(),
-                            hintStyle: TextManager.textStyleMedium(16.sp),
+                            hintStyle:
+                                TextManager.textStyleMedium(TextSizes.s16)
+                                    .copyWith(
+                              color: AppColors.textBlack,
+                            ),
                             border: InputBorder.none,
                           ),
                         ),

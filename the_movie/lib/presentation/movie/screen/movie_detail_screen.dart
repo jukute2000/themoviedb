@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/presentation/home/widgets/title_widget.dart';
 import 'package:the_movie/presentation/movie/widget/key_word/key_word.dart';
 import 'package:the_movie/presentation/movie/widget/media_detail/media_detail_widget.dart';
@@ -9,6 +8,7 @@ import 'package:the_movie/presentation/movie/widget/serie_cast/serie_cast_widget
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
+import '../../../core/utils/sizes_manager.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final int id;
@@ -46,17 +46,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             MediaDetailWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.mediaRecommend.tr(),
-              fontSize: 24.sp,
+              fontSize: TextSizes.s24,
             ),
             MediaRecommendWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.serieCast.tr(),
-              fontSize: 24.sp,
+              fontSize: TextSizes.s24,
             ),
             SerieCastWidget(id: widget.id, isMovie: widget.isMovie),
             TitleWidget(
               title: AppStrings.keyword.tr(),
-              fontSize: 24.sp,
+              fontSize: TextSizes.s24,
             ),
             KeyWord(id: widget.id, isMovie: widget.isMovie),
           ],

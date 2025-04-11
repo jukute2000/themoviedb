@@ -25,7 +25,6 @@ class _TabPeopleState extends State<TabPeople>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<TabPeopleCubit>().fetchPeople(widget.query, 1);
   }

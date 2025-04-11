@@ -3,7 +3,9 @@ import 'package:the_movie/core/comons/widgets/format_date.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/medias/tv.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../../core/configs/assets/app_images.dart';
 import '../../../core/utils/sizes_manager.dart';
@@ -50,34 +52,42 @@ class TabViewWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(children: [
-                            TextSpan(
-                              text: media.getTitle(),
-                              style: const TextStyle(
-                                  color: AppColors.textBlack,
-                                  fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: media.getTitle(),
+                            style: TextManager.textStyleBlod(TextSizes.s16)
+                                .copyWith(
+                              color: AppStyleProvider.of(context).textColor(),
                             ),
-                            if (media is TiVi)
-                              TextSpan(
+                          ),
+                          if (media is TiVi)
+                            TextSpan(
                                 text: ' (${media.getOriginalTitle()})',
-                                style: const TextStyle(
-                                    color: AppColors.textGrey400),
-                              ),
-                          ])),
+                                style:
+                                    TextManager.textStyleMedium(TextSizes.s16)
+                                        .copyWith(
+                                            color: AppColors.textGrey400)),
+                        ]),
+                      ),
                       if (media is TiVi || media is Movie)
                         Text(
                           media.getReleaseDate() != null
                               ? FormatDate.format(media.getReleaseDate())
                               : '',
-                          style: const TextStyle(color: AppColors.textGrey400),
+                          style: TextManager.textStyleMedium(TextSizes.s16)
+                              .copyWith(color: AppColors.textGrey400),
                         ),
                       GapsManager.h20,
                       Text(
                         media.overview ?? '',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
+                        style: TextManager.textStyleRegular(TextSizes.s14)
+                            .copyWith(
+                          color: AppStyleProvider.of(context).textColor(),
+                        ),
                       ),
                     ],
                   ),

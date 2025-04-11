@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 
 import '../../../core/configs/assets/app_images.dart';
 
@@ -55,13 +56,14 @@ class CollectionWidget extends StatelessWidget {
                         title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextManager.textStyleMedium(TextSizes.s16),
                       ),
                       GapsManager.h20,
                       Text(
                         overview,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        style: TextManager.textStyleRegular(TextSizes.s14),
                       ),
                     ],
                   ),
