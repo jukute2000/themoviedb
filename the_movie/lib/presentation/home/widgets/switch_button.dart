@@ -35,15 +35,15 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isTodaySelected
                         ? AppColors.todaySelected
-                        : AppStyleProvider.of(context).backgroundColor(),
+                        : AppColors.textGrey,
                     borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   ),
                   child: Text(
                     AppStrings.today.tr(),
                     style: TextManager.textStyleBlod(TextSizes.s16).copyWith(
                       color: isTodaySelected
-                          ? AppColors.textTodaySelected
-                          : AppStyleProvider.of(context).textColor(),
+                          ? AppStyleProvider.of(context).iconColor()
+                          : AppColors.textWhite,
                     ),
                   ),
                 ),
@@ -57,15 +57,15 @@ class SwitchButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: !isTodaySelected
                         ? AppColors.todaySelected
-                        : AppStyleProvider.of(context).backgroundColor(),
+                        : AppColors.textGrey,
                     borderRadius: BorderRadius.circular(RadiusSizes.r16),
                   ),
                   child: Text(
                     AppStrings.week.tr(),
                     style: TextManager.textStyleBlod(TextSizes.s16).copyWith(
                       color: !isTodaySelected
-                          ? AppColors.textTodaySelected
-                          : AppStyleProvider.of(context).textColor(),
+                          ? AppStyleProvider.of(context).iconColor()
+                          : AppColors.textWhite,
                     ),
                   ),
                 ),
