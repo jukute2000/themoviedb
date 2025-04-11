@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_images.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/medias/movie.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 import '../../../core/configs/navigation/app_navigation.dart';
@@ -110,7 +110,10 @@ class _KnownForWidgetState extends State<KnownForWidget> {
                                       overflow: TextOverflow.ellipsis,
                                       style: TextManager.textStyleRegular(
                                               TextSizes.s16)
-                                          .copyWith(color: AppColors.textBlack),
+                                          .copyWith(
+                                        color: AppStyleProvider.of(context)
+                                            .textColor(),
+                                      ),
                                     ),
                                   )
                                 ],

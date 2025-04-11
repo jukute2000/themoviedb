@@ -9,6 +9,8 @@ import 'package:the_movie/data/repositories/auth_repository.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
+import '../../../core/configs/assets/app_colors.dart';
+
 class LoginScreen extends StatefulWidget {
   final bool isUpdate;
   const LoginScreen({super.key, required this.isUpdate});
@@ -79,15 +81,24 @@ class LoginScreenState extends State<LoginScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Thông báo"),
-          content:
-              const Text("Ứng dụng đã có phiên bản mới, vui lòng cập nhât."),
+          backgroundColor: AppColors.textWhite,
+          title: Text("Thông báo",
+              style: TextManager.textStyleBlod(TextSizes.s24).copyWith(
+                color: AppColors.textBlack,
+              )),
+          content: Text("Ứng dụng đã có phiên bản mới, vui lòng cập nhât.",
+              style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                color: AppColors.textBlack,
+              )),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text("OK"),
+              child: Text("OK",
+                  style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                    color: AppColors.textBlack,
+                  )),
             ),
           ],
         );

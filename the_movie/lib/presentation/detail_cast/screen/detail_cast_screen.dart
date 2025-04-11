@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/detail_cast.dart';
 
+import '../../../core/configs/assets/app_colors.dart';
+import '../../../core/utils/sizes_manager.dart';
+import '../../../core/utils/text_manager.dart';
 import '../../../initial/remote_confic.dart';
 
 class DetailCastScreen extends StatefulWidget {
@@ -39,15 +42,24 @@ class _DetailCastScreenState extends State<DetailCastScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Thông báo"),
-          content:
-              const Text("Chào mừng bạn đến với trang thông tin diễn viên"),
+          backgroundColor: AppColors.textWhite,
+          title: Text("Thông báo",
+              style: TextManager.textStyleBlod(TextSizes.s24).copyWith(
+                color: AppColors.textBlack,
+              )),
+          content: Text("Chào mừng bạn đến với trang thông tin diễn viên",
+              style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                color: AppColors.textBlack,
+              )),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text("OK"),
+              child: Text("OK",
+                  style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                    color: AppColors.textBlack,
+                  )),
             ),
           ],
         );
@@ -59,10 +71,10 @@ class _DetailCastScreenState extends State<DetailCastScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AppbarWidget(
-        scrollController: scrollController,
-        body: DetailCast(id: widget.id),
-        isHome: false, isSearch: false
-      ),
+          scrollController: scrollController,
+          body: DetailCast(id: widget.id),
+          isHome: false,
+          isSearch: false),
     );
   }
 }

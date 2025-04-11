@@ -10,6 +10,7 @@ import 'package:the_movie/data/models/credits/external.dart';
 import 'package:the_movie/data/models/people/people_detail.dart';
 import 'package:the_movie/presentation/detail_cast/widget/biography_widget.dart';
 import 'package:the_movie/presentation/detail_cast/widget/social_media_buttons.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 
@@ -49,7 +50,8 @@ class DetailCastWidget extends StatelessWidget {
               GapsManager.h10,
               Text(
                 peopleDetail?.name ?? AppStrings.noInfomation.tr(),
-                style: TextManager.textStyleBlod(TextSizes.s16),
+                style: TextManager.textStyleBlod(TextSizes.s24)
+                    .copyWith(color: AppStyleProvider.of(context).textColor()),
               ),
               GapsManager.h10,
               Card(
@@ -59,16 +61,19 @@ class DetailCastWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       _buildInfoRow(
+                          context,
                           AppStrings.knownFor.tr(),
                           peopleDetail?.knownForDepartment.toString() ??
                               AppStrings.noInfomation.tr()),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
+                          context,
                           AppStrings.knownCredits.tr(),
                           peopleDetail?.id.toString() ??
                               AppStrings.noInfomation.tr()),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
+                          context,
                           AppStrings.gender.tr(),
                           peopleDetail?.gender == -1 ||
                                   peopleDetail?.gender == null
@@ -78,6 +83,7 @@ class DetailCastWidget extends StatelessWidget {
                                   : AppStrings.male.tr()),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
+                        context,
                         AppStrings.birthday.tr(),
                         peopleDetail?.birthday == null
                             ? AppStrings.noInfomation.tr()
@@ -86,6 +92,7 @@ class DetailCastWidget extends StatelessWidget {
                       ),
                       DividerManager.horizontalDivider,
                       _buildInfoRow(
+                          context,
                           AppStrings.placeOfBirth.tr(),
                           peopleDetail?.placeOfBirth ??
                               AppStrings.noInfomation.tr()),
@@ -105,7 +112,7 @@ class DetailCastWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Widget _buildInfoRow(BuildContext context, String label, String value) {
     return Padding(
       padding: EdgeInsets.all(PaddingSizes.p16),
       child: value.length < 20
@@ -117,13 +124,15 @@ class DetailCastWidget extends StatelessWidget {
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextManager.textStyleBlod(TextSizes.s16),
+                  style: TextManager.textStyleBlod(TextSizes.s16).copyWith(
+                      color: AppStyleProvider.of(context).textColor()),
                 ),
                 Text(
                   value,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextManager.textStyleRegular(TextSizes.s16),
+                  style: TextManager.textStyleRegular(TextSizes.s16).copyWith(
+                      color: AppStyleProvider.of(context).textColor()),
                 ),
               ],
             )
@@ -134,11 +143,17 @@ class DetailCastWidget extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: "$label\n",
-                        style: TextManager.textStyleBlod(TextSizes.s16),
+                        style: TextManager.textStyleBlod(TextSizes.s16)
+                            .copyWith(
+                                color:
+                                    AppStyleProvider.of(context).textColor()),
                       ),
                       TextSpan(
                         text: value,
-                        style: TextManager.textStyleRegular(TextSizes.s16),
+                        style: TextManager.textStyleRegular(TextSizes.s16)
+                            .copyWith(
+                                color:
+                                    AppStyleProvider.of(context).textColor()),
                       ),
                     ],
                   ),

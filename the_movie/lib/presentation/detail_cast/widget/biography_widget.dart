@@ -6,6 +6,7 @@ import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
+import '../../theme/screen/app_style_provider.dart';
 
 class BiographyWidget extends StatefulWidget {
   final String fullText;
@@ -43,7 +44,8 @@ class BiographyWidgetState extends State<BiographyWidget> {
           RichText(
             text: TextSpan(
               text: displayedText,
-              style: TextManager.textStyleRegular(TextSizes.s16),
+              style: TextManager.textStyleRegular(TextSizes.s16)
+                  .copyWith(color: AppStyleProvider.of(context).textColor()),
               children: [
                 if (showToggle)
                   TextSpan(

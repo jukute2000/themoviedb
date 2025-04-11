@@ -8,6 +8,7 @@ import '../../../core/configs/navigation/app_navigation.dart';
 import '../../../core/utils/sizes_manager.dart';
 import '../../../core/utils/text_manager.dart';
 import '../../movie/screen/movie_detail_screen.dart';
+import '../../theme/screen/app_style_provider.dart';
 
 class CreditsWidget extends StatefulWidget {
   const CreditsWidget({super.key, required this.medias});
@@ -42,7 +43,10 @@ class _CreditsWidgetState extends State<CreditsWidget> {
                       ListTile(
                         leading: Text(
                           media.getYear() != "" ? media.getYear() : "_",
-                          style: TextManager.textStyleMedium(TextSizes.s16),
+                          style: TextManager.textStyleMedium(TextSizes.s16)
+                              .copyWith(
+                                  color:
+                                      AppStyleProvider.of(context).textColor()),
                         ),
                         title: GestureDetector(
                           onTap: () {
@@ -58,12 +62,18 @@ class _CreditsWidgetState extends State<CreditsWidget> {
                           },
                           child: Text(
                             media.getTitle(),
-                            style: TextManager.textStyleBlod(TextSizes.s16),
+                            style: TextManager.textStyleBlod(TextSizes.s16)
+                                .copyWith(
+                                    color: AppStyleProvider.of(context)
+                                        .textColor()),
                           ),
                         ),
                         subtitle: Text(
                           media.charater ?? AppStrings.noInfomation.tr(),
-                          style: TextManager.textStyleRegular(TextSizes.s16),
+                          style: TextManager.textStyleRegular(TextSizes.s16)
+                              .copyWith(
+                                  color:
+                                      AppStyleProvider.of(context).textColor()),
                         ),
                       ),
                     ],

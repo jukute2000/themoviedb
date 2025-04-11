@@ -9,6 +9,9 @@ import 'package:the_movie/presentation/home/widgets/drawer_widget.dart';
 import 'package:the_movie/presentation/widgets/appbar_widget.dart';
 
 import '../../../core/comons/extension/search_category.dart';
+import '../../../core/configs/assets/app_colors.dart';
+import '../../../core/utils/sizes_manager.dart';
+import '../../../core/utils/text_manager.dart';
 import '../../../initial/remote_confic.dart';
 import '../stream_controller/search_total_provider.dart';
 
@@ -59,14 +62,24 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Check"),
-          content: const Text("Hello bạn đến với trang tìm kiếm"),
+          backgroundColor: AppColors.textWhite,
+          title: Text("Kiểm tra",
+              style: TextManager.textStyleBlod(TextSizes.s24).copyWith(
+                color: AppColors.textBlack,
+              )),
+          content: Text("Hello bạn đến với trang tìm kiếm",
+              style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                color: AppColors.textBlack,
+              )),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text("OK"),
+              child: Text("OK",
+                  style: TextManager.textStyleMedium(TextSizes.s18).copyWith(
+                    color: AppColors.textBlack,
+                  )),
             ),
           ],
         );
@@ -86,7 +99,7 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
       },
       body: SafeArea(
           child: AppbarWidget(
-              focusNode : _searchFocusNode,
+              focusNode: _searchFocusNode,
               scrollController: _scrollController,
               tabController: tabController,
               controller: _controller,

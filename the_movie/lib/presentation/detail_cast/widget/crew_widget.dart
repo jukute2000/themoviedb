@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
@@ -9,6 +8,7 @@ import 'package:the_movie/presentation/movie/screen/movie_detail_screen.dart';
 import '../../../core/configs/assets/app_strings.dart';
 import '../../../core/utils/sizes_manager.dart';
 import '../../../data/models/credits/combined_credit.dart/crew.dart';
+import '../../theme/screen/app_style_provider.dart';
 
 Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
   return crews == null
@@ -43,7 +43,10 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                                     ? crew.getDateTime().toString()
                                     : "_",
                                 style:
-                                    TextManager.textStyleMedium(TextSizes.s16),
+                                    TextManager.textStyleMedium(TextSizes.s16)
+                                        .copyWith(
+                                            color: AppStyleProvider.of(context)
+                                                .textColor()),
                               ),
                               title: GestureDetector(
                                 onTap: () {
@@ -61,13 +64,20 @@ Widget CrewWidget(BuildContext context, Map<String?, List<Crew>?>? crews) {
                                   crew.getTitle() ??
                                       AppStrings.noInfomation.tr(),
                                   style:
-                                      TextManager.textStyleBlod(TextSizes.s16),
+                                      TextManager.textStyleBlod(TextSizes.s16)
+                                          .copyWith(
+                                              color:
+                                                  AppStyleProvider.of(context)
+                                                      .textColor()),
                                 ),
                               ),
                               subtitle: Text(
                                 crew.job ?? AppStrings.noInfomation.tr(),
                                 style:
-                                    TextManager.textStyleRegular(TextSizes.s16),
+                                    TextManager.textStyleRegular(TextSizes.s16)
+                                        .copyWith(
+                                            color: AppStyleProvider.of(context)
+                                                .textColor()),
                               ),
                             ),
                           ],
