@@ -1,11 +1,11 @@
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/controller/api_tmdb_controller.dart';
+import 'package:the_movie/data/models/auth/request_token.dart';
+import 'package:the_movie/data/models/auth/session.dart';
 import 'package:the_movie/initial/remote_confic.dart';
-import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 abstract class AuthRepository {
@@ -30,19 +30,21 @@ class AuthRepositoryImpl implements AuthRepository {
       final requestTokenMap = await tmdbWithCustomLogs.v3.auth
           .createSessionWithLogin(username, password);
 
-      final String tokenExpried = requestTokenMap["expires_at"];
+      final requestTokenModel = RequestToken.fromJson(requestTokenMap);
+
+      if (requestTokenModel.expiresAt == '') return false;
+      if (requestTokenModel.requestToken == '') return false;
+
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(AppStrings.tokenExpried, tokenExpried);
+      await prefs.setString(
+          AppStrings.tokenExpried, requestTokenModel.expiresAt);
 
-      final requestToken = requestTokenMap["request_token"];
-      // tạo model RequestToken , Session
+      final sessionMap = await tmdbWithCustomLogs.v3.auth
+          .createSession(requestTokenModel.requestToken);
 
-      if (requestToken == null) return false;
-      final session =
-          await tmdbWithCustomLogs.v3.auth.createSession(requestToken);
-      final String sessionID = session["session_id"];
-      await prefs.setString(AppStrings.sessionId, sessionID);
-      // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionID);
+      final sessionModel = Session.fromJson(sessionMap);
+      await prefs.setString(AppStrings.sessionId, sessionModel.sessionId);
+
       return true;
     } catch (e) {
       print(e);
@@ -64,14 +66,9 @@ class AuthRepositoryImpl implements AuthRepository {
       } else {
         DateFormat format = DateFormat("yyyy-MM-dd HH:mm:ss 'UTC'");
         DateTime tokenExpired = format.parseUtc(tokenExpiredString);
-        // DateTime tokenExpired =
-        //     DateTime.parse(tokenExpiredString);
         if ((tokenExpired.isBefore(now))) {
           return false;
         }
-
-        // final pro = await tmdbWithCustomLogs.v3.account.getDetails(sessionId!);
-        // C2: Bắt lỗi khi lấy thông tin chi tiết
         return true;
       }
     } catch (e) {
