@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:the_movie/data/controller/fire_auth_controller.dart';
+import 'package:the_movie/data/controller/firebase_tmdb_controller.dart';
 
 abstract class AccountChatRepository {
-  Future<String> signInAccount(String email, String password);
+  Future<String> signInAccount(String email, String password, String name);
   Future<String> loginAccount(String email, String password);
   Future<bool> logoutAccount();
   Future<User?> refeshUser();
@@ -10,14 +12,26 @@ abstract class AccountChatRepository {
 
 class AccountChatRepositoryImpl implements AccountChatRepository {
   @override
-  Future<String> signInAccount(String email, String password) async {
+  Future<String> signInAccount(
+      String email, String password, String name) async {
     try {
       await FireAuthController.getInstance()
           .auth
-          .createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-          );
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User? user = await refeshUser();
+      await user!.updateProfile(displayName: name);
+      await FirebaseTmdbController.getInstance()
+          .db
+          .collection("listUser")
+          .doc("list_user")
+          .set({
+        "list_users": FieldValue.arrayUnion([
+          {
+            "id": user.uid,
+            "name": user.displayName,
+          }
+        ])
+      }, SetOptions(merge: true));
       return "Account Created";
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
