@@ -6,7 +6,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   void setTheme() {
     final currentIsDarkMode = !state.isDarkMode;
-    print("Changing theme: $currentIsDarkMode");
+
     emit(ThemeLoaded(isDarkMode: currentIsDarkMode));
   }
 }
