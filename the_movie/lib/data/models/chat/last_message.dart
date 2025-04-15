@@ -1,0 +1,25 @@
+class LastMessage {
+  String? message;
+  List<Map<String, String>>? seen;
+
+  LastMessage({
+    required this.message,
+    required this.seen,
+  });
+
+  factory LastMessage.fromJson(Map<String, dynamic> json) {
+    return LastMessage(
+      message: json["message"],
+      seen: json["seen"] != null
+          ? List<Map<String, String>>.from(json["seen"])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "message": message,
+      "seen": seen,
+    };
+  }
+}

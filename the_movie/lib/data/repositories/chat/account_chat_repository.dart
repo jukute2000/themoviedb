@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:the_movie/data/controller/fire_auth_controller.dart';
 import 'package:the_movie/data/controller/firebase_tmdb_controller.dart';
+import '../../models/chat/auth.dart';
 
 abstract class AccountChatRepository {
   Future<String> signInAccount(String email, String password, String name);
@@ -20,6 +21,10 @@ class AccountChatRepositoryImpl implements AccountChatRepository {
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = await refeshUser();
       await user!.updateProfile(displayName: name);
+      Authentication auth = Authentication.fromJson({
+        "id": user.uid,
+        "name": user.displayName,
+      });
       await FirebaseTmdbController.getInstance()
           .db
           .collection("listUser")
@@ -27,8 +32,7 @@ class AccountChatRepositoryImpl implements AccountChatRepository {
           .set({
         "list_users": FieldValue.arrayUnion([
           {
-            "id": user.uid,
-            "name": user.displayName,
+            auth.toJson(),
           }
         ])
       }, SetOptions(merge: true));
