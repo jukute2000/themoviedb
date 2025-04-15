@@ -13,38 +13,34 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<SplashCubit, SplashState>(
-        listener: (context, state) {
-          if (state is UnAuthenticated) {
-            AppNavigator.pushReplacement(
+    return BlocProvider(
+      create: (context) => SplashCubit()..appStarted(),
+      child: Scaffold(
+        body: BlocListener<SplashCubit, SplashState>(
+          listener: (context, state) {
+            if (state is UnAuthenticated) {
+              AppNavigator.pushReplacement(
+                  context,
+                  LoginScreen(
+                    isUpdate: state.checkUpdate,
+                  ));
+            }
+            if (state is Authenticated) {
+              AppNavigator.pushReplacement(
                 context,
-                LoginScreen(
-                  isUpdate: state.checkUpdate,
-                ));
-          }
-          if (state is Authenticated) {
-            AppNavigator.pushReplacement(
-              context,
-              const HomeScreen(),
-            );
-          }
-        },
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.splashBackground))),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.center,
-                      end: Alignment.bottomCenter,
-                      colors: [AppColors.boxBegin, AppColors.boxEnd])),
-            )
-          ],
+                const HomeScreen(),
+              );
+            }
+          },
+          child: Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(AppImages.splashBackground))),
+              ),
+            ],
+          ),
         ),
       ),
     );

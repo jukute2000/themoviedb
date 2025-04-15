@@ -24,8 +24,8 @@ void main() {
   runApp(const MyApp());
 }
 
-final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
-
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,9 +35,6 @@ class MyApp extends StatelessWidget {
     return SearchTotalProvider(
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => SplashCubit()..appStarted(),
-          ),
           BlocProvider(
             create: (context) => ProfileDetailCubit()..loadProfileDetails(),
           ),
