@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -24,8 +25,8 @@ void main() {
   runApp(const MyApp());
 }
 
-final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
-
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -63,14 +64,16 @@ class MyApp extends StatelessWidget {
               return AppStyleProvider(
                 style: appStyle,
                 child: MaterialApp(
-                    navigatorObservers: [routeObserver],
-                    navigatorKey: NavigationService.navigatorKey,
-                    locale: context.locale,
-                    supportedLocales: context.supportedLocales,
-                    localizationsDelegates: context.localizationDelegates,
-                    debugShowCheckedModeBanner: false,
-                    theme: appStyle.themeData,
-                    home: const SplashScreen()),
+                  navigatorObservers: [routeObserver],
+                  navigatorKey: NavigationService.navigatorKey,
+                  locale: context.locale,
+                  supportedLocales: context.supportedLocales,
+                  localizationsDelegates: context.localizationDelegates,
+                  debugShowCheckedModeBanner: false,
+                  theme: appStyle.themeData,
+                  // home: const SplashScreen()),
+                  home: const FirebaseLoginScreen(),
+                ),
               );
             });
           },

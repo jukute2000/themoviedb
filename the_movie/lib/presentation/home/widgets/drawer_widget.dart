@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
+import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_cubit.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
@@ -38,7 +40,18 @@ class DrawerWidget extends StatelessWidget {
               ),
               onTap: () => context.read<ThemeCubit>().setTheme()),
           _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
-          _createDrawerItem(Icons.group, AppStrings.friends.tr()),
+          ListTile(
+              leading: const Icon(Icons.group),
+              title: Text(
+                AppStrings.friends.tr(),
+                style: TextManager.textStyleMedium(TextSizes.s16),
+              ),
+              onTap: () => AppNavigator.pushAndRemove(
+                  context, const FirebaseLoginScreen())),
+          // _createDrawerItem(Icons.group, AppStrings.friends.tr(), onTap: () {
+
+          //   // Navigator.pushNamed(context, AppRoutes.friendsRoute);
+          // }),
           _createDrawerItem(Icons.share, AppStrings.request.tr()),
           _createDrawerItem(Icons.notifications, AppStrings.share.tr()),
           DividerManager.horizontalDivider,
