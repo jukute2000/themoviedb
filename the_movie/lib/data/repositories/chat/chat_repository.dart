@@ -27,6 +27,9 @@ abstract class ChatRepository {
   );
   Future<List<DetailChat>?> getListDetailChat(String chatId);
   Future<bool> addDetailMessage(String chatId, String idSend, String message);
+  Future<bool> deleteDetailMessage(String chatId, String messageId);
+  Future<bool> editDetailMessage(
+      String chatId, String messageId, String message);
 }
 
 class ChatRepositoryImpl implements ChatRepository {
@@ -226,20 +229,95 @@ class ChatRepositoryImpl implements ChatRepository {
       String chatId, String idSend, String message) async {
     try {
       if (user == null) return false;
+
       final detailChat = DetailChat(
         idSend: idSend,
         messageId: const Uuid().v4(),
         meesage: message,
-        time: DateTime.now().toString(),
+        time: DateTime.now().toIso8601String(),
       );
-      FirebaseTmdbController.getInstance()
+
+      await FirebaseTmdbController.getInstance()
           .db
-          .collection("listDetailMessage")
+          .collection("listDetailChat")
           .doc(chatId)
-          .set(detailChat.toJson(), SetOptions(merge: true));
+          .set({
+        "list_chat": FieldValue.arrayUnion([detailChat.toJson()])
+      }, SetOptions(merge: true));
+
       return true;
     } catch (e) {
-      print(e);
+      print("Error adding message: $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> deleteDetailMessage(String chatId, String messageId) async {
+    try {
+      if (user == null) return false;
+
+      final doc = FirebaseTmdbController.getInstance()
+          .db
+          .collection("listDetailChat")
+          .doc(chatId);
+
+      final snapshot = await doc.get();
+      if (!snapshot.exists || snapshot.data() == null) return false;
+
+      final data = snapshot.data()!;
+      final List<dynamic> listChat = data["list_chat"] ?? [];
+
+      // Lọc bỏ message có message_id trùng khớp
+      final updatedList = listChat.where((item) {
+        if (item is Map<String, dynamic>) {
+          return item["message_id"] != messageId;
+        }
+        return true;
+      }).toList();
+
+      // Cập nhật lại list_chat đã lọc
+      await doc.update({"list_chat": updatedList});
+
+      return true;
+    } catch (e) {
+      print("Error deleting message: $e");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> editDetailMessage(
+      String chatId, String messageId, String message) async {
+    try {
+      if (user == null) return false;
+
+      final doc = FirebaseTmdbController.getInstance()
+          .db
+          .collection("listDetailChat")
+          .doc(chatId);
+
+      final snapshot = await doc.get();
+      if (!snapshot.exists || snapshot.data() == null) return false;
+
+      final data = snapshot.data()!;
+      final List<DetailChat> listChat = List.from(data["list_chat"])
+          .map((e) => DetailChat.fromJson(e))
+          .toList();
+      // Lọc bỏ message có message_id trùng khớp
+      final updatedList = listChat.map((item) {
+        if (item.messageId == messageId) {
+          item.meesage = message;
+        }
+        return item.toJson();
+      }).toList();
+
+      // Cập nhật lại list_chat đã lọc
+      await doc.update({"list_chat": updatedList});
+
+      return true;
+    } catch (e) {
+      print("Error deleting message: $e");
       return false;
     }
   }
