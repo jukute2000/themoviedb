@@ -11,7 +11,7 @@ class LastMessage {
     return LastMessage(
       message: json["message"],
       seen: json["seen"] != null
-          ? List<Map<String, String>>.from(json["seen"])
+          ? List<Map<String, dynamic>>.from(json["seen"])
           : null,
     );
   }

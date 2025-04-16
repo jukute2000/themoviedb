@@ -3,13 +3,13 @@ import 'package:the_movie/core/utils/safe_null.dart';
 class DetailChat {
   String? idSend;
   String? messageId;
-  String? meesage;
+  String? message;
   String? time;
 
   DetailChat({
     required this.idSend,
     required this.messageId,
-    required this.meesage,
+    required this.message,
     required this.time,
   });
 
@@ -17,7 +17,7 @@ class DetailChat {
     return DetailChat(
       idSend: SafeNull.checkString(json["id_send"]),
       messageId: SafeNull.checkString(json["message_id"]),
-      meesage: SafeNull.checkString(json["message"]),
+      message: SafeNull.checkString(json["message"]),
       time: SafeNull.checkString(json["time"]),
     );
   }
@@ -26,7 +26,7 @@ class DetailChat {
     return {
       "id_send": idSend,
       "message_id": messageId,
-      "meesage": meesage,
+      "message": message,
       "time": time,
     };
   }
