@@ -11,7 +11,7 @@ class ChatRoom {
     required this.usersId,
   });
 
-  factory ChatRoom.formJson(Map<String, dynamic> json) {
+  factory ChatRoom.fromJson(Map<String, dynamic> json) {
     return ChatRoom(
       chatId: SafeNull.checkString(json["chat_id"]),
       createdAt: SafeNull.checkString(json["created_at"]),

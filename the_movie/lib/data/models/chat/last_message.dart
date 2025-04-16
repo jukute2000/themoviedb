@@ -1,6 +1,6 @@
 class LastMessage {
   String? message;
-  List<Map<String, String>>? seen;
+  List<Map<String, dynamic>>? seen;
 
   LastMessage({
     required this.message,
