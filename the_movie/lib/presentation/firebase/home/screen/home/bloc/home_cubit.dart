@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
@@ -26,18 +28,20 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void createChatRoom(BuildContext context, List<String> users,
-      List<ChatRoom> chatRooms) async {
+      List<ChatRoom>? chatRooms) async {
     ChatRoom? _chatRoom;
     try {
       bool isContain = false;
       //Kiểm tra xem người dùng đã có phòng chat chưa
-      if (chatRooms.isEmpty) {
+      if (chatRooms == null) {
         isContain = true;
       } else {
         for (var chatRoom in chatRooms) {
-          if (chatRoom.usersId != [user.uid, ...users]) {
+          if (!const ListEquality()
+              .equals(chatRoom.usersId, [user.uid, ...users])) {
             isContain = true;
           } else {
+            isContain = false;
             _chatRoom = chatRoom;
             break;
           }
@@ -46,8 +50,8 @@ class HomeCubit extends Cubit<HomeState> {
       if (isContain) {
         _chatRoom = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
-      print(_chatRoom!.chatId);
       AppNavigator.push(context, const DetailChatScreen());
+      fetchData();
     } catch (e) {
       emit(HomeError('Failed to create chat room'));
     }

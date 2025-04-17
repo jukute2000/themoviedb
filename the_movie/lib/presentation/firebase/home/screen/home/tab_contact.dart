@@ -27,8 +27,9 @@ class TabContact extends StatelessWidget {
                     final initial =
                         auth.name?.substring(0, 1).toUpperCase() ?? '?';
                     return ListTile(
-                      onTap: () => context.read<HomeCubit>().createChatRoom(
-                          context, [auth.id!], state.chatRooms ?? []),
+                      onTap: () => context
+                          .read<HomeCubit>()
+                          .createChatRoom(context, [auth.id!], state.chatRooms),
                       title: Text(
                         auth.name ?? 'No name',
                         style: TextManager.textStyleMedium(18.sp),
