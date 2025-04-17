@@ -2,17 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:the_movie/data/controller/fire_auth_controller.dart';
 import 'package:the_movie/data/controller/firebase_tmdb_controller.dart';
+import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
+import '../../models/chat/auth.dart';
 
 abstract class AccountChatRepository {
-  Future<String> signInAccount(String email, String password, String name);
-  Future<String> loginAccount(String email, String password);
+  Future<FirebaseAuthModel> signInAccount(
+      String email, String password, String name);
+  Future<FirebaseAuthModel> loginAccount(String email, String password);
   Future<bool> logoutAccount();
   Future<User?> refeshUser();
 }
 
 class AccountChatRepositoryImpl implements AccountChatRepository {
+  static final AccountChatRepositoryImpl _instance =
+      AccountChatRepositoryImpl._internal();
+  AccountChatRepositoryImpl._internal();
+  static AccountChatRepositoryImpl get instance => _instance;
   @override
-  Future<String> signInAccount(
+  Future<FirebaseAuthModel> signInAccount(
       String email, String password, String name) async {
     try {
       await FireAuthController.getInstance()
@@ -20,6 +27,10 @@ class AccountChatRepositoryImpl implements AccountChatRepository {
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = await refeshUser();
       await user!.updateProfile(displayName: name);
+      Authentication auth = Authentication.fromJson({
+        "id": user.uid,
+        "name": user.displayName,
+      });
       await FirebaseTmdbController.getInstance()
           .db
           .collection("listUser")
@@ -27,39 +38,68 @@ class AccountChatRepositoryImpl implements AccountChatRepository {
           .set({
         "list_users": FieldValue.arrayUnion([
           {
-            "id": user.uid,
-            "name": user.displayName,
+            auth.toJson(),
           }
         ])
       }, SetOptions(merge: true));
-      return "Account Created";
+      return FirebaseAuthModel(
+        result: true,
+        error: '',
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == "weak-password") {
-        return "Weak Password";
+        return FirebaseAuthModel(
+          result: false,
+          error: "Weak Password",
+        );
       } else if (e.code == "email-alrealy-in-use") {
-        return "Email alrealy exist Login Please !";
+        return FirebaseAuthModel(
+          result: false,
+          error: "Email alrealy exist Login Please !",
+        );
       }
-      return e.code;
+      return FirebaseAuthModel(
+        result: false,
+        error: e.code,
+      );
     } catch (ex) {
-      return "$ex";
+      return FirebaseAuthModel(
+        result: false,
+        error: ex.toString(),
+      );
     }
   }
 
   @override
-  Future<String> loginAccount(String email, String password) async {
+  Future<FirebaseAuthModel> loginAccount(String email, String password) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return "Login account";
+      return FirebaseAuthModel(
+        result: true,
+        error: '',
+      );
     } on FirebaseException catch (e) {
       if (e.code == "user-not-found") {
-        return "Email id dose not exist";
+        return FirebaseAuthModel(
+          result: false,
+          error: "Email id dose not exist",
+        );
       } else if (e.code == "wrong-password") {
-        return "Wrong password";
+        return FirebaseAuthModel(
+          result: false,
+          error: "Wrong password",
+        );
       }
-      return e.code;
+      return FirebaseAuthModel(
+        result: false,
+        error: e.code,
+      );
     } catch (ex) {
-      return "$ex";
+      return FirebaseAuthModel(
+        result: false,
+        error: ex.toString(),
+      );
     }
   }
 
