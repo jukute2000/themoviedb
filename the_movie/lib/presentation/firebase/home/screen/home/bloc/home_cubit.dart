@@ -50,7 +50,8 @@ class HomeCubit extends Cubit<HomeState> {
       if (isContain) {
         _chatRoom = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
-      AppNavigator.push(context, const DetailChatScreen());
+      AppNavigator.push(
+          context, DetailChatScreen(chatRoomId: _chatRoom!.chatId!));
       fetchData();
     } catch (e) {
       emit(HomeError('Failed to create chat room'));
