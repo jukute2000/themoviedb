@@ -11,9 +11,9 @@ import '../../models/chat/detail_chat.dart';
 
 abstract class ChatRepository {
   Future<List<Authentication>?> getListUser();
-  Future<List<ChatRoom>?> getChatRoom();
+  Stream<List<ChatRoom>?> getChatRooms();
   Future<ChatRoom?> createChatRoom(List<String> userId);
-  Future<LastMessage?>? getLastMessage(String chatId);
+  Stream<LastMessage?> getLastMessage(String chatId);
   Future<bool> createLastMessage(
     String chatId,
     String message,
@@ -25,7 +25,7 @@ abstract class ChatRepository {
     String message,
     bool isSend,
   );
-  Future<List<DetailChat>?> getListDetailChat(String chatId);
+  Stream<List<DetailChat>> getListDetailChat(String chatId);
   Future<bool> addDetailMessage(String chatId, String message);
   Future<bool> deleteDetailMessage(String chatId, String messageId);
   Future<bool> editDetailMessage(
@@ -69,30 +69,31 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<List<ChatRoom>?> getChatRoom() async {
-    try {
-      if (user == null) return null;
-      final snapshot = await FirebaseTmdbController.getInstance()
-          .db
-          .collection("listChat")
-          .doc("chatIds")
-          .get();
+  Stream<List<ChatRoom>> getChatRooms() {
+    final docRef = FirebaseTmdbController.getInstance()
+        .db
+        .collection("listChat")
+        .doc("chatIds");
 
-      if (!snapshot.exists || snapshot.data() == null) return null;
+    return docRef.snapshots().map((snapshot) {
+      if (!snapshot.exists || snapshot.data() == null) return [];
 
-      List<ChatRoom>? listChatRoom = [];
+      final List<dynamic> list = snapshot.data()!["list_chat"] ?? [];
 
-      for (var element in snapshot.data()!["list_chat"]) {
-        final chatRoom = ChatRoom.fromJson(element);
-        if (chatRoom.usersId?.contains(user!.uid) ?? false) {
-          listChatRoom.add(chatRoom);
-        }
-      }
-      return listChatRoom;
-    } catch (e) {
-      print(e);
-      return null;
-    }
+      final chatRooms = list.map((e) => ChatRoom.fromJson(e)).where((room) {
+        // Lọc ra các room mà user có tham gia
+        return room.usersId?.contains(user!.uid) ?? false;
+      }).toList();
+
+      // Sắp xếp theo thời gian tin nhắn cuối (mới nhất lên trước)
+      chatRooms.sort((a, b) {
+        final aTime = DateTime.tryParse(a.lastMessageAt ?? '') ?? DateTime(0);
+        final bTime = DateTime.tryParse(b.lastMessageAt ?? '') ?? DateTime(0);
+        return bTime.compareTo(aTime);
+      });
+
+      return chatRooms;
+    });
   }
 
   @override
@@ -103,6 +104,7 @@ class ChatRepositoryImpl implements ChatRepository {
       final chatRoom = ChatRoom(
           chatId: uuid.v4(),
           createdAt: DateTime.now().toString(),
+          lastMessageAt: DateTime.now().toString(),
           usersId: [user!.uid, ...userId]);
       await FirebaseTmdbController.getInstance()
           .db
@@ -120,25 +122,16 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<LastMessage?>? getLastMessage(String chatId) async {
-    try {
-      if (user == null) return null;
-      final snapshot = await FirebaseTmdbController.getInstance()
-          .db
-          .collection("listLastMessage")
-          .doc(chatId)
-          .get();
+  Stream<LastMessage?> getLastMessage(String chatId) {
+    final docRef = FirebaseTmdbController.getInstance()
+        .db
+        .collection("listLastMessage")
+        .doc(chatId);
 
-      if (!snapshot.exists || snapshot.data() == null) {
-        return null;
-      }
-
-      final lastMessage = LastMessage.fromJson(snapshot.data()!);
-      return lastMessage;
-    } catch (e) {
-      print(e);
-      return null;
-    }
+    return docRef.snapshots().map((snapshot) {
+      if (!snapshot.exists || snapshot.data() == null) return null;
+      return LastMessage.fromJson(snapshot.data()!);
+    });
   }
 
   @override
@@ -206,28 +199,29 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<List<DetailChat>?> getListDetailChat(String chatId) async {
-    try {
-      if (user == null) return null;
-      final snapshot = await FirebaseTmdbController.getInstance()
-          .db
-          .collection("listDetailChat")
-          .doc(chatId)
-          .get();
-      if (!snapshot.exists || snapshot.data() == null) {
-        return null;
-      }
-      List<DetailChat>? listDetailChat = [];
-      for (var element in snapshot.data()!["list_chat"]) {
+  Stream<List<DetailChat>> getListDetailChat(String chatId) {
+    final docRef = FirebaseTmdbController.getInstance()
+        .db
+        .collection("listDetailChat")
+        .doc(chatId);
+
+    return docRef.snapshots().map((snapshot) {
+      if (!snapshot.exists || snapshot.data() == null) return [];
+
+      final data = snapshot.data()!;
+      final List<DetailChat> listDetailChat = [];
+
+      for (var element in data["list_chat"]) {
         final detailChat = DetailChat.fromJson(element);
         listDetailChat.add(detailChat);
       }
+
       listDetailChat.sort(
-          (a, b) => DateTime.parse(a.time!).compareTo(DateTime.parse(b.time!)));
+        (a, b) => DateTime.parse(a.time!).compareTo(DateTime.parse(b.time!)),
+      );
+
       return listDetailChat;
-    } catch (e) {
-      return null;
-    }
+    });
   }
 
   @override

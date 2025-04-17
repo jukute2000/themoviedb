@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
@@ -14,14 +15,25 @@ import '../../../../detail/detail_chat_screen.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   User user = FireAuthController.getInstance().auth.currentUser!;
+  StreamSubscription<List<ChatRoom>>? chatRoomSubscription;
+
+  @override
+  Future<void> close() {
+    chatRoomSubscription?.cancel();
+    return super.close();
+  }
+
   void fetchData() async {
     emit(HomeLoading());
     try {
       final List<Authentication>? auths =
           await ChatRepositoryImpl.instance.getListUser();
-      final List<ChatRoom>? chatRooms =
-          await ChatRepositoryImpl.instance.getChatRoom();
-      emit(HomeLoaded(chatRooms: chatRooms, auths: auths));
+
+      chatRoomSubscription = ChatRepositoryImpl.instance.getChatRooms().listen(
+        (chatRooms) {
+          emit(HomeLoaded(chatRooms: chatRooms, auths: auths));
+        },
+      );
     } catch (e) {
       emit(HomeError('Failed to load data'));
     }
@@ -29,11 +41,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   void createChatRoom(BuildContext context, List<String> users,
       List<ChatRoom>? chatRooms) async {
-    ChatRoom? _chatRoom;
+    ChatRoom? chatRoomTmp;
     try {
       bool isContain = false;
       //Kiểm tra xem người dùng đã có phòng chat chưa
-      if (chatRooms == null) {
+      if (chatRooms == null || chatRooms.isEmpty) {
         isContain = true;
       } else {
         for (var chatRoom in chatRooms) {
@@ -42,19 +54,36 @@ class HomeCubit extends Cubit<HomeState> {
             isContain = true;
           } else {
             isContain = false;
-            _chatRoom = chatRoom;
+            chatRoomTmp = chatRoom;
             break;
           }
         }
       }
       if (isContain) {
-        _chatRoom = await ChatRepositoryImpl.instance.createChatRoom(users);
+        //Nếu chưa có phòng chat thì tạo mới
+        chatRoomTmp = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
+
       AppNavigator.push(
-          context, DetailChatScreen(chatRoomId: _chatRoom!.chatId!));
-      fetchData();
+          context, DetailChatScreen(chatRoomId: chatRoomTmp!.chatId!));
+      fetchData(); //Lấy lại dữ liệu sau khi tạo phòng chat
     } catch (e) {
       emit(HomeError('Failed to create chat room'));
     }
+  }
+
+  List<String> nameChatRoom(ChatRoom chatRoom, List<Authentication> auths) {
+    // Hàm này dùng để lấy tên của phòng chat
+    String nameChatRoom = '';
+    String name = '';
+    for (var userId in chatRoom.usersId!) {
+      final auth = auths.firstWhereOrNull(
+          (auth) => auth.id == userId); //lấy ra auth của user id
+      if (auth != null) {
+        nameChatRoom += auth.name!.split('').first.toUpperCase();
+        name += '${auth.name} ';
+      }
+    }
+    return [nameChatRoom, name];
   }
 }
