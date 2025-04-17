@@ -26,13 +26,19 @@ abstract class ChatRepository {
     bool isSend,
   );
   Future<List<DetailChat>?> getListDetailChat(String chatId);
-  Future<bool> addDetailMessage(String chatId, String idSend, String message);
+  Future<bool> addDetailMessage(String chatId, String message);
   Future<bool> deleteDetailMessage(String chatId, String messageId);
   Future<bool> editDetailMessage(
       String chatId, String messageId, String message);
 }
 
 class ChatRepositoryImpl implements ChatRepository {
+  static final ChatRepositoryImpl _instance = ChatRepositoryImpl._internal();
+
+  ChatRepositoryImpl._internal();
+
+  static ChatRepositoryImpl get instance => _instance;
+
   User? user = FireAuthController.getInstance().auth.currentUser;
 
   @override
@@ -66,7 +72,6 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<List<ChatRoom>?> getChatRoom() async {
     try {
       if (user == null) return null;
-
       final snapshot = await FirebaseTmdbController.getInstance()
           .db
           .collection("listChat")
@@ -105,13 +110,9 @@ class ChatRepositoryImpl implements ChatRepository {
           .doc("chatIds")
           .set({
         "list_chat": FieldValue.arrayUnion([chatRoom.toJson()])
-      }, SetOptions(merge: true)).then(
-        (value) async {
-          await createLastMessage(chatRoom.chatId!, null, chatRoom.usersId!);
-          return true;
-        },
-      );
-      return false;
+      }, SetOptions(merge: true));
+      await createLastMessage(chatRoom.chatId!, null, chatRoom.usersId!);
+      return true;
     } catch (e) {
       print(e);
       return false;
@@ -124,7 +125,7 @@ class ChatRepositoryImpl implements ChatRepository {
       if (user == null) return null;
       final snapshot = await FirebaseTmdbController.getInstance()
           .db
-          .collection("listLasMessage")
+          .collection("listLastMessage")
           .doc(chatId)
           .get();
 
@@ -145,13 +146,14 @@ class ChatRepositoryImpl implements ChatRepository {
       String chatId, String? message, List<String> userState) async {
     try {
       if (user == null) return false;
+      userState = [user!.uid, ...userState];
       final lastMessage = LastMessage(
         message: message,
         seen: userState.map((e) => {"id": e, "unseen": 0}).toList(),
       );
       await FirebaseTmdbController.getInstance()
           .db
-          .collection("listLasMessage")
+          .collection("listLastMessage")
           .doc(chatId)
           .set(lastMessage.toJson())
           .then(
@@ -181,6 +183,8 @@ class ChatRepositoryImpl implements ChatRepository {
           if (isSend) {
             if (element["id"] != user!.uid) {
               element["unseen"] = element["unseen"] + 1;
+            } else {
+              element["unseen"] = 0;
             }
           } else {
             if (element["id"] == user!.uid) {
@@ -191,7 +195,7 @@ class ChatRepositoryImpl implements ChatRepository {
       );
       FirebaseTmdbController.getInstance()
           .db
-          .collection("listLasMessage")
+          .collection("listLastMessage")
           .doc(chatId)
           .set(lastMessage.toJson(), SetOptions(merge: true));
       return true;
@@ -218,6 +222,8 @@ class ChatRepositoryImpl implements ChatRepository {
         final detailChat = DetailChat.fromJson(element);
         listDetailChat.add(detailChat);
       }
+      listDetailChat.sort(
+          (a, b) => DateTime.parse(a.time!).compareTo(DateTime.parse(b.time!)));
       return listDetailChat;
     } catch (e) {
       return null;
@@ -225,15 +231,14 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<bool> addDetailMessage(
-      String chatId, String idSend, String message) async {
+  Future<bool> addDetailMessage(String chatId, String message) async {
     try {
       if (user == null) return false;
 
       final detailChat = DetailChat(
-        idSend: idSend,
+        idSend: user!.uid,
         messageId: const Uuid().v4(),
-        meesage: message,
+        message: message,
         time: DateTime.now().toIso8601String(),
       );
 
@@ -306,8 +311,8 @@ class ChatRepositoryImpl implements ChatRepository {
           .toList();
       // Lọc bỏ message có message_id trùng khớp
       final updatedList = listChat.map((item) {
-        if (item.messageId == messageId) {
-          item.meesage = message;
+        if (item.messageId == messageId && item.idSend == user!.uid) {
+          item.message = message;
         }
         return item.toJson();
       }).toList();
