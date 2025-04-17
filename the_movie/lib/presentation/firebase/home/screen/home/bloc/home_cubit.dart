@@ -27,21 +27,27 @@ class HomeCubit extends Cubit<HomeState> {
 
   void createChatRoom(BuildContext context, List<String> users,
       List<ChatRoom> chatRooms) async {
+    ChatRoom? _chatRoom;
     try {
       bool isContain = false;
-      for (var chatRoom in chatRooms) {
-        if (chatRoom.usersId == [user.uid, ...users]) {
-          isContain = true;
+      //Kiểm tra xem người dùng đã có phòng chat chưa
+      if (chatRooms.isEmpty) {
+        isContain = true;
+      } else {
+        for (var chatRoom in chatRooms) {
+          if (chatRoom.usersId != [user.uid, ...users]) {
+            isContain = true;
+          } else {
+            _chatRoom = chatRoom;
+            break;
+          }
         }
       }
-      print(chatRooms);
-      print(isContain);
       if (isContain) {
-        await ChatRepositoryImpl.instance.createChatRoom(users);
-        AppNavigator.push(context, const DetailChatScreen());
-      } else {
-        AppNavigator.push(context, const DetailChatScreen());
+        _chatRoom = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
+      print(_chatRoom!.chatId);
+      AppNavigator.push(context, const DetailChatScreen());
     } catch (e) {
       emit(HomeError('Failed to create chat room'));
     }

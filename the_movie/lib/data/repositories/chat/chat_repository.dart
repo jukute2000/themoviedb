@@ -12,7 +12,7 @@ import '../../models/chat/detail_chat.dart';
 abstract class ChatRepository {
   Future<List<Authentication>?> getListUser();
   Future<List<ChatRoom>?> getChatRoom();
-  Future<bool> createChatRoom(List<String> userId);
+  Future<ChatRoom?> createChatRoom(List<String> userId);
   Future<LastMessage?>? getLastMessage(String chatId);
   Future<bool> createLastMessage(
     String chatId,
@@ -96,9 +96,9 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<bool> createChatRoom(List<String> userId) async {
+  Future<ChatRoom?> createChatRoom(List<String> userId) async {
     try {
-      if (user == null) return false;
+      if (user == null) return null;
       Uuid uuid = const Uuid();
       final chatRoom = ChatRoom(
           chatId: uuid.v4(),
@@ -112,10 +112,10 @@ class ChatRepositoryImpl implements ChatRepository {
         "list_chat": FieldValue.arrayUnion([chatRoom.toJson()])
       }, SetOptions(merge: true));
       await createLastMessage(chatRoom.chatId!, null, chatRoom.usersId!);
-      return true;
+      return chatRoom;
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
   }
 
@@ -146,7 +146,7 @@ class ChatRepositoryImpl implements ChatRepository {
       String chatId, String? message, List<String> userState) async {
     try {
       if (user == null) return false;
-      userState = [user!.uid, ...userState];
+      userState = userState;
       final lastMessage = LastMessage(
         message: message,
         seen: userState.map((e) => {"id": e, "unseen": 0}).toList(),
