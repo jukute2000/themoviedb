@@ -3,7 +3,7 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
 import 'package:the_movie/data/repositories/chat/account_chat_repository.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_sign_in_screen.dart';
-import 'package:the_movie/presentation/firebase/home/screen/firebase_home_screen.dart';
+import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
 
 class FirebaseLoginScreen extends StatefulWidget {
   const FirebaseLoginScreen({super.key});
@@ -62,7 +62,7 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Đăng nhập thành công')),
           );
-          AppNavigator.pushAndRemove(context, const FirebaseHomeScreen());
+          AppNavigator.pushAndRemove(context, const HomeScreen());
         } else {
           showLoginErrorDialog(context, _firebaseAuthModel.error);
         }

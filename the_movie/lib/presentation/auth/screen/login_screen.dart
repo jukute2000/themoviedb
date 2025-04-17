@@ -34,7 +34,6 @@ class LoginScreenState extends State<LoginScreen> {
         return const Center(child: CircularProgressIndicator());
       },
     );
-
     bool result = await AuthRepositoryImpl.instance
         .loginUser(_emailCon.text, _passwordCon.text);
     if (result) {

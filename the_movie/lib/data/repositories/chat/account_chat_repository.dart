@@ -27,20 +27,18 @@ class AccountChatRepositoryImpl implements AccountChatRepository {
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = await refeshUser();
       await user!.updateProfile(displayName: name);
+      user = await refeshUser();
       Authentication auth = Authentication.fromJson({
-        "id": user.uid,
+        "id": user!.uid,
         "name": user.displayName,
       });
+
       await FirebaseTmdbController.getInstance()
           .db
           .collection("listUser")
           .doc("list_user")
           .set({
-        "list_users": FieldValue.arrayUnion([
-          {
-            auth.toJson(),
-          }
-        ])
+        "list_users": FieldValue.arrayUnion([auth.toJson()])
       }, SetOptions(merge: true));
       return FirebaseAuthModel(
         result: true,

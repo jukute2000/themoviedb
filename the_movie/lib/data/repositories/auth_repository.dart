@@ -6,7 +6,6 @@ import 'package:the_movie/data/controller/api_tmdb_controller.dart';
 import 'package:the_movie/data/models/auth/request_token.dart';
 import 'package:the_movie/data/models/auth/session.dart';
 import 'package:the_movie/initial/remote_confic.dart';
-import 'package:the_movie/presentation/auth/screen/login_screen.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 abstract class AuthRepository {

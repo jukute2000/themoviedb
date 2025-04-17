@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -77,4 +79,19 @@ class AppColors {
   // Search
 
   static const Color textGrey400 = Color.fromRGBO(189, 189, 189, 1);
+
+  static Color getRandomColor() {
+    final Random random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
+  }
+
+  static Color getTextColor(Color bgColor) {
+    final brightness = bgColor.computeLuminance();
+    return brightness > 0.5 ? Colors.black : Colors.white;
+  }
 }
