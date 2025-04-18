@@ -108,7 +108,7 @@ class ChatRepositoryImpl implements ChatRepository {
       final snapshot = await docRef.get();
 
       if (!snapshot.exists || snapshot.data() == null) return false;
-
+      //
       final List<ChatRoom> chatRooms = List.from(snapshot.data()!['list_chat'])
           .map((e) => ChatRoom.fromJson(e))
           .toList();
@@ -216,7 +216,7 @@ class ChatRepositoryImpl implements ChatRepository {
             }
           } else {
             if (element["id"] == user!.uid) {
-              element["unseen"] = element["unseen"] - 1;
+              element["unseen"] = 0;
             }
           }
         },

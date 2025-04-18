@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_state.dart';
+import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 class GroupContact extends StatefulWidget {
   const GroupContact({super.key});
@@ -20,14 +22,13 @@ class _GroupContactState extends State<GroupContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Group Contact',
-          style: TextStyle(
-            color: Colors.white,
+          style: TextManager.textStyleBlod(36.sp).copyWith(
+            color: AppStyleProvider.of(context).iconColor(),
           ),
         ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: AppStyleProvider.of(context).backgroundColor(),
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
@@ -108,16 +109,18 @@ class _GroupContactState extends State<GroupContact> {
                                 Text('Selected IDs: ${selectedIds.join(", ")}'),
                           ),
                         );
-                        Navigator.pop(context);
-
                         context.read<HomeCubit>().createChatRoom(
-                            context, selectedIds, state.chatRooms);
+                              context,
+                              selectedIds,
+                              state.chatRooms,
+                            );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        backgroundColor:
+                            AppStyleProvider.of(context).backgroundColor(),
+                        padding: EdgeInsets.all(PaddingSizes.p16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
                       child: Text(
