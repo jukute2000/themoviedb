@@ -74,7 +74,11 @@ class TabChat extends StatelessWidget {
                           final intSeen = currentUserSeen["unseen"];
                           return Text(
                             "${lastMessage?.message ?? 'No message'} ${intSeen > 0 ? '($intSeen chưa đọc)' : ''}",
-                            style: TextManager.textStyleRegular(14.sp),
+                            style: TextManager.textStyleRegular(14.sp).copyWith(
+                              color: intSeen > 0
+                                  ? AppColors.textBlue
+                                  : AppColors.textGrey,
+                            ),
                           );
                         },
                       ),

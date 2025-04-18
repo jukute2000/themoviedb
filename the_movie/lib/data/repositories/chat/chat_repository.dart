@@ -12,6 +12,7 @@ import '../../models/chat/detail_chat.dart';
 abstract class ChatRepository {
   Future<List<Authentication>?> getListUser();
   Stream<List<ChatRoom>?> getChatRooms();
+  Future<bool> updateLastTimeChatRoom(String chatId);
   Future<ChatRoom?> createChatRoom(List<String> userId);
   Stream<LastMessage?> getLastMessage(String chatId);
   Future<bool> createLastMessage(
@@ -94,6 +95,40 @@ class ChatRepositoryImpl implements ChatRepository {
 
       return chatRooms;
     });
+  }
+
+  @override
+  Future<bool> updateLastTimeChatRoom(String chatId) async {
+    try {
+      final docRef = FirebaseTmdbController.getInstance()
+          .db
+          .collection("listChat")
+          .doc("chatIds");
+
+      final snapshot = await docRef.get();
+
+      if (!snapshot.exists || snapshot.data() == null) return false;
+
+      final List<ChatRoom> chatRooms = List.from(snapshot.data()!['list_chat'])
+          .map((e) => ChatRoom.fromJson(e))
+          .toList();
+
+      final index = chatRooms.indexWhere((element) => element.chatId == chatId);
+      if (index == -1) return false;
+
+      // Cập nhật thời gian mới
+      chatRooms[index].lastMessageAt = DateTime.now().toIso8601String();
+
+      // Ghi đè lại mảng
+      final updatedList = chatRooms.map((e) => e.toJson()).toList();
+
+      await docRef.set({'list_chat': updatedList}, SetOptions(merge: true));
+
+      return true;
+    } catch (e) {
+      print('updateLastTimeChatRoom error: $e');
+      return false;
+    }
   }
 
   @override

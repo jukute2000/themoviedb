@@ -28,7 +28,6 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       final List<Authentication>? auths =
           await ChatRepositoryImpl.instance.getListUser();
-
       chatRoomSubscription = ChatRepositoryImpl.instance.getChatRooms().listen(
         (chatRooms) {
           emit(HomeLoaded(chatRooms: chatRooms, auths: auths));
