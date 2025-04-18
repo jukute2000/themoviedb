@@ -29,7 +29,8 @@ class TabChat extends StatelessWidget {
                       name: name,
                       onTap: () => AppNavigator.push(
                         context,
-                        DetailChatScreen(chatRoomId: chatRoom.chatId!),
+                        DetailChatScreen(
+                            chatRoomId: chatRoom.chatId!, name: name[1]),
                       ),
                     );
                   },

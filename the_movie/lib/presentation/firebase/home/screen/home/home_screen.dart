@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               );
             },
-          ),
+          ), name: 'Home Screen',
         ),
         bottomNavigationBar: const BottomNavigationBarWidget(),
       ),

@@ -11,24 +11,35 @@ import '../../models/chat/detail_chat.dart';
 
 abstract class ChatRepository {
   Future<List<Authentication>?> getListUser();
+
   Stream<List<ChatRoom>?> getChatRooms();
+
   Future<bool> updateLastTimeChatRoom(String chatId);
+
   Future<ChatRoom?> createChatRoom(List<String> userId);
+
   Stream<LastMessage?> getLastMessage(String chatId);
+
   Future<LastMessage?> getLastMessagebyFuture(String chatId);
+
   Future<bool> createLastMessage(
     String chatId,
     String message,
     List<String> userState,
   );
+
   Future<bool> updateLastMessage(
     String chatId,
     String message,
     bool isSend,
   );
+
   Stream<List<DetailChat>> getListDetailChat(String chatId);
+
   Future<bool> addDetailMessage(String chatId, String message);
+
   Future<bool> deleteDetailMessage(String chatId, String messageId);
+
   Future<bool> editDetailMessage(
       String chatId, String messageId, String message);
 }
@@ -245,7 +256,7 @@ class ChatRepositoryImpl implements ChatRepository {
           .collection("listLastMessage")
           .doc(chatId)
           .set(lastMessage.toJson(), SetOptions(merge: true));
-      await updateLastTimeChatRoom(chatId);
+      if (message.isNotEmpty || message != '') await updateLastTimeChatRoom(chatId);
       return true;
     } catch (e) {
       print(e);
@@ -322,9 +333,15 @@ class ChatRepositoryImpl implements ChatRepository {
       final data = snapshot.data()!;
       final List<dynamic> listChat = data["list_chat"] ?? [];
 
+      LastMessage? lastMessage = await getLastMessagebyFuture(chatId);
+
       // Lọc bỏ message có message_id trùng khớp
       final updatedList = listChat.where((item) {
         if (item is Map<String, dynamic>) {
+          if (item["message_id"] == messageId &&
+              item["message"] == lastMessage?.message) {
+            updateLastMessage(chatId, 'Tin nhắn đã bị xoá', true);
+          }
           return item["message_id"] != messageId;
         }
         return true;
@@ -359,7 +376,13 @@ class ChatRepositoryImpl implements ChatRepository {
           .map((e) => DetailChat.fromJson(e))
           .toList();
       // Lọc bỏ message có message_id trùng khớp
+      LastMessage? lastMessage =
+          await getLastMessagebyFuture(chatId);
+
       final updatedList = listChat.map((item) {
+        if (item.messageId == messageId && item.message == lastMessage?.message) {
+          updateLastMessage(chatId, message, true);
+        }
         if (item.messageId == messageId && item.idSend == user!.uid) {
           item.message = message;
         }
@@ -368,7 +391,6 @@ class ChatRepositoryImpl implements ChatRepository {
 
       // Cập nhật lại list_chat đã lọc
       await doc.update({"list_chat": updatedList});
-
       return true;
     } catch (e) {
       print("Error deleting message: $e");
