@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(
           create: (context) => BottomNavigatorCubit(),
         ),
-        BlocProvider(
-          create: (context) => HomeCubit()..fetchData(),
-        ),
+        // BlocProvider(
+        //   create: (context) => HomeCubit()..fetchData(),
+        // ),
       ],
       child: Scaffold(
         body: AppbarWidget(

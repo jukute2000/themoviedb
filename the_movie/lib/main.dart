@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
+import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -49,6 +50,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => TabKeywordCubit()),
           BlocProvider(create: (context) => TabPeopleCubit()),
           BlocProvider(create: (context) => ThemeCubit()),
+          BlocProvider(
+            create: (context) => HomeCubit()..fetchData(),
+          ),
         ],
         child: ScreenUtilInit(
           designSize: getDesignSize(),
