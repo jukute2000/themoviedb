@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/firebase/widgets/appbar.dart';
 import 'package:the_movie/data/models/chat/detail_chat.dart';
 
 import '../../../data/repositories/chat/chat_repository.dart';
+import '../widgets/message_bubble.dart';
 
 class DetailChatScreen extends StatefulWidget {
   const DetailChatScreen({super.key, required this.chatRoomId});
+
   final String chatRoomId;
 
   @override
@@ -34,7 +38,8 @@ class _DetailChatState extends State<DetailChatScreen> {
     final message = _messageController.text.trim();
     if (message.isEmpty) return;
 
-    await ChatRepositoryImpl.instance.addDetailMessage(widget.chatRoomId, message);
+    await ChatRepositoryImpl.instance
+        .addDetailMessage(widget.chatRoomId, message);
 
     _messageController.clear();
 
@@ -56,7 +61,8 @@ class _DetailChatState extends State<DetailChatScreen> {
           children: [
             Expanded(
               child: StreamBuilder<List<DetailChat>>(
-                stream: ChatRepositoryImpl.instance.getListDetailChat(widget.chatRoomId),
+                stream: ChatRepositoryImpl.instance
+                    .getListDetailChat(widget.chatRoomId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -69,23 +75,14 @@ class _DetailChatState extends State<DetailChatScreen> {
                     itemCount: chats.length,
                     itemBuilder: (context, index) {
                       final chat = chats[index];
-                      final isMe = chat.idSend == ChatRepositoryImpl.instance.user?.uid;
-
+                      final isMe =
+                          chat.idSend == ChatRepositoryImpl.instance.user?.uid;
                       return Align(
-                        alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: isMe ? Colors.blueAccent : Colors.grey[300],
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            chat.message ?? '',
-                            style: TextStyle(
-                              color: isMe ? Colors.white : Colors.black87,
-                            ),
-                          ),
+                        alignment:
+                            isMe ? Alignment.centerRight : Alignment.centerLeft,
+                        child: MessageBubble(
+                          message: chat.message ?? '',
+                          isMe: isMe,
                         ),
                       );
                     },
@@ -95,7 +92,8 @@ class _DetailChatState extends State<DetailChatScreen> {
             ),
             SafeArea(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                EdgeInsets.symmetric(horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
                 child: Row(
                   children: [
                     Expanded(
@@ -104,13 +102,14 @@ class _DetailChatState extends State<DetailChatScreen> {
                         decoration: InputDecoration(
                           hintText: "Nhập tin nhắn...",
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(RadiusSizes.r32),
                           ),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    GapsManager.w10,
                     IconButton(
                       onPressed: _sendMessage,
                       icon: const Icon(Icons.send),
