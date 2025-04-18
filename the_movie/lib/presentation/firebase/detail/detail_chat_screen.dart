@@ -24,6 +24,7 @@ class _DetailChatState extends State<DetailChatScreen> {
   void initState() {
     _scrollController = ScrollController();
     _messageController = TextEditingController();
+
     super.initState();
   }
 
@@ -31,6 +32,12 @@ class _DetailChatState extends State<DetailChatScreen> {
   void dispose() {
     _scrollController.dispose();
     _messageController.dispose();
+    try {
+      ChatRepositoryImpl.instance
+          .deleteDetailMessage(widget.chatRoomId, _messageController.text);
+    } catch (e) {
+      debugPrint('Error deleting message: $e');
+    }
     super.dispose();
   }
 
@@ -38,18 +45,31 @@ class _DetailChatState extends State<DetailChatScreen> {
     final message = _messageController.text.trim();
     if (message.isEmpty) return;
 
-    await ChatRepositoryImpl.instance
-        .addDetailMessage(widget.chatRoomId, message);
+    try {
+      await ChatRepositoryImpl.instance
+          .addDetailMessage(widget.chatRoomId, message);
+      await ChatRepositoryImpl.instance
+          .updateLastMessage(widget.chatRoomId, message, true);
 
-    _messageController.clear();
+      _messageController.clear();
 
-    Future.delayed(const Duration(milliseconds: 100), () {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    } catch (e, stack) {
+      debugPrint('Send message error: $e');
+      debugPrintStack(stackTrace: stack);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Gửi tin nhắn thất bại. Vui lòng thử lại.')),
       );
-    });
+    }
   }
 
   @override
@@ -92,8 +112,8 @@ class _DetailChatState extends State<DetailChatScreen> {
             ),
             SafeArea(
               child: Container(
-                padding:
-                EdgeInsets.symmetric(horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
+                padding: EdgeInsets.symmetric(
+                    horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
                 child: Row(
                   children: [
                     Expanded(
@@ -102,10 +122,12 @@ class _DetailChatState extends State<DetailChatScreen> {
                         decoration: InputDecoration(
                           hintText: "Nhập tin nhắn...",
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(RadiusSizes.r32),
+                            borderRadius:
+                                BorderRadius.circular(RadiusSizes.r32),
                           ),
                           contentPadding: EdgeInsets.symmetric(
-                              horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
+                              horizontal: PaddingSizes.p16,
+                              vertical: PaddingSizes.p8),
                         ),
                       ),
                     ),

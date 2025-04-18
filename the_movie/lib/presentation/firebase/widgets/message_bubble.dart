@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
 import '../detail/bubble_chat/bubble_recipient.dart';
 import '../detail/bubble_chat/bubble_sender.dart';
 
@@ -13,12 +15,12 @@ class MessageBubble extends StatelessWidget {
     return CustomPaint(
       painter: isMe ? BlueBubblePainter() : GreyBubblePainter(),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        margin: const EdgeInsets.symmetric(vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
+        margin: EdgeInsets.symmetric(vertical: MarginSizes.m8),
         child: Text(
           message,
-          style: TextStyle(
-            color: isMe ? Colors.white : Colors.black87,
+          style: const TextStyle(
+            color: AppColors.textWhite,
           ),
         ),
       ),

@@ -245,6 +245,7 @@ class ChatRepositoryImpl implements ChatRepository {
           .collection("listLastMessage")
           .doc(chatId)
           .set(lastMessage.toJson(), SetOptions(merge: true));
+      await updateLastTimeChatRoom(chatId);
       return true;
     } catch (e) {
       print(e);
