@@ -52,7 +52,6 @@ class _DetailChatState extends State<DetailChatScreen> {
           .updateLastMessage(widget.chatRoomId, message, true);
 
       _messageController.clear();
-
     } catch (e, stack) {
       debugPrint('Send message error: $e');
       debugPrintStack(stackTrace: stack);
