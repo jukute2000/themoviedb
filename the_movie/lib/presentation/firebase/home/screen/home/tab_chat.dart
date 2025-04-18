@@ -35,7 +35,7 @@ class TabChat extends StatelessWidget {
                     return ListTile(
                       onTap: () => AppNavigator.push(
                         context,
-                        DetailChatScreen(chatRoomId: chatRoom.chatId!),
+                        DetailChatScreen(chatRoomId: chatRoom.chatId!, name: displayName),
                       ),
                       leading: CircleAvatar(
                         backgroundColor: bgColor,

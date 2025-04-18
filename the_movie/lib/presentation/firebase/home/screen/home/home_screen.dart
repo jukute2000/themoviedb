@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:the_movie/presentation/firebase/home/screen/bottom/bloc/bottom_navigator_cubit.dart';
 import 'package:the_movie/presentation/firebase/home/screen/bottom/bloc/bottom_navigator_state.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/firebase/home/screen/home/tab_chat.dart';
 import 'package:the_movie/presentation/firebase/home/screen/home/tab_contact.dart';
 import 'package:the_movie/presentation/firebase/widgets/appbar.dart';
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               );
             },
-          ),
+          ), name: 'Home Screen',
         ),
         bottomNavigationBar: const BottomNavigationBarWidget(),
       ),
