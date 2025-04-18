@@ -53,15 +53,6 @@ class _DetailChatState extends State<DetailChatScreen> {
 
       _messageController.clear();
 
-      Future.delayed(const Duration(milliseconds: 100), () {
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
-      });
     } catch (e, stack) {
       debugPrint('Send message error: $e');
       debugPrintStack(stackTrace: stack);

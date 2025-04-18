@@ -7,7 +7,6 @@ import 'package:the_movie/data/models/chat/chat_room.dart';
 import 'package:the_movie/data/models/chat/last_message.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../core/comons/extension/isolate_helper.dart';
 import '../../models/chat/detail_chat.dart';
 
 abstract class ChatRepository {
@@ -107,41 +106,30 @@ class ChatRepositoryImpl implements ChatRepository {
           .doc("chatIds");
 
       final snapshot = await docRef.get();
+
       if (!snapshot.exists || snapshot.data() == null) return false;
+      //
+      final List<ChatRoom> chatRooms = List.from(snapshot.data()!['list_chat'])
+          .map((e) => ChatRoom.fromJson(e))
+          .toList();
 
-      final list = snapshot.data()!["list_chat"] ?? [];
+      final index = chatRooms.indexWhere((element) => element.chatId == chatId);
+      if (index == -1) return false;
 
-      final updatedList = await IsolateHelper.run<List<Map<String, dynamic>>, Map<String, dynamic>>(
-        _updateChatRoomInIsolate,
-        {
-          "list": list,
-          "chatId": chatId,
-        },
-      );
+      // Cập nhật thời gian mới
+      chatRooms[index].lastMessageAt = DateTime.now().toIso8601String();
 
-      await docRef.update({"list_chat": updatedList});
+      // Ghi đè lại mảng
+      final updatedList = chatRooms.map((e) => e.toJson()).toList();
+
+      await docRef.set({'list_chat': updatedList}, SetOptions(merge: true));
+
       return true;
     } catch (e) {
       print('updateLastTimeChatRoom error: $e');
       return false;
     }
   }
-
-  // Isolate function to update chat room
-  List<Map<String, dynamic>> _updateChatRoomInIsolate(Map<String, dynamic> param) {
-    final list = param["list"] as List<dynamic>;
-    final chatId = param["chatId"] as String;
-
-    final chatRooms = list.map((e) => ChatRoom.fromJson(e)).toList();
-
-    final index = chatRooms.indexWhere((e) => e.chatId == chatId);
-    if (index != -1) {
-      chatRooms[index].lastMessageAt = DateTime.now().toIso8601String();
-    }
-
-    return chatRooms.map((e) => e.toJson()).toList();
-  }
-
 
   @override
   Future<ChatRoom?> createChatRoom(List<String> userId) async {
