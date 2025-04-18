@@ -15,6 +15,7 @@ abstract class ChatRepository {
   Future<bool> updateLastTimeChatRoom(String chatId);
   Future<ChatRoom?> createChatRoom(List<String> userId);
   Stream<LastMessage?> getLastMessage(String chatId);
+  Future<LastMessage?> getLastMessagebyFuture(String chatId);
   Future<bool> createLastMessage(
     String chatId,
     String message,
@@ -22,7 +23,6 @@ abstract class ChatRepository {
   );
   Future<bool> updateLastMessage(
     String chatId,
-    LastMessage lastMessage,
     String message,
     bool isSend,
   );
@@ -170,6 +170,24 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
+  Future<LastMessage?> getLastMessagebyFuture(String chatId) async {
+    try {
+      final docRef = FirebaseTmdbController.getInstance()
+          .db
+          .collection("listLastMessage")
+          .doc(chatId);
+      final doc = await docRef.get();
+
+      if (!doc.exists || doc.data() == null) return null;
+
+      LastMessage lastMessage = LastMessage.fromJson(doc.data()!);
+      return lastMessage;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
   Future<bool> createLastMessage(
       String chatId, String? message, List<String> userState) async {
     try {
@@ -199,14 +217,15 @@ class ChatRepositoryImpl implements ChatRepository {
   @override
   Future<bool> updateLastMessage(
     String chatId,
-    LastMessage lastMessage,
     String message,
     bool isSend, //phan nguoi gui va nguoi xem
   ) async {
     try {
       if (user == null) return false;
-      if (isSend) lastMessage.message = message;
-      lastMessage.seen?.forEach(
+      LastMessage? lastMessage =
+          await ChatRepositoryImpl._instance.getLastMessagebyFuture(chatId);
+      if (isSend) lastMessage!.message = message;
+      lastMessage!.seen?.forEach(
         (element) {
           if (isSend) {
             if (element["id"] != user!.uid) {
