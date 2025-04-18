@@ -62,7 +62,6 @@ class HomeCubit extends Cubit<HomeState> {
         //Nếu chưa có phòng chat thì tạo mới
         chatRoomTmp = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
-
       AppNavigator.push(
           context, DetailChatScreen(chatRoomId: chatRoomTmp!.chatId!));
       fetchData(); //Lấy lại dữ liệu sau khi tạo phòng chat
