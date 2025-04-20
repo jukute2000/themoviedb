@@ -49,7 +49,6 @@ class _DetailChatState extends State<DetailChatScreen> {
     }
   }
 
-
   void _sendMessage() async {
     final message = _messageController.text.trim();
     if (message.isEmpty) return;
