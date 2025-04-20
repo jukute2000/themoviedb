@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class LastMessage {
   String? message;
   List<Map<String, dynamic>>? seen;
@@ -21,5 +23,11 @@ class LastMessage {
       "message": message,
       "seen": seen,
     };
+  }
+
+  int currentUserSeen() {
+    int currentUserSeen = seen?.firstWhere(
+        (e) => e["id"] == FirebaseAuth.instance.currentUser!.uid)["unseen"];
+    return currentUserSeen;
   }
 }

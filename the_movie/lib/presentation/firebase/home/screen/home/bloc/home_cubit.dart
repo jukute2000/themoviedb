@@ -80,7 +80,7 @@ class HomeCubit extends Cubit<HomeState> {
       final auth = auths.firstWhereOrNull(
           (auth) => auth.id == userId); //lấy ra auth của user id
       if (auth != null) {
-        nameChatRoom += auth.name!.split('').first.toUpperCase();
+        nameChatRoom += auth.firstCharName();
         name += '${auth.name} ';
       }
     }
