@@ -39,6 +39,17 @@ class _DetailChatState extends State<DetailChatScreen> {
     super.dispose();
   }
 
+  void _scrollToBottom() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+
   void _sendMessage() async {
     final message = _messageController.text.trim();
     if (message.isEmpty) return;
@@ -51,7 +62,9 @@ class _DetailChatState extends State<DetailChatScreen> {
 
       _messageController.clear();
 
-      ;
+      Future.delayed(const Duration(milliseconds: 300), () {
+        _scrollToBottom();
+      });
     } catch (e, stack) {
       debugPrint('Send message error: $e');
       debugPrintStack(stackTrace: stack);
@@ -109,7 +122,6 @@ class _DetailChatState extends State<DetailChatScreen> {
     return Scaffold(
       body: AppbarWidget(
         name: widget.name,
-        scrollController: _scrollController,
         body: Column(
           children: [
             Expanded(
@@ -121,6 +133,13 @@ class _DetailChatState extends State<DetailChatScreen> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   final chats = snapshot.data ?? [];
+
+                  if (chats.isNotEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _scrollToBottom();
+                    });
+                  }
+
                   return ListView.builder(
                     controller: _scrollController,
                     padding: const EdgeInsets.all(12),
@@ -156,6 +175,9 @@ class _DetailChatState extends State<DetailChatScreen> {
                   children: [
                     Expanded(
                       child: TextField(
+                        onTapOutside: (_) {
+                          FocusScope.of(context).unfocus();
+                        },
                         controller: _messageController,
                         decoration: InputDecoration(
                           hintText: "Nhập tin nhắn...",

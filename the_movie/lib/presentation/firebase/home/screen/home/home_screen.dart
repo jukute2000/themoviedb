@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
       child: Scaffold(
         body: AppbarWidget(
-          scrollController: _scrollController,
           body: BlocBuilder<BottomNavigatorCubit, BottomNavigatorIndex>(
             builder: (context, state) {
               return IndexedStack(
