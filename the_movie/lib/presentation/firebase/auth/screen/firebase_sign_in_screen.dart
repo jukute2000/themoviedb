@@ -201,7 +201,7 @@ class _FirebaseSignInScreenState extends State<FirebaseSignInScreen> {
                           GestureDetector(
                             onTap: _navigateToLogin,
                             child: const Text(
-                              AppStrings.signInHere,
+                              AppStrings.loginHere,
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
