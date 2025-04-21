@@ -60,21 +60,22 @@ class MessageBubble extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.edit, color: AppColors.iconAppbar),
               title: Text(AppStrings.editMessage.tr()),
-              onTap: () {
-                  if (onEdit != null) {
-                    onEdit!();
-                }
+              onTap: () async {
                 Navigator.pop(ctx);
+                if (onEdit != null) {
+                  onEdit!();
+                }
               },
+
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: AppColors.iconChoose),
               title: Text(AppStrings.deleteMessage.tr()),
               onTap: () {
+                Navigator.pop(ctx);
                 if (onDelete != null) {
                   onDelete!();
                 }
-                  Navigator.pop(ctx);
               },
             ),
           ],
