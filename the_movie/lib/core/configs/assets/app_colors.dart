@@ -31,7 +31,7 @@ class AppColors {
       Color.fromRGBO(187, 222, 251, 1);
   static const Color containerKeyWordUnSelected =
       Color.fromRGBO(238, 238, 238, 1);
-
+  static Color backgroundWhite = Colors.white.withValues(alpha: 0.9);
   static const Color borderSelected = Colors.blue;
   static const Color borderUnSelected = Colors.transparent;
   static const Color textKeywordSelected = Color.fromRGBO(21, 101, 192, 1);

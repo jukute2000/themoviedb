@@ -144,7 +144,7 @@ class AppStrings {
   //drawer
   static const String menu = 'menu';
   static const String favorites = 'favorites';
-  static const String friends = 'friends';
+  static const String chat = 'chat';
   static const String request = 'request';
   static const String settings = 'settings';
   static const String policies = 'policies';

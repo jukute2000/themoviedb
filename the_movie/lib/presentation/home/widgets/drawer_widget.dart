@@ -39,19 +39,16 @@ class DrawerWidget extends StatelessWidget {
                 style: TextManager.textStyleMedium(TextSizes.s16),
               ),
               onTap: () => context.read<ThemeCubit>().setTheme()),
-          _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
+
           ListTile(
-              leading: const Icon(Icons.group),
+              leading: const Icon(Icons.chat),
               title: Text(
-                AppStrings.friends.tr(),
+                AppStrings.chat.tr(),
                 style: TextManager.textStyleMedium(TextSizes.s16),
               ),
-              onTap: () => AppNavigator.pushAndRemove(
-                  context, const FirebaseLoginScreen())),
-          // _createDrawerItem(Icons.group, AppStrings.friends.tr(), onTap: () {
-
-          //   // Navigator.pushNamed(context, AppRoutes.friendsRoute);
-          // }),
+              onTap: () =>
+                  AppNavigator.push(context, const FirebaseLoginScreen())),
+          _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
           _createDrawerItem(Icons.share, AppStrings.request.tr()),
           _createDrawerItem(Icons.notifications, AppStrings.share.tr()),
           DividerManager.horizontalDivider,

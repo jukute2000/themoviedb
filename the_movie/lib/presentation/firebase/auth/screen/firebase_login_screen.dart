@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
+import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
 import 'package:the_movie/data/repositories/chat/account_chat_repository.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_sign_in_screen.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
+import 'package:the_movie/presentation/firebase/home/home/home_screen.dart';
 
 class FirebaseLoginScreen extends StatefulWidget {
   const FirebaseLoginScreen({super.key});
@@ -134,6 +138,9 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
                       errorText: _emailError,
                     ),
                     keyboardType: TextInputType.emailAddress,
+                    style: TextManager.textStyleMedium(TextSizes.s16).copyWith(
+                      color: AppColors.textBlack,
+                    ),
                     onChanged: _validateEmail,
                   ),
                   const SizedBox(height: 16),

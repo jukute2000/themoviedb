@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
-import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -16,7 +14,6 @@ import 'package:the_movie/presentation/detail_search/screen/tab_tv_show/bloc/tab
 import 'package:the_movie/presentation/detail_search/stream_controller/search_total_provider.dart';
 import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
-import 'package:the_movie/presentation/splash/bloc/splash_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
@@ -38,11 +35,10 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => ProfileDetailCubit()..loadProfileDetails(),
+            create: (context) => ProfileDetailCubit(),
           ),
-          BlocProvider(create: (_) => RecommenedCubit()..loadRecommened()),
+          BlocProvider(create: (_) => RecommenedCubit()),
           BlocProvider<TabMovieCubit>(create: (context) => TabMovieCubit()),
-          BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
           BlocProvider<TabTvShowCubit>(create: (context) => TabTvShowCubit()),
           BlocProvider<TabCollectionCubit>(
               create: (context) => TabCollectionCubit()),
@@ -50,9 +46,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => TabKeywordCubit()),
           BlocProvider(create: (context) => TabPeopleCubit()),
           BlocProvider(create: (context) => ThemeCubit()),
-          BlocProvider(
-            create: (context) => HomeCubit()..fetchData(),
-          ),
         ],
         child: ScreenUtilInit(
           designSize: getDesignSize(),
@@ -72,8 +65,7 @@ class MyApp extends StatelessWidget {
                   localizationsDelegates: context.localizationDelegates,
                   debugShowCheckedModeBanner: false,
                   theme: appStyle.themeData,
-                  // home: const SplashScreen()),
-                  home: const FirebaseLoginScreen(),
+                  home: const SplashScreen(),
                 ),
               );
             });

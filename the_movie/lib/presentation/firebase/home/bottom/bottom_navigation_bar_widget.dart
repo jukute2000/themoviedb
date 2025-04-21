@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/presentation/firebase/home/screen/bottom/bloc/bottom_navigator_cubit.dart';
-import 'package:the_movie/presentation/firebase/home/screen/bottom/bloc/bottom_navigator_state.dart';
+import 'package:the_movie/presentation/firebase/home/bottom/bloc/bottom_navigator_cubit.dart';
+import 'package:the_movie/presentation/firebase/home/bottom/bloc/bottom_navigator_state.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
