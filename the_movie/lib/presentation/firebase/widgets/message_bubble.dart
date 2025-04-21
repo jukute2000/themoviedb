@@ -23,16 +23,18 @@ class MessageBubble extends StatelessWidget {
     return InkWell(
       onLongPress: isMe
           ? () {
-        _showOptions(context);
-      }
+              _showOptions(context);
+            }
           : null,
       child: CustomPaint(
         painter: isMe ? BlueBubblePainter() : GreyBubblePainter(),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
+          padding: EdgeInsets.symmetric(
+              horizontal: PaddingSizes.p16, vertical: PaddingSizes.p8),
           margin: EdgeInsets.symmetric(vertical: MarginSizes.m8),
           child: Text(
             message,
+            softWrap: true,
             style: const TextStyle(
               color: AppColors.textWhite,
             ),
@@ -46,7 +48,8 @@ class MessageBubble extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(RadiusSizes.r16)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(RadiusSizes.r16)),
       ),
       builder: (BuildContext ctx) {
         return Column(
@@ -56,20 +59,20 @@ class MessageBubble extends StatelessWidget {
               leading: const Icon(Icons.edit, color: AppColors.iconAppbar),
               title: const Text('Sửa tin nhắn'),
               onTap: () {
-                Navigator.pop(ctx);
-                if (onEdit != null) {
-                  onEdit!();
+                  if (onEdit != null) {
+                    onEdit!();
                 }
+                Navigator.pop(ctx);
               },
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: AppColors.iconChoose),
               title: const Text('Xóa tin nhắn'),
               onTap: () {
-                Navigator.pop(ctx);
                 if (onDelete != null) {
                   onDelete!();
                 }
+                  Navigator.pop(ctx);
               },
             ),
           ],
