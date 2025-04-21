@@ -42,6 +42,8 @@ class _ItemChatWidgetState extends State<ItemChatWidget> {
           final lastMessage = snapshot.data;
           final intSeen = lastMessage?.currentUserSeen() ?? 0;
           return Text(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             "${lastMessage?.message ?? AppStrings.message.tr()} ${intSeen > 0 ? '($intSeen ${AppStrings.unseen.tr()})' : ''}",
             style: TextManager.textStyleRegular(14.sp).copyWith(
               color: intSeen > 0 ? AppColors.textBlue : AppColors.textGrey,

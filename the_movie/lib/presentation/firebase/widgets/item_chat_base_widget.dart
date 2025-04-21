@@ -24,6 +24,8 @@ class ItemChatBaseWidget extends StatelessWidget {
       leading: CricleAvatarWidget(name: nameLeading),
       title: Text(
         title,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
         style: TextManager.textStyleMedium(18.sp),
       ),
       subtitle: subtitleBuilder,
