@@ -159,4 +159,10 @@ class AppStrings {
   static const String tvScore = 'tvScore';
   static const String memberSince = 'memberSince';
   static const String medium = 'medium';
+
+  static const String loading = "loading";
+  static const String errorLoading = "errorLoading";
+  static const String message = "message";
+  static const String unseen = "unseen";
+  static const String contact = "contact";
 }

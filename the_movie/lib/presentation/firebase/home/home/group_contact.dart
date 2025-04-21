@@ -65,7 +65,7 @@ class _GroupContactState extends State<GroupContact> {
                                 vertical: 4, horizontal: 8),
                             child: ListTile(
                               title: Text(
-                                auth.name ?? 'No name',
+                                auth.name ?? 'Unknow',
                                 style: TextManager.textStyleMedium(18.sp),
                               ),
                               leading: CircleAvatar(

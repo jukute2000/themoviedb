@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/repositories/chat/chat_repository.dart';
 import 'package:the_movie/presentation/firebase/widgets/item_chat_base_widget.dart';
@@ -31,15 +33,15 @@ class _ItemChatWidgetState extends State<ItemChatWidget> {
         stream: ChatRepositoryImpl.instance.getLastMessage(widget.chatId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Đang tải...');
+            return Text(AppStrings.loading.tr());
           }
           if (snapshot.hasError) {
-            return const Text('Lỗi khi tải tin nhắn');
+            return Text(AppStrings.errorLoading.tr());
           }
           final lastMessage = snapshot.data;
           final intSeen = lastMessage?.currentUserSeen() ?? 0;
           return Text(
-            "${lastMessage?.message ?? 'No message'} ${intSeen > 0 ? '($intSeen chưa đọc)' : ''}",
+            "${lastMessage?.message ?? AppStrings.message.tr()} ${intSeen > 0 ? '($intSeen ${AppStrings.unseen.tr()})' : ''}",
             style: TextManager.textStyleRegular(14.sp).copyWith(
               color: intSeen > 0 ? AppColors.textBlue : AppColors.textGrey,
             ),

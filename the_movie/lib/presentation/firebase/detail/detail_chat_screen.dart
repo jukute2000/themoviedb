@@ -35,7 +35,8 @@ class _DetailChatState extends State<DetailChatScreen> {
   void dispose() {
     _scrollController.dispose();
     _messageController.dispose();
-    ChatRepositoryImpl.instance.updateLastMessage(widget.chatRoomId, '', false);
+    ChatRepositoryImpl.instance
+        .updateLastMessage(widget.chatRoomId, '', false, '');
     super.dispose();
   }
 
@@ -56,11 +57,7 @@ class _DetailChatState extends State<DetailChatScreen> {
     try {
       await ChatRepositoryImpl.instance
           .addDetailMessage(widget.chatRoomId, message);
-      await ChatRepositoryImpl.instance
-          .updateLastMessage(widget.chatRoomId, message, true);
-
       _messageController.clear();
-
       Future.delayed(const Duration(milliseconds: 300), () {
         _scrollToBottom();
       });

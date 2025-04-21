@@ -126,5 +126,10 @@
   "medium":"Medium",
   "recommenedForYou":"Recommened For You",
 
-  "chat":"Chat Room"
+  "chat":"Chat Room",
+  "loading" : "Loading",
+  "errorLoading":"Error loading message",
+  "message":"No Message",
+  "unseen":"Unseen",
+  "contact":"Contact"
 }
