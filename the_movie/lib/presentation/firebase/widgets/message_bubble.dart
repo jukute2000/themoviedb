@@ -60,7 +60,7 @@ class MessageBubble extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.edit, color: AppColors.iconAppbar),
               title: Text(AppStrings.editMessage.tr()),
-              onTap: () async {
+              onTap: () {
                 Navigator.pop(ctx);
                 if (onEdit != null) {
                   onEdit!();
