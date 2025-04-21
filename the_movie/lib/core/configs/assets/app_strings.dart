@@ -165,4 +165,24 @@ class AppStrings {
   static const String message = "message";
   static const String unseen = "unseen";
   static const String contact = "contact";
+  // Chat App
+  static const String Login = 'Đăng Nhập';
+  static const String ErrorLogin = 'Lỗi đăng nhập. Vui lòng thử lại.';
+  static const String ErrorSignIn = 'Lỗi đăng ký. Vui lòng thử lại.';
+  static const String signInChat = 'Đăng ký';
+
+  static const String email = 'Email';
+  static const String hintextEmail = 'Nhập Email của bạn';
+
+  static const String passwordChat = 'Mật khẩu';
+  static const String hintextPassword = 'Nhập mật khẩu của bạnn';
+
+  static const String unAlreadyAccount = 'Chưa có tài khoản? ';
+  static const String signInHere = 'Đăng ký tại đây';
+
+  static const String name = 'Họ và tên';
+  static const String hintextName = 'Nhập họ và tên của bạn';
+
+  static const String alreadyAccount = 'Đã có tài khoản? ';
+  static const String loginHere = 'Đăng nhập tại đây';
 }
