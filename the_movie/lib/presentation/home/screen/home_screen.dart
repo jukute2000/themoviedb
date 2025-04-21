@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _scrollController = ScrollController();
+    context.read<RecommenedCubit>().loadRecommened();
     super.initState();
   }
 

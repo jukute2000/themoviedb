@@ -124,5 +124,7 @@
   "movieScore":"Movie Score",
   "tvScore":"TV Score",
   "medium":"Medium",
-  "recommenedForYou":"Recommened For You"
+  "recommenedForYou":"Recommened For You",
+
+  "chat":"Chat Room"
 }

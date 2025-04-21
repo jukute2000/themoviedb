@@ -4,13 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_cubit.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_state.dart';
+import 'package:the_movie/presentation/firebase/home/home/bloc/home_cubit.dart';
+import 'package:the_movie/presentation/firebase/home/home/bloc/home_state.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
 class GroupContact extends StatefulWidget {
-  const GroupContact({super.key});
-
+  const GroupContact({super.key, required this.homeCubit});
+  final HomeCubit homeCubit;
   @override
   State<GroupContact> createState() => _GroupContactState();
 }
@@ -31,10 +31,12 @@ class _GroupContactState extends State<GroupContact> {
         backgroundColor: AppStyleProvider.of(context).backgroundColor(),
       ),
       body: BlocBuilder<HomeCubit, HomeState>(
+        bloc: widget.homeCubit,
         builder: (context, state) {
           if (state is HomeLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is HomeLoaded) {
+            print(state.auths!.length);
             return Stack(
               children: [
                 state.auths == null

@@ -6,7 +6,7 @@ import 'package:the_movie/core/configs/validator/app_validator.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
+import 'package:the_movie/presentation/firebase/home/home/home_screen.dart';
 
 class FirebaseSignInScreen extends StatefulWidget {
   const FirebaseSignInScreen({super.key});

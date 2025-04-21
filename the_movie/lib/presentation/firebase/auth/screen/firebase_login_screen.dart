@@ -6,7 +6,7 @@ import 'package:the_movie/core/configs/validator/app_validator.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_sign_in_screen.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
+import 'package:the_movie/presentation/firebase/home/home/home_screen.dart';
 
 class FirebaseLoginScreen extends StatefulWidget {
   const FirebaseLoginScreen({super.key});
@@ -180,7 +180,7 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
                           GestureDetector(
                             onTap: _navigateToRegister,
                             child: const Text(
-                              AppStrings.signInHere,
+                              AppStrings.signInChat,
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,

@@ -3,7 +3,6 @@ import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
 import 'package:the_movie/data/repositories/chat/account_chat_repository.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 class AuthCubit extends Cubit<AuthState> {

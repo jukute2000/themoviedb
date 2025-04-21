@@ -6,7 +6,6 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(DisplaySplash());
 
   void appStarted() async {
-    await Future.delayed(const Duration(seconds: 3));
     var isLoggedIn = await AuthRepositoryImpl.instance.isLoggedIn();
     var checkUpdate = await AuthRepositoryImpl.instance.checkUpdate();
     if (isLoggedIn == true && checkUpdate == false) {

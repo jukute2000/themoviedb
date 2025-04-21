@@ -9,8 +9,8 @@ import 'package:the_movie/data/controller/fire_auth_controller.dart';
 import 'package:the_movie/data/models/chat/auth.dart';
 import 'package:the_movie/data/models/chat/chat_room.dart';
 import 'package:the_movie/data/repositories/chat/chat_repository.dart';
-import 'package:the_movie/presentation/firebase/home/screen/home/bloc/home_state.dart';
-import '../../../../detail/detail_chat_screen.dart';
+import 'package:the_movie/presentation/firebase/home/home/bloc/home_state.dart';
+import '../../../detail/detail_chat_screen.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
