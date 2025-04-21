@@ -36,6 +36,7 @@ class MessageBubble extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: MarginSizes.m8),
           child: Text(
             message,
+            softWrap: true,
             style: const TextStyle(
               color: AppColors.textWhite,
             ),
@@ -60,20 +61,20 @@ class MessageBubble extends StatelessWidget {
               leading: const Icon(Icons.edit, color: AppColors.iconAppbar),
               title: Text(AppStrings.editMessage.tr()),
               onTap: () {
-                Navigator.pop(ctx);
-                if (onEdit != null) {
-                  onEdit!();
+                  if (onEdit != null) {
+                    onEdit!();
                 }
+                Navigator.pop(ctx);
               },
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: AppColors.iconChoose),
               title: Text(AppStrings.deleteMessage.tr()),
               onTap: () {
-                Navigator.pop(ctx);
                 if (onDelete != null) {
                   onDelete!();
                 }
+                  Navigator.pop(ctx);
               },
             ),
           ],

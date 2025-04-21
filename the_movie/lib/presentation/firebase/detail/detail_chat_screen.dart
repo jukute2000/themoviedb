@@ -1,13 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:the_movie/core/comons/widgets/format_date.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/firebase/widgets/appbar.dart';
 import 'package:the_movie/data/models/chat/detail_chat.dart';
+import 'package:the_movie/presentation/firebase/widgets/custom_text_field.dart';
 
 import '../../../core/configs/assets/app_strings.dart';
 import '../../../data/repositories/chat/chat_repository.dart';
 import '../widgets/custom_alert_dialog.dart';
+import '../widgets/date_header.dart';
 import '../widgets/message_bubble.dart';
 
 class DetailChatScreen extends StatefulWidget {
@@ -24,12 +28,13 @@ class DetailChatScreen extends StatefulWidget {
 class _DetailChatState extends State<DetailChatScreen> {
   late ScrollController _scrollController;
   late TextEditingController _messageController;
+  Map<String, String> _userNames = {};
 
   @override
   void initState() {
     _scrollController = ScrollController();
     _messageController = TextEditingController();
-
+    _loadUsers();
     super.initState();
   }
 
@@ -40,6 +45,20 @@ class _DetailChatState extends State<DetailChatScreen> {
     ChatRepositoryImpl.instance
         .updateLastMessage(widget.chatRoomId, '', false, '');
     super.dispose();
+  }
+
+  void _loadUsers() async {
+    final users = await ChatRepositoryImpl.instance.getListUser();
+    if (users != null) {
+      setState(() {
+        _userNames = {for (var user in users) user.id ?? '': user.name ?? ''};
+        if (ChatRepositoryImpl.instance.user != null) {
+          _userNames[ChatRepositoryImpl.instance.user!.uid] =
+              ChatRepositoryImpl.instance.user!.displayName ??
+                  AppStrings.me.tr();
+        }
+      });
+    }
   }
 
   void _scrollToBottom() {
@@ -137,7 +156,6 @@ class _DetailChatState extends State<DetailChatScreen> {
                       _scrollToBottom();
                     });
                   }
-
                   return ListView.builder(
                     controller: _scrollController,
                     padding: const EdgeInsets.all(12),
@@ -146,19 +164,60 @@ class _DetailChatState extends State<DetailChatScreen> {
                       final chat = chats[index];
                       final isMe =
                           chat.idSend == ChatRepositoryImpl.instance.user?.uid;
-                      return Padding(
-                        padding: EdgeInsets.all(PaddingSizes.p8),
-                        child: Align(
-                          alignment: isMe
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: MessageBubble(
-                            message: chat.message ?? '',
-                            isMe: isMe,
-                            onEdit: () => _onEditMessage(chat),
-                            onDelete: () => _onDeleteMessage(chat),
+                      final senderName =
+                          _userNames[chat.idSend] ?? AppStrings.other.tr();
+                      // Lấy ngày gửi
+                      final chatDate = chat.getDateHeader();
+                      // So với ngày tin nhắn trước
+                      bool showDateHeader = false;
+                      if (index == 0) {
+                        showDateHeader = true;
+                      } else {
+                        final prevChatDate = chats[index - 1].getDateHeader();
+                        if (!FormatDate.isSameDay(chatDate, prevChatDate)) {
+                          showDateHeader = true;
+                        }
+                      }
+                      // Convert ngày ra dạng text đẹp
+                      String formattedDate =
+                          FormatDate.formatDateHeader(chatDate);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (showDateHeader) DateHeader(text: formattedDate),
+                          Padding(
+                            padding: EdgeInsets.all(PaddingSizes.p8),
+                            child: Align(
+                              alignment: isMe
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Column(
+                                crossAxisAlignment: isMe
+                                    ? CrossAxisAlignment.end
+                                    : CrossAxisAlignment.start,
+                                children: [
+                                  MessageBubble(
+                                    message: chat.message ?? '',
+                                    isMe: isMe,
+                                    onEdit: () => _onEditMessage(chat),
+                                    onDelete: () => _onDeleteMessage(chat),
+                                  ),
+                                  GapsManager.h5,
+                                  Text(
+                                    isMe ? AppStrings.me.tr() : senderName,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          color: Colors.grey,
+                                          fontSize: TextSizes.s12,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       );
                     },
                   );
@@ -172,22 +231,7 @@ class _DetailChatState extends State<DetailChatScreen> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        onTapOutside: (_) {
-                          FocusScope.of(context).unfocus();
-                        },
-                        controller: _messageController,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.enterMessage.tr(),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(RadiusSizes.r32),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: PaddingSizes.p16,
-                              vertical: PaddingSizes.p8),
-                        ),
-                      ),
+                      child: CustomTextField(controller: _messageController),
                     ),
                     GapsManager.w10,
                     IconButton(
