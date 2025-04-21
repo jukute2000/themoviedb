@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import '../../../core/configs/assets/app_strings.dart';
 import '../detail/bubble_chat/bubble_recipient.dart';
 import '../detail/bubble_chat/bubble_sender.dart';
 
@@ -57,7 +59,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             ListTile(
               leading: const Icon(Icons.edit, color: AppColors.iconAppbar),
-              title: const Text('Sửa tin nhắn'),
+              title: Text(AppStrings.editMessage.tr()),
               onTap: () {
                   if (onEdit != null) {
                     onEdit!();
@@ -67,7 +69,7 @@ class MessageBubble extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: AppColors.iconChoose),
-              title: const Text('Xóa tin nhắn'),
+              title: Text(AppStrings.deleteMessage.tr()),
               onTap: () {
                 if (onDelete != null) {
                   onDelete!();
