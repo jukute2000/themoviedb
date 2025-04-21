@@ -14,7 +14,7 @@ abstract class ChatRepository {
 
   Stream<List<ChatRoom>?> getChatRooms();
 
-  Future<bool> updateLastTimeChatRoom(String chatId);
+  Future<bool> updateLastTimeChatRoom(String chatId, String Datetime);
 
   Future<ChatRoom?> createChatRoom(List<String> userId);
 
@@ -29,10 +29,7 @@ abstract class ChatRepository {
   );
 
   Future<bool> updateLastMessage(
-    String chatId,
-    String message,
-    bool isSend,
-  );
+      String chatId, String message, bool isSend, String dateTime);
 
   Stream<List<DetailChat>> getListDetailChat(String chatId);
 
@@ -109,7 +106,10 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<bool> updateLastTimeChatRoom(String chatId) async {
+  Future<bool> updateLastTimeChatRoom(
+    String chatId,
+    String Datetime,
+  ) async {
     try {
       final docRef = FirebaseTmdbController.getInstance()
           .db
@@ -128,7 +128,7 @@ class ChatRepositoryImpl implements ChatRepository {
       if (index == -1) return false;
 
       // Cập nhật thời gian mới
-      chatRooms[index].lastMessageAt = DateTime.now().toIso8601String();
+      chatRooms[index].lastMessageAt = Datetime;
 
       // Ghi đè lại mảng
       final updatedList = chatRooms.map((e) => e.toJson()).toList();
@@ -227,10 +227,9 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<bool> updateLastMessage(
-    String chatId,
-    String message,
-    bool isSend, //phan nguoi gui va nguoi xem
-  ) async {
+      String chatId, String message, bool isSend, String dateTime
+      //phan nguoi gui va nguoi xem
+      ) async {
     try {
       if (user == null) return false;
       LastMessage? lastMessage =
@@ -256,7 +255,9 @@ class ChatRepositoryImpl implements ChatRepository {
           .collection("listLastMessage")
           .doc(chatId)
           .set(lastMessage.toJson(), SetOptions(merge: true));
-      if (message.isNotEmpty || message != '') await updateLastTimeChatRoom(chatId);
+      if (message.isNotEmpty || message != '' && isSend) {
+        await updateLastTimeChatRoom(chatId, dateTime);
+      }
       return true;
     } catch (e) {
       print(e);
@@ -310,6 +311,7 @@ class ChatRepositoryImpl implements ChatRepository {
         "list_chat": FieldValue.arrayUnion([detailChat.toJson()])
       }, SetOptions(merge: true));
 
+      await updateLastMessage(chatId, message, true, detailChat.time!);
       return true;
     } catch (e) {
       print("Error adding message: $e");
@@ -331,23 +333,28 @@ class ChatRepositoryImpl implements ChatRepository {
       if (!snapshot.exists || snapshot.data() == null) return false;
 
       final data = snapshot.data()!;
-      final List<dynamic> listChat = data["list_chat"] ?? [];
+      final List<DetailChat> listChat = List.from(data["list_chat"])
+          .map((e) => DetailChat.fromJson(e))
+          .toList();
 
       LastMessage? lastMessage = await getLastMessagebyFuture(chatId);
-
+      ChatRoom? chatRoom = await getChatRoomById(chatId);
       // Lọc bỏ message có message_id trùng khớp
-      final updatedList = listChat.where((item) {
-        if (item is Map<String, dynamic>) {
-          if (item["message_id"] == messageId &&
-              item["message"] == lastMessage?.message) {
-            updateLastMessage(chatId, 'Tin nhắn đã bị xoá', true);
-          }
-          return item["message_id"] != messageId;
+      final filteredList = listChat.where((item) {
+        if (item.messageId == messageId &&
+            item.message == lastMessage?.message &&
+            item.time == chatRoom!.lastMessageAt) {
+          updateLastMessage(chatId, 'Tin nhắn đã bị xoá', true,
+              DateTime.now().toIso8601String());
+          return false; // xoá item này
         }
-        return true;
+        return item.messageId != messageId;
       }).toList();
 
-      // Cập nhật lại list_chat đã lọc
+// Chuyển list về dạng List<Map<String, dynamic>>
+      final updatedList = filteredList.map((e) => e.toJson()).toList();
+
+// Cập nhật lại list_chat trong Firestore
       await doc.update({"list_chat": updatedList});
 
       return true;
@@ -376,12 +383,14 @@ class ChatRepositoryImpl implements ChatRepository {
           .map((e) => DetailChat.fromJson(e))
           .toList();
       // Lọc bỏ message có message_id trùng khớp
-      LastMessage? lastMessage =
-          await getLastMessagebyFuture(chatId);
-
+      LastMessage? lastMessage = await getLastMessagebyFuture(chatId);
+      ChatRoom? chatRoom = await getChatRoomById(chatId);
       final updatedList = listChat.map((item) {
-        if (item.messageId == messageId && item.message == lastMessage?.message) {
-          updateLastMessage(chatId, message, true);
+        if (item.messageId == messageId &&
+            item.message == lastMessage?.message &&
+            item.time == chatRoom!.lastMessageAt) {
+          updateLastMessage(
+              chatId, message, true, DateTime.now().toIso8601String());
         }
         if (item.messageId == messageId && item.idSend == user!.uid) {
           item.message = message;
@@ -396,5 +405,20 @@ class ChatRepositoryImpl implements ChatRepository {
       print("Error deleting message: $e");
       return false;
     }
+  }
+
+  Future<ChatRoom?> getChatRoomById(String chatId) async {
+    ChatRoom? chatRoom;
+    final doc = await FirebaseTmdbController.getInstance()
+        .db
+        .collection("listChat")
+        .doc("chatIds")
+        .get();
+    if (!doc.exists || doc.data() == null) return null;
+    final listChat = List.from(doc.data()!["list_chat"]);
+    chatRoom = listChat
+        .map((e) => ChatRoom.fromJson(e))
+        .firstWhere((room) => room.chatId == chatId);
+    return chatRoom;
   }
 }

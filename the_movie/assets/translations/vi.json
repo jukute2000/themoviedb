@@ -127,5 +127,18 @@
   "medium":"Trung bình",
   "recommenedForYou":"Đề xuất cho bạn",
 
-  "chat":"Tin nhắn"
+  "chat":"Tin nhắn",
+  "loading" : "Đang tải",
+  "errorLoading":"Lỗi khi tải tin nhắn",
+  "message":"Chưa có tin nhắn",
+  "unseen":"Chưa có tin nhắn",
+  "contact":"Danh bạ",
+  "enterMessage":"Nhập tin nhắn...",
+  "cancel":"Hủy",
+  "save":"Lưu",
+  "confirm":"Xác nhận",
+  "editMessage":"Sửa tin nhắn",
+  "deleteMessage":"Xóa tin nhắn",
+  "deleteMessageTitle":"Bạn có chắc chắn muốn xóa tin nhắn này không?",
+  "enterContent":"Nhập nội dung..."
 }

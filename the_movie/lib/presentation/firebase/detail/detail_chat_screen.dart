@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/presentation/firebase/widgets/appbar.dart';
 import 'package:the_movie/data/models/chat/detail_chat.dart';
 
+import '../../../core/configs/assets/app_strings.dart';
 import '../../../data/repositories/chat/chat_repository.dart';
 import '../widgets/custom_alert_dialog.dart';
 import '../widgets/message_bubble.dart';
@@ -35,7 +37,8 @@ class _DetailChatState extends State<DetailChatScreen> {
   void dispose() {
     _scrollController.dispose();
     _messageController.dispose();
-    ChatRepositoryImpl.instance.updateLastMessage(widget.chatRoomId, '', false);
+    ChatRepositoryImpl.instance
+        .updateLastMessage(widget.chatRoomId, '', false, '');
     super.dispose();
   }
 
@@ -56,11 +59,7 @@ class _DetailChatState extends State<DetailChatScreen> {
     try {
       await ChatRepositoryImpl.instance
           .addDetailMessage(widget.chatRoomId, message);
-      await ChatRepositoryImpl.instance
-          .updateLastMessage(widget.chatRoomId, message, true);
-
       _messageController.clear();
-
       Future.delayed(const Duration(milliseconds: 300), () {
         _scrollToBottom();
       });
@@ -78,12 +77,12 @@ class _DetailChatState extends State<DetailChatScreen> {
     final newMessage = await showDialog<String>(
       context: context,
       builder: (context) => CustomAlertDialog(
-        title: 'Sửa tin nhắn',
+        title: AppStrings.editMessage.tr(),
         content: chat.message ?? '',
         isInput: true,
         onConfirm: (value) => Navigator.pop(context, value),
-        cancelText: 'Hủy',
-        confirmText: 'Lưu',
+        cancelText: AppStrings.cancel.tr(),
+        confirmText: AppStrings.save.tr(),
       ),
     );
 
@@ -100,11 +99,11 @@ class _DetailChatState extends State<DetailChatScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => CustomAlertDialog(
-        title: 'Xoá tin nhắn',
-        content: 'Bạn có chắc chắn muốn xoá tin nhắn này không?',
+        title: AppStrings.deleteMessage.tr(),
+        content: AppStrings.deleteMessageTitle.tr(),
         onConfirm: (_) => Navigator.pop(context, true),
-        cancelText: 'Không',
-        confirmText: 'Xoá',
+        cancelText: AppStrings.cancel.tr(),
+        confirmText: AppStrings.confirm.tr(),
       ),
     );
 
@@ -179,7 +178,7 @@ class _DetailChatState extends State<DetailChatScreen> {
                         },
                         controller: _messageController,
                         decoration: InputDecoration(
-                          hintText: "Nhập tin nhắn...",
+                          hintText: AppStrings.enterMessage.tr(),
                           border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.circular(RadiusSizes.r32),
