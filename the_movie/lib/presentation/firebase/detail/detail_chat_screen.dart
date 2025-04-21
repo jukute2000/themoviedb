@@ -6,6 +6,7 @@ import 'package:the_movie/data/models/chat/detail_chat.dart';
 
 import '../../../data/repositories/chat/chat_repository.dart';
 import '../widgets/custom_alert_dialog.dart';
+import '../widgets/date_header.dart';
 import '../widgets/message_bubble.dart';
 
 class DetailChatScreen extends StatefulWidget {
@@ -116,6 +117,26 @@ class _DetailChatState extends State<DetailChatScreen> {
     }
   }
 
+  bool isSameDay(DateTime d1, DateTime d2) {
+    return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
+  }
+
+  String formatDateHeader(DateTime date) {
+    final now = DateTime.now();
+
+    if (date.year == now.year && date.month == now.month && date.day == now.day) {
+      return 'Hôm nay';
+    } else if (date.year == now.subtract(const Duration(days: 1)).year &&
+        date.month == now.subtract(const Duration(days: 1)).month &&
+        date.day == now.subtract(const Duration(days: 1)).day) {
+      return 'Hôm qua';
+    } else {
+      return '${date.day}/${date.month}/${date.year}';
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +159,6 @@ class _DetailChatState extends State<DetailChatScreen> {
                       _scrollToBottom();
                     });
                   }
-
                   return ListView.builder(
                     controller: _scrollController,
                     padding: const EdgeInsets.all(12),
@@ -147,19 +167,37 @@ class _DetailChatState extends State<DetailChatScreen> {
                       final chat = chats[index];
                       final isMe =
                           chat.idSend == ChatRepositoryImpl.instance.user?.uid;
-                      return Padding(
-                        padding: EdgeInsets.all(PaddingSizes.p8),
-                        child: Align(
-                          alignment: isMe
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: MessageBubble(
-                            message: chat.message ?? '',
-                            isMe: isMe,
-                            onEdit: () => _onEditMessage(chat),
-                            onDelete: () => _onDeleteMessage(chat),
+                      // Lấy ngày gửi
+                      final chatDate = DateTime.parse(chat.time ?? "");
+                      // So với ngày tin nhắn trước
+                      bool showDateHeader = false;
+                      if (index == 0) {
+                        showDateHeader = true;
+                      } else {
+                        final prevChatDate = DateTime.parse(chats[index - 1].time ?? "");
+                        if (!isSameDay(chatDate, prevChatDate)) {
+                          showDateHeader = true;
+                        }
+                      }
+                      // Convert ngày ra dạng text đẹp
+                      String formattedDate = formatDateHeader(chatDate);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (showDateHeader) DateHeader(text: formattedDate),
+                          Padding(
+                            padding: EdgeInsets.all(PaddingSizes.p8),
+                            child: Align(
+                              alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+                              child: MessageBubble(
+                                message: chat.message ?? '',
+                                isMe: isMe,
+                                onEdit: () => _onEditMessage(chat),
+                                onDelete: () => _onDeleteMessage(chat),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       );
                     },
                   );
