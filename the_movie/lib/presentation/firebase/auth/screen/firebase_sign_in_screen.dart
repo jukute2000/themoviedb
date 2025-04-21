@@ -100,7 +100,6 @@ class _FirebaseSignInScreenState extends State<FirebaseSignInScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
           body: Center(
             child: SingleChildScrollView(
               child: Padding(

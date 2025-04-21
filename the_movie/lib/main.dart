@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
-import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
                   localizationsDelegates: context.localizationDelegates,
                   debugShowCheckedModeBanner: false,
                   theme: appStyle.themeData,
-                  home: const FirebaseLoginScreen(),
+                  home: const SplashScreen(),
                 ),
               );
             });

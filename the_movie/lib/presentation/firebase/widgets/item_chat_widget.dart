@@ -27,6 +27,7 @@ class _ItemChatWidgetState extends State<ItemChatWidget> {
   Widget build(BuildContext context) {
     return ItemChatBaseWidget(
       onTap: widget.onTap,
+      //chú ý lỗi tiềm ẩn
       nameLeading: widget.name?.first ?? "?",
       title: widget.name?[1] ?? "Unknown",
       subtitleBuilder: StreamBuilder(

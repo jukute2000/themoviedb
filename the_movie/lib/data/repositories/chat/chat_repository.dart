@@ -341,6 +341,7 @@ class ChatRepositoryImpl implements ChatRepository {
       ChatRoom? chatRoom = await getChatRoomById(chatId);
       // Lọc bỏ message có message_id trùng khớp
       final filteredList = listChat.where((item) {
+        //tách ra thành hàm
         if (item.messageId == messageId &&
             item.message == lastMessage?.message &&
             item.time == chatRoom!.lastMessageAt) {

@@ -49,7 +49,7 @@ class HomeCubit extends Cubit<HomeState> {
       } else {
         for (var chatRoom in chatRooms) {
           if (!const UnorderedIterableEquality()
-              .equals(chatRoom.usersId, [user.uid, ...users])) {
+              .equals(chatRoom.usersId, [...users, user.uid])) {
             isContain = true;
           } else {
             isContain = false;
