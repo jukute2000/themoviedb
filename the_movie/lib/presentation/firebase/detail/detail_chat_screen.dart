@@ -8,7 +8,6 @@ import 'package:the_movie/presentation/firebase/widgets/appbar.dart';
 import 'package:the_movie/data/models/chat/detail_chat.dart';
 import 'package:the_movie/presentation/firebase/widgets/custom_text_field.dart';
 
-import '../../../core/configs/assets/app_strings.dart';
 import '../../../data/repositories/chat/chat_repository.dart';
 import '../widgets/custom_alert_dialog.dart';
 import '../widgets/date_header.dart';
@@ -108,7 +107,7 @@ class _DetailChatState extends State<DetailChatScreen> {
     if (newMessage != null && newMessage.isNotEmpty) {
       await ChatRepositoryImpl.instance.editDetailMessage(
         widget.chatRoomId,
-        chat.messageId ?? '',
+        chat.messageId,
         newMessage,
       );
     }
@@ -129,7 +128,7 @@ class _DetailChatState extends State<DetailChatScreen> {
     if (confirm == true) {
       await ChatRepositoryImpl.instance.deleteDetailMessage(
         widget.chatRoomId,
-        chat.messageId ?? '',
+        chat.messageId,
       );
     }
   }

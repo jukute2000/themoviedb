@@ -320,7 +320,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<bool> deleteDetailMessage(String chatId, String messageId) async {
+  Future<bool> deleteDetailMessage(String chatId, String? messageId) async {
     try {
       if (user == null) return false;
 
@@ -367,10 +367,14 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<bool> editDetailMessage(
-      String chatId, String messageId, String message) async {
+      String chatId, String? messageId, String message) async {
     try {
-      // ktr thêm chatId và messageId
-      if (user == null) return false;
+      if (user == null ||
+          chatId.isEmpty ||
+          messageId == null ||
+          messageId.isEmpty) {
+        return false;
+      }
 
       final doc = FirebaseTmdbController.getInstance()
           .db
