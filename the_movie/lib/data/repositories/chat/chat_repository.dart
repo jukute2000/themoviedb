@@ -368,6 +368,7 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<bool> editDetailMessage(
       String chatId, String messageId, String message) async {
     try {
+      // ktr thêm chatId và messageId
       if (user == null) return false;
 
       final doc = FirebaseTmdbController.getInstance()
