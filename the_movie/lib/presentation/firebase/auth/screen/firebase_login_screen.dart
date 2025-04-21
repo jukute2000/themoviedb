@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
-import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
-import 'package:the_movie/data/repositories/chat/account_chat_repository.dart';
+import 'package:the_movie/core/configs/validator/app_validator.dart';
+import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
+import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_sign_in_screen.dart';
 import 'package:the_movie/presentation/firebase/home/screen/home/home_screen.dart';
 
@@ -20,56 +23,23 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
   String? _emailError;
   String? _passwordError;
 
-  bool _isValidEmail(String email) {
-    final emailRegExp = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
-    return emailRegExp.hasMatch(email);
-  }
-
-  void _validateEmail(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        _emailError = 'Email không được để trống';
-      } else if (!_isValidEmail(value)) {
-        _emailError = 'Email không hợp lệ';
-      } else {
-        _emailError = null;
-      }
-    });
-  }
-
-  void _validatePassword(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        _passwordError = 'Mật khẩu không được để trống';
-      } else if (value.length < 6) {
-        _passwordError = 'Mật khẩu phải có ít nhất 6 ký tự';
-      } else {
-        _passwordError = null;
-      }
-    });
-  }
-
   void _login() async {
-    _validateEmail(_emailController.text);
-    _validatePassword(_passwordController.text);
+    setState(() {
+      _emailError = AppValidator.validateEmail(_emailController.text);
+      _passwordError = AppValidator.validatePassword(_passwordController.text);
+    });
 
     if (_emailError == null && _passwordError == null) {
       try {
-        final FirebaseAuthModel _firebaseAuthModel =
-            await AccountChatRepositoryImpl.instance
-                .loginAccount(_emailController.text, _passwordController.text);
-        if (_firebaseAuthModel.result == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Đăng nhập thành công')),
-          );
-          AppNavigator.pushAndRemove(context, const HomeScreen());
-        } else {
-          showLoginErrorDialog(context, _firebaseAuthModel.error);
-        }
+        context.read<AuthCubit>().login(
+              email: _emailController.text,
+              password: _passwordController.text,
+            );
       } catch (e) {
         print(e.toString());
-        showLoginErrorDialog(context, "Lỗi đăng nhập. Vui lòng thử lại.");
       }
+    } else {
+      showLoginErrorDialog(context, AppStrings.ErrorLogin);
     }
   }
 
@@ -78,7 +48,7 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Đăng nhập thất bại"),
+          title: const Text(AppStrings.ErrorLogin),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
@@ -100,96 +70,133 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'Đăng nhập',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 48),
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'Nhập email của bạn',
-                      prefixIcon: const Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      errorText: _emailError,
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: _validateEmail,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Mật khẩu',
-                      hintText: 'Nhập mật khẩu của bạn',
-                      prefixIcon: const Icon(Icons.lock),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      errorText: _passwordError,
-                    ),
-                    obscureText: true,
-                    onChanged: _validatePassword,
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: _login,
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Đăng nhập',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) => {
+        if (state is AuthLoading)
+          {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return const Center(child: CircularProgressIndicator());
+              },
+            )
+          }
+        else if (state is AuthSuccess)
+          {
+            Navigator.of(context, rootNavigator: true).pop(),
+            if (state.user.result == true)
+              {AppNavigator.pushReplacement(context, const HomeScreen())}
+            else
+              {showLoginErrorDialog(context, state.user.error)}
+          }
+        else if (state is AuthFailure)
+          {
+            Navigator.of(context, rootNavigator: true).pop(),
+            showLoginErrorDialog(context, state.error)
+          }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text('Chưa có tài khoản? '),
-                      GestureDetector(
-                        onTap: _navigateToRegister,
-                        child: const Text(
-                          'Đăng ký tại đây',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                      const Text(
+                        AppStrings.Login,
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 48),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: AppStrings.email,
+                          hintText: AppStrings.hintextEmail,
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _emailError,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
+                          setState(() {
+                            _emailError = AppValidator.validateEmail(value);
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: AppStrings.passwordChat,
+                          hintText: AppStrings.hintextPassword,
+                          prefixIcon: const Icon(Icons.lock),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _passwordError,
+                        ),
+                        obscureText: true,
+                        onChanged: (value) {
+                          setState(() {
+                            _passwordError =
+                                AppValidator.validatePassword(value);
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
+                        child: const Text(
+                          AppStrings.Login,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(AppStrings.unAlreadyAccount),
+                          GestureDetector(
+                            onTap: _navigateToRegister,
+                            child: const Text(
+                              AppStrings.signInHere,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
