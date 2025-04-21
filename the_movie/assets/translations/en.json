@@ -131,5 +131,13 @@
   "errorLoading":"Error loading message",
   "message":"No Message",
   "unseen":"Unseen",
-  "contact":"Contact"
+  "contact":"Contact",
+  "enterMessage":"Enter Mesage...",
+  "cancel":"Cancel",
+  "save":"Save",
+  "confirm":"Confirm",
+  "editMessage":"Edit Message",
+  "deleteMessage":"Delete Message",
+  "deleteMessageTitle":"Are you sure you want to delete this message?",
+  "enterContent":"Enter Content..."
 }

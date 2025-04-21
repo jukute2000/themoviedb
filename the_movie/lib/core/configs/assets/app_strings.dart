@@ -165,6 +165,15 @@ class AppStrings {
   static const String message = "message";
   static const String unseen = "unseen";
   static const String contact = "contact";
+  static const String enterMessage = "enterMessage";
+  static const String enterContent = "enterContent";
+  static const String cancel = "cancel";
+  static const String save = "save";
+  static const String confirm = "confirm";
+  static const String editMessage = "editMessage";
+  static const String deleteMessage = "deleteMessage";
+  static const String deleteMessageTitle = "deleteMessageTitle";
+
   // Chat App
   static const String Login = 'Đăng Nhập';
   static const String ErrorLogin = 'Lỗi đăng nhập. Vui lòng thử lại.';

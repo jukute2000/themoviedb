@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
                   localizationsDelegates: context.localizationDelegates,
                   debugShowCheckedModeBanner: false,
                   theme: appStyle.themeData,
-                  home: const FirebaseLoginScreen(),
+                  home: const SplashScreen(),
                 ),
               );
             });
