@@ -198,4 +198,5 @@ class AppStrings {
   static const String changeLocation = "changeLocation";
   static const String me = 'Bạn';
   static const String other = 'Người dùng';
+  static const String passwordError1 = "passwordError1";
 }

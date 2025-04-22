@@ -53,8 +53,17 @@ class LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Đăng nhập thất bại"),
-          content: Text(errorMessage),
+          backgroundColor: AppColors.textWhite,
+          title: Text(
+            "Đăng nhập thất bại",
+            style: TextManager.textStyleBlod(TextSizes.s24)
+                .copyWith(color: AppColors.textBlack),
+          ),
+          content: Text(
+            errorMessage,
+            style: TextManager.textStyleMedium(TextSizes.s16)
+                .copyWith(color: AppColors.textBlack),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -175,7 +184,7 @@ class LoginScreenState extends State<LoginScreen> {
         hintText: AppStrings.password.tr(),
         errorText: (_password.isEmpty || _password.length >= 6)
             ? null
-            : "Password must be at least 6 characters",
+            : AppStrings.passwordError1.tr(),
       ),
       onChanged: (value) {
         setState(() {
@@ -194,7 +203,7 @@ class LoginScreenState extends State<LoginScreen> {
             }
           : null, // Disable button if form is invalid
       child: Text(
-        "Login",
+        AppStrings.signIn.tr(),
         style: TextManager.textStyleMedium(TextSizes.s16)
             .copyWith(color: AppStyleProvider.of(context).textColor()),
       ),

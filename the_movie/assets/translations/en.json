@@ -144,5 +144,6 @@
   "enterGmail":"Enter your gmail",
   "name":"Full Name",
   "alreadyAccount":"Already have an account? ",
-  "changeLocation":"Change Location"
+  "changeLocation":"Change Location",
+  "passwordError1":"Password must be at least 6 characters"
 }
