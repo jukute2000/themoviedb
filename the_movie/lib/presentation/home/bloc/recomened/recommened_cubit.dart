@@ -11,7 +11,7 @@ class RecommenedCubit extends Cubit<RecommenedState> {
   RecommenedCubit() : super(RecommenedInitial());
 
   Future<void> loadRecommened() async {
-    emit(RecommenedIsLoading());
+    if (!isClosed) emit(RecommenedIsLoading());
     try {
       List<RecommenedMedia> recommened =
           await FirebaseTmdbController.getInstance()
@@ -33,9 +33,9 @@ class RecommenedCubit extends Cubit<RecommenedState> {
           mediaDetails.add(detailTv);
         }
       }
-      emit(RecommenedLoaded(listMediaDetail: mediaDetails));
+      if (!isClosed) emit(RecommenedLoaded(listMediaDetail: mediaDetails));
     } catch (e) {
-      emit(RecommenedError("Error: $e"));
+      if (!isClosed) emit(RecommenedError("Error: $e"));
     }
   }
 }

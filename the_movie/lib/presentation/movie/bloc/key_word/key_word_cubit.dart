@@ -7,19 +7,19 @@ class KeyWordCubit extends Cubit<KeyWordState> {
   KeyWordCubit() : super(KeyWordInitial());
 
   void loadKeyWord(int id, bool isMovie) async {
-    emit(KeyWordIsLoading());
+    if (!isClosed) emit(KeyWordIsLoading());
     try {
       if (isMovie) {
         List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
-        emit(KeyWordLoaded(listKeyWord: listKeyWords));
+        if (!isClosed) emit(KeyWordLoaded(listKeyWord: listKeyWords));
       } else {
         List<Keyword> listKeyWords = await MediaDetailRepositoryImpl.instance
             .getKeywords(id: id, isMovie: isMovie);
-        emit(KeyWordLoaded(listKeyWord: listKeyWords));
+        if (!isClosed) emit(KeyWordLoaded(listKeyWord: listKeyWords));
       }
     } catch (e) {
-      emit(KeyWordError("Error: $e"));
+      if (!isClosed) emit(KeyWordError("Error: $e"));
     }
   }
 }

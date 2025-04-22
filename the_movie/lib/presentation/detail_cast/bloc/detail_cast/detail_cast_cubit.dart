@@ -20,7 +20,7 @@ class DetailCastCubit extends Cubit<DetailCastState> {
   List<Media> originalMedias = [];
   bool isClear = false;
   Future<void> loadDetailCast(int id) async {
-    emit(DetailCastIsLoading());
+    if (!isClosed) emit(DetailCastIsLoading());
     try {
       PeopleDetail? peopleDetail =
           await PeopleRepositoryImpl.intance.getPeopleDetail(id: id);
@@ -43,15 +43,17 @@ class DetailCastCubit extends Cubit<DetailCastState> {
               .compareTo(a.getReleaseDate() ?? DateTime(0)));
       }
 
-      emit(DetailCastLoaded(
-        detailPeople: peopleDetail,
-        external: external,
-        movies: movies,
-        crews: originalCrews,
-        medias: originalMedias,
-      ));
+      if (!isClosed) {
+        emit(DetailCastLoaded(
+          detailPeople: peopleDetail,
+          external: external,
+          movies: movies,
+          crews: originalCrews,
+          medias: originalMedias,
+        ));
+      }
     } catch (e) {
-      emit(DetailCastError("Error: $e"));
+      if (!isClosed) emit(DetailCastError("Error: $e"));
     }
   }
 
@@ -59,10 +61,12 @@ class DetailCastCubit extends Cubit<DetailCastState> {
     if (state is DetailCastLoaded) {
       final currentState = state as DetailCastLoaded;
       isClear = true;
-      emit(currentState.copyWith(
-        crews: {department: originalCrews[department] ?? []},
-        medias: [],
-      ));
+      if (!isClosed) {
+        emit(currentState.copyWith(
+          crews: {department: originalCrews[department] ?? []},
+          medias: [],
+        ));
+      }
     }
   }
 
@@ -71,12 +75,14 @@ class DetailCastCubit extends Cubit<DetailCastState> {
       final currentState = state as DetailCastLoaded;
       isClear = true;
 
-      emit(currentState.copyWith(
-        crews: {},
-        medias: mediaType == MediaTypeEnum.movie
-            ? originalMedias.whereType<Movie>().toList()
-            : originalMedias.whereType<TiVi>().toList(),
-      ));
+      if (!isClosed) {
+        emit(currentState.copyWith(
+          crews: {},
+          medias: mediaType == MediaTypeEnum.movie
+              ? originalMedias.whereType<Movie>().toList()
+              : originalMedias.whereType<TiVi>().toList(),
+        ));
+      }
     }
   }
 
@@ -84,10 +90,12 @@ class DetailCastCubit extends Cubit<DetailCastState> {
     if (state is DetailCastLoaded) {
       final currentState = state as DetailCastLoaded;
       isClear = false;
-      emit(currentState.copyWith(
-        crews: originalCrews,
-        medias: originalMedias,
-      ));
+      if (!isClosed) {
+        emit(currentState.copyWith(
+          crews: originalCrews,
+          medias: originalMedias,
+        ));
+      }
     }
   }
 

@@ -8,19 +8,21 @@ class MediaDetailCubit extends Cubit<MediaDetailState> {
   MediaDetailCubit() : super(MediaDetailInitial());
 
   void loadMedia(int id, bool isMovie) async {
-    emit(MediaDetailIsLoading());
+    if (!isClosed) emit(MediaDetailIsLoading());
     try {
       if (isMovie) {
         DetailMovie detailMovie =
             await MediaDetailRepositoryImpl.instance.getMovieDetail(id);
-        emit(MovieDetailLoaded(detailMovie: detailMovie));
+        if (!isClosed) emit(MovieDetailLoaded(detailMovie: detailMovie));
       } else {
         DetailTv detailTv =
             await MediaDetailRepositoryImpl.instance.getTVDetail(id);
 
-        emit(TvDetailLoaded(
-          detailTv: detailTv,
-        ));
+        if (!isClosed) {
+          emit(TvDetailLoaded(
+            detailTv: detailTv,
+          ));
+        }
       }
     } catch (e) {
       emit(MediaDetailError("Error: $e"));

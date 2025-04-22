@@ -7,19 +7,19 @@ class TabMovieCubit extends Cubit<TabMovieState> {
 
   Future<void> fetchMovieData(String query, int page) async {
     if (query.isEmpty) {
-      emit(TabMovieError("Query cannot be empty"));
+      if (!isClosed) emit(TabMovieError("Query cannot be empty"));
       return;
     }
 
-    emit(TabMovieLoading());
+    if (!isClosed) emit(TabMovieLoading());
 
     try {
       final data =
           await SearchRepositoryImpl.instance.getSearchMovies(query, page);
 
-      emit(TabMovieLoaded(movieData: data, page: page));
+      if (!isClosed) emit(TabMovieLoaded(movieData: data, page: page));
     } catch (e) {
-      emit(TabMovieError("Failed to fetch Movie data: $e"));
+      if (!isClosed) emit(TabMovieError("Failed to fetch Movie data: $e"));
     }
   }
 }
