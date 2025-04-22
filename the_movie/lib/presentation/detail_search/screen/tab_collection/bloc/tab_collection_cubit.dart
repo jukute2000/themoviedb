@@ -7,17 +7,21 @@ class TabCollectionCubit extends Cubit<TabCollectionState> {
 
   Future<void> fetchCollections(String query, int page) async {
     if (query.isEmpty) {
-      emit(TabCollectionError("Query cannot be empty"));
+      if (!isClosed) emit(TabCollectionError("Query cannot be empty"));
       return;
     }
-    emit(TabCollectionLoading());
+    if (!isClosed) emit(TabCollectionLoading());
 
     try {
       final data =
           await SearchRepositoryImpl.instance.getSearchCollections(query, page);
-      emit(TabCollectionLoaded(collectionsData: data, page: page));
+      if (!isClosed) {
+        emit(TabCollectionLoaded(collectionsData: data, page: page));
+      }
     } catch (e) {
-      emit(TabCollectionError("Failed to fetch Collections: $e"));
+      if (!isClosed) {
+        emit(TabCollectionError("Failed to fetch Collections: $e"));
+      }
     }
   }
 }

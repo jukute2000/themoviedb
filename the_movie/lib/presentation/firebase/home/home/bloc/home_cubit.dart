@@ -20,17 +20,17 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void fetchData() async {
-    emit(HomeLoading());
+    if (!isClosed) emit(HomeLoading());
     try {
       final List<Authentication>? auths =
           await ChatRepositoryImpl.instance.getListUser();
       chatRoomSubscription = ChatRepositoryImpl.instance.getChatRooms().listen(
         (chatRooms) {
-          emit(HomeLoaded(chatRooms: chatRooms, auths: auths));
+          if (!isClosed) emit(HomeLoaded(chatRooms: chatRooms, auths: auths));
         },
       );
     } catch (e) {
-      emit(HomeError('Failed to load data'));
+      if (!isClosed) emit(HomeError('Failed to load data'));
     }
   }
 
@@ -61,7 +61,7 @@ class HomeCubit extends Cubit<HomeState> {
       fetchData();
       return chatRoomTmp!; //Lấy lại dữ liệu sau khi tạo phòng chat
     } catch (e) {
-      emit(HomeError('Failed to create chat room'));
+      if (!isClosed) emit(HomeError('Failed to create chat room'));
       rethrow; // Re-throw the exception to ensure the method doesn't complete normally
     }
   }

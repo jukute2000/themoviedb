@@ -11,7 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String name,
   }) async {
-    emit(AuthLoading());
+    if (!isClosed) emit(AuthLoading());
 
     try {
       final FirebaseAuthModel user =
@@ -21,9 +21,9 @@ class AuthCubit extends Cubit<AuthState> {
         name,
       );
 
-      emit(AuthSuccess(user));
+      if (!isClosed) emit(AuthSuccess(user));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      if (!isClosed) emit(AuthFailure(e.toString()));
     }
   }
 
@@ -31,13 +31,13 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-    emit(AuthLoading());
+    if (!isClosed) emit(AuthLoading());
     try {
       final FirebaseAuthModel user = await AccountChatRepositoryImpl.instance
           .loginAccount(email, password);
-      emit(AuthSuccess(user));
+      if (!isClosed) emit(AuthSuccess(user));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      if (!isClosed) emit(AuthFailure(e.toString()));
     }
   }
 }

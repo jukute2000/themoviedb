@@ -12,14 +12,16 @@ class ProfileDetailCubit extends Cubit<ProfileDetailState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(ProfileDetailIsLoading());
+      if (!isClosed) emit(ProfileDetailIsLoading());
     }
     try {
       AccountModel accountmodel =
           await AccountRepositoryImpl.instance.getDetails();
-      emit(AccountProfileDetailLoaded(accountModel: accountmodel));
+      if (!isClosed) {
+        emit(AccountProfileDetailLoaded(accountModel: accountmodel));
+      }
     } catch (e) {
-      emit(ProfileDetailError("Error: $e"));
+      if (!isClosed) emit(ProfileDetailError("Error: $e"));
     } finally {
       _isLoading = false;
     }

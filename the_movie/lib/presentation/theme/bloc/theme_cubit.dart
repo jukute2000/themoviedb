@@ -7,6 +7,6 @@ class ThemeCubit extends Cubit<ThemeState> {
   void setTheme() {
     final currentIsDarkMode = !state.isDarkMode;
 
-    emit(ThemeLoaded(isDarkMode: currentIsDarkMode));
+    if (!isClosed) emit(ThemeLoaded(isDarkMode: currentIsDarkMode));
   }
 }
