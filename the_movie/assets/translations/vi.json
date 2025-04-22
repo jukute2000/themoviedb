@@ -140,5 +140,9 @@
   "editMessage":"Sửa tin nhắn",
   "deleteMessage":"Xóa tin nhắn",
   "deleteMessageTitle":"Bạn có chắc chắn muốn xóa tin nhắn này không?",
-  "enterContent":"Nhập nội dung..."
+  "enterContent":"Nhập nội dung...",
+  "unAlreadyAccount":"Chưa có tài khoản? ",
+  "enterGmail":"Nhập gmail của bạn",
+  "name":"Họ và tên",
+  "alreadyAccount":"Bạn đã có tài khoản? "
 }

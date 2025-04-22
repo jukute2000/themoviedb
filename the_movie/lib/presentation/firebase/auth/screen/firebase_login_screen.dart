@@ -1,8 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/assets/app_colors.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/configs/validator/app_validator.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
+import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_sign_in_screen.dart';
@@ -100,28 +105,24 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
           body: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: EdgeInsets.all(PaddingSizes.p24),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        AppStrings.Login,
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
+                      Text(
+                        AppStrings.signIn.tr(),
+                        style: TextManager.textStyleBlod(TextSizes.s32)
+                            .copyWith(color: AppColors.borderSelected),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 48),
+                      GapsManager.h40,
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
-                          labelText: AppStrings.email,
-                          hintText: AppStrings.hintextEmail,
+                          labelText: AppStrings.enterGmail.tr(),
                           prefixIcon: const Icon(Icons.email),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -135,12 +136,11 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
                           });
                         },
                       ),
-                      const SizedBox(height: 16),
+                      GapsManager.h20,
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
-                          labelText: AppStrings.passwordChat,
-                          hintText: AppStrings.hintextPassword,
+                          labelText: AppStrings.password.tr(),
                           prefixIcon: const Icon(Icons.lock),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -155,7 +155,7 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
                           });
                         },
                       ),
-                      const SizedBox(height: 24),
+                      GapsManager.h20,
                       ElevatedButton(
                         onPressed: _login,
                         style: ElevatedButton.styleFrom(
@@ -166,24 +166,27 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text(
-                          AppStrings.Login,
-                          style: TextStyle(fontSize: 16),
+                        child: Text(
+                          AppStrings.signIn.tr(),
+                          style: TextManager.textStyleBlack(TextSizes.s16),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      GapsManager.h20,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(AppStrings.unAlreadyAccount),
+                          Text(
+                            AppStrings.unAlreadyAccount.tr(),
+                            style: TextManager.textStyleMedium(
+                              TextSizes.s16,
+                            ),
+                          ),
                           GestureDetector(
                             onTap: _navigateToRegister,
-                            child: const Text(
-                              AppStrings.signInChat,
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Text(
+                              AppStrings.signUp.tr(),
+                              style: TextManager.textStyleBlod(TextSizes.s16)
+                                  .copyWith(color: AppColors.borderSelected),
                             ),
                           ),
                         ],

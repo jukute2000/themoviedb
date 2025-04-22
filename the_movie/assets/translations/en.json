@@ -139,5 +139,9 @@
   "editMessage":"Edit Message",
   "deleteMessage":"Delete Message",
   "deleteMessageTitle":"Are you sure you want to delete this message?",
-  "enterContent":"Enter Content..."
+  "enterContent":"Enter Content...",
+  "unAlreadyAccount":"Don't have an account? ",
+  "enterGmail":"Enter your gmail",
+  "name":"Full Name",
+  "alreadyAccount":"Already have an account? "
 }

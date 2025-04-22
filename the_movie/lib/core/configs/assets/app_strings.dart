@@ -186,13 +186,14 @@ class AppStrings {
   static const String passwordChat = 'Mật khẩu';
   static const String hintextPassword = 'Nhập mật khẩu của bạnn';
 
-  static const String unAlreadyAccount = 'Chưa có tài khoản? ';
+  static const String unAlreadyAccount = 'unAlreadyAccount';
   static const String signInHere = 'Đăng ký tại đây';
+  static const String enterGmail = "enterGmail";
 
-  static const String name = 'Họ và tên';
+  static const String name = 'name';
   static const String hintextName = 'Nhập họ và tên của bạn';
 
-  static const String alreadyAccount = 'Đã có tài khoản? ';
+  static const String alreadyAccount = 'alreadyAccount';
   static const String loginHere = 'Đăng nhập tại đây';
 
   static const String me = 'Bạn';
