@@ -44,7 +44,7 @@ class MovieDetailNavBar extends StatelessWidget {
 }
 
 class MediaDropdownMenu extends StatelessWidget {
-  const MediaDropdownMenu({Key? key}) : super(key: key);
+  const MediaDropdownMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class MediaDropdownMenu extends StatelessWidget {
 }
 
 class OverviewDropdownMenu extends StatelessWidget {
-  const OverviewDropdownMenu({Key? key}) : super(key: key);
+  const OverviewDropdownMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
