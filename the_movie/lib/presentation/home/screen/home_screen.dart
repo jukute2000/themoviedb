@@ -25,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FocusNode _focusNode = FocusNode();
   late ScrollController _scrollController;
   @override
   void initState() {
@@ -44,6 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: const DrawerWidget(),
+      onDrawerChanged: (status) {
+        if (status) {
+          _focusNode.unfocus();
+        }
+      },
       body: AppbarWidget(
         isSearch: false,
         isHome: true,
@@ -54,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 //banner
-                const BannerWidget(),
+                BannerWidget(focusNode: _focusNode),
                 BlocBuilder<RecommenedCubit, RecommenedState>(
                     builder: (context, state) {
                   return const SizedBox();

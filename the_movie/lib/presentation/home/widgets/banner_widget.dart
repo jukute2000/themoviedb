@@ -15,7 +15,8 @@ import '../../../core/utils/sizes_manager.dart';
 import '../bloc/banner/banner_cubit.dart';
 
 class BannerWidget extends StatefulWidget {
-  const BannerWidget({super.key});
+  const BannerWidget({super.key, required this.focusNode});
+  final FocusNode focusNode;
 
   @override
   State<BannerWidget> createState() => _BannerWidgetState();
@@ -100,9 +101,10 @@ class _BannerWidgetState extends State<BannerWidget> {
                   ),
                   child: TextField(
                     onTapOutside: (event) {
-                      FocusScope.of(context).unfocus();
+                      widget.focusNode.unfocus();
                     },
                     controller: textController,
+                    focusNode: widget.focusNode,
                     style: TextManager.textStyleMedium(TextSizes.s16)
                         .copyWith(
                       color: AppColors.textBlack,
