@@ -7,13 +7,13 @@ class SerieCastCubit extends Cubit<SerieCastState> {
   SerieCastCubit() : super(SerieCastInitial());
 
   void loadCredit(int id, bool isMovie) async {
-    emit(SerieCastIsLoading());
+    if (!isClosed) emit(SerieCastIsLoading());
     try {
       List<Credit> listCredits = await MediaDetailRepositoryImpl.instance
           .getCredits(id: id, isMovie: isMovie);
-      emit(SerieCaseLoaded(credits: listCredits));
+      if (!isClosed) emit(SerieCaseLoaded(credits: listCredits));
     } catch (e) {
-      emit(SerieCastError("Error: $e"));
+      if (!isClosed) emit(SerieCastError("Error: $e"));
     }
   }
 }

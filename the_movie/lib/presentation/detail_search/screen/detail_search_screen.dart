@@ -35,7 +35,6 @@ class _DetailSearchScreenState extends State<DetailSearchScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     tabController =
         TabController(length: 6, vsync: this, initialIndex: widget.index);
     _controller = TextEditingController(text: widget.query);

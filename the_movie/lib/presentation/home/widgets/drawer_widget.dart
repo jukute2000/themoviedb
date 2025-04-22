@@ -48,9 +48,15 @@ class DrawerWidget extends StatelessWidget {
               ),
               onTap: () =>
                   AppNavigator.push(context, const FirebaseLoginScreen())),
-          _createDrawerItem(Icons.favorite, AppStrings.favorites.tr()),
-          _createDrawerItem(Icons.share, AppStrings.request.tr()),
-          _createDrawerItem(Icons.notifications, AppStrings.share.tr()),
+          ListTile(
+              leading: const Icon(Icons.catching_pokemon_outlined),
+              title: Text(
+                AppStrings.changeLocation.tr(),
+                style: TextManager.textStyleMedium(TextSizes.s16),
+              ),
+              onTap: () => context.setLocale(context.locale.languageCode == 'en'
+                  ? const Locale("vi")
+                  : const Locale("en"))),
           DividerManager.horizontalDivider,
           _createDrawerItem(Icons.settings, AppStrings.request.tr()),
           _createDrawerItem(Icons.policy, AppStrings.settings.tr()),

@@ -1,9 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/models/auth/firebase_auth_model.dart';
 import 'package:the_movie/data/repositories/chat/account_chat_repository.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_state.dart';
-import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -13,7 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String name,
   }) async {
-    emit(AuthLoading());
+    if (!isClosed) emit(AuthLoading());
 
     try {
       final FirebaseAuthModel user =
@@ -23,9 +21,9 @@ class AuthCubit extends Cubit<AuthState> {
         name,
       );
 
-      emit(AuthSuccess(user));
+      if (!isClosed) emit(AuthSuccess(user));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      if (!isClosed) emit(AuthFailure(e.toString()));
     }
   }
 
@@ -33,17 +31,13 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
   }) async {
-    emit(AuthLoading());
-    Future.delayed(const Duration(seconds: 3), () {});
+    if (!isClosed) emit(AuthLoading());
     try {
-      final FirebaseAuthModel user =
-          await AccountChatRepositoryImpl.instance.loginAccount(
-        email,
-        password,
-      );
-      emit(AuthSuccess(user));
+      final FirebaseAuthModel user = await AccountChatRepositoryImpl.instance
+          .loginAccount(email, password);
+      if (!isClosed) emit(AuthSuccess(user));
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      if (!isClosed) emit(AuthFailure(e.toString()));
     }
   }
 }

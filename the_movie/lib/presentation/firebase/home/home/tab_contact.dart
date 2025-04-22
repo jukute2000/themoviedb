@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
+import 'package:the_movie/data/models/chat/chat_room.dart';
+import 'package:the_movie/presentation/firebase/detail/detail_chat_screen.dart';
 import 'package:the_movie/presentation/firebase/home/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/firebase/home/home/bloc/home_state.dart';
 import 'package:the_movie/presentation/firebase/widgets/item_chat_base_widget.dart';
@@ -10,6 +13,7 @@ class TabContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<HomeCubit>();
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is HomeLoading) {
@@ -24,11 +28,17 @@ class TabContact extends StatelessWidget {
             itemBuilder: (context, index) {
               final auth = state.auths![index];
               return ItemChatBaseWidget(
-                onTap: () => context.read<HomeCubit>().createChatRoom(
+                onTap: () async {
+                  ChatRoom chatRoom =
+                      await cubit.createChatRoom([auth.id!], state.chatRooms);
+
+                  AppNavigator.push(
                       context,
-                      [auth.id!],
-                      state.chatRooms,
-                    ),
+                      DetailChatScreen(
+                        chatRoomId: chatRoom.chatId!,
+                        name: cubit.checkNameUser(auth.name),
+                      ));
+                },
                 nameLeading: auth.firstCharName(),
                 title: auth.name ?? "Unknow",
               );

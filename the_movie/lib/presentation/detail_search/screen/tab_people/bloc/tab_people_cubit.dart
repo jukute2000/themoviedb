@@ -7,15 +7,17 @@ class TabPeopleCubit extends Cubit<TabPeopleState> {
 
   Future<void> fetchPeople(String query, int page) async {
     if (query.isEmpty) {
-      emit(TabPeopleError("Query cannot be empty"));
-      return;}
-    emit(TabPeopleLoading());
+      if (!isClosed) emit(TabPeopleError("Query cannot be empty"));
+      return;
+    }
+    if (!isClosed) emit(TabPeopleLoading());
 
     try {
-      final data = await SearchRepositoryImpl.instance.getSearchPeople(query, page);
-      emit(TabPeopleLoaded(peopleData: data,page: page));
+      final data =
+          await SearchRepositoryImpl.instance.getSearchPeople(query, page);
+      if (!isClosed) emit(TabPeopleLoaded(peopleData: data, page: page));
     } catch (e) {
-      emit(TabPeopleError("Failed to fetch People: $e"));
+      if (!isClosed) emit(TabPeopleError("Failed to fetch People: $e"));
     }
   }
 }

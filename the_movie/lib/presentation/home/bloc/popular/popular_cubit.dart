@@ -11,14 +11,14 @@ class PopularCubit extends Cubit<PopularState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(PopularIsLoading());
+      if (!isClosed) emit(PopularIsLoading());
     }
     try {
       List<Movie> newMovies =
           await MediaRepositoryImpl.instance.getMoviePopular();
-      emit(MoviePopularLoaded(movies: newMovies));
+      if (!isClosed) emit(MoviePopularLoaded(movies: newMovies));
     } catch (e) {
-      emit(PopularError("Error: $e"));
+      if (!isClosed) emit(PopularError("Error: $e"));
     } finally {
       _isLoading = false;
     }

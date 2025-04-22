@@ -109,7 +109,7 @@ class _CreditsCastState extends State<CreditsCast> {
             ],
           ),
           CreditsWidget(medias: widget.medias),
-          CrewWidget(context, widget.crews),
+          CrewWidget(crews: widget.crews),
         ],
       ),
     );

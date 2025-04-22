@@ -23,7 +23,8 @@ class AppbarWidget extends StatelessWidget {
           pinned: true,
           backgroundColor: AppStyleProvider.of(context).backgroundColor(),
           title: Text(
-            name,
+            name.length < 17 ? name : "${name.substring(0, 16)}...",
+            overflow: TextOverflow.ellipsis,
             style: TextManager.textStyleBlod(TextSizes.s32).copyWith(
               color: AppStyleProvider.of(context).iconColor(),
             ),

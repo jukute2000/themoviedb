@@ -11,14 +11,14 @@ class MoviesFavouriteCubit extends Cubit<MoviesFavouriteState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(MoviesFavouriteIsLoading());
+      if (!isClosed) emit(MoviesFavouriteIsLoading());
     }
     try {
       List<Movie> moviess =
           await AccountRepositoryImpl.instance.getMovieFavorites();
-      emit(MoviesFavouriteLoaded(moviess: moviess));
+      if (!isClosed) emit(MoviesFavouriteLoaded(moviess: moviess));
     } catch (e) {
-      emit(MoviesFavouriteError("Error: $e"));
+      if (!isClosed) emit(MoviesFavouriteError("Error: $e"));
     } finally {
       _isLoading = false;
     }

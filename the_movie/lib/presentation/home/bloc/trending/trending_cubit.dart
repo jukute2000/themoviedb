@@ -12,14 +12,14 @@ class TrendingCubit extends Cubit<TrendingState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(TrendingIsLoading());
+      if (!isClosed) emit(TrendingIsLoading());
     }
     try {
       List<Media> newMedias = await MediaRepositoryImpl.instance
           .getMediaTrending(1, TimeWindow.day);
-      emit(MediasTrendingLoaded(medias: newMedias));
+      if (!isClosed) emit(MediasTrendingLoaded(medias: newMedias));
     } catch (e) {
-      emit(TrendingError("Error: $e"));
+      if (!isClosed) emit(TrendingError("Error: $e"));
     } finally {
       _isLoading = false;
     }

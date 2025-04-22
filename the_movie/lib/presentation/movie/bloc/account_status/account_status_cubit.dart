@@ -8,13 +8,13 @@ class AccountStatusCubit extends Cubit<AccountStatusState> {
   AccountStatusCubit() : super(AccountStatusInitial());
 
   void loadAccountStatus(int id, bool isMovie) async {
-    emit(AccountStatusIsLoading());
+    if (!isClosed) emit(AccountStatusIsLoading());
     try {
       AccountStatus accountStatus = await MediaDetailRepositoryImpl.instance
           .getAccountStatus(id: id, isMovie: isMovie);
-      emit(AccountStatusLoaded(accountStatus: accountStatus));
+      if (!isClosed) emit(AccountStatusLoaded(accountStatus: accountStatus));
     } catch (e) {
-      emit(AccountStatusError("Error: $e"));
+      if (!isClosed) emit(AccountStatusError("Error: $e"));
     }
   }
 

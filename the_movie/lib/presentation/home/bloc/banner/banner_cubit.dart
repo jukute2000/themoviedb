@@ -7,17 +7,17 @@ class BannerCubit extends Cubit<BannerState> {
   BannerCubit() : super(BannerInitial());
 
   Future<void> loadBanner() async {
-    emit(BannerIsLoading());
+    if (!isClosed) emit(BannerIsLoading());
     try {
       var result = await FirebaseTmdbController.getInstance()
           .db
           .collection("imagesBanner")
           .get();
       if (result.docs.isNotEmpty) {
-        emit(BannerLoaded(images: result.docs.first['get']));
+        if (!isClosed) emit(BannerLoaded(images: result.docs.first['get']));
       }
     } catch (e) {
-      emit(BannerError());
+      if (!isClosed) emit(BannerError());
     }
   }
 }

@@ -9,12 +9,12 @@ class SplashCubit extends Cubit<SplashState> {
     var isLoggedIn = await AuthRepositoryImpl.instance.isLoggedIn();
     var checkUpdate = await AuthRepositoryImpl.instance.checkUpdate();
     if (isLoggedIn == true && checkUpdate == false) {
-      emit(Authenticated());
+      if (!isClosed) emit(Authenticated());
     } else if (isLoggedIn == true && checkUpdate == true) {
       await AuthRepositoryImpl.instance.logOut();
-      emit(UnAuthenticated(checkUpdate: checkUpdate));
+      if (!isClosed) emit(UnAuthenticated(checkUpdate: checkUpdate));
     } else {
-      emit(UnAuthenticated(checkUpdate: checkUpdate));
+      if (!isClosed) emit(UnAuthenticated(checkUpdate: checkUpdate));
     }
   }
 }

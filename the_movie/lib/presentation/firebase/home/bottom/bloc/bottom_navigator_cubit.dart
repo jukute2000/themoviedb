@@ -5,6 +5,6 @@ class BottomNavigatorCubit extends Cubit<BottomNavigatorIndex> {
   BottomNavigatorCubit() : super(BottomNavigatorIndex(0));
 
   void changeIndex(int index) {
-    emit(BottomNavigatorIndex(index));
+    if (!isClosed) emit(BottomNavigatorIndex(index));
   }
 }

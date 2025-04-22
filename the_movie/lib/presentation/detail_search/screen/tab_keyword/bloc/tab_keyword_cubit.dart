@@ -7,17 +7,17 @@ class TabKeywordCubit extends Cubit<TabKeywordState> {
 
   Future<void> fetchKeywords(String query, int page) async {
     if (query.isEmpty) {
-      emit(TabKeywordError("Query cannot be empty"));
+      if (!isClosed) emit(TabKeywordError("Query cannot be empty"));
       return;
     }
-    emit(TabKeywordLoading());
+    if (!isClosed) emit(TabKeywordLoading());
 
     try {
       final data =
           await SearchRepositoryImpl.instance.getSearchKeywords(query, page);
-      emit(TabKeywordLoaded(keywordsData: data, page: page));
+      if (!isClosed) emit(TabKeywordLoaded(keywordsData: data, page: page));
     } catch (e) {
-      emit(TabKeywordError("Failed to fetch Keywords: $e"));
+      if (!isClosed) emit(TabKeywordError("Failed to fetch Keywords: $e"));
     }
   }
 }

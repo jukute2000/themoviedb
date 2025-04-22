@@ -8,19 +8,19 @@ class MediaRecommendCubit extends Cubit<MediaRecommendState> {
   MediaRecommendCubit() : super(MediaRecommendInitial());
 
   void loadMedia(int id, bool isMovie) async {
-    emit(MediaRecommendIsLoading());
+    if (!isClosed) emit(MediaRecommendIsLoading());
     try {
       if (isMovie) {
         List<Movie> listMovies = await MediaDetailRepositoryImpl.instance
             .getMovieRecommendations(id);
-        emit(MovieRecommendLoaded(listMovie: listMovies));
+        if (!isClosed) emit(MovieRecommendLoaded(listMovie: listMovies));
       } else {
         List<TiVi> listTv =
             await MediaDetailRepositoryImpl.instance.getTvRecommendations(id);
-        emit(TvRecommendLoaded(listTv: listTv));
+        if (!isClosed) emit(TvRecommendLoaded(listTv: listTv));
       }
     } catch (e) {
-      emit(MediaRecommendError("Error: $e"));
+      if (!isClosed) emit(MediaRecommendError("Error: $e"));
     }
   }
 }

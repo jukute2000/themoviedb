@@ -11,14 +11,14 @@ class TiviFavouriteCubit extends Cubit<TiviFavouriteState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(TiviFavouriteIsLoading());
+      if (!isClosed) emit(TiviFavouriteIsLoading());
     }
     try {
       List<TiVi> tivis =
           await AccountRepositoryImpl.instance.getTiviFavorites();
-      emit(TiviFavouriteLoaded(tivis: tivis));
+      if (!isClosed) emit(TiviFavouriteLoaded(tivis: tivis));
     } catch (e) {
-      emit(TiviFavouriteError("Error: $e"));
+      if (!isClosed) emit(TiviFavouriteError("Error: $e"));
     } finally {
       _isLoading = false;
     }

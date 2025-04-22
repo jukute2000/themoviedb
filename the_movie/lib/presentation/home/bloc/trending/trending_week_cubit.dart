@@ -12,14 +12,14 @@ class TrendingWeekCubit extends Cubit<TrendingWeekState> {
     if (_isLoading) return;
     _isLoading = true;
     if (!isLoadMode) {
-      emit(TrendingWeekIsLoading());
+      if (!isClosed) emit(TrendingWeekIsLoading());
     }
     try {
       List<Media> newMedias = await MediaRepositoryImpl.instance
           .getMediaTrending(1, TimeWindow.week);
-      emit(MediasTrendingWeekLoaded(medias: newMedias));
+      if (!isClosed) emit(MediasTrendingWeekLoaded(medias: newMedias));
     } catch (e) {
-      emit(TrendingWeekError("Error: $e"));
+      if (!isClosed) emit(TrendingWeekError("Error: $e"));
     } finally {
       _isLoading = false;
     }
