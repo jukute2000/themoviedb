@@ -143,6 +143,7 @@
   "unAlreadyAccount":"Don't have an account? ",
   "enterGmail":"Enter your gmail",
   "name":"Full Name",
+  "userName":"User Name",
   "alreadyAccount":"Already have an account? ",
   "changeLocation":"Change Location",
   "passwordError1":"Password must be at least 6 characters"

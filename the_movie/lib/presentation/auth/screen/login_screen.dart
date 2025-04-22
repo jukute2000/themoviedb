@@ -1,11 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_strings.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/core/configs/validator/app_validator.dart';
+import 'package:the_movie/core/utils/gaps_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/data/repositories/auth_repository.dart';
+import 'package:the_movie/presentation/auth/bloc/auth_movie_cubit.dart';
+import 'package:the_movie/presentation/auth/bloc/auth_movie_state.dart';
 import 'package:the_movie/presentation/home/screen/home_screen.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
@@ -16,35 +21,34 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.isUpdate});
 
   @override
-  State<LoginScreen> createState() => LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailCon = TextEditingController();
-  final TextEditingController _passwordCon = TextEditingController();
-  String _email = "";
-  String _password = "";
-  bool _isValid = false;
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  Future signIn() async {
-    // loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
-    bool result = await AuthRepositoryImpl.instance
-        .loginUser(_emailCon.text, _passwordCon.text);
-    if (result) {
-      Navigator.of(context).pop();
-      AppNavigator.pushAndRemove(
-        context,
-        const HomeScreen(),
-      );
+  String? _nameError;
+  String? _passwordError;
+
+  void _login() async {
+    setState(() {
+      _nameError = AppValidator.validateName(_nameController.text);
+      _passwordError = AppValidator.validatePassword(_passwordController.text);
+    });
+
+    if (_nameError == null && _passwordError == null) {
+      try {
+        context.read<AuthMovieCubit>().login(
+              name: _nameController.text,
+              password: _passwordController.text,
+            );
+      } catch (e) {
+        print(e.toString());
+      }
     } else {
-      Navigator.of(context).pop();
-      showLoginErrorDialog(context, "Tên đăng nhập hoặc mật khẩu không đúng");
+      showLoginErrorDialog(context, AppStrings.ErrorLogin);
     }
   }
 
@@ -53,17 +57,8 @@ class LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: AppColors.textWhite,
-          title: Text(
-            "Đăng nhập thất bại",
-            style: TextManager.textStyleBlod(TextSizes.s24)
-                .copyWith(color: AppColors.textBlack),
-          ),
-          content: Text(
-            errorMessage,
-            style: TextManager.textStyleMedium(TextSizes.s16)
-                .copyWith(color: AppColors.textBlack),
-          ),
+          title: const Text(AppStrings.ErrorLogin),
+          content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -124,89 +119,118 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _emailCon.dispose();
-    _passwordCon.dispose();
+    _nameController.dispose();
+    _passwordController.dispose();
     super.dispose();
-  }
-
-  void _validateForm() {
-    setState(() {
-      _isValid = _email.isNotEmpty && _password.length >= 6;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        minimum: EdgeInsets.only(top: 100.h, right: 16.w, left: 16.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              AppStrings.signIn.tr(),
-              style: TextManager.textStyleBlod(TextSizes.s32),
+    return BlocConsumer<AuthMovieCubit, AuthMovieState>(
+      listener: (context, state) => {
+        if (state is AuthMovieLoading)
+          {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return const Center(child: CircularProgressIndicator());
+              },
+            )
+          }
+        else if (state is AuthMovieSuccess)
+          {
+            Navigator.of(context, rootNavigator: true).pop(),
+            if (state.result == true)
+              {AppNavigator.pushReplacement(context, const HomeScreen())}
+            else
+              {showLoginErrorDialog(context, AppStrings.ErrorLogin)}
+          }
+        else if (state is AuthMovieFailure)
+          {
+            Navigator.of(context, rootNavigator: true).pop(),
+            showLoginErrorDialog(context, state.error)
+          }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(PaddingSizes.p24),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        AppStrings.signIn.tr(),
+                        style: TextManager.textStyleBlod(TextSizes.s32)
+                            .copyWith(color: AppColors.borderSelected),
+                        textAlign: TextAlign.center,
+                      ),
+                      GapsManager.h40,
+                      TextFormField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          labelText: AppStrings.userName.tr(),
+                          prefixIcon: const Icon(Icons.person),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _nameError,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            _nameError = AppValidator.validateName(value);
+                          });
+                        },
+                      ),
+                      GapsManager.h20,
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          labelText: AppStrings.password.tr(),
+                          prefixIcon: const Icon(Icons.lock),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          errorText: _passwordError,
+                        ),
+                        obscureText: true,
+                        onChanged: (value) {
+                          setState(() {
+                            _passwordError =
+                                AppValidator.validatePassword(value);
+                          });
+                        },
+                      ),
+                      GapsManager.h20,
+                      ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          AppStrings.signIn.tr(),
+                          style: TextManager.textStyleBlack(TextSizes.s16),
+                        ),
+                      ),
+                      GapsManager.h20,
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: 30.h),
-            _emailField(),
-            SizedBox(height: 20.h),
-            _passwordField(),
-            SizedBox(height: 60.h),
-            _signinButton(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _emailField() {
-    return TextField(
-      controller: _emailCon,
-      decoration: InputDecoration(
-        hintText: AppStrings.account.tr(),
-        errorText: null,
-      ),
-      onChanged: (value) {
-        setState(() {
-          _email = value;
-          _validateForm();
-        });
+          ),
+        );
       },
-    );
-  }
-
-  Widget _passwordField() {
-    return TextField(
-      controller: _passwordCon,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: AppStrings.password.tr(),
-        errorText: (_password.isEmpty || _password.length >= 6)
-            ? null
-            : AppStrings.passwordError1.tr(),
-      ),
-      onChanged: (value) {
-        setState(() {
-          _password = value;
-          _validateForm();
-        });
-      },
-    );
-  }
-
-  Widget _signinButton() {
-    return ElevatedButton(
-      onPressed: _isValid
-          ? () async {
-              await signIn();
-            }
-          : null, // Disable button if form is invalid
-      child: Text(
-        AppStrings.signIn.tr(),
-        style: TextManager.textStyleMedium(TextSizes.s16)
-            .copyWith(color: AppStyleProvider.of(context).textColor()),
-      ),
     );
   }
 }

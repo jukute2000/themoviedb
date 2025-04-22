@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
+import 'package:the_movie/presentation/auth/bloc/auth_movie_cubit.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => TabPeopleCubit()),
           BlocProvider(create: (context) => ThemeCubit()),
           BlocProvider(create: (context) => AuthCubit()),
+          BlocProvider(create: (context) => AuthMovieCubit()),
           BlocProvider<HomeCubit>(
               create: (context) => HomeCubit()..fetchData()),
         ],

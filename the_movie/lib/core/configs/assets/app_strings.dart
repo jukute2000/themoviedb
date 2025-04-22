@@ -191,6 +191,7 @@ class AppStrings {
   static const String enterGmail = "enterGmail";
 
   static const String name = 'name';
+  static const String userName = 'userName';
   static const String hintextName = 'Nhập họ và tên của bạn';
 
   static const String alreadyAccount = 'alreadyAccount';

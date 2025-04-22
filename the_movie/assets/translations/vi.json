@@ -144,6 +144,7 @@
   "unAlreadyAccount":"Chưa có tài khoản? ",
   "enterGmail":"Nhập gmail của bạn",
   "name":"Họ và tên",
+  "userName":"Tên đăng nhập",
   "alreadyAccount":"Bạn đã có tài khoản? ",
   "changeLocation":"Thay đổi location",
   "passwordError1":"Mật khẩu phải có ít nhất 6 ký tự"

@@ -81,6 +81,7 @@ class _FirebaseLoginScreenState extends State<FirebaseLoginScreen> {
           {
             showDialog(
               context: context,
+              barrierDismissible: false,
               builder: (context) {
                 return const Center(child: CircularProgressIndicator());
               },
