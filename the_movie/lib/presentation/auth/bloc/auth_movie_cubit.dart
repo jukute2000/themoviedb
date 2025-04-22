@@ -9,13 +9,13 @@ class AuthMovieCubit extends Cubit<AuthMovieState> {
     required String name,
     required String password,
   }) async {
-    emit(AuthMovieLoading());
+    if (!isClosed) emit(AuthMovieLoading());
     try {
       final bool result =
           await AuthRepositoryImpl.instance.loginUser(name, password);
-      emit(AuthMovieSuccess(result));
+      if (!isClosed) emit(AuthMovieSuccess(result));
     } catch (e) {
-      emit(AuthMovieFailure(e.toString()));
+      if (!isClosed) emit(AuthMovieFailure(e.toString()));
     }
   }
 }
