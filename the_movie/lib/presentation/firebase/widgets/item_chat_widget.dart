@@ -27,9 +27,12 @@ class _ItemChatWidgetState extends State<ItemChatWidget> {
   Widget build(BuildContext context) {
     return ItemChatBaseWidget(
       onTap: widget.onTap,
-      //chú ý lỗi tiềm ẩn
-      nameLeading: widget.name?.first ?? "?",
-      title: widget.name?[1] ?? "Unknown",
+      nameLeading: widget.name != null && widget.name!.first.isNotEmpty
+          ? widget.name!.first
+          : "?",
+      title: widget.name != null && widget.name![1].isNotEmpty
+          ? widget.name![1]
+          : "Unknow",
       subtitleBuilder: StreamBuilder(
         stream: ChatRepositoryImpl.instance.getLastMessage(widget.chatId),
         builder: (context, snapshot) {
@@ -41,13 +44,21 @@ class _ItemChatWidgetState extends State<ItemChatWidget> {
           }
           final lastMessage = snapshot.data;
           final intSeen = lastMessage?.currentUserSeen() ?? 0;
-          return Text(
+          return Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text:
+                      "${intSeen > 0 ? '($intSeen ${AppStrings.unseen.tr()})' : ''} ${lastMessage?.message ?? AppStrings.message.tr()}",
+                  style: TextManager.textStyleRegular(14.sp).copyWith(
+                    color:
+                        intSeen > 0 ? AppColors.textBlue : AppColors.textGrey,
+                  ),
+                ),
+              ],
+            ),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
-            "${lastMessage?.message ?? AppStrings.message.tr()} ${intSeen > 0 ? '($intSeen ${AppStrings.unseen.tr()})' : ''}",
-            style: TextManager.textStyleRegular(14.sp).copyWith(
-              color: intSeen > 0 ? AppColors.textBlue : AppColors.textGrey,
-            ),
           );
         },
       ),

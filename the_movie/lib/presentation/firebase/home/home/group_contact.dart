@@ -8,6 +8,10 @@ import 'package:the_movie/presentation/firebase/home/home/bloc/home_cubit.dart';
 import 'package:the_movie/presentation/firebase/home/home/bloc/home_state.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
+import '../../../../core/configs/navigation/app_navigation.dart';
+import '../../../../data/models/chat/chat_room.dart';
+import '../../detail/detail_chat_screen.dart';
+
 class GroupContact extends StatefulWidget {
   const GroupContact({super.key, required this.homeCubit});
   final HomeCubit homeCubit;
@@ -20,6 +24,7 @@ class _GroupContactState extends State<GroupContact> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<HomeCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -103,19 +108,16 @@ class _GroupContactState extends State<GroupContact> {
                     left: 20,
                     right: 20,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Handle the done action with selectedIds
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Selected IDs: ${selectedIds.join(", ")}'),
-                          ),
-                        );
-                        context.read<HomeCubit>().createChatRoom(
-                              context,
-                              selectedIds,
-                              state.chatRooms,
-                            );
+                      onPressed: () async {
+                        ChatRoom chatRoom = await cubit.createChatRoom(
+                            selectedIds, state.chatRooms);
+                        final name =
+                            cubit.nameChatRoom(chatRoom, state.auths ?? [])[1];
+                        AppNavigator.push(
+                            context,
+                            DetailChatScreen(
+                                chatRoomId: chatRoom.chatId!,
+                                name: cubit.checkNameUser(name)));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:

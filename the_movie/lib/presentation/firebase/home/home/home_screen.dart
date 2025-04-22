@@ -16,13 +16,13 @@ import '../../../../core/configs/navigation/app_navigation.dart';
 //tạo funcion để kiểm tra listUser có trong listUser của ChatRoom hay không nếu có thì mở chatroom còn không thì tạo chatroom mới
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   late ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<HomeCubit>(create: (context) => HomeCubit()..fetchData()),
-        BlocProvider<BottomNavigatorCubit>(
-            create: (context) => BottomNavigatorCubit()),
-      ],
+    final homeCubit = context.read<HomeCubit>();
+    return BlocProvider<BottomNavigatorCubit>(
+      create: (context) => BottomNavigatorCubit(),
       child: Scaffold(
         body: AppbarWidget(
           body: BlocBuilder<BottomNavigatorCubit, BottomNavigatorIndex>(
@@ -66,8 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return FloatingActionButton(
               backgroundColor: AppColors.backgroundWhite,
               onPressed: () {
-                AppNavigator.push(context,
-                    GroupContact(homeCubit: context.read<HomeCubit>()));
+                AppNavigator.push(context, GroupContact(homeCubit: homeCubit));
               },
               child: Icon(
                 Icons.add,

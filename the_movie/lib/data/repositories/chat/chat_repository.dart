@@ -106,11 +106,9 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<bool> updateLastTimeChatRoom(
-    String chatId,
-    String Datetime,
-  ) async {
+  Future<bool> updateLastTimeChatRoom(String chatId, String datetime) async {
     try {
+      print(datetime);
       final docRef = FirebaseTmdbController.getInstance()
           .db
           .collection("listChat")
@@ -128,7 +126,7 @@ class ChatRepositoryImpl implements ChatRepository {
       if (index == -1) return false;
 
       // Cập nhật thời gian mới
-      chatRooms[index].lastMessageAt = Datetime;
+      chatRooms[index].lastMessageAt = datetime;
 
       // Ghi đè lại mảng
       final updatedList = chatRooms.map((e) => e.toJson()).toList();
@@ -227,10 +225,11 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<bool> updateLastMessage(
-      String chatId, String message, bool isSend, String dateTime
+      String chatId, String message, bool isSend, String datetime
       //phan nguoi gui va nguoi xem
       ) async {
     try {
+      print(datetime);
       if (user == null) return false;
       LastMessage? lastMessage =
           await ChatRepositoryImpl._instance.getLastMessagebyFuture(chatId);
@@ -256,7 +255,7 @@ class ChatRepositoryImpl implements ChatRepository {
           .doc(chatId)
           .set(lastMessage.toJson(), SetOptions(merge: true));
       if (message.isNotEmpty || message != '' && isSend) {
-        await updateLastTimeChatRoom(chatId, dateTime);
+        await updateLastTimeChatRoom(chatId, datetime);
       }
       return true;
     } catch (e) {
@@ -337,14 +336,12 @@ class ChatRepositoryImpl implements ChatRepository {
           .map((e) => DetailChat.fromJson(e))
           .toList();
 
-      LastMessage? lastMessage = await getLastMessagebyFuture(chatId);
       ChatRoom? chatRoom = await getChatRoomById(chatId);
       // Lọc bỏ message có message_id trùng khớp
       final filteredList = listChat.where((item) {
         //tách ra thành hàm
-        if (item.messageId == messageId &&
-            item.message == lastMessage?.message &&
-            item.time == chatRoom!.lastMessageAt) {
+        if (checkKeyLastMessage(
+            item, checkStringNull(messageId), chatRoom!.lastMessageAt!)) {
           updateLastMessage(chatId, 'Tin nhắn đã bị xoá', true,
               DateTime.now().toIso8601String());
           return false; // xoá item này
@@ -389,14 +386,12 @@ class ChatRepositoryImpl implements ChatRepository {
           .map((e) => DetailChat.fromJson(e))
           .toList();
       // Lọc bỏ message có message_id trùng khớp
-      LastMessage? lastMessage = await getLastMessagebyFuture(chatId);
       ChatRoom? chatRoom = await getChatRoomById(chatId);
       final updatedList = listChat.map((item) {
-        if (item.messageId == messageId &&
-            item.message == lastMessage?.message &&
-            item.time == chatRoom!.lastMessageAt) {
-          updateLastMessage(
-              chatId, message, true, DateTime.now().toIso8601String());
+        if (checkKeyLastMessage(
+            item, checkStringNull(messageId), chatRoom!.lastMessageAt!)) {
+          item.time = DateTime.now().toIso8601String();
+          updateLastMessage(chatId, message, true, item.time!);
         }
         if (item.messageId == messageId && item.idSend == user!.uid) {
           item.message = message;
@@ -426,5 +421,24 @@ class ChatRepositoryImpl implements ChatRepository {
         .map((e) => ChatRoom.fromJson(e))
         .firstWhere((room) => room.chatId == chatId);
     return chatRoom;
+  }
+
+  bool checkKeyLastMessage(
+      DetailChat detailChat, String messageId, String lastMessageAt) {
+    print(
+        "${detailChat.messageId}- ${messageId}, ${detailChat.time}-$lastMessageAt");
+    if (detailChat.messageId == messageId && detailChat.time == lastMessageAt) {
+      return true;
+    }
+    return false;
+  }
+
+  String checkStringNull(String? string) {
+    try {
+      if (string!.isEmpty) return '';
+      return string;
+    } catch (e) {
+      return '';
+    }
   }
 }

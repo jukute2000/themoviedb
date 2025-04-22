@@ -18,6 +18,7 @@ import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detai
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
 
+import 'presentation/firebase/home/home/bloc/home_cubit.dart';
 import 'presentation/theme/bloc/theme_cubit.dart';
 
 void main() {
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => TabPeopleCubit()),
           BlocProvider(create: (context) => ThemeCubit()),
           BlocProvider(create: (context) => AuthCubit()),
+          BlocProvider<HomeCubit>(
+              create: (context) => HomeCubit()..fetchData()),
         ],
         child: ScreenUtilInit(
           designSize: getDesignSize(),

@@ -1,16 +1,12 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/data/controller/fire_auth_controller.dart';
 import 'package:the_movie/data/models/chat/auth.dart';
 import 'package:the_movie/data/models/chat/chat_room.dart';
 import 'package:the_movie/data/repositories/chat/chat_repository.dart';
 import 'package:the_movie/presentation/firebase/home/home/bloc/home_state.dart';
-import '../../../detail/detail_chat_screen.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
@@ -38,8 +34,8 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void createChatRoom(BuildContext context, List<String> users,
-      List<ChatRoom>? chatRooms) async {
+  Future<ChatRoom> createChatRoom(
+      List<String> users, List<ChatRoom>? chatRooms) async {
     ChatRoom? chatRoomTmp;
     try {
       bool isContain = false;
@@ -62,13 +58,11 @@ class HomeCubit extends Cubit<HomeState> {
         //Nếu chưa có phòng chat thì tạo mới
         chatRoomTmp = await ChatRepositoryImpl.instance.createChatRoom(users);
       }
-      AppNavigator.push(
-          context,
-          DetailChatScreen(
-              chatRoomId: chatRoomTmp!.chatId!, name: '${user.displayName}'));
-      fetchData(); //Lấy lại dữ liệu sau khi tạo phòng chat
+      fetchData();
+      return chatRoomTmp!; //Lấy lại dữ liệu sau khi tạo phòng chat
     } catch (e) {
       emit(HomeError('Failed to create chat room'));
+      rethrow; // Re-throw the exception to ensure the method doesn't complete normally
     }
   }
 
@@ -85,5 +79,10 @@ class HomeCubit extends Cubit<HomeState> {
       }
     }
     return [nameChatRoom, name];
+  }
+
+  String checkNameUser(String? name) {
+    if (name == null || name.isEmpty) return "Unknow";
+    return name;
   }
 }
