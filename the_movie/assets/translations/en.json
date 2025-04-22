@@ -143,5 +143,6 @@
   "unAlreadyAccount":"Don't have an account? ",
   "enterGmail":"Enter your gmail",
   "name":"Full Name",
-  "alreadyAccount":"Already have an account? "
+  "alreadyAccount":"Already have an account? ",
+  "changeLocation":"Change Location"
 }

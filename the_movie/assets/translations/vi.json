@@ -144,5 +144,6 @@
   "unAlreadyAccount":"Chưa có tài khoản? ",
   "enterGmail":"Nhập gmail của bạn",
   "name":"Họ và tên",
-  "alreadyAccount":"Bạn đã có tài khoản? "
+  "alreadyAccount":"Bạn đã có tài khoản? ",
+  "changeLocation":"Thay đổi location"
 }

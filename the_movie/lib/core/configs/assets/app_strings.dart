@@ -195,7 +195,7 @@ class AppStrings {
 
   static const String alreadyAccount = 'alreadyAccount';
   static const String loginHere = 'Đăng nhập tại đây';
-
+  static const String changeLocation = "changeLocation";
   static const String me = 'Bạn';
   static const String other = 'Người dùng';
 }
