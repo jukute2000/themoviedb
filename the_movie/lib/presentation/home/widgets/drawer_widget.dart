@@ -6,6 +6,7 @@ import 'package:the_movie/core/utils/divider_manager.dart';
 import 'package:the_movie/core/utils/sizes_manager.dart';
 import 'package:the_movie/core/utils/text_manager.dart';
 import 'package:the_movie/presentation/firebase/auth/screen/firebase_login_screen.dart';
+import 'package:the_movie/presentation/home/bloc/locale/locale_cubit.dart';
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_cubit.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
@@ -54,9 +55,9 @@ class DrawerWidget extends StatelessWidget {
                 AppStrings.changeLocation.tr(),
                 style: TextManager.textStyleMedium(TextSizes.s16),
               ),
-              onTap: () => context.setLocale(context.locale.languageCode == 'en'
-                  ? const Locale("vi")
-                  : const Locale("en"))),
+              onTap: () {
+                context.read<LocaleCubit>().onchange();
+              }),
           DividerManager.horizontalDivider,
           _createDrawerItem(Icons.settings, AppStrings.request.tr()),
           _createDrawerItem(Icons.policy, AppStrings.settings.tr()),

@@ -48,6 +48,7 @@ class _DetailChatState extends State<DetailChatScreen> {
 
   void _loadUsers() async {
     final users = await ChatRepositoryImpl.instance.getListUser();
+    if (!mounted) return;
     if (users != null) {
       setState(() {
         _userNames = {for (var user in users) user.id ?? '': user.name ?? ''};
@@ -73,21 +74,25 @@ class _DetailChatState extends State<DetailChatScreen> {
   void _sendMessage() async {
     final message = _messageController.text.trim();
     if (message.isEmpty) return;
-
     try {
       await ChatRepositoryImpl.instance
           .addDetailMessage(widget.chatRoomId, message);
-      _messageController.clear();
+      if (mounted) {
+        _messageController.clear();
+      }
       Future.delayed(const Duration(milliseconds: 300), () {
+        if (!mounted) return;
         _scrollToBottom();
       });
     } catch (e, stack) {
       debugPrint('Send message error: $e');
       debugPrintStack(stackTrace: stack);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Gửi tin nhắn thất bại. Vui lòng thử lại.')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Gửi tin nhắn thất bại. Vui lòng thử lại.')),
+        );
+      }
     }
   }
 
@@ -152,7 +157,7 @@ class _DetailChatState extends State<DetailChatScreen> {
 
                   if (chats.isNotEmpty) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      _scrollToBottom();
+                      if (!mounted) _scrollToBottom();
                     });
                   }
                   return ListView.builder(
