@@ -157,7 +157,7 @@ class _DetailChatState extends State<DetailChatScreen> {
 
                   if (chats.isNotEmpty) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (!mounted) _scrollToBottom();
+                      _scrollToBottom();
                     });
                   }
                   return ListView.builder(

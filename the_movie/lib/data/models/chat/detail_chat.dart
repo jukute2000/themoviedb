@@ -16,7 +16,7 @@ class DetailChat {
 
   DateTime getDateHeader() {
     if (time != null) {
-      DateTime date = DateTime.parse(time!);
+      DateTime date = DateTime.tryParse(time ?? "") ?? DateTime.now();
       return date;
     }
     return DateTime.now();

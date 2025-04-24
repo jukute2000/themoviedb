@@ -283,7 +283,17 @@ class ChatRepositoryImpl implements ChatRepository {
       }
 
       listDetailChat.sort(
-        (a, b) => DateTime.parse(a.time!).compareTo(DateTime.parse(b.time!)),
+        (a, b) {
+          final aTime= DateTime.tryParse(a.time ?? "");
+          final bTime= DateTime.tryParse(b.time ?? "");
+
+          if (aTime == null && bTime == null) {
+            return 0;
+          }
+          if (aTime == null) return 1;
+          if (bTime == null) return -1;
+          return aTime.compareTo(bTime);
+        }
       );
 
       return listDetailChat;
