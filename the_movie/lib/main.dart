@@ -6,6 +6,7 @@ import 'package:the_movie/core/configs/assets/app_theme.dart';
 import 'package:the_movie/core/configs/navigation/app_navigation.dart';
 import 'package:the_movie/presentation/auth/bloc/auth_movie_cubit.dart';
 import 'package:the_movie/presentation/firebase/auth/bloc/auth_cubit.dart';
+import 'package:the_movie/presentation/home/bloc/locale/locale_cubit.dart';
 import 'package:the_movie/presentation/theme/bloc/theme_state.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_collection/bloc/tab_collection_cubit.dart';
 import 'package:the_movie/presentation/detail_search/screen/tab_company/bloc/tab_company_cubit.dart';
@@ -18,7 +19,6 @@ import 'package:the_movie/presentation/home/bloc/recomened/recommened_cubit.dart
 import 'package:the_movie/presentation/profile/bloc/profile_detail/profile_detail_cubit.dart';
 import 'package:the_movie/presentation/splash/screen/splash_screen.dart';
 import 'package:the_movie/presentation/theme/screen/app_style_provider.dart';
-
 import 'presentation/firebase/home/home/bloc/home_cubit.dart';
 import 'presentation/theme/bloc/theme_cubit.dart';
 
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
     return SearchTotalProvider(
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (context) => LocaleCubit()),
           BlocProvider(
             create: (context) => ProfileDetailCubit(),
           ),
