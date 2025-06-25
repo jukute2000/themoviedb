@@ -28,8 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<bool> loginUser(String username, String password) async {
     try {
       final requestTokenMap = await tmdbWithCustomLogs.v3.auth
-          .createSessionWithLogin(username, password);
-
+          .createSessionWithLogin(username, password, asMap: true);
       final requestTokenModel = RequestToken.fromJson(requestTokenMap);
 
       if (requestTokenModel.expiresAt == '') return false;
@@ -40,7 +39,7 @@ class AuthRepositoryImpl implements AuthRepository {
           AppStrings.tokenExpried, requestTokenModel.expiresAt);
 
       final sessionMap = await tmdbWithCustomLogs.v3.auth
-          .createSession(requestTokenModel.requestToken);
+          .createSession(requestTokenModel.requestToken, asMap: true);
 
       final sessionModel = Session.fromJson(sessionMap);
       await prefs.setString(AppStrings.sessionId, sessionModel.sessionId);
