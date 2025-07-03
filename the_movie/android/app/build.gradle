@@ -63,7 +63,6 @@ android {
     }
 
     flavorDimensions "app"
-
     productFlavors {
         dev {
             dimension "app"
@@ -77,7 +76,7 @@ android {
             applicationId "com.example.projectinitial.prod"
             versionCode 1
             versionName "1.0"
-            resValue "string", "app_name", "The Movie"
+            resValue "string", "app_name", "Prod Movie"
         }
     }
 
