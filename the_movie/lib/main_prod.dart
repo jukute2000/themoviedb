@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:the_movie/initial/firebase_initializer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'data/controller/notification_service.dart';
 import 'flavor/env.dart';
 import 'flavor/flavor_config.dart';
 import 'main.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseInitializer.devInitialize();
   await EasyLocalization.ensureInitialized();
+  await NotificationService().init();
   runApp(EasyLocalization(
       supportedLocales: const [Locale('vi'), Locale('en')],
       path: 'assets/translations',
