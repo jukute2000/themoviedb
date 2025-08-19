@@ -37,10 +37,6 @@ class NotificationService {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('🔔 Notification permission granted');
-      final token = await _firebaseMessaging.getToken();
-      print('🔑 FCM Token: $token');
-
       // Foreground
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         final notification = message.notification;
