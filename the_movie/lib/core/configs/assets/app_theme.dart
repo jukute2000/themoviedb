@@ -17,7 +17,7 @@ class LightTheme extends AppStyle {
           backgroundColor: AppColors.backgroundAppbar,
           iconTheme: IconThemeData(color: AppColors.iconAppbar),
         ),
-        bottomAppBarTheme: const BottomAppBarTheme(
+        bottomAppBarTheme: const BottomAppBarThemeData(
           color: AppColors.textGrey,
         ),
         textTheme: const TextTheme(

@@ -17,7 +17,6 @@ class MediaDetailCubit extends Cubit<MediaDetailState> {
       } else {
         DetailTv detailTv =
             await MediaDetailRepositoryImpl.instance.getTVDetail(id);
-
         if (!isClosed) {
           emit(TvDetailLoaded(
             detailTv: detailTv,
