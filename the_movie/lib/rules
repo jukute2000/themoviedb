@@ -12,7 +12,6 @@ core/:   Chức các tiện ích chung như xử lý lỗi, usecase chung
 
 data/:  Chứa việc lấy dữ liệu từ các nguồn khác nhau như API, Database, File, ...
   - data/
-    - datasources/: Chứa các nguồn dữ liệu fetch từ API, Database (implement từ repository)
     - models/: Chứa các model dữ liệu từ API, Database
     - repositories/: Chứa các repository để lấy dữ liệu từ các nguồn (abtract class)
 
