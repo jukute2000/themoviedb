@@ -10,7 +10,7 @@ class NotificationService {
     'channelName',
     description: 'This channel is used for important notifications',
     importance: Importance.max,
-  );
+  ); // kênh thông báo cho android
 
   Future<void> init() async {
     await _initLocalNotification();
@@ -18,15 +18,18 @@ class NotificationService {
   }
 
   Future<void> _initLocalNotification() async {
-    const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const initSettings = InitializationSettings(android: androidInit);
-    await _localNotifications.initialize(initSettings);
+    const androidInit = AndroidInitializationSettings(
+        '@mipmap/ic_launcher'); //icon default cho notification
+    const initSettings = InitializationSettings(
+        android: androidInit); //cài đặt khởi tạo cho local notification
+    await _localNotifications
+        .initialize(initSettings); //khởi tạo local notification
 
     // Tạo channel cho Android
     await _localNotifications
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(_channel);
+        ?.createNotificationChannel(_channel); //tạo kênh thông báo cho android
   }
 
   Future<void> _requestPermissionAndListen() async {
@@ -34,7 +37,7 @@ class NotificationService {
       alert: true,
       badge: true,
       sound: true,
-    );
+    ); //
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       // Foreground
